@@ -1,0 +1,79 @@
+#include "input.h"
+#include "list/queue.h"
+
+
+void mEqualsN(int m);
+void mLessThanN(Graph *G, int m, int n);
+int childNumber(Graph *G, int root, int *childs, int parent);
+
+
+
+int main(int argc, char *argv[])
+{
+	/* argv[2] = m */
+
+	int i, m = atoi(argv[2]);
+	int root = 6;
+	int *childs;
+	/*aletoriezar*/
+
+	Graph *G;
+	G = read(argv[1]);
+	childs = malloc(G->V*sizeof(int));
+
+	childNumber(G, root, childs, root);
+	for(i = 0; i<G->V; i++)
+	{
+		printf("%d - %d\n", i, childs[i]);
+	}
+	if(G->V == m)
+		mEqualsN(m);
+
+	return 0;
+}
+
+
+
+void mEqualsN(int m)
+{
+	int i;
+	for(i = 0; i<m; i++)
+	{
+		printf("%d ", i);
+	}
+	printf("\n0\n");
+}
+
+void mLessThanN(Graph *G, int m, int n)
+{
+	/*while()*/
+	printf("\n");
+}
+
+/*int childNumber(Graph *G, int vertex, int root)
+{
+	int childs = 0;
+	Vertex *v;
+	for(v = G->adj[vertex]; v!= NULL; v = v->next)
+		childs ++;
+	if (root == vertex)
+		return childs;
+	else
+		return childs -1;
+}*/
+
+int childNumber(Graph *G, int root, int *childs, int parent)
+{
+	Vertex *i;
+	int sum = 0;
+	for (i = G->adj[root]; i!= NULL; i = i->next)
+	{
+		if (i->vertex != parent)
+		{
+			sum += childNumber(G, i->vertex, childs, root);
+		}
+	}
+	childs[root] = ++sum;
+
+	return sum;
+}

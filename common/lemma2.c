@@ -1,31 +1,26 @@
-
-#include "input.h"
-#include "list/queue.h"
+#include "lemma2.h"
 
 
 void mEqualsN(int m);
 int mLessThanN(Graph *G, int m, int root);
-
 int childNumber(Graph *G, int root, int *childs, int parent);
 void printChildTree(Graph *G, int parent, int vertex);
 
 
-int main(int argc, char *argv[])
+void lemma2(char*fileName, int m)
+/*int main(int argc, char *argv[])*/
 {
-	/* argv[2] = m */
-	int m = atoi(argv[2]);
 	int root;
 	Graph *G;
 	srand(seed);
 	
-	G = read(argv[1]);
+	G = read(fileName);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 
 	if(G->V == m)
 		mEqualsN(m);
 	else
 		mLessThanN(G, m, root);
-	return 0;
 }
 
 

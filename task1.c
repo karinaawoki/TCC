@@ -1,4 +1,4 @@
-#include "input.h"
+#include "common/input.h"
 #include "list/queue.h"
 
 int fartherVertex(Graph *G, int vertex, int *parents);

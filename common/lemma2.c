@@ -7,7 +7,7 @@ int childNumber(Graph *G, int root, int *childs, int parent);
 void printChildTree(Graph *G, int parent, int vertex);
 
 
-void lemma2(char*fileName, int m)
+void lemma2_(char *fileName, int m)
 /*int main(int argc, char *argv[])*/
 {
 	int root;

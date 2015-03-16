@@ -1,6 +1,4 @@
 
-#include "common/input.h"
-#include "list/queue.h"
+#include "input.h"
 
-
-void lemma2(char*fileName, int m);
+void lemma2_(char *fileName, int m);

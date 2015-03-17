@@ -9,8 +9,6 @@ int main(int argc, char *argv[])
 	Graph *G;
 	int x0, y0, r, *parents;
 	G = read(argv[1]);
-	srand(seed);
-
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
 	printf("%d -- r \n", r);
 	parents = malloc(G->V*sizeof(int));
@@ -50,7 +48,7 @@ int fartherVertex(Graph *G, int vertex, int *parents)
 	while(!emptyQueue(q))
 	{
 		Vertex *aux;
-		for(aux = G->adj[q->init->num]; aux!=NULL; aux = aux->next)
+		for(aux = G->adj[q->init->num]->next; aux!=NULL; aux = aux->next)
 		{
 			if (parents[aux->vertex]==-1)
 			{

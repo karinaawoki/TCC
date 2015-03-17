@@ -24,10 +24,8 @@ Graph *read(char *file_name)
 			char space[2] = " ";
 			int v1 = atoi(strtok(line, space));
 			int v2 = atoi(strtok(NULL, space));
-
 			includeEdges(G, v1, v2);
-			/*printf("%d --- %d\n", v1, v2);*/
-		}
+				}
 	}
 	return G;
 }

@@ -8,7 +8,8 @@ void initGraph(Graph *G, int V)
 	G->adj = malloc(G->V*sizeof(Vertex*));
 	for(i = 0; i<G->V; i++)
 	{
-		G->adj[i] = NULL;
+		G->adj[i] = malloc(sizeof(Vertex));
+		G->adj[i]->next = NULL;
 	}
 }
 
@@ -21,11 +22,13 @@ void includeEdges(Graph *G, int vertex1, int vertex2)
 	newVertex1->vertex = vertex1;
 	newVertex2->vertex = vertex2;
 
-	newVertex1->next = G->adj[vertex2];
-	G->adj[vertex2] = newVertex1; 
+	/*newVertex1->next = G->adj[vertex2];*/
+	newVertex1->next = G->adj[vertex2]->next;
 
-	newVertex2->next = G->adj[vertex1];
-	G->adj[vertex1] = newVertex2;
+	G->adj[vertex2]->next = newVertex1; 
+
+	newVertex2->next = G->adj[vertex1]->next;
+	G->adj[vertex1]->next = newVertex2;
 }
 
 void printGraph(Graph *G)
@@ -35,7 +38,7 @@ void printGraph(Graph *G)
 	printf("GRAPH: \n");
 	for(i = 0; i<G->V; i++)
 	{
-		aux = G->adj[i];
+		aux = G->adj[i]->next;
 		while(aux!=NULL)
 		{
 			printf("%d %d\n", i, aux->vertex);

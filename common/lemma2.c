@@ -51,7 +51,7 @@ int mLessThanN(Graph *G, int m, int root)
 
 	while(1)
 	{
-		for(v = G->adj[falseRoot]; v!= NULL && (childs[v->vertex] <= m || v->vertex == parent) ; v = v->next)
+		for(v = G->adj[falseRoot]->next; v!= NULL && (childs[v->vertex] <= m || v->vertex == parent) ; v = v->next)
 			/* If the tree satisfies the condition of the lemma, the tree is a answer 
 			 We don't need to comes down in the tree*/
 			/* ??????????? */
@@ -108,7 +108,7 @@ int childNumber(Graph *G, int root, int *childs, int parent)
 {
 	Vertex *i;
 	int sum = 0;
-	for (i = G->adj[root]; i!= NULL; i = i->next)
+	for (i = G->adj[root]->next; i!= NULL; i = i->next)
 		if (i->vertex != parent)
 			sum += childNumber(G, i->vertex, childs, root);
 	childs[root] = ++sum;
@@ -118,8 +118,33 @@ int childNumber(Graph *G, int root, int *childs, int parent)
 void printChildTree(Graph *G, int parent, int vertex)
 {
 	Vertex *v;
-	for(v = G->adj[vertex]; v!= NULL; v = v->next)
+	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
 		if(v->vertex != parent)
 			printChildTree(G, vertex, v->vertex);	
 	printf("%d ", vertex);
+}
+
+void deleteChildTree(Graph *G, int parent, int vertex)
+/* Delete the edge that connect the childTree with the tree */
+{	
+	Vertex *v;
+	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
+		if (v->next->vertex == vertex)
+		{
+			Vertex *remove;
+			remove = v->next;
+			v->next = remove->next;
+			free(remove);
+			break;
+		}
+
+	for(v = G->adj[vertex]; v->next!=NULL; v = v->next)
+		if(v->next->vertex == parent)
+		{
+			Vertex *remove;
+			remove = v->next;
+			v->next = remove->next;
+			free(remove);
+			break;
+		}
 }

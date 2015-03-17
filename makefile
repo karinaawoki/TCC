@@ -1,8 +1,10 @@
 #exec
 t1: task1.o structure.o input.o queue.o
 	gcc task1.o structure.o input.o queue.o -o t1
-t2-lemma2: task2-lemma2.o structure.o input.o queue.o lemma2.o
-	gcc task2-lemma2.o structure.o input.o queue.o lemma2.o -o t2-lemma2
+t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
+	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
+t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o
+	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma2
 
 
 # ROOT
@@ -10,6 +12,8 @@ task1.o: task1.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task1.c -g
 task2-lemma2.o: task2-lemma2.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-lemma2.c -g
+task2-lemma3.o: task2-lemma3.c
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-lemma3.c -g
 
 
 # COMMON

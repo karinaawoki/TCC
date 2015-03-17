@@ -1,42 +1,47 @@
 #include "lemma2.h"
 
 
-void mEqualsN(int m);
+int mEqualsN(int m);
 int mLessThanN(Graph *G, int m, int root);
 int childNumber(Graph *G, int root, int *childs, int parent);
 void printChildTree(Graph *G, int parent, int vertex);
 
+/* This modele prints the vertices of B (according to the 
+    lemma2) and returns the number of edges at the cut.   */ 
 
-void lemma2_(char *fileName, int m)
+
+int lemma2(Graph *G, int m)
 /*int main(int argc, char *argv[])*/
 {
 	int root;
-	Graph *G;
 	srand(seed);
 	
-	G = read(fileName);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 
 	if(G->V == m)
-		mEqualsN(m);
+		return mEqualsN(m);
+	else if(m == 0)
+		return 0;
 	else
-		mLessThanN(G, m, root);
+		return mLessThanN(G, m, root);
 }
 
 
 
 
-void mEqualsN(int m)
+int mEqualsN(int m)
 {
+	/* Return the number of edges in the cut */
 	int i;
 	for(i = 0; i<m; i++)
 		printf("%d ", i);
-	printf("\n0\n");
+	return 0;
 }
 
 
 int mLessThanN(Graph *G, int m, int root)
 {
+	/* Return the number of edges in the cut */
 	int *childs;
 	Vertex *v;
 	int falseRoot = root, parent = root;
@@ -54,8 +59,7 @@ int mLessThanN(Graph *G, int m, int root)
 			if (childs[v->vertex] > m/2.0 && v->vertex != parent)
 			{
 				printChildTree(G, falseRoot, v->vertex);
-				printf("\n1\n");
-				return 0;
+				return 1;
 			}
 		/* when (if) it finish, v will be the root of the tree with more than m vertices */
 		
@@ -82,13 +86,9 @@ int mLessThanN(Graph *G, int m, int root)
 					numVerticesCut ++;
 				}
 				else if(v->vertex!=parent)
-				{
-					printf("\n%d \n", numVerticesCut);
-					return 0;
-				}
+					return numVerticesCut;
 			}
-			printf("\n%d\n", numVerticesCut);
-			return 0;
+			return numVerticesCut;
 		}
 	}
 	return 0;

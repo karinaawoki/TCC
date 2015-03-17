@@ -1,4 +1,4 @@
 
 #include "input.h"
 
-void lemma2_(char *fileName, int m);
+int lemma2(Graph *G, int m);

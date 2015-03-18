@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	srand(seed);
 	
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-
+	root = 0;
 	if(m ==  G->V || m == 0 || c <= 0.5)
 		printf("\n%d \n", lemma2(G, m, root));
 	else
@@ -34,14 +34,17 @@ void Algorithm1(Graph *G, float c, int m, int root)
 
 	int *childs;
 	childs = malloc(G->V*sizeof(int));
+	
+	printf("root : %d\n", root);
+
 	while(lenB < c*m)
 	{
-		lenCut += lemma2(G, m, root);
+		lenCut += lemma2(G, m - lenB, root);
 		childNumber(G, root, childs, root);
 		lenB = G->V - childs[root];
 		printf("\n");
-		printf("oi = %d\n", lenB);
-
+		printf("lenB = %d\n", lenB);
+		printf("lenCut = %d\n", lenCut);
 	}
 	printf("\n%d \n", lenCut);
 

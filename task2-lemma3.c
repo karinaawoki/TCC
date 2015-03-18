@@ -1,5 +1,7 @@
 #include "common/lemma2.h"
 
+void Algorithm1(Graph *G, float c, int m, int root);
+
 
 int main(int argc, char *argv[])
 {
@@ -10,22 +12,37 @@ int main(int argc, char *argv[])
 	Graph *G;
 	int m = atoi(argv[2]);
 	float c = atof(argv[3]);
+	int root;
 	G = read(argv[1]);
+	srand(seed);
+	
+	root = (int)(G->V*1.0*rand()/RAND_MAX);
 
 	if(m ==  G->V || m == 0 || c <= 0.5)
-		printf("\n%d \n", lemma2(G, m));
-	/*else*/
+		printf("\n%d \n", lemma2(G, m, root));
+	else
 		/* c >= m/2 */
-		/*Algorithm1(G, c, m);*/
+		Algorithm1(G, c, m, root);
 	return 0;
 }
 
 
-/*void Algorithm1(Graph *G, float c, int m)
+void Algorithm1(Graph *G, float c, int m, int root)
 {
 	int lenB = 0;
+	int lenCut = 0;
+
+	int *childs;
+	childs = malloc(G->V*sizeof(int));
 	while(lenB < c*m)
 	{
-		lemma2(G, m);
+		lenCut += lemma2(G, m, root);
+		childNumber(G, root, childs, root);
+		lenB = G->V - childs[root];
+		printf("\n");
+		printf("oi = %d\n", lenB);
+
 	}
-}*/
+	printf("\n%d \n", lenCut);
+
+}

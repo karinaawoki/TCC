@@ -4,7 +4,7 @@ t1: task1.o structure.o input.o queue.o
 t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
 	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
 t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o
-	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma2
+	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma3
 
 
 # ROOT

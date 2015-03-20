@@ -1,0 +1,77 @@
+In what language would you implement the algorithms? 
+
+The main algorithm should receive as input a tree given in the following format: 
+
+the number of vertices in the tree
+a list of pairs of vertices, representing the edges of the tree. 
+
+Example: 
+6
+1 2
+2 3
+2 4
+3 5
+1 6
+
+The output should be a list of vertices representing one side of the bisection, 
+and the number of edges cut by the bisection. For instance, for the tree above, 
+the algorithm could produce the following output: 
+3 2 4
+2
+
+Tasks: 
+
+T1: Computing a longest path in a tree [search for diameter in trees]
+    (a simple algorithm for that is explained in page 2)
+
+T2: Approximate cutting algorithms [Lemmas 2 and 3]
+    First implement the algorithm described in Lemma 2, 
+    because it is easier and it is used in the algorithm of Lemma 3. 
+
+    We would like both algorithms running in linear time. 
+    It is easy to think of a linear time implementation of the first algorithm
+    (using a DFS strategy), but a linear time implementation of the second 
+    algorithm requires some thought. Think about it, and try to obtain an 
+    implementation that runs in linear time. If you cannot, come and talk 
+    to me and I explain how to do it. 
+
+-> Meeting to discuss the implementation up to this point.
+
+T3: Computing the vertex labeling [Beginning of Sections 4.1 and 4.2]
+
+    This requires the path computed in T1. Look at page 9 for a few 
+    definitions and the precise description of the labeling. Look at 
+    the beginning of Section 4.2 for a suggestion on how to compute 
+    such a labeling in linear time. 
+ 
+T4: Doubling diameter theorem [Theorem 4]
+
+    Implement the algorithm corresponding to Theorem 4, 
+    described in details in Section 4.2, using the notation
+    presented in Section 4.1. This is the hardest part of the 
+    whole work, because there are many definitions involved. 
+    The algorithm itself is not complicated, but you have to 
+    understand the definitions to be able to compute the numbers
+    required in the algorithm. 
+
+-> Meeting to discuss the implementation up to this point.
+
+T5: Bisection algorithm [Theorem 6]
+
+    This algorithm uses all the previous ones. It is not hard to 
+    come up with an algorithm based on the inductive proof of Theorem 6. 
+
+Please, come everytime you have any doubts on the writeup or on the 
+implementation details. 
+
+T6: Random binary tree generator 
+
+    There are algorithms for this. We must choose one of them that 
+    seems good and implement it, so that we can use the randomly 
+    generated trees in experiments. 
+
+T7: Experiments
+
+    Run experiments and come up with some conjecture on the width 
+    of the bisection in randomly generated binary trees. 
+

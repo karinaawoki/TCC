@@ -2,36 +2,51 @@
 #include "list/queue.h"
 
 int fartherVertex(Graph *G, int vertex, int *parents);
-void printPath(int *parents, int init, int end);
+void printPath(int *parents, int init, int end, int *maxPath);
+int *maximunPath(char *fileName);
 
 int main(int argc, char *argv[])
 {
-	Graph *G;
-	int x0, y0, r, *parents;
-	G = read(argv[1]);
-	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	printf("%d -- r \n", r);
-	parents = malloc(G->V*sizeof(int));
-	x0 = fartherVertex(G, r, parents);
-	y0 = fartherVertex(G, x0, parents);
-	printPath(parents, x0, y0);
-
+	maximunPath(argv[1]);
 	return 0;
 }
 
-void printPath(int *parents, int init, int end)
+
+int *maximunPath(char *fileName)
 {
-	int vertex;
+	Graph *G;
+	int x0, y0, r, *parents, *maxPath;
+	G = read(fileName);
+	r = (int)(G->V*1.0*rand()/RAND_MAX);
+	printf("%d -- r \n", r);
+	parents = malloc(G->V*sizeof(int));
+	maxPath = malloc((1+G->V)*sizeof(int));
+
+	x0 = fartherVertex(G, r, parents);
+	y0 = fartherVertex(G, x0, parents);
+	printPath(parents, x0, y0, maxPath);
+	return maxPath;
+}
+
+void printPath(int *parents, int init, int end, int *maxPath)
+{
+	int vertex, i = 1;
+
 	printf("TASK 1 - The longest path in the tree is: \n");
 	printf("%d  ", end);
+	maxPath[0] = end;
 	vertex = parents[end];
 	while(vertex!=init)
 	{
 		printf("%d  ", vertex);
-
+		maxPath[i] = vertex;
 		vertex = parents[vertex];
+		i ++;
 	}
 	printf("%d\n\n", init);
+	maxPath[i] = init;
+	maxPath[i+1] = -1;
+
 }
 
 int fartherVertex(Graph *G, int vertex, int *parents)

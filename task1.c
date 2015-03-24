@@ -1,24 +1,26 @@
-#include "common/input.h"
+#include "root.h" 
 #include "list/queue.h"
+
 
 int fartherVertex(Graph *G, int vertex, int *parents);
 void printPath(int *parents, int init, int end, int *maxPath);
-int *maximunPath(char *fileName);
 
 int main(int argc, char *argv[])
 {
-	maximunPath(argv[1]);
+	Graph *G;
+	int r;
+	G = read(argv[1]);
+	r = (int)(G->V*1.0*rand()/RAND_MAX);
+	maximunPath(G, r);
+
 	return 0;
 }
 
 
-int *maximunPath(char *fileName)
+int *maximunPath(Graph *G, int r)
 {
-	Graph *G;
-	int x0, y0, r, *parents, *maxPath;
-	G = read(fileName);
-	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	printf("%d -- r \n", r);
+	int x0, y0, *parents, *maxPath;
+	printf("%d -- r \n", r); 
 	parents = malloc(G->V*sizeof(int));
 	maxPath = malloc((1+G->V)*sizeof(int));
 

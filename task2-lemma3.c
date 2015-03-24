@@ -50,9 +50,9 @@ void Algorithm1(Graph *G, float c, int m, int root)
 		
 		childNumber(G, root, childs, root);
 		lenB = G->V - childs[root];
-		printf("\n");
+		/*printf("\n");
 		printf("lenB = %d\n", lenB);
-		printf("lenCut = %d\n", lenCut);
+		printf("lenCut = %d\n", lenCut);*/
 	}
 	printf("\n%d \n", lenCut);
 

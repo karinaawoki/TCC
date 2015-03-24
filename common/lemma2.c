@@ -13,12 +13,17 @@ void deleteChildTree(Graph *G, int parent, int vertex);
 int lemma2(Graph *G, int m, int root)
 /*int main(int argc, char *argv[])*/
 {
+	if(DEBUG)
+		printf("m: %d\n", m);
 	if(G->V == m)
 		return mEqualsN(m);
 	else if(m == 0)
 		return 0;
 	else
+	{
+		/*printf("oi\n");*/
 		return mLessThanN(G, m, root);
+	}
 }
 
 
@@ -50,19 +55,25 @@ int mLessThanN(Graph *G, int m, int root)
 			/* If the tree satisfies the condition of the lemma, the tree is a answer 
 			 We don't need to comes down in the tree*/
 			/* ??????????? */
+		{
 
 			if (childs[v->vertex] > m/2.0 && v->vertex != parent)
 			{
+				if(DEBUG)
+					printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
 				printChildTree(G, falseRoot, v->vertex);
 				deleteChildTree(G, falseRoot, v->vertex);
 				return 1;
 			}
+		}
 		/* when (if) it finish, v will be the root of the tree with more than m vertices */
 		
 		
 		/* Comes down in the tree */
 		if (v != NULL)
 		{
+			if(DEBUG)
+				printf("Desceu para: %d \n", v->vertex);
 			parent = falseRoot;
 			falseRoot = v->vertex;
 		}
@@ -73,17 +84,25 @@ int mLessThanN(Graph *G, int m, int root)
 		{
 			int numVerticesB = 0;
 			int numVerticesCut = 0;
-			for(v = G->adj[falseRoot]; v!=NULL; v = v->next)
+			if(DEBUG)
+				printf("filhos com menos de m vertices.. raiz: %d\n", falseRoot);
+			for(v = G->adj[falseRoot]->next; v!=NULL; v = v->next)
 			{
 				if (numVerticesB + childs[v->vertex] <= m && v->vertex != parent)
 				{
+					if(DEBUG)
+						printf("  arvore filha sendo acrescentada raiz: %d\n", v->vertex);
 					numVerticesB += childs[v->vertex];
 					printChildTree(G, falseRoot, v->vertex);
 					deleteChildTree(G, falseRoot, v->vertex);
 					numVerticesCut ++;
 				}
 				else if(v->vertex!=parent)
+				{
+					if(DEBUG)
+						printf("saiu \n");
 					return numVerticesCut;
+				}
 			}
 			return numVerticesCut;
 		}

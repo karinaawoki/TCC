@@ -1,4 +1,4 @@
-#include "root.h"
+#include "common/lemma2.h"
 
 int main(int argc, char *argv[])
 {

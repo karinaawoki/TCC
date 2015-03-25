@@ -1,23 +1,22 @@
-#include "root.h" 
+#include "common/lemma2.h" 
 #include "list/queue.h"
 
 
 int fartherVertex(Graph *G, int vertex, int *parents);
 void printPath(int *parents, int init, int end, int *maxPath);
 
-int main(int argc, char *argv[])
+/*int main(int argc, char *argv[])
 {
 	Graph *G;
 	int r;
 	G = read(argv[1]);
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	maximunPath(G, r);
+	maximumPath(G, r);
 
 	return 0;
-}
+}*/
 
-
-int *maximunPath(Graph *G, int r)
+int *maximumPath(Graph *G, int r)
 {
 	int x0, y0, *parents, *maxPath;
 	printf("%d -- r \n", r); 

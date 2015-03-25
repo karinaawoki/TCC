@@ -1,4 +1,4 @@
-#include "root.h"
+#include "common/lemma2.h"
 
 
 int changeOrderAtAdj(Graph *G, int *maxPath);
@@ -15,8 +15,7 @@ int main(int argc, char *argv[])
 	int r;
 	G = read(argv[1]);
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
-
-	maxPath = maximunPath(G, r);
+	maxPath = maximumPath(G, r);
 	max = changeOrderAtAdj(G, maxPath);
 	vLabel = label(G, maxPath, max);
 	printLabel(G, vLabel);
@@ -39,16 +38,17 @@ int changeOrderAtAdj(Graph *G, int *maxPath)
 {
 	int i;
 	Vertex *v;
+
 	for(i = 1; maxPath[i] != -1; i++)
-		for (v = G->adj[i]; v->next != NULL; v = v->next)
+		for (v = G->adj[maxPath[i]]; v->next != NULL; v = v->next)
 		{
 			if(maxPath[i-1] == v->next->vertex)
 			{
 				Vertex *move;
 				move = v->next;
 				v->next = move->next;
-				move->next = G->adj[i]->next;
-				G->adj[i]->next = move;
+				move->next = G->adj[maxPath[i]]->next;
+				G->adj[maxPath[i]]->next = move;
 				break;
 			}
 		}
@@ -59,6 +59,7 @@ int *label(Graph *G, int *maxPath, int max)
 {
 	int *vertLabel;
 	vertLabel = malloc(G->V*sizeof(int));
+
 	count = 0;
 	depthFirst(G, max, max, vertLabel);
 	return vertLabel;
@@ -72,5 +73,5 @@ void depthFirst(Graph *G, int vertex, int parent, int *vertLabel)
 		if(v->vertex!=parent)
 			depthFirst(G, v->vertex, vertex, vertLabel);
 	}
-	vertLabel[v->vertex] = count ++;
+	vertLabel[vertex] = count ++;
 } 

@@ -1,4 +1,4 @@
-#include "root.h"
+#include "common/lemma2.h"
 
 void Algorithm1(Graph *G, float c, int m, int root);
 

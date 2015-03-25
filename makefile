@@ -17,7 +17,7 @@
 ## Rules ###############################################################
 
 .PHONY: all
-all: t1 t2-lemma2 t2-lemma3 t3
+all: t2-lemma2 t2-lemma3 t3
 
 ## Linkage #############################################################
 #t1: $(t1_obj)
@@ -51,13 +51,14 @@ all: t1 t2-lemma2 t2-lemma3 t3
 
 
 #exec
-t1: task1.o structure.o input.o queue.o
-	gcc task1.o structure.o input.o queue.o -o t1
+#t1: task1.o structure.o input.o queue.o lemma2.o
+#	gcc task1.o structure.o input.o queue.o lemma2.o -o t1
 t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
 	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
 t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o
 	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma3
-t3: task3.o structure.o input.o 
+t3: task3.o structure.o input.o queue.o lemma2.o task1.o
+	gcc task3.o structure.o input.o queue.o lemma2.o task1.o -o t3
 
 # ROOT
 task1.o: task1.c 

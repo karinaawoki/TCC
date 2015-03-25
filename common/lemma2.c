@@ -20,10 +20,7 @@ int lemma2(Graph *G, int m, int root)
 	else if(m == 0)
 		return 0;
 	else
-	{
-		/*printf("oi\n");*/
 		return mLessThanN(G, m, root);
-	}
 }
 
 
@@ -42,27 +39,28 @@ int mEqualsN(int m)
 int mLessThanN(Graph *G, int m, int root)
 {
 	/* Return the number of edges in the cut */
-	int *childs;
+	int *descendant;
 	Vertex *v;
-	int falseRoot = root, parent = root;
+	int currentRoot = root, parent = root;
 
-	childs = malloc(G->V*sizeof(int));
-	childNumber(G, root, childs, root);
+	descendant = malloc(G->V*sizeof(int));
+	childNumber(G, root, descendant, root);
 
 	while(1)
 	{
-		for(v = G->adj[falseRoot]->next; v!= NULL && (childs[v->vertex] <= m || v->vertex == parent) ; v = v->next)
+		for(v = G->adj[currentRoot]->next; v!= NULL && (descendant[v->vertex] <= m || v->vertex == parent) ; v = v->next)
 			/* If the tree satisfies the condition of the lemma, the tree is a answer 
 			 We don't need to comes down in the tree*/
 			/* ??????????? */
 		{
 
-			if (childs[v->vertex] > m/2.0 && v->vertex != parent)
+			if (descendant[v->vertex] > m/2 && v->vertex != parent)
+				/* m/2.0  -->  m/2 */
 			{
 				if(DEBUG)
 					printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
-				printChildTree(G, falseRoot, v->vertex);
-				deleteChildTree(G, falseRoot, v->vertex);
+				printChildTree(G, currentRoot, v->vertex);
+				deleteChildTree(G, currentRoot, v->vertex);
 				return 1;
 			}
 		}
@@ -74,8 +72,8 @@ int mLessThanN(Graph *G, int m, int root)
 		{
 			if(DEBUG)
 				printf("Desceu para: %d \n", v->vertex);
-			parent = falseRoot;
-			falseRoot = v->vertex;
+			parent = currentRoot;
+			currentRoot = v->vertex;
 		}
 
 		/* Add trees (more than one) at B
@@ -85,16 +83,16 @@ int mLessThanN(Graph *G, int m, int root)
 			int numVerticesB = 0;
 			int numVerticesCut = 0;
 			if(DEBUG)
-				printf("filhos com menos de m vertices.. raiz: %d\n", falseRoot);
-			for(v = G->adj[falseRoot]->next; v!=NULL; v = v->next)
+				printf("filhos com menos de m vertices.. raiz: %d\n", currentRoot);
+			for(v = G->adj[currentRoot]->next; v!=NULL; v = v->next)
 			{
-				if (numVerticesB + childs[v->vertex] <= m && v->vertex != parent)
+				if (numVerticesB + descendant[v->vertex] <= m && v->vertex != parent)
 				{
 					if(DEBUG)
 						printf("  arvore filha sendo acrescentada raiz: %d\n", v->vertex);
-					numVerticesB += childs[v->vertex];
-					printChildTree(G, falseRoot, v->vertex);
-					deleteChildTree(G, falseRoot, v->vertex);
+					numVerticesB += descendant[v->vertex];
+					printChildTree(G, currentRoot, v->vertex);
+					deleteChildTree(G, currentRoot, v->vertex);
 					numVerticesCut ++;
 				}
 				else if(v->vertex!=parent)
@@ -120,14 +118,14 @@ int mLessThanN(Graph *G, int m, int root)
   -----------------------------------------------------------------------
   -----------------------------------------------------------------------*/
 
-int childNumber(Graph *G, int root, int *childs, int parent)
+int childNumber(Graph *G, int root, int *descendant, int parent)
 {
 	Vertex *i;
 	int sum = 0;
 	for (i = G->adj[root]->next; i!= NULL; i = i->next)
 		if (i->vertex != parent)
-			sum += childNumber(G, i->vertex, childs, root);
-	childs[root] = ++sum;
+			sum += childNumber(G, i->vertex, descendant, root);
+	descendant[root] = ++sum;
 	return sum;
 }
 

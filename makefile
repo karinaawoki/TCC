@@ -17,7 +17,7 @@
 ## Rules ###############################################################
 
 .PHONY: all
-all: t2-lemma2 t2-lemma3 t3
+all: t1 t2-lemma2 t2-lemma3 t3
 
 ## Linkage #############################################################
 #t1: $(t1_obj)
@@ -51,14 +51,14 @@ all: t2-lemma2 t2-lemma3 t3
 
 
 #exec
-#t1: task1.o structure.o input.o queue.o lemma2.o
-#	gcc task1.o structure.o input.o queue.o lemma2.o -o t1
+t1: task1.o structure.o input.o queue.o lemma2.o maxPath.o
+	gcc task1.o structure.o input.o queue.o lemma2.o maxPath.o -o t1
 t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
 	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
 t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o
 	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma3
-t3: task3.o structure.o input.o queue.o lemma2.o task1.o
-	gcc task3.o structure.o input.o queue.o lemma2.o task1.o -o t3
+t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o
+	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o -o t3
 
 # ROOT
 task1.o: task1.c 
@@ -78,8 +78,10 @@ input.o: common/input.c common/input.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/input.c -g
 structure.o: common/structure.c common/structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/structure.c -g
+maxPath.o: common/maxPath.c 
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
 
 
 # LIST
-queue.o: list/queue.c list/queue.h
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c list/queue.c -g
+queue.o: common/list/queue.c common/list/queue.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/list/queue.c -g

@@ -2,10 +2,13 @@
 
 
 int mEqualsN(int m);
-int mLessThanN(Graph *G, int m, int root);
+int searchByNode(Graph *G, int m, int root, int parent, int *descendant);
 void printChildTree(Graph *G, int parent, int vertex);
 void deleteChildTree(Graph *G, int parent, int vertex);
+int mLessThanN(Graph *G, int m, int root);
 
+
+int numVerticesCut = 0;
 /* This modele prints the vertices of B (according to the 
     lemma2) and returns the number of edges at the cut.   */ 
 
@@ -25,7 +28,6 @@ int lemma2(Graph *G, int m, int root)
 
 
 
-
 int mEqualsN(int m)
 {
 	/* Return the number of edges in the cut */
@@ -35,77 +37,87 @@ int mEqualsN(int m)
 	return 0;
 }
 
-
 int mLessThanN(Graph *G, int m, int root)
 {
-	/* Return the number of edges in the cut */
 	int *descendant;
-	Vertex *v;
-	int currentRoot = root, parent = root;
-
 	descendant = malloc(G->V*sizeof(int));
 	childNumber(G, root, descendant, root);
+	numVerticesCut = 0;
+	searchByNode(G, m, root, root, descendant);
 
-	while(1)
+	return numVerticesCut;
+}
+
+
+int searchByNode(Graph *G, int m, int root, int parent, int *descendant)
+{
+	/* Return the vertices number of B */
+	Vertex *v;
+	for(v = G->adj[root]->next; v!= NULL && (descendant[v->vertex] <= m || v->vertex == parent) ; v = v->next)
+		/* If the tree satisfies the condition of the lemma, the tree is a answer 
+		 We don't need to comes down in the tree*/
+		/* ??????????? */
 	{
-		for(v = G->adj[currentRoot]->next; v!= NULL && (descendant[v->vertex] <= m || v->vertex == parent) ; v = v->next)
-			/* If the tree satisfies the condition of the lemma, the tree is a answer 
-			 We don't need to comes down in the tree*/
-			/* ??????????? */
+		if (descendant[v->vertex] > m/2 && v->vertex != parent)
+			/* m/2.0  -->  m/2 */
 		{
-
-			if (descendant[v->vertex] > m/2 && v->vertex != parent)
-				/* m/2.0  -->  m/2 */
-			{
-				if(DEBUG)
-					printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
-				printChildTree(G, currentRoot, v->vertex);
-				deleteChildTree(G, currentRoot, v->vertex);
-				return 1;
-			}
-		}
-		/* when (if) it finish, v will be the root of the tree with more than m vertices */
-		
-		
-		/* Comes down in the tree */
-		if (v != NULL)
-		{
+			int removeDescendant = descendant[v->vertex];
 			if(DEBUG)
-				printf("Desceu para: %d \n", v->vertex);
-			parent = currentRoot;
-			currentRoot = v->vertex;
-		}
+				printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
+			printChildTree(G, root, v->vertex);
 
-		/* Add trees (more than one) at B
-		   If the answer is only one tree, it will be detected at the fist "for"*/
-		else
-		{
-			int numVerticesB = 0;
-			int numVerticesCut = 0;
-			if(DEBUG)
-				printf("filhos com menos de m vertices.. raiz: %d\n", currentRoot);
-			for(v = G->adj[currentRoot]->next; v!=NULL; v = v->next)
-			{
-				if (numVerticesB + descendant[v->vertex] <= m && v->vertex != parent)
-				{
-					if(DEBUG)
-						printf("  arvore filha sendo acrescentada raiz: %d\n", v->vertex);
-					numVerticesB += descendant[v->vertex];
-					printChildTree(G, currentRoot, v->vertex);
-					deleteChildTree(G, currentRoot, v->vertex);
-					numVerticesCut ++;
-				}
-				else if(v->vertex!=parent)
-				{
-					if(DEBUG)
-						printf("saiu \n");
-					return numVerticesCut;
-				}
-			}
-			return numVerticesCut;
+			deleteChildTree(G, root, v->vertex);
+			descendant[root] -= removeDescendant;
+			numVerticesCut = 1;
+			return removeDescendant;
 		}
 	}
-	return 0;
+	/* when (if) it finish, v will be the root of the tree with more than m vertices */
+			
+	/* Comes down in the tree */
+	if (v != NULL)
+	{
+		int aux;
+		if(DEBUG)
+			printf("Desceu para: %d \n", v->vertex);
+		aux = searchByNode(G, m, v->vertex, root, descendant);
+		descendant[root] -= aux;
+		return aux;
+	}
+
+	/* Add trees (more than one) at B
+	   If the answer is only one tree, it will be detected at the fist "for"*/
+	else
+	{
+		int numVerticesB = 0;
+		if(DEBUG)
+			printf("filhos com menos de m vertices.. raiz: %d\n", root);
+		for(v = G->adj[root]->next; v!=NULL; v = v->next)
+		{
+			if (numVerticesB + descendant[v->vertex] <= m && v->vertex != parent)
+			{
+				/* Sum each set (roots childs) */ 
+				if(DEBUG)
+					printf("  arvore filha sendo acrescentada raiz: %d\n", v->vertex);
+				numVerticesB += descendant[v->vertex];
+				printChildTree(G, root, v->vertex);
+				deleteChildTree(G, root, v->vertex);
+				numVerticesCut ++;
+			}
+			else if(v->vertex!=parent)
+			{
+				if(DEBUG)
+					printf("saiu \n");
+				descendant[root] -= numVerticesB;
+				descendant[root] = -5;
+
+				return numVerticesB;
+			}
+		}
+		descendant[root] -= numVerticesB;
+		return numVerticesB;
+		
+	}
 }
 
 

@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	
 	G = read(argv[1]);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
+	root = 0;
 	numEdges = lemma2(G, atoi(argv[2]), root);
 	printf("\n%d \n", numEdges);
 	return 0;

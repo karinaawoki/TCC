@@ -27,5 +27,6 @@ Graph *read(char *file_name)
 			includeEdges(G, v1, v2);
 				}
 	}
+	fclose(file);
 	return G;
 }

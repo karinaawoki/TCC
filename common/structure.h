@@ -29,3 +29,4 @@ struct edge
 void initGraph(Graph *G, int V);
 void includeEdges(Graph *G, int vertex1, int vertex2);
 void printGraph(Graph *G);
+void freeGraph(Graph *G);

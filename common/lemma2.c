@@ -45,6 +45,7 @@ int mLessThanN(Graph *G, int m, int root)
 	numVerticesCut = 0;
 	searchByNode(G, m, root, root, descendant);
 
+	free(descendant);
 	return numVerticesCut;
 }
 
@@ -92,19 +93,19 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant)
 		int numVerticesB = 0;
 		if(DEBUG)
 			printf("filhos com menos de m vertices.. raiz: %d\n", root);
-		for(v = G->adj[root]->next; v!=NULL; v = v->next)
+		for(v = G->adj[root]; v->next!=NULL; v = v->next)
 		{
-			if (numVerticesB + descendant[v->vertex] <= m && v->vertex != parent)
+			if (numVerticesB + descendant[v->next->vertex] <= m && v->next->vertex != parent)
 			{
 				/* Sum each set (roots childs) */ 
 				if(DEBUG)
-					printf("  arvore filha sendo acrescentada raiz: %d\n", v->vertex);
-				numVerticesB += descendant[v->vertex];
-				printChildTree(G, root, v->vertex);
-				deleteChildTree(G, root, v->vertex);
+					printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
+				numVerticesB += descendant[v->next->vertex];
+				printChildTree(G, root, v->next->vertex);
+				deleteChildTree(G, root, v->next->vertex);
 				numVerticesCut ++;
 			}
-			else if(v->vertex!=parent)
+			else if(v->next->vertex!=parent)
 			{
 				if(DEBUG)
 					printf("saiu \n");
@@ -157,20 +158,20 @@ void deleteChildTree(Graph *G, int parent, int vertex)
 	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
 		if (v->next->vertex == vertex)
 		{
-			Vertex *remove;
-			remove = v->next;
-			v->next = remove->next;
-			free(remove);
+			Vertex *rem;
+			rem = v->next;
+			v->next = rem->next;
+			free(rem);
 			break;
 		}
 
 	for(v = G->adj[vertex]; v->next!=NULL; v = v->next)
 		if(v->next->vertex == parent)
 		{
-			Vertex *remove;
-			remove = v->next;
-			v->next = remove->next;
-			free(remove);
+			Vertex *rem;
+			rem = v->next;
+			v->next = rem->next;
+			free(rem);
 			break;
 		}
 }

@@ -17,6 +17,8 @@ int *maximumPath(Graph *G, int r)
 	x0 = fartherVertex(G, r, parents);
 	y0 = fartherVertex(G, x0, parents);
 	printPath(parents, x0, y0, maxPath);
+
+	free(parents);
 	return maxPath;
 }
 
@@ -65,6 +67,7 @@ int fartherVertex(Graph *G, int vertex, int *parents)
 		}
 		farther = removeQueue(q);
 	}
+	freeQueue(q);
 
 	return farther;
 }

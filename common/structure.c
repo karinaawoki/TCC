@@ -2,8 +2,8 @@
 
 void initGraph(Graph *G, int V)
 {
+	/* WITH HEAD */
 	int i;
-	/*G = malloc(sizeof(Graph));*/
 	G->V = V;
 	G->adj = malloc(G->V*sizeof(Vertex*));
 	for(i = 0; i<G->V; i++)
@@ -11,6 +11,24 @@ void initGraph(Graph *G, int V)
 		G->adj[i] = malloc(sizeof(Vertex));
 		G->adj[i]->next = NULL;
 	}
+}
+
+
+void freeGraph(Graph *G)
+{
+	int i = 0;
+	for(i = 0; i< G->V; i++)
+	{
+		while(G->adj[i]->next!=NULL)
+		{
+			Vertex *rem = G->adj[i]->next;
+			G->adj[i]->next = rem->next;
+			free(rem);
+		}
+		free(G->adj[i]);
+	}
+	free(G->adj); 
+	free(G);
 }
 
 void includeEdges(Graph *G, int vertex1, int vertex2)

@@ -14,5 +14,7 @@ int main(int argc, char *argv[])
 	root = 0;
 	numEdges = lemma2(G, atoi(argv[2]), root);
 	printf("\n%d \n", numEdges);
+
+	freeGraph(G);
 	return 0;
 }

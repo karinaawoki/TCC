@@ -9,6 +9,7 @@ Queue *initQueue(int value)
 	n->num = value;
 	q->init = n;
 	q->end = n;
+	q->end->next = NULL;
 	return q;
 }
 
@@ -19,6 +20,16 @@ void printQueue(Queue *q)
 	{
 		printf("%d - ", n->num);
 	}
+}
+
+void freeQueue(Queue *q)
+{
+	while(q->init!=NULL)
+	{
+		removeQueue(q);
+	}	
+
+	free(q);
 }
 
 void insertQueue(Queue *q, int value)

@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
 	else
 		/* c >= m/2 */
 		Algorithm1(G, c, m, root);
+
+	freeGraph(G);
 	return 0;
 }
 
@@ -54,6 +56,8 @@ void Algorithm1(Graph *G, float c, int m, int root)
 		printf("lenB = %d\n", lenB);
 		printf("lenCut = %d\n", lenCut);*/
 	}
+
+	free(childs);
 	printf("\n%d \n", lenCut);
 
 }

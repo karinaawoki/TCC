@@ -10,6 +10,8 @@ int count;
 
 int main(int argc, char *argv[])
 {
+	/* argv[1] = filename */
+
 	int *maxPath, *vLabel, max;
 	Graph *G;
 	int r;
@@ -18,7 +20,10 @@ int main(int argc, char *argv[])
 	maxPath = maximumPath(G, r);
 	max = changeOrderAtAdj(G, maxPath);
 	vLabel = label(G, maxPath, max);
+	free(maxPath);
 	printLabel(G, vLabel);
+	free(vLabel);
+	freeGraph(G);
 	return 0;
 }
 

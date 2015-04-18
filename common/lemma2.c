@@ -116,8 +116,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant)
 			}
 		}
 		descendant[root] -= numVerticesB;
-		return numVerticesB;
-		
+		return numVerticesB;	
 	}
 }
 

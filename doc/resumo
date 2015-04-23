@@ -12,7 +12,7 @@ Task2: Lemma2.
     essa somatória dê maior que m/2. Sabemos que nunca passará disso, pois de um < que m/2
     + <m/2 nunca passará de m.
     
-Task3: Lemma3.
+Task2.1: Lemma3.
     - ao inves de mexermos com 1/2, agora é c.
     - quando c=1/2, fazer o mesmo processo do lemma2. 
     - Caso contrário vc acha um B de acordo com o lemma2, retira esse B da árvore e faz a mesma coisa
@@ -20,5 +20,12 @@ Task3: Lemma3.
     - Funciona por vc retira |B| do valor de m também. portanto, o lemma2, nunca vai retirar mais que
     m coisas da árvore.
     
-    
-    
+
+Task3: Label
+    - pega o vetor de maxpath
+    - faz com que o vertice anterior do maxpath seja o primeiro na lista de adjacencia
+    - isso para que quando for usar a busca em largura, primeiro sejam terminados os vertices de cada
+    subarvore, antes de partir para a proxima arvore
+    - Dessa forma, realizando uma busca em largura nessa árvore, começando do ultimo elemento da lista
+    de maxpath, os vértices receberão label de forma que cada mini árvore possua vertices com numeros
+    continuos e que o vertice de maior de label seja a raiz (que está em maxpath)

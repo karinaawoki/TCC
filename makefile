@@ -57,8 +57,8 @@ t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
 	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
 t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o
 	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma3
-t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o
-	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o -o t3
+t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o
+	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o t3
 
 # ROOT
 task1.o: task1.c 
@@ -80,6 +80,8 @@ structure.o: common/structure.c common/structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/structure.c -g
 maxPath.o: common/maxPath.c 
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
+label.o: common/label.c common/label.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/label.c -g
 
 
 # LIST

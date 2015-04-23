@@ -9,6 +9,9 @@ void printPath(int *parents, int init, int end, int *maxPath);
 
 int *maximumPath(Graph *G, int r)
 {
+	/* The result will be a vector with 
+	the maximum path - the number -1 indicate 
+	the end of the path */
 	int x0, y0, *parents, *maxPath;
 	printf("%d -- r \n", r); 
 	parents = malloc(G->V*sizeof(int));

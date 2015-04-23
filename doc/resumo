@@ -1,0 +1,24 @@
+Task1: Encontra caminho máximo de árvores.
+    - Escolhe um vértice aleatório, faz uma busca em largura e acha o vértice mais distante.
+    - Sabe-se que esse vértice é uma das pontas do caminho máximo.
+    - Então repetimos esse processo com essa ponta, para encontrar a outra ponta (que é o vértice
+  mais longe desta)
+  
+Task2: Lemma2.
+    - Pega a raiz da árvore, e se algum dos filhos tem mais que m vértices, desce até ele
+    - Caso ele tenha menos, e ainda seja maior q m/2, temos um B que satizfaz o lema.
+    - Caso você desça na árvore e depois só encontre filhos com menos que m vértice e menos
+    que m/2 vértices também, temos que fazer uma somatória entre alguns filhos de até que 
+    essa somatória dê maior que m/2. Sabemos que nunca passará disso, pois de um < que m/2
+    + <m/2 nunca passará de m.
+    
+Task3: Lemma3.
+    - ao inves de mexermos com 1/2, agora é c.
+    - quando c=1/2, fazer o mesmo processo do lemma2. 
+    - Caso contrário vc acha um B de acordo com o lemma2, retira esse B da árvore e faz a mesma coisa
+    com a nova árvore, até |B|>cm
+    - Funciona por vc retira |B| do valor de m também. portanto, o lemma2, nunca vai retirar mais que
+    m coisas da árvore.
+    
+    
+    

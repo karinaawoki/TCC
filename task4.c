@@ -3,6 +3,8 @@
 int *decideCases(Graph *G, int *maxPath, int*label, int m, int *r);
 void case1(Graph *G, int firstVertexB, int m, int *B, int *index);
 void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *label);
+int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index);
+int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index);
 
 
 
@@ -88,12 +90,77 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index)
 
 void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *label)
 {
-	int i, plusM;
+	int i, *p;
 	/*int *Pz;*/
-	
+	printf("oiee :*\n");
+	p = Pf(G, maxPath, m, label, rLabel, index);
+	for (i = 0; maxPath[i]!=-1; ++i)
+	{
+		printf("%d -->  num: %d\n", maxPath[i], p[maxPath[i]]);
+	}
+
+	for (i = 0; i < G->V; ++i)
+	{
+		printf("%d\n",p[i]);
+	}
+	printf("\n\n\n");
+
+
+}
+
+int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
+{
+	int i;
+	/* p[Pb(label)] is the root of Tz(label)*/
+	int *p, rootLabel;
+
+	p = malloc(G->V*sizeof(int));
+	/*firstPb = malloc(G->V*sizeof(int));
+	lastPb  = malloc(G->V*sizeof(int));*/
+
+	for(i = 0; i<G->V; i++)
+	{
+		p[i] = -1;
+		/*firstPb[i] = G->V + 1;
+		lastPb [i] = -1;*/
+	}
 	for(i = 0; maxPath[i]!=-1; i++)
 	{
-		plusM = (label[maxPath[i]] + m)%G->V;
-		printf("%d\n", plusM);
+		rootLabel = rLabel[(label[maxPath[i]] + m)%G->V];
+		p[label[maxPath[i]]] = rootLabel;
+		if(DEBUG)
+			printf("%d\n", p[label[maxPath[i]]]);
 	}
+	return p;
 }
+
+
+int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
+{
+	int i;
+	/* pf number by index(original) */
+	int *p, rootLabel;
+	p = malloc(G->V*sizeof(int));
+
+	for(i = 0; i<G->V; i++)
+	{
+		p[i] = -1;
+	}
+	for(i = 0; maxPath[i]!=-1; i++)
+	{
+		rootLabel = rLabel[(label[maxPath[i]] - m + G->V)%G->V];
+		p[label[maxPath[i]]] = rootLabel;;
+		if(DEBUG)
+			printf("%d\n", p[label[maxPath[i]]]);
+	}
+	return p;
+}
+
+/*int *HpNumber()
+{
+	int i;
+	for (i = 0; maxPath[i]!=-1; ++i)
+	{
+
+	}
+}*/

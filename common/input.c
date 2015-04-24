@@ -13,6 +13,7 @@ Graph *read(char *file_name)
 
 	while((fgets(line, sizeof(line), file)) != NULL)
 	{
+		printf("%s\n", line);
 		if (lineCount == 0)
 		{ /* First line contains number of vertex */
 			initGraph(G, atoi(line));

@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 
 	free(maxPath);
 	printLabel(G, vLabel, root);
+	free(root);
 	free(vLabel);
 	freeGraph(G);
 	return 0;

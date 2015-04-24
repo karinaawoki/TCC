@@ -9,6 +9,29 @@ void printLabel(Graph *G, int *vLabel, int *r)
 	}
 }
 
+int *indexRbyLabel(Graph *G, int *r, int *vLabel)
+{
+	int i, *rLabel;
+	rLabel = malloc(G->V*sizeof(int));
+
+	for(i = 0; i<G->V; i++)
+	{
+		rLabel[vLabel[i]] = vLabel[r[i]];
+	}
+	return rLabel;
+}
+
+int *labelToIndex(Graph *G, int *label)
+{
+	int i, *index;
+	index = malloc(G->V*sizeof(int));
+
+	for (i = 0; i<G->V; i++)
+	{
+		index[label[i]] = i;
+	}
+	return index;
+}
 
 int changeOrderAtAdj(Graph *G, int *maxPath, int *r)
 /* Returns the last sub-tree root */
@@ -27,7 +50,6 @@ int changeOrderAtAdj(Graph *G, int *maxPath, int *r)
 			if(maxPath[i-1] == v->next->vertex)
 			{
 				Vertex *move;
-				printf("func\n");
 				move = v->next;
 				v->next = move->next;
 				move->next = G->adj[maxPath[i]]->next;

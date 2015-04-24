@@ -1,6 +1,6 @@
 #include "common/lemma2.h"
 
-void Algorithm1(Graph *G, float c, int m, int root);
+void Algorithm1(Graph *G, float c, int m, int root, int *B);
 
 
 int main(int argc, char *argv[])
@@ -12,24 +12,25 @@ int main(int argc, char *argv[])
 	Graph *G;
 	int m = atoi(argv[2]);
 	float c = atof(argv[3]);
-	int root;
+	int root, *B;
 	G = read(argv[1]);
 	srand(seed);
-	
+	B = malloc(G->V*sizeof(int));
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 	root = 0;
 	if(m ==  G->V || m == 0 || c <= 0.5)
-		printf("\n%d \n", lemma2(G, m, root));
+		printf("\n%d \n", lemma2(G, m, root, B));
 	else
 		/* c >= m/2 */
-		Algorithm1(G, c, m, root);
+		Algorithm1(G, c, m, root, B);
 
+	free(B);
 	freeGraph(G);
 	return 0;
 }
 
 
-void Algorithm1(Graph *G, float c, int m, int root)
+void Algorithm1(Graph *G, float c, int m, int root, int *B)
 {
 	int lenB = 0;
 	int lenCut = 0;
@@ -41,13 +42,17 @@ void Algorithm1(Graph *G, float c, int m, int root)
 
 	while(lenB < c*m)
 	{
-		lenCut += lemma2(G, m - lenB, root);
-		/* E se essa nova mini-árvore tiver um verice que é pai de algum dos vertices do conjunto B anterior?
+		lenCut += lemma2(G, m - lenB, root, B);
+		/* E se essa nova mini-árvore tiver um verice que 
+		é pai de algum dos vertices do conjunto B anterior?
 		Nesse caso, o corte seria menor do que o proposto acima!
 
-		Porem isso não pode acontecer, pois o conjunto W se mantem conexo o tempo todo, e sabemos que se não pegamos 
-		o pai da raiz da mini arvore inclusa em B, é pq todo aquele conjunto tem mais que m vertices.
-		e como W sempre se mantem conexo, se pegarmos algum pai do que já foi escolhido, o conjunto B terá mais que
+		Porem isso não pode acontecer, pois o conjunto W se 
+		mantem conexo o tempo todo, e sabemos que se não pegamos 
+		o pai da raiz da mini arvore inclusa em B, é pq todo 
+		aquele conjunto tem mais que m vertices.
+		e como W sempre se mantem conexo, se pegarmos algum 
+		pai do que já foi escolhido, o conjunto B terá mais que
 		m elementos. */
 		
 		childNumber(G, root, childs, root);

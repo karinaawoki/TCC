@@ -5,6 +5,8 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index);
 void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *label);
 int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index);
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index);
+int treeLength(Graph *G, int root, int left, int right);
+int *HbNumber(Graph *G, int *label, int*maxPath, int*p);
 
 
 
@@ -90,18 +92,19 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index)
 
 void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *label)
 {
-	int i, *p;
+	int i, *pb;
 	/*int *Pz;*/
 	printf("oiee :*\n");
-	p = Pf(G, maxPath, m, label, rLabel, index);
+	pb = Pb(G, maxPath, m, label, rLabel, index);
+	HbNumber(G, label, maxPath, pb);
 	for (i = 0; maxPath[i]!=-1; ++i)
 	{
-		printf("%d -->  num: %d\n", maxPath[i], p[maxPath[i]]);
+		printf("%d -->  num: %d\n", label[maxPath[i]], pb[label[maxPath[i]]]);
 	}
 
 	for (i = 0; i < G->V; ++i)
 	{
-		printf("%d\n",p[i]);
+		printf("%d\n",pb[i]);
 	}
 	printf("\n\n\n");
 
@@ -156,11 +159,34 @@ int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
 	return p;
 }
 
-/*int *HpNumber()
+int *HbNumber(Graph *G, int *label, int*maxPath, int*p)
 {
+	int *hp;
 	int i;
+	hp = malloc(G->V*sizeof(int));
+
 	for (i = 0; maxPath[i]!=-1; ++i)
 	{
-
+		if(p[label[maxPath[i]]] == p[label[maxPath[(i-1 + maxPathLength)%maxPathLength]]])
+		{
+			hp[p[label[maxPath[i]]]] += treeLength(G, maxPath[i], maxPath[(i-1 + maxPathLength)%maxPathLength], maxPath[(i+1)%maxPathLength]);
+		}
 	}
-}*/
+
+	return hp;
+}
+
+
+
+int treeLength(Graph *G, int root, int left, int right)
+{
+	/* This recursive function return rhe number of descendant
+	it is used to construct the descendant vector
+	-- descendant number includes the own root */
+	Vertex *i;
+	int sum = 0;
+	for (i = G->adj[root]->next; i!= NULL; i = i->next)
+		if (i->vertex != left && i->vertex != right)
+			sum += treeLength(G, i->vertex, root, -1);
+	return sum;
+}

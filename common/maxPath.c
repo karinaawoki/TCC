@@ -42,6 +42,7 @@ void printPath(int *parents, int init, int end, int *maxPath)
 	}
 	printf("%d\n\n", init);
 	maxPath[i] = init;
+	maxPathLength = i+1;
 	maxPath[i+1] = -1;
 
 }

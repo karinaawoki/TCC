@@ -6,7 +6,7 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index);
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index);
 int treeLength(Graph *G, int root, int left, int right);
-int *HbNumber(Graph *G, int *label, int*maxPath, int*p);
+int *HNumber(Graph *G, int *label, int*maxPath, int*p);
 
 
 
@@ -81,7 +81,7 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index)
 		B[(i-firstVertexB+G->V)%G->V] =  index[i];
 	}
 	printf("%d ", index[i]);
-	B[(i-firstVertexB+m-1)%G->V] =  index[i];
+	B[(i-firstVertexB + G->V)%G->V] =  index[i];
 
 	/* when B is at the border */
 	if((firstVertexB-m+1)%G->V == 0 || firstVertexB == G->V-1)
@@ -92,19 +92,18 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index)
 
 void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *label)
 {
-	int i, *pb;
-	/*int *Pz;*/
-	printf("oiee :*\n");
+	int i, *pb, *hp;
+
 	pb = Pb(G, maxPath, m, label, rLabel, index);
-	HbNumber(G, label, maxPath, pb);
+	hp = HNumber(G, label, maxPath, pb);
 	for (i = 0; maxPath[i]!=-1; ++i)
 	{
-		printf("%d -->  num: %d\n", label[maxPath[i]], pb[label[maxPath[i]]]);
+		printf("%d -->  num: %d\n", label[maxPath[i]], hp[label[maxPath[i]]]);
 	}
 
 	for (i = 0; i < G->V; ++i)
 	{
-		printf("%d\n",pb[i]);
+		printf("%d\n",hp[i]);
 	}
 	printf("\n\n\n");
 
@@ -113,20 +112,12 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 
 int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
 {
-	int i;
-	/* p[Pb(label)] is the root of Tz(label)*/
-	int *p, rootLabel;
-
+	int i, *p, rootLabel;
 	p = malloc(G->V*sizeof(int));
-	/*firstPb = malloc(G->V*sizeof(int));
-	lastPb  = malloc(G->V*sizeof(int));*/
-
+	
 	for(i = 0; i<G->V; i++)
-	{
 		p[i] = -1;
-		/*firstPb[i] = G->V + 1;
-		lastPb [i] = -1;*/
-	}
+
 	for(i = 0; maxPath[i]!=-1; i++)
 	{
 		rootLabel = rLabel[(label[maxPath[i]] + m)%G->V];
@@ -140,15 +131,13 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
 
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
 {
-	int i;
-	/* pf number by index(original) */
-	int *p, rootLabel;
+	int i, *p, rootLabel;
 	p = malloc(G->V*sizeof(int));
 
 	for(i = 0; i<G->V; i++)
-	{
 		p[i] = -1;
-	}
+
+	/* For each vertex in C: take its label and map to back.. and take the root */
 	for(i = 0; maxPath[i]!=-1; i++)
 	{
 		rootLabel = rLabel[(label[maxPath[i]] - m + G->V)%G->V];
@@ -159,28 +148,28 @@ int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index)
 	return p;
 }
 
-int *HbNumber(Graph *G, int *label, int*maxPath, int*p)
+int *HNumber(Graph *G, int *label, int*maxPath, int*p)
 {
-	int *hp;
-	int i;
-	hp = malloc(G->V*sizeof(int));
+	/* This function calculate both the Hb and the Hf... what differs is the vector p
+	    * if p == pf... the return will be Hf 
+	    * if p == pb... the return will be Hb*/ 
+	int *h, i;
+	h = malloc(G->V*sizeof(int));
+
+	for (i = 0; i < G->V; ++i)
+		h[i] = 0;
 
 	for (i = 0; maxPath[i]!=-1; ++i)
-	{
 		if(p[label[maxPath[i]]] == p[label[maxPath[(i-1 + maxPathLength)%maxPathLength]]])
-		{
-			hp[p[label[maxPath[i]]]] += treeLength(G, maxPath[i], maxPath[(i-1 + maxPathLength)%maxPathLength], maxPath[(i+1)%maxPathLength]);
-		}
-	}
-
-	return hp;
+			h[p[label[maxPath[i]]]] += treeLength(G, maxPath[i], 
+				maxPath[(i-1 + maxPathLength)%maxPathLength], maxPath[(i+1)%maxPathLength])-1;
+	return h;
 }
-
 
 
 int treeLength(Graph *G, int root, int left, int right)
 {
-	/* This recursive function return rhe number of descendant
+	/* This recursive function returns rhe number of descendant
 	it is used to construct the descendant vector
 	-- descendant number includes the own root */
 	Vertex *i;
@@ -188,5 +177,5 @@ int treeLength(Graph *G, int root, int left, int right)
 	for (i = G->adj[root]->next; i!= NULL; i = i->next)
 		if (i->vertex != left && i->vertex != right)
 			sum += treeLength(G, i->vertex, root, -1);
-	return sum;
+	return ++sum;
 }

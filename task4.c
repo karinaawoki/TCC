@@ -145,7 +145,7 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 	printf(" %d \n", z);
 	printf(" %d \n", bSpecial);
 	printf(" %f \n", zVal);
-	if(bSpecialTree)
+	if(bSpecial==1)
 		bSpecialTree(G, m, maxPath, B, z);
 	else
 		fSpecialTree(G, m, maxPath, B, z);

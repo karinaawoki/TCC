@@ -55,22 +55,22 @@ t1: task1.o structure.o input.o queue.o lemma2.o maxPath.o
 	gcc task1.o structure.o input.o queue.o lemma2.o maxPath.o -o t1
 t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
 	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
-t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o
-	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o -o t2-lemma3
+t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o
+	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o -o t2-lemma3
 t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o
 	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o t3
-t4: task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o
-	gcc task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o t4
+t4: task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o
+	gcc task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o -o t4
 
 
 # ROOT
-task1.o: task1.c 
+task1.o: task1.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result 	 -c task1.c -g
 task2-lemma2.o: task2-lemma2.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-lemma2.c -g
 task2-lemma3.o: task2-lemma3.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-lemma3.c -g
-task3.o: task3.c 
+task3.o: task3.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task3.c -g
 task4.o: task4.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task4.c -g
@@ -88,6 +88,9 @@ maxPath.o: common/maxPath.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
 label.o: common/label.c common/label.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/label.c -g
+lemma3.o: common/lemma3.c common/lemma3.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/lemma3.c -g
+
 
 
 # LIST

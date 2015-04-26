@@ -4,7 +4,6 @@
 #define seed 0
 #define DEBUG 0
 
-
 typedef struct vertex Vertex;
 struct vertex
 {

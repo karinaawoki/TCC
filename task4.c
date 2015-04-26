@@ -1,4 +1,4 @@
-#include "common/label.h"
+#include "common/lemma3.h"
 
 int *decideCases(Graph *G, int *maxPath, int*label, int m, int *r);
 void case1(Graph *G, int firstVertexB, int m, int *B, int *index);
@@ -7,6 +7,9 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPf);
 int treeLength(Graph *G, int root, int left, int right);
 float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP);
+void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z);
+void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z);
+
 
 
 int main(int argc, char *argv[])
@@ -93,7 +96,7 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index)
 
 void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *label)
 {
-	/* z is the vertex with minimum rô.. and bSpecial indicate if z is bSpecial or fSpecial 
+	/* maxPath[z] = vertex with minimum rô.. and bSpecial indicate if z is bSpecial or fSpecial 
 	and zVal is the ro[z] (can be roB[z] or roF[z])*/
 
 	int i, *pb, *pf, *numPf, *numPb, bSpecial, z;
@@ -124,13 +127,13 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 		if (roB[label[maxPath[i]]]!=-1 && roB[label[maxPath[i]]] < roF[label[maxPath[i]]] &&
 			(roB[label[maxPath[i]]] < zVal || zVal == -1))
 		{
-			z = maxPath[i];
+			z = i;
 			zVal = roB[label[maxPath[i]]];
 			bSpecial = 1;
 		}
 		else if (roF[label[maxPath[i]]]!=-1 && (roF[label[maxPath[i]]] < zVal || zVal == -1))
 		{
-			z = maxPath[i];
+			z = i;
 			zVal = roF[label[maxPath[i]]];
 			bSpecial = 0;
 		}
@@ -138,10 +141,55 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 
 	free(roB);
 	free(roF);
+
 	printf(" %d \n", z);
 	printf(" %d \n", bSpecial);
 	printf(" %f \n", zVal);
+	if(bSpecialTree)
+		bSpecialTree(G, m, maxPath, B, z);
+	else
+		fSpecialTree(G, m, maxPath, B, z);
 }
+
+void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z)
+{	
+	/* j is the vertex before z on C */
+	int j, jSize, mPrime;
+	float cPrime, d;
+
+	j = (z-1+maxPathLength)%maxPathLength;
+	jSize = treeLength(G, maxPath[j], 
+				maxPath[(j-1 + maxPathLength)%maxPathLength], maxPath[z]);
+	
+	d = maxPathLength*1.0/G->V;
+	cPrime = 2-(1.0/(1-d));
+	mPrime = m - jSize;
+	printf("c %f \n", cPrime);
+	printf("m %d \n", mPrime);
+
+	B = lemma3(G, mPrime, cPrime);
+}
+
+
+void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z)
+{
+	/* j is the vertex before z on C */
+	int j, jSize, mPrime;
+	float cPrime, d;
+
+	j = (z-1+maxPathLength)%maxPathLength;
+	jSize = treeLength(G, maxPath[j], 
+				maxPath[(j-1 + maxPathLength)%maxPathLength], maxPath[z]);
+	
+	d = maxPathLength*1.0/G->V;
+	cPrime = 2-(1.0/(1-d));
+	mPrime = m - jSize;
+	printf("c %f \n", cPrime);
+	printf("m %d \n", mPrime);
+
+	B = lemma3(G, mPrime, cPrime);	 
+}
+
 
 int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPb)
 {

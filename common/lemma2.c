@@ -19,7 +19,7 @@ int lemma2(Graph *G, int m, int root, int *B)
 /*int main(int argc, char *argv[])*/
 {
 	Blength = 0;
-	if(DEBUG)
+	if(DEBUG == 1)
 		printf("m: %d\n", m);
 	if(G->V == m)
 		return mEqualsN(m, B);
@@ -70,7 +70,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 			/* m/2.0  -->  m/2 */
 		{
 			int removeDescendant = descendant[v->vertex];
-			if(DEBUG)
+			if(DEBUG == 1)
 				printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
 			printChildTree(G, root, v->vertex);
 			save(G, root, v->vertex, B);
@@ -87,7 +87,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 	if (v != NULL)
 	{
 		int aux;
-		if(DEBUG)
+		if(DEBUG == 1)
 			printf("Desceu para: %d \n", v->vertex);
 		aux = searchByNode(G, m, v->vertex, root, descendant, B);
 		descendant[root] -= aux;
@@ -99,14 +99,14 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 	else
 	{
 		int numVerticesB = 0;
-		if(DEBUG)
+		if(DEBUG == 1)
 			printf("filhos com menos de m vertices.. raiz: %d\n", root);
 		for(v = G->adj[root]; v->next!=NULL; v = v->next)
 		{
 			if (numVerticesB + descendant[v->next->vertex] <= m && v->next->vertex != parent)
 			{
 				/* Sum each set (roots childs) */ 
-				if(DEBUG)
+				if(DEBUG == 1)
 					printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
 				numVerticesB += descendant[v->next->vertex];
 				printChildTree(G, root, v->next->vertex);
@@ -115,7 +115,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 			}
 			else if(v->next->vertex!=parent)
 			{
-				if(DEBUG)
+				if(DEBUG == 1)
 					printf("saiu \n");
 				descendant[root] -= numVerticesB;
 				descendant[root] = -5;

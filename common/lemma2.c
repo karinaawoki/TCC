@@ -98,11 +98,12 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 	else
 	{
 		int numVerticesB = 0;
+		printf("caiuuuuuuuuuu  %d\n", m);
 		if(DEBUG == 1)
 			printf("filhos com menos de m vertices.. raiz: %d\n", root);
 		for(v = G->adj[root]; v->next!=NULL; v = v->next)
 		{
-			if (numVerticesB + descendant[v->next->vertex] <= m && v->next->vertex != parent)
+			while (v->next!=NULL && numVerticesB + descendant[v->next->vertex] <= m && v->next->vertex != parent)
 			{
 				/* Sum each set (roots childs) */ 
 				if(DEBUG == 1)
@@ -112,12 +113,17 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 				deleteChildTree(G, root, v->next->vertex);
 				numVerticesCut ++;
 			}
+			if( v->next==NULL )
+			{
+
+				break;
+			}
 			else if(v->next->vertex!=parent)
 			{
 				if(DEBUG == 1)
 					printf("saiu \n");
 				descendant[root] -= numVerticesB;
-				descendant[root] = -5;
+				/*descendant[root] = -5;*/
 
 				return numVerticesB;
 			}

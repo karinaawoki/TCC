@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define seed 0
-#define DEBUG 0
+#define DEBUG 1
 
 typedef struct vertex Vertex;
 struct vertex

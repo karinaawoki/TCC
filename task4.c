@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
 	m = atoi(argv[2]);
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
-
+	r = 2;
 	maxPath = maximumPath(G, r);
 	max = changeOrderAtAdj(G, maxPath, root);
 	vLabel = label(G, maxPath, max, root);
@@ -77,7 +77,7 @@ void case1(Graph *G, int firstVertexB, int m, int *B, int *index)
 	int i;
 	/* B is all the vertex with label between firstVertexB and
 	firstVertexB -m */
-
+printf("caso1\n\n");
 
 	for(i =firstVertexB; i!=(firstVertexB+m-1)%G->V; i = (i+1)%G->V)
 	{
@@ -110,7 +110,7 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 		numPf[i] = 0;
 		numPb[i] = 0;
 	}
-
+/*
 	pb = Pb(G, maxPath, m, label, rLabel, index, numPb);
 	roB = roNumber(G, label, maxPath, pb, numPb);
 	free(pb);
@@ -119,7 +119,35 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 	pf = Pf(G, maxPath, m, label, rLabel, index, numPf);
 	roF = roNumber(G, label, maxPath, pf, numPf);
 	free(pf);
-	free(numPf);
+	free(numPf);*/
+
+
+	pf = Pf(G, maxPath, m, label, rLabel, index, numPf);
+	roF = roNumber(G, label, maxPath, pf, numPf);
+
+	pb = Pb(G, maxPath, m, label, rLabel, index, numPb);
+	roB = roNumber(G, label, maxPath, pb, numPb);
+
+
+	for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  rob: %f\n", maxPath[i], roB[label[maxPath[i]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  rof: %f\n", maxPath[i], roF[label[maxPath[i]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  Pb: %d\n", maxPath[i], index[pb[label[maxPath[i]]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  Pf: %d\n", maxPath[i], index[pf[label[maxPath[i]]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  numPb: %d\n", maxPath[i], numPb[label[maxPath[i]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  numPf: %d\n", maxPath[i], numPf[label[maxPath[i]]]);
+		printf("\n\n\n");
+
 
 	for (i = 0; maxPath[i]!=-1; ++i)
 	{
@@ -205,7 +233,10 @@ void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int
 	mPrime = m - jSize;
 	printf("c %f \n", cPrime);
 	printf("m %d \n", mPrime);
-
+	deleteChildTree(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
+	printf("%d - %d  %d\n", maxPath[(z-1+maxPathLength)%maxPathLength], 
+		maxPath[z], maxPath[(z+1)%maxPathLength]);
+	deleteChildTree(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
 	B = lemma3(G, mPrime, cPrime, maxPath[z]);	 
 }
 

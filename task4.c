@@ -7,8 +7,8 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPf);
 int treeLength(Graph *G, int root, int left, int right);
 float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP);
-void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z);
-void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z);
+void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int *label);
+void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int *label);
 
 
 
@@ -146,20 +146,28 @@ void case2(Graph *G, int m, int *B, int *index, int *maxPath, int *rLabel, int *
 	printf(" %d \n", bSpecial);
 	printf(" %f \n", zVal);
 	if(bSpecial==1)
-		bSpecialTree(G, m, maxPath, B, z);
+		bSpecialTree(G, m, maxPath, B, z, rLabel, label);
 	else
-		fSpecialTree(G, m, maxPath, B, z);
+		fSpecialTree(G, m, maxPath, B, z, rLabel, label);
 }
 
-void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z)
+void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int *label)
 {	
 	/* j is the vertex before z on C */
-	int j, jSize, mPrime;
+	int i, j, jSize = 0, mPrime;
 	float cPrime, d;
 
 	j = (z-1+maxPathLength)%maxPathLength;
-	jSize = treeLength(G, maxPath[j], 
-				maxPath[(j-1 + maxPathLength)%maxPathLength], maxPath[z]);
+
+	for (i = j; 
+		rLabel[(label[maxPath[i]]+m)%G->V]!=label[maxPath[z]]; 
+		i = (i-1+maxPathLength)%maxPathLength)
+	{
+		jSize += treeLength(G, maxPath[i], 
+				maxPath[(i-1 + maxPathLength)%maxPathLength], 
+				maxPath[(i+1)%maxPathLength]);
+	}
+	
 	
 	d = maxPathLength*1.0/G->V;
 	cPrime = 2-(1.0/(1-d));
@@ -171,15 +179,23 @@ void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z)
 }
 
 
-void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z)
+void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int *label)
 {
 	/* j is the vertex before z on C */
-	int j, jSize, mPrime;
+	int i, j, jSize = 0, mPrime;
 	float cPrime, d;
+	
+	j = (z+1)%maxPathLength;
 
-	j = (z-1+maxPathLength)%maxPathLength;
-	jSize = treeLength(G, maxPath[j], 
-				maxPath[(j-1 + maxPathLength)%maxPathLength], maxPath[z]);
+	for (i = j; 
+		rLabel[(label[maxPath[i]]-m+G->V)%G->V]!=label[maxPath[z]]; 
+		i = (i+1)%maxPathLength)
+	{
+		jSize += treeLength(G, maxPath[i], 
+				maxPath[(i-1 + maxPathLength)%maxPathLength], 
+				maxPath[(i+1)%maxPathLength]);
+	}
+
 	
 	d = maxPathLength*1.0/G->V;
 	cPrime = 2-(1.0/(1-d));

@@ -7,12 +7,14 @@ int main(int argc, char *argv[])
 	/* argv[2] = m        */
 	/* argv[3] = c        */
 	Graph *G;
-	int *B;
+	int *B, root;
 	int m = atoi(argv[2]);
 	float c = atof(argv[3]);
-	
+
 	G = read(argv[1]);
-	B = lemma3(G, m, c);
+	root = (int)(G->V*1.0*rand()/RAND_MAX);
+
+	B = lemma3(G, m, c, root);
 
 	free(B);
 	freeGraph(G);

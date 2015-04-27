@@ -4,7 +4,6 @@
 int mEqualsN(int m, int *B);
 int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B);
 void printChildTree(Graph *G, int parent, int vertex);
-void deleteChildTree(Graph *G, int parent, int vertex);
 int mLessThanN(Graph *G, int m, int root, int *B);
 void save(Graph *G, int parent, int vertex, int *B);
 

@@ -175,8 +175,9 @@ void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int
 	mPrime = m - jSize;
 	printf("c %f \n", cPrime);
 	printf("m %d \n", mPrime);
-
-	B = lemma3(G, mPrime, cPrime);
+	deleteChildTree(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
+	deleteChildTree(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
+	B = lemma3(G, mPrime, cPrime, maxPath[z]);
 }
 
 
@@ -205,7 +206,7 @@ void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int
 	printf("c %f \n", cPrime);
 	printf("m %d \n", mPrime);
 
-	B = lemma3(G, mPrime, cPrime);	 
+	B = lemma3(G, mPrime, cPrime, maxPath[z]);	 
 }
 
 

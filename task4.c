@@ -156,6 +156,7 @@ void bSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int
 	/* j is the vertex before z on C */
 	int i, j, jSize = 0, mPrime;
 	float cPrime, d;
+	printf("b-special\n");
 
 	j = (z-1+maxPathLength)%maxPathLength;
 
@@ -185,6 +186,7 @@ void fSpecialTree(Graph *G, int m, int *maxPath, int *B, int z, int *rLabel, int
 	int i, j, jSize = 0, mPrime;
 	float cPrime, d;
 	
+	printf("f-special\n");
 	j = (z+1)%maxPathLength;
 
 	for (i = j; 

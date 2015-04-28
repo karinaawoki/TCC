@@ -12,9 +12,12 @@ int main(int argc, char *argv[])
 	float c = atof(argv[3]);
 
 	G = read(argv[1]);
+	B = malloc(G->V*sizeof(int));
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 
-	B = lemma3(G, m, c, root);
+	Blength = 0;
+	
+	lemma3(G, m, c, root, B);
 
 	free(B);
 	freeGraph(G);

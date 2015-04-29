@@ -14,3 +14,7 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
+
+
+/* TODO: Fazer uma varredura na árvore e ir deletando as arestas de baixo para cima
+- das raízes que não pertencem a P --  */

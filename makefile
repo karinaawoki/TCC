@@ -17,7 +17,7 @@
 ## Rules ###############################################################
 
 .PHONY: all
-all: t1 t2-lemma2 t2-lemma3 t3 t4
+all: t1 t2-lemma2 t2-lemma3 t3 t4 t5
 
 ## Linkage #############################################################
 #t1: $(t1_obj)
@@ -61,6 +61,8 @@ t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o
 	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o t3
 t4: task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o
 	gcc task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o t4
+t5: task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o
+	gcc task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o t5
 
 
 # ROOT
@@ -74,6 +76,8 @@ task3.o: task3.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task3.c -g
 task4.o: task4.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task4.c -g
+task5.o: task5.c
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c task5.c -g 
 
 
 

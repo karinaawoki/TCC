@@ -52,17 +52,17 @@ all: t1 t2-lemma2 t2-lemma3 t3 t4 t5
 
 #exec
 t1: task1.o structure.o input.o queue.o lemma2.o maxPath.o
-	gcc task1.o structure.o input.o queue.o lemma2.o maxPath.o -o t1
+	gcc task1.o structure.o input.o queue.o lemma2.o maxPath.o -o _t1
 t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
-	gcc task2-lemma2.o structure.o input.o lemma2.o -o t2-lemma2
+	gcc task2-lemma2.o structure.o input.o lemma2.o -o _t2-lemma2
 t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o
-	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o -o t2-lemma3
+	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o -o _t2-lemma3
 t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o
-	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o t3
+	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o _t3
 t4: task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o
-	gcc task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o t4
+	gcc task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o _t4
 t5: task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o
-	gcc task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o t5
+	gcc task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o _t5
 
 
 # ROOT

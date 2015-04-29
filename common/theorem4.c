@@ -13,6 +13,8 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 void printB(int *B);
 void deleteAllNeighborBut(Graph *G, int vertex, int keep);
 void separateSBSpecial(Graph *G, int maxPathInitS, int z, int *label, int *vLabel, int *maxPath, int m);
+int nextMaxPath(int vertex);
+int previousMaxPath(int vertex);
 
 
 
@@ -178,15 +180,15 @@ int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 
 	printf("b-special\n");
 
-	j = (z-1+maxPathLength)%maxPathLength;
+	j = previousMaxPath(z);
 
 	for (i = j; 
 		rLabel[(label[maxPath[i]]+m)%G->V]!=label[maxPath[z]]; 
-		i = (i-1+maxPathLength)%maxPathLength)
+		i = previousMaxPath(i))
 	{
 		jSize += treeLengthB(G, maxPath[i], 
-				maxPath[(i-1 + maxPathLength)%maxPathLength], 
-				maxPath[(i+1)%maxPathLength], B);
+				maxPath[previousMaxPath(i)], 
+				maxPath[nextMaxPath(i)], B);
 
 	}
 	
@@ -198,8 +200,8 @@ int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	printf("c %f \n", cPrime);
 	printf("m %d \n", mPrime);
 	/* Separate B */
-	deleteEdge(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
-	deleteEdge(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
+	deleteEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
+	deleteEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 	lemma3(G, mPrime, cPrime, maxPath[z], B);
 
 	return B;
@@ -209,15 +211,26 @@ int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 void separateSBSpecial(Graph *G, int maxPathInitS, int z, int *label, int *vLabel, int *maxPath, int m)
 {
 	/* Delete all edges, but  */
-	deleteAllNeighborBut(G, maxPath[maxPathInitS], maxPath[(maxPathInitS+1)%maxPathLength]);
-	maxPathInitS = (maxPathInitS+1)%maxPathLength;
+	deleteAllNeighborBut(G, maxPath[maxPathInitS], maxPath[nextMaxPath(maxPathInitS)]);
+	maxPathInitS = nextMaxPath(maxPathInitS);
 	while(vLabel[(label[maxPath[maxPathInitS]] + m)%G->V] == label[maxPath[z]])
 	{
 		maxPathInitS = (maxPathInitS + 1)%G->V;
 	}
-	maxPathInitS = (maxPathInitS-1+maxPathLength)%maxPathLength;
+	maxPathInitS = previousMaxPath(maxPathInitS);
 
-	deleteEdge(G, maxPath[(maxPathInitS-1+maxPathLength)%maxPathLength], maxPath[maxPathInitS]);
+	deleteEdge(G, maxPath[previousMaxPath(maxPathInitS)], maxPath[maxPathInitS]);
+}
+
+
+int nextMaxPath(int vertex)
+{
+	return (vertex + 1) %maxPathLength;
+}
+
+int previousMaxPath(int vertex)
+{
+	return (vertex - 1 + maxPathLength)%maxPathLength;
 }
 
 
@@ -250,15 +263,14 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	B = malloc(G->V*sizeof(int));
 	
 	printf("f-special\n");
-	j = (z+1)%maxPathLength;
+	j = nextMaxPath(z);
 
 	for (i = j; 
 		rLabel[(label[maxPath[i]]-m+G->V)%G->V]!=label[maxPath[z]]; 
-		i = (i+1)%maxPathLength)
+		i = nextMaxPath(i))
 	{
-		jSize += treeLengthB(G, maxPath[i], 
-				maxPath[(i-1 + maxPathLength)%maxPathLength], 
-				maxPath[(i+1)%maxPathLength], B);
+		jSize += treeLengthB(G, maxPath[i], maxPath[previousMaxPath(i)], 
+			maxPath[nextMaxPath(i)], B);
 	}
 
 	/* maxPath[i] is zf now */
@@ -266,8 +278,8 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	/* Count the number of all root's childs  */
 	for (v = G->adj[maxPath[i]]->next; v!=NULL; v = v->next)
 	{
-		if(v->vertex != maxPath[(i-1+maxPathLength)%maxPathLength] 
-			&& v->vertex!= maxPath[(i+1)%maxPathLength])
+		if(v->vertex != maxPath[previousMaxPath(i)] 
+			&& v->vertex!= maxPath[nextMaxPath(i)])
 		{
 			jSize += treeLengthB(G, v->vertex, maxPath[i], -1, B);
 		}
@@ -280,10 +292,10 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	printf("m %d \n", mPrime);
 
 	/* Separate B */
-	deleteEdge(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
-	printf("%d - %d  %d\n", maxPath[(z-1+maxPathLength)%maxPathLength], 
-		maxPath[z], maxPath[(z+1)%maxPathLength]);
-	deleteEdge(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
+	deleteEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
+	printf("%d - %d  %d\n", maxPath[previousMaxPath(z)], 
+		maxPath[z], maxPath[nextMaxPath(z)]);
+	deleteEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 
 	lemma3(G, mPrime, cPrime, maxPath[z], B);	 
 	return B;
@@ -347,9 +359,9 @@ float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP)
 	}
 
 	for (i = 0; maxPath[i]!=-1; ++i)
-		if(p[label[maxPath[i]]] == p[label[maxPath[(i-1 + maxPathLength)%maxPathLength]]])
+		if(p[label[maxPath[i]]] == p[label[maxPath[previousMaxPath(i)]]])
 			h[p[label[maxPath[i]]]] += treeLength(G, maxPath[i], 
-				maxPath[(i-1 + maxPathLength)%maxPathLength], maxPath[(i+1)%maxPathLength])-1;
+				maxPath[previousMaxPath(i)], maxPath[nextMaxPath(i)])-1;
 
 	/* Calculate rô of each vertex at C  */
 
@@ -357,8 +369,8 @@ float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP)
 	{
 		if(numP[label[maxPath[i]]]>0)
 		{
-			T = treeLength(G, maxPath[i], maxPath[(i-1 + maxPathLength)%maxPathLength], 
-				maxPath[(i+1)%maxPathLength])-1;
+			T = treeLength(G, maxPath[i], maxPath[previousMaxPath(i)], 
+				maxPath[nextMaxPath(i)])-1;
 			ro[label[maxPath[i]]] = 1.0*(h[label[maxPath[i]]] + T)/numP[label[maxPath[i]]];
 		}
 	}

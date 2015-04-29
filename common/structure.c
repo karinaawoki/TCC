@@ -65,3 +65,29 @@ void printGraph(Graph *G)
 	}
 	printf("---------------\n\n\n");
 }
+
+
+void deleteEdge(Graph *G, int parent, int vertex)
+/* Delete the edge that connect the childTree with the tree */
+{	
+	Vertex *v;
+	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
+		if (v->next->vertex == vertex)
+		{
+			Vertex *rem;
+			rem = v->next;
+			v->next = rem->next;
+			free(rem);
+			break;
+		}
+
+	for(v = G->adj[vertex]; v->next!=NULL; v = v->next)
+		if(v->next->vertex == parent)
+		{
+			Vertex *rem;
+			rem = v->next;
+			v->next = rem->next;
+			free(rem);
+			break;
+		}
+}

@@ -11,6 +11,9 @@ float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP);
 int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label);
 int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label);
 void printB(int *B);
+void deleteAllNeighborBut(Graph *G, int vertex, int keep);
+void separateSBSpecial(Graph *G, int maxPathInitS, int z, int *label, int *vLabel, int *maxPath, int m);
+
 
 
 /* root[i] = j    -   i and j  by index */
@@ -26,7 +29,7 @@ void theorem4(Graph *G, int *B, int m)
 	root = malloc(G->V*sizeof(int));
 
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	r = 1; 
+	r = 0; 
 	maxPath = maximumPath(G, r);
 	max = changeOrderAtAdj(G, maxPath, root);
 	vLabel = label(G, maxPath, max, root);
@@ -116,15 +119,16 @@ int *case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 
 	pb = Pb(G, maxPath, m, label, rLabel, index, numPb);
 	roB = roNumber(G, label, maxPath, pb, numPb);
-	free(pb);
 	free(numPb);
 
 	pf = Pf(G, maxPath, m, label, rLabel, index, numPf);
 	roF = roNumber(G, label, maxPath, pf, numPf);
-	free(pf);
 	free(numPf);
 
-
+	for (i = 0; i < G->V; ++i)
+	{
+		printf(" %d * %d\n",index[i],  pf[i]);
+	}
 
 	for (i = 0; maxPath[i]!=-1; ++i)
 	{
@@ -158,8 +162,11 @@ int *case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 		B = fSpecialTree(G, m, maxPath, z, rLabel, label);
 
 	printB(B);
+	free(pf);
+	free(pb);
 	return B;
 }
+
 
 int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 {	
@@ -190,13 +197,48 @@ int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	mPrime = m - jSize;
 	printf("c %f \n", cPrime);
 	printf("m %d \n", mPrime);
-	deleteChildTree(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
-	deleteChildTree(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
+	/* Separate B */
+	deleteEdge(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
+	deleteEdge(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
 	lemma3(G, mPrime, cPrime, maxPath[z], B);
 
 	return B;
 }
 
+
+void separateSBSpecial(Graph *G, int maxPathInitS, int z, int *label, int *vLabel, int *maxPath, int m)
+{
+	/* Delete all edges, but  */
+	deleteAllNeighborBut(G, maxPath[maxPathInitS], maxPath[(maxPathInitS+1)%maxPathLength]);
+	maxPathInitS = (maxPathInitS+1)%maxPathLength;
+	while(vLabel[(label[maxPath[maxPathInitS]] + m)%G->V] == label[maxPath[z]])
+	{
+		maxPathInitS = (maxPathInitS + 1)%G->V;
+	}
+	maxPathInitS = (maxPathInitS-1+maxPathLength)%maxPathLength;
+
+	deleteEdge(G, maxPath[(maxPathInitS-1+maxPathLength)%maxPathLength], maxPath[maxPathInitS]);
+}
+
+
+void deleteAllNeighborBut(Graph *G, int vertex, int keep)
+{
+	Vertex *v, *keepAux;
+	for (v = G->adj[vertex]; v->next!=NULL; )
+	{
+	  	if(v->next->vertex != keep)
+		{
+			deleteEdge(G, vertex, v->next->vertex);
+		}
+		else
+		{
+			keepAux = v->next;
+			v->next = keepAux->next;
+			keepAux->next = NULL;
+		}
+	}
+	v->next = keepAux;
+}
 
 int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 {
@@ -236,10 +278,12 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	mPrime = m - jSize;
 	printf("c %f \n", cPrime);
 	printf("m %d \n", mPrime);
-	deleteChildTree(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
+
+	/* Separate B */
+	deleteEdge(G, maxPath[z], maxPath[(z+1)%maxPathLength]);
 	printf("%d - %d  %d\n", maxPath[(z-1+maxPathLength)%maxPathLength], 
 		maxPath[z], maxPath[(z+1)%maxPathLength]);
-	deleteChildTree(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
+	deleteEdge(G, maxPath[z], maxPath[(z-1+maxPathLength)%maxPathLength]);
 
 	lemma3(G, mPrime, cPrime, maxPath[z], B);	 
 	return B;
@@ -350,6 +394,7 @@ int treeLengthB(Graph *G, int root, int left, int right, int *B)
 	B[Blength++] = root;
 	return ++sum;
 }
+
 
 /*void printDebug()
 {

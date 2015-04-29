@@ -73,7 +73,8 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 			printChildTree(G, root, v->vertex);
 			save(G, root, v->vertex, B);
 
-			deleteChildTree(G, root, v->vertex);
+			/* separate B and W */
+			deleteEdge(G, root, v->vertex);
 			descendant[root] -= removeDescendant;
 			numVerticesCut = 1;
 			return removeDescendant;
@@ -110,7 +111,8 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 				numVerticesB += descendant[v->next->vertex];
 				printChildTree(G, root, v->next->vertex);
 				save(G, root, v->next->vertex, B);
-				deleteChildTree(G, root, v->next->vertex);
+				/* Separate B and W */
+				deleteEdge(G, root, v->next->vertex);
 				numVerticesCut ++;
 			}
 			if( v->next==NULL )
@@ -175,29 +177,4 @@ void save(Graph *G, int parent, int vertex, int *B)
 		if(v->vertex != parent)
 			save(G, vertex, v->vertex, B);	
 	B[Blength++] = vertex;
-}
-
-void deleteChildTree(Graph *G, int parent, int vertex)
-/* Delete the edge that connect the childTree with the tree */
-{	
-	Vertex *v;
-	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
-		if (v->next->vertex == vertex)
-		{
-			Vertex *rem;
-			rem = v->next;
-			v->next = rem->next;
-			free(rem);
-			break;
-		}
-
-	for(v = G->adj[vertex]; v->next!=NULL; v = v->next)
-		if(v->next->vertex == parent)
-		{
-			Vertex *rem;
-			rem = v->next;
-			v->next = rem->next;
-			free(rem);
-			break;
-		}
 }

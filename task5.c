@@ -1,5 +1,7 @@
 #include "common/theorem4.h"
 
+void theorem6(Graph *G, int *B, int m);
+
 
 int main(int argc, char *argv[])
 {

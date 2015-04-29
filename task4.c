@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
 	m = atoi(argv[2]);
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	r = 0;
+	r = 1;
 	maxPath = maximumPath(G, r);
 	max = changeOrderAtAdj(G, maxPath, root);
 	vLabel = label(G, maxPath, max, root);
@@ -205,6 +205,7 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	/* j is the vertex before z on C */
 	int i, j, jSize = 0, mPrime, *B;
 	float cPrime, d;
+	Vertex *v;
 
 	B = malloc(G->V*sizeof(int));
 	
@@ -218,6 +219,18 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 		jSize += treeLengthB(G, maxPath[i], 
 				maxPath[(i-1 + maxPathLength)%maxPathLength], 
 				maxPath[(i+1)%maxPathLength], B);
+	}
+
+	/* maxPath[i] is zf now */
+	/* We have to add all the tree maxPath[i] but the root */
+	/* Count the number of all root's childs  */
+	for (v = G->adj[maxPath[i]]->next; v!=NULL; v = v->next)
+	{
+		if(v->vertex != maxPath[(i-1+maxPathLength)%maxPathLength] 
+			&& v->vertex!= maxPath[(i+1)%maxPathLength])
+		{
+			jSize += treeLengthB(G, v->vertex, maxPath[i], -1, B);
+		}
 	}
 
 	d = maxPathLength*1.0/G->V;

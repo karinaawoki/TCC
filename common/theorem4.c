@@ -12,7 +12,8 @@ int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label);
 void printB(int *B);
 void deleteAllNeighborBut(Graph *G, int vertex, int keep);
-void separateSBSpecial(Graph *G, int maxPathInitS, int z, int *label, int *vLabel, int *maxPath, int m);
+void separateSBSpecial(Graph *G, int z, int *label, int *vLabel, int *maxPath, int m);
+void separateSFSpecial(Graph *G, int z, int *label, int *vLabel, int *maxPath, int m);
 int nextMaxPath(int vertex);
 int previousMaxPath(int vertex);
 
@@ -43,6 +44,9 @@ void theorem4(Graph *G, int *B, int m)
 	free(B);
 	free(root);
 	free(vLabel);
+
+	printGraph(G);
+	
 	freeGraph(G);
 }
 
@@ -203,25 +207,57 @@ int *bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	deleteEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	deleteEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 	lemma3(G, mPrime, cPrime, maxPath[z], B);
+	separateSBSpecial(G, z, label, rLabel, maxPath, m);
 
 	return B;
 }
 
 
-void separateSBSpecial(Graph *G, int maxPathInitS, int z, int *label, int *vLabel, int *maxPath, int m)
+void separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, int m)
 {
 	/* Delete all edges, but  */
-	deleteAllNeighborBut(G, maxPath[maxPathInitS], maxPath[nextMaxPath(maxPathInitS)]);
-	maxPathInitS = nextMaxPath(maxPathInitS);
-	while(vLabel[(label[maxPath[maxPathInitS]] + m)%G->V] == label[maxPath[z]])
-	{
-		maxPathInitS = (maxPathInitS + 1)%G->V;
-	}
-	maxPathInitS = previousMaxPath(maxPathInitS);
+	int aux = previousMaxPath(z), divided = 0;
 
-	deleteEdge(G, maxPath[previousMaxPath(maxPathInitS)], maxPath[maxPathInitS]);
+	/* We jump the tree between z and TPz */
+	while(rLabel[(label[maxPath[aux]] + m)%G->V] != label[maxPath[z]])
+		aux = previousMaxPath(aux);
+
+	deleteEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
+
+	while(rLabel[(label[maxPath[aux]] + m)%G->V] == label[maxPath[z]])
+	{
+		if(aux == 0)
+			divided = 1;
+		else if(aux == maxPathLength-1 && divided == 1)
+			includeEdges(G, maxPath[0], maxPath[maxPathLength-1]);
+		aux = previousMaxPath(aux);
+	}
+	aux = nextMaxPath(aux);
+	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
+
 }
 
+void separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, int m)
+{
+	/* Delete all edges, but  */
+	int aux = nextMaxPath(z), divided = 0;
+
+	while( rLabel[(label[maxPath[aux]]-m+G->V)%G->V] != label[maxPath[z]])
+	{
+		aux = nextMaxPath(aux);
+	}
+
+	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
+	while(rLabel[(label[maxPath[aux]] - m + G->V)%G->V] == label[maxPath[z]])
+	{
+		if(aux == maxPathLength-1)
+			divided = 1;
+		else if(aux == 0 && divided == 1)
+			includeEdges(G, maxPath[0], maxPath[maxPathLength-1]);
+		aux = nextMaxPath(aux);
+	}
+	deleteEdge(G, maxPath[previousMaxPath(aux)], maxPath[aux]);
+}
 
 int nextMaxPath(int vertex)
 {
@@ -297,7 +333,9 @@ int *fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 		maxPath[z], maxPath[nextMaxPath(z)]);
 	deleteEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 
-	lemma3(G, mPrime, cPrime, maxPath[z], B);	 
+	lemma3(G, mPrime, cPrime, maxPath[z], B);
+	separateSFSpecial(G, z, label, rLabel, maxPath, m);
+
 	return B;
 }
 

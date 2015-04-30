@@ -22,27 +22,27 @@ int previousMaxPath(int vertex);
 /* root[i] = j    -   i and j  by index */
 /* rLabel[i] = j  -   i and j  by label */
 
-void theorem4(Graph *G, int *B, int m)
+void theorem4(Graph *G, int *B, int m, int root)
 {
 	/* argv[1] = filename */
 	/* argv[2] = m        */
 
-	int *maxPath, *vLabel, max, *root;
-	int r;
-	root = malloc(G->V*sizeof(int));
+	int *maxPath, *vLabel, max, *r;
+	r = malloc(G->V*sizeof(int));
+	
+	maxPath = maximumPath(G, root);
+	
+	/* Labeling */
+	max = changeOrderAtAdj(G, maxPath, r);
+	vLabel = label(G, maxPath, max, r);
 
-	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	r = 0; 
-	maxPath = maximumPath(G, r);
-	max = changeOrderAtAdj(G, maxPath, root);
-	vLabel = label(G, maxPath, max, root);
-	B = decideCases(G, maxPath, vLabel, m, root);
+	B = decideCases(G, maxPath, vLabel, m, r);
 
 
 	free(maxPath);
 	/*printLabel(G, vLabel, root);*/
 	free(B);
-	free(root);
+	free(r);
 	free(vLabel);
 
 	printGraph(G);

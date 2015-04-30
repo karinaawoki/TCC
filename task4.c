@@ -6,11 +6,17 @@ int main(int argc, char *argv[])
 	/* argv[1] = filename */
 	/* argv[2] = m        */
 
-	int *B;
+	int *B, root;
 	Graph *G;
 	G = read(argv[1]);
+
+	root = (int)(G->V*1.0*rand()/RAND_MAX); 	
 	B = malloc(G->V*sizeof(int));
-	theorem4(G, B, atoi(argv[2]));
+
+	/* TODO: take off */
+	root = 0;
+
+	theorem4(G, B, atoi(argv[2]), root);
 
 	return 0;
 }

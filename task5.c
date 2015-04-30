@@ -20,8 +20,12 @@ int main(int argc, char *argv[])
 
 void theorem6(Graph *G, int *B, int m)
 {
+	int root;
+	root = (int)(G->V*1.0*rand()/RAND_MAX);
+	root = 0; 
+	theorem4(G, B, m, root);
 	while(Blength < m)
 	{
-		theorem4(G, B, m);
+		theorem4(G, B, m, 0);
 	}
 }

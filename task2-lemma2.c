@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	G = read(argv[1]);
 	B = malloc(G->V*sizeof(int));
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-	root = 6;
+	root = 6; /**/
 	numEdges = lemma2(G, atoi(argv[2]), root, B);
 	printf("\n%d \n", numEdges);
 

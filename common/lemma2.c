@@ -64,7 +64,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 		 We don't need to comes down in the tree*/
 		/* ??????????? */
 	{
-		if (descendant[v->vertex] > m/2 && v->vertex != parent)
+		if (descendant[v->vertex] > m/2.0 && v->vertex != parent)
 			/* m/2.0  -->  m/2 */
 		{
 			int removeDescendant = descendant[v->vertex];

@@ -6,18 +6,23 @@ int main(int argc, char *argv[])
 	/* argv[1] = filename */
 	/* argv[2] = m        */
 
-	int *B, root;
+	int *B, root, S;
 	Graph *G;
 	G = read(argv[1]);
+
+	Blength = 0;
 
 	root = (int)(G->V*1.0*rand()/RAND_MAX); 	
 	B = malloc(G->V*sizeof(int));
 
 	/* TODO: take off */
-	root = 0;
+	root = 21;
 
-	theorem4(G, B, atoi(argv[2]), root);
+	S = theorem4(G, B, atoi(argv[2]), root);
 
+	printf("///////--- %d\n", S);
+	free(B);
+	freeGraph(G);
 	return 0;
 }
 

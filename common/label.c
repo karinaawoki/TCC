@@ -14,9 +14,13 @@ int *indexRbyLabel(Graph *G, int *r, int *vLabel)
 	int i, *rLabel;
 	rLabel = malloc(G->V*sizeof(int));
 
+	for (i = 0; i < G->V; i++)
+		rLabel[i] = -1;
+
 	for(i = 0; i<G->V; i++)
 	{
-		rLabel[vLabel[i]] = vLabel[r[i]];
+		if(vLabel[i]!=-1)
+			rLabel[vLabel[i]] = vLabel[r[i]];
 	}
 	return rLabel;
 }
@@ -26,9 +30,13 @@ int *labelToIndex(Graph *G, int *label)
 	int i, *index;
 	index = malloc(G->V*sizeof(int));
 
+	for (i = 0; i < G->V; i++)
+		index[i] = -1;
+
 	for (i = 0; i<G->V; i++)
 	{
-		index[label[i]] = i;
+		if(label[i]!=-1)
+			index[label[i]] = i;
 	}
 	return index;
 }
@@ -66,8 +74,13 @@ int changeOrderAtAdj(Graph *G, int *maxPath, int *r)
 int *label(Graph *G, int *maxPath, int max, int *r)
 {
 	/* max is the last MaxPath vertex  */
-	int *vertLabel;
+	int *vertLabel, i;
 	vertLabel = malloc(G->V*sizeof(int));
+
+	for (i = 0; i < G->V; i++)
+	{
+		vertLabel[i] = -1;
+	}
 
 	count = 0;
 	depthFirst(G, max, max, vertLabel, r);

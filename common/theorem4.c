@@ -122,17 +122,37 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label, in
 
 	pb = Pb(G, maxPath, m, label, rLabel, index, numPb);
 	roB = roNumber(G, label, maxPath, pb, numPb);
-	free(numPb);
 
 	pf = Pf(G, maxPath, m, label, rLabel, index, numPf);
 	roF = roNumber(G, label, maxPath, pf, numPf);
+
+	for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  rob: %f\n", maxPath[i], roB[label[maxPath[i]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  rof: %f\n", maxPath[i], roF[label[maxPath[i]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  Pb: %d\n", maxPath[i], index[pb[label[maxPath[i]]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  Pf: %d\n", maxPath[i], index[pf[label[maxPath[i]]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  numPb: %d\n", maxPath[i], numPb[label[maxPath[i]]]);
+		printf("\n");
+		for (i = 0; maxPath[i]!=-1; ++i)
+			printf("%d -->  numPf: %d\n", maxPath[i], numPf[label[maxPath[i]]]);
+		printf("\n\n\n");
+	free(numPb);
+
 	free(numPf);
 
 	for (i = 0; maxPath[i]!=-1; ++i)
 	{
 		/* takes the minimum rô */
 		if (roB[label[maxPath[i]]]!=-1 && 
-			roB[label[maxPath[i]]] <= roF[label[maxPath[i]]] &&
+			roB[label[maxPath[i]]] < roF[label[maxPath[i]]] &&
 			(roB[label[maxPath[i]]] < zVal || zVal == -1))
 		{
 			z = i;
@@ -301,6 +321,11 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	
 	printf("f-special\n");
 	j = nextMaxPath(z);
+
+	if(rLabel[(label[maxPath[z]]-m+G->V)%G->V]==label[maxPath[z]] )
+	{ /* If z is the first element of P */
+		j = z;
+	}
 
 	for (i = j; 
 		rLabel[(label[maxPath[i]]-m+G->V)%G->V]!=label[maxPath[z]]; 

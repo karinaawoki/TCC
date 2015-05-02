@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 	int *B, root, S;
 	Graph *G;
 	G = read(argv[1]);
-
+	cut = 0;
 	Blength = 0;
 
 	root = (int)(G->V*1.0*rand()/RAND_MAX); 	

@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 	int *B, root;
 	int m = atoi(argv[2]);
 	float c = atof(argv[3]);
+	cut = 0;
 
 	G = read(argv[1]);
 	B = malloc(G->V*sizeof(int));

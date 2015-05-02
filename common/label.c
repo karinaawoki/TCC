@@ -82,7 +82,7 @@ int *label(Graph *G, int *maxPath, int max, int *r)
 		vertLabel[i] = -1;
 	}
 
-	count = 0;
+	countLabel = 0;
 	depthFirst(G, max, max, vertLabel, r);
 	return vertLabel;
 }
@@ -99,5 +99,5 @@ void depthFirst(Graph *G, int vertex, int parent, int *vertLabel, int *r)
 			depthFirst(G, v->vertex, vertex, vertLabel, r);
 		}
 	}
-	vertLabel[vertex] = count ++;
+	vertLabel[vertex] = countLabel ++;
 } 

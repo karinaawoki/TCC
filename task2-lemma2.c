@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 	int root;
 	srand(seed);
 	Blength = 0;
+	cut = 0;
 	G = read(argv[1]);
 	B = malloc(G->V*sizeof(int));
 	root = (int)(G->V*1.0*rand()/RAND_MAX);

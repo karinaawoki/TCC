@@ -33,3 +33,4 @@ void freeGraph(Graph *G);
 void deleteEdge(Graph *G, int parent, int vertex);
 
 int maxPathLength;
+int cut;

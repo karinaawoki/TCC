@@ -45,7 +45,7 @@ int theorem4(Graph *G, int *B, int m, int root)
 	/*printLabel(G, vLabel, root);*/
 	free(r);
 	free(vLabel);
-
+	printf("COUNT %d", countLabel);
 	return S;
 }
 
@@ -61,11 +61,11 @@ int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *B)
 
 	for(i = 0; maxPath[i]!=-1; i++)
 	{
-		plusM = (label[maxPath[i]] + m)%G->V;
+		plusM = (label[maxPath[i]] + m)%countLabel;
 		if(DEBUG==1)
 			printf("índice de um vertice Nm(root)%d\n", index[plusM]);
 		/* the next vertex must belong to another vertex */
-		if(rLabel[plusM] != rLabel[(plusM+1)%G->V])
+		if(rLabel[plusM] != rLabel[(plusM+1)%countLabel])
 		{
 			case1(G, label[maxPath[i]]+1, m, index, B);
 			free(rLabel);
@@ -85,7 +85,7 @@ void case1(Graph *G, int firstVertexB, int m, int *index, int *B)
 	/* B is all the vertex with label between firstVertexB and
 	firstVertexB -m */
 	printf("caso1\n\n");
-	for(i =firstVertexB; i!=(firstVertexB+m-1)%G->V; i = (i+1)%G->V)
+	for(i =firstVertexB; i!=(firstVertexB+m-1)%countLabel; i = (i+1)%countLabel)
 	{
 		printf("%d ", index[i]);
 		B[Blength++] =  index[i];
@@ -94,7 +94,7 @@ void case1(Graph *G, int firstVertexB, int m, int *index, int *B)
 	B[Blength++] =  index[i];
 
 	/* when B is at the border */
-	if((firstVertexB-m+1)%G->V == 0 || firstVertexB == G->V-1)
+	if((firstVertexB-m+1)%countLabel == 0 || firstVertexB == countLabel-1)
 		printf("\n%d\n", 1);
 	else
 		printf("\n%d\n", 2);
@@ -112,9 +112,9 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label, in
 	float *roB, *roF, zVal;
 
 	zVal = -1;
-	numPb = malloc(G->V*sizeof(int));
-	numPf = malloc(G->V*sizeof(int));
-	for (i = 0; i < G->V; ++i)
+	numPb = malloc(countLabel*sizeof(int));
+	numPf = malloc(countLabel*sizeof(int));
+	for (i = 0; i < countLabel; ++i)
 	{
 		numPf[i] = 0;
 		numPb[i] = 0;
@@ -197,7 +197,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	j = previousMaxPath(z);
 
 	for (i = j; 
-		rLabel[(label[maxPath[i]]+m)%G->V]!=label[maxPath[z]]; 
+		rLabel[(label[maxPath[i]]+m)%countLabel]!=label[maxPath[z]]; 
 		i = previousMaxPath(i))
 	{
 		jSize += treeLengthB(G, maxPath[i], 
@@ -207,7 +207,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	}
 	
 	
-	d = maxPathLength*1.0/G->V;
+	d = maxPathLength*1.0/countLabel;
 	cPrime = 2-(1.0/(1-d));
 	mPrime = m - jSize;
 	printf("c %f \n", cPrime);
@@ -232,7 +232,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	int aux = previousMaxPath(z), divided = 0;
 	printf("z %d \n", maxPath[z]);
 	/* We jump the tree between z and TPz */
-	while(rLabel[(label[maxPath[aux]] + m)%G->V] != label[maxPath[z]])
+	while(rLabel[(label[maxPath[aux]] + m)%countLabel] != label[maxPath[z]])
 		aux = previousMaxPath(aux);
 
 
@@ -241,7 +241,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	deleteEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
 
 
-	while(rLabel[(label[maxPath[aux]] + m)%G->V] == label[maxPath[z]])
+	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
 		if(aux == 0)
 			divided = 1;
@@ -262,13 +262,13 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	int S;
 	int aux = nextMaxPath(z), divided = 0;
 
-	while( rLabel[(label[maxPath[aux]]-m+G->V)%G->V] != label[maxPath[z]])
+	while( rLabel[(label[maxPath[aux]]-m+countLabel)%countLabel] != label[maxPath[z]])
 	{
 		aux = nextMaxPath(aux);
 	}
 	S = maxPath[aux];
 	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
-	while(rLabel[(label[maxPath[aux]] - m + G->V)%G->V] == label[maxPath[z]])
+	while(rLabel[(label[maxPath[aux]] - m + countLabel)%countLabel] == label[maxPath[z]])
 	{
 		if(aux == maxPathLength-1)
 			divided = 1;
@@ -322,13 +322,13 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	printf("f-special\n");
 	j = nextMaxPath(z);
 
-	if(rLabel[(label[maxPath[z]]-m+G->V)%G->V]==label[maxPath[z]] )
+	if(rLabel[(label[maxPath[z]]-m+countLabel)%countLabel]==label[maxPath[z]] )
 	{ /* If z is the first element of P */
 		j = z;
 	}
 
 	for (i = j; 
-		rLabel[(label[maxPath[i]]-m+G->V)%G->V]!=label[maxPath[z]]; 
+		rLabel[(label[maxPath[i]]-m+countLabel)%countLabel]!=label[maxPath[z]]; 
 		i = nextMaxPath(i))
 	{
 		jSize += treeLengthB(G, maxPath[i], maxPath[previousMaxPath(i)], 
@@ -347,7 +347,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 		}
 	}
 
-	d = maxPathLength*1.0/G->V;
+	d = maxPathLength*1.0/countLabel;
 	cPrime = 2-(1.0/(1-d));
 	mPrime = m - jSize;
 	printf("c %f \n", cPrime);
@@ -370,14 +370,14 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 {
 	/* label to label */
 	int i, *p, rootLabel;
-	p = malloc(G->V*sizeof(int));
+	p = malloc(countLabel*sizeof(int));
 	
-	for(i = 0; i<G->V; i++)
+	for(i = 0; i<countLabel; i++)
 		p[i] = -1;
 
 	for(i = 0; maxPath[i]!=-1; i++)
 	{
-		rootLabel = rLabel[(label[maxPath[i]] + m)%G->V];
+		rootLabel = rLabel[(label[maxPath[i]] + m)%countLabel];
 		p[label[maxPath[i]]] = rootLabel;
 		numPb[rootLabel]++;
 		if(DEBUG)
@@ -389,15 +389,15 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPf)
 {
 	int i, *p, rootLabel;
-	p = malloc(G->V*sizeof(int));
+	p = malloc(countLabel*sizeof(int));
 
-	for(i = 0; i<G->V; i++)
+	for(i = 0; i<countLabel; i++)
 		p[i] = -1;
 
 	/* For each vertex in C: take its label and map to back.. and take the root */
 	for(i = 0; maxPath[i]!=-1; i++)
 	{
-		rootLabel = rLabel[(label[maxPath[i]] - m + G->V)%G->V];
+		rootLabel = rLabel[(label[maxPath[i]] - m + countLabel)%countLabel];
 		p[label[maxPath[i]]] = rootLabel;
 		numPf[rootLabel]++;
 		if(DEBUG == 1)
@@ -413,10 +413,10 @@ float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP)
 	    * if p == pb... the return will be Hb*/ 
 	int *h, i, T;
 	float *ro;
-	h = malloc(G->V*sizeof(int));
-	ro = malloc(G->V*sizeof(float));
+	h = malloc(countLabel*sizeof(int));
+	ro = malloc(countLabel*sizeof(float));
 
-	for (i = 0; i < G->V; ++i)
+	for (i = 0; i <countLabel; ++i)
 	{
 		ro[i] = -1.0;
 		h[i] = 0;

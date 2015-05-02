@@ -8,4 +8,4 @@ int *indexRbyLabel(Graph *G, int *r, int *vLabel);
 int *labelToIndex(Graph *G, int *label);
 
 
-int count;
+int countLabel;

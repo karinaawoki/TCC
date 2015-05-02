@@ -19,6 +19,7 @@ int lemma2(Graph *G, int m, int root, int *B)
 {
 	if(DEBUG == 1)
 		printf("m: %d\n", m);
+	/*TODO: is not G->V*/
 	if(G->V == m)
 		return mEqualsN(m, B);
 	else if(m == 0)

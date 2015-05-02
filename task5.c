@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	int *B;
 	Graph *G;
 	Blength = 0;
+	cut = 0;
 
 	G = read(argv[1]);
 	B = malloc(G->V*sizeof(int));

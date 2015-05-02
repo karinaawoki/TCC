@@ -6,8 +6,8 @@ void Algorithm1(Graph *G, float c, int m, int root, int *B);
 void lemma3(Graph *G, int m, float c, int root, int *B)
 {
 	srand(seed);
-	
-	if(m ==  G->V || m == 0 || c <= 0.5)
+	/*TODO: is not countLabel*/
+	if(m ==  countLabel || m == 0 || c <= 0.5)
 		printf("\n%d \n", lemma2(G, m, root, B));
 	else
 		/* c >= m/2 */
@@ -40,7 +40,9 @@ void Algorithm1(Graph *G, float c, int m, int root, int *B)
 		m elementos. */
 		
 		childNumber(G, root, childs, root);
-		lenB = G->V - childs[root];
+
+		/*TODO: is not countLabel*/
+		lenB = countLabel - childs[root];
 		/*printf("\n");
 		printf("lenB = %d\n", lenB);
 		printf("lenCut = %d\n", lenCut);*/

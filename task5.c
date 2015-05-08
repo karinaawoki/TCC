@@ -27,7 +27,7 @@ void theorem6(Graph *G, int *B, int m)
 {
 	int root, S;
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-	root = 38; 
+	root = 1; 
 
 	S = theorem4(G, B, m, root);
 	while(Blength < m)

@@ -67,7 +67,7 @@ int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *B)
 		/* the next vertex must belong to another vertex */
 		if(rLabel[plusM] != rLabel[(plusM+1)%countLabel])
 		{
-			case1(G, label[maxPath[i]]+1, m, index, B);
+			case1(G, (label[maxPath[i]]+1)%countLabel, m, index, B);
 			free(rLabel);
 			free(index);
 			return -1;

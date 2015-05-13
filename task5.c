@@ -1,7 +1,8 @@
 #include "common/theorem4.h"
 
 void theorem6(Graph *G, int *B, int m);
-
+void countEdgesAtCut(Graph *G, int ver, int parent);
+int numCut;
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
 	Graph *G;
 	Blength = 0;
 	cut = 0;
+	numCut = 0;
 
 	G = read(argv[1]);
 	setBInit(G);
@@ -49,5 +51,25 @@ void theorem6(Graph *G, int *B, int m)
 	{
 	    printf("B[%d] = %d\n", i, B[i]);
 	}
-	printf("oiee\n");
+	
+	countEdgesAtCut(G, 0, 0);
+	printf("CORTE: %d", numCut);
+}
+
+
+
+void countEdgesAtCut(Graph *G, int ver, int parent)
+{
+    Vertex *v;
+    for(v = G->adj[ver]->next; v!=NULL; v = v->next)
+    {
+        if(setB[ver]!=setB[v->vertex])
+        {
+            numCut++;
+        }
+        if(v->vertex!=parent)
+        {
+            countEdgesAtCut(G, v->vertex, ver);
+        }   
+    }
 }

@@ -24,6 +24,7 @@ void includeEdges(Graph *G, int vertex1, int vertex2);
 void printGraph(Graph *G);
 void freeGraph(Graph *G);
 void deleteEdge(Graph *G, int parent, int vertex);
+void setBInit(Graph *G);
 
 int maxPathLength;
 int *setB; /* Vetor binário (pertence ou não a B) */

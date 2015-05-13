@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 	cut = 0;
 
 	G = read(argv[1]);
+	setBInit(G);
 	B = malloc(G->V*sizeof(int));
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
 
 	free(B);
 	freeGraph(G);
+	free(setB);
 	
 	return 0;
 }

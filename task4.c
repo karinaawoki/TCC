@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 	int *B, root, S;
 	Graph *G;
 	G = read(argv[1]);
+	setBInit(G);
 	cut = 0;
 	Blength = 0;
 
@@ -23,6 +24,8 @@ int main(int argc, char *argv[])
 	printf("///////--- %d\n", S);
 	free(B);
 	freeGraph(G);
+	free(setB);
+	
 	return 0;
 }
 

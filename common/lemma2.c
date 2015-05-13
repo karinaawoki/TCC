@@ -1,7 +1,7 @@
 #include "lemma2.h"
 
 
-int mEqualsN(int m, int *B);
+int mEqualsN(Graph *G, int m, int *B, int root);
 int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B);
 void printChildTree(Graph *G, int parent, int vertex);
 int mLessThanN(Graph *G, int m, int root, int *B);
@@ -20,7 +20,7 @@ int lemma2(Graph *G, int m, int root, int *B, int NumVert)
 	if(DEBUG == 1)
 		printf("m: %d\n", m);
 	if(NumVert == m)
-		return mEqualsN(m, B);
+		return mEqualsN(G, m, B, root);
 	else if(m == 0)
 		return 0;
 	else
@@ -29,17 +29,20 @@ int lemma2(Graph *G, int m, int root, int *B, int NumVert)
 
 
 
-int mEqualsN(int m, int *B)
+int mEqualsN(Graph *G, int m, int *B, int root)
 {
 	/* Return the number of edges in the cut */
-	int i;
+	/*int i;
 	printf("trataaaar -----------");
 	for(i = 0; i<m; i++)
 	{
 		printf("%d ", i);
 		B[Blength++] = i;
 		setB[i] = 1;
-	}
+	}*/
+	
+	save(G, root, root, B);
+	
 	return 0;
 }
 

@@ -18,13 +18,6 @@ struct graph
 	Vertex** adj;
 };
 
-/*typedef struct edge Edge;
-struct edge
-{
-    int vertex1;
-    int vertex2;
-    Edge *next;
-};*/
 
 void initGraph(Graph *G, int V);
 void includeEdges(Graph *G, int vertex1, int vertex2);
@@ -33,4 +26,6 @@ void freeGraph(Graph *G);
 void deleteEdge(Graph *G, int parent, int vertex);
 
 int maxPathLength;
+int *setB; /* Vetor binário (pertence ou não a B) */
+
 int cut;

@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 	cut = 0;
 
 	G = read(argv[1]);
+	setBInit(G);
 	B = malloc(G->V*sizeof(int));
 	theorem6(G, B, atoi(argv[2]));
 
@@ -25,17 +26,28 @@ int main(int argc, char *argv[])
 
 void theorem6(Graph *G, int *B, int m)
 {
-	int root, S;
+	int root, Ssize, i;
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 	root = 1; 
 
-	S = theorem4(G, B, m, root);
+	Ssize = theorem4(G, B, m, root);
 	while(Blength < m)
 	{
 		printf("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEY\n");
-		if(S<0)
+		if(Ssize<0)
 			printf("ERROOOO\n");
-		S = theorem4(G, B, m-Blength, S);
+		Ssize = theorem4(G, B, m-Blength, Ssize);
+	}
+	
+	for(i = 0; i<G->V; i++)
+	{
+	if(setB[i] == 1)
+	    printf("setB[%d] = %d\n", i, setB[i]);
+	}
+	printf("\n\n");
+	for(i = 0; i<Blength; i++)
+	{
+	    printf("B[%d] = %d\n", i, B[i]);
 	}
 	printf("oiee\n");
 }

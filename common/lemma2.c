@@ -33,10 +33,12 @@ int mEqualsN(int m, int *B)
 {
 	/* Return the number of edges in the cut */
 	int i;
+	printf("trataaaar -----------");
 	for(i = 0; i<m; i++)
 	{
 		printf("%d ", i);
 		B[Blength++] = i;
+		setB[i] = 1;
 	}
 	return 0;
 }
@@ -176,5 +178,6 @@ void save(Graph *G, int parent, int vertex, int *B)
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
 		if(v->vertex != parent)
 			save(G, vertex, v->vertex, B);	
+    setB[vertex] = 1;
 	B[Blength++] = vertex;
 }

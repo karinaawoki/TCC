@@ -14,6 +14,17 @@ void initGraph(Graph *G, int V)
 }
 
 
+void setBInit(Graph *G)
+{
+    int i;
+    setB = malloc(G->V*sizeof(int));
+    for(i = 0; i<G->V; i++)
+    {
+        setB[i] = 0;
+    }
+}
+
+
 void freeGraph(Graph *G)
 {
 	int i = 0;

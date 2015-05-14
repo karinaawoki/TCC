@@ -69,7 +69,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 		 We don't need to comes down in the tree*/
 		/* ??????????? */
 	{
-		if (descendant[v->vertex] > m/2.0 && v->vertex != parent)
+		if (descendant[v->vertex] > m/2.0 && v->vertex != parent && v->edge == 1)
 			/* m/2.0  -->  m/2 */
 		{
 			int removeDescendant = descendant[v->vertex];
@@ -108,7 +108,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 		for(v = G->adj[root]; v->next!=NULL; v = v->next)
 		{
 			while (v->next!=NULL && numVerticesB + descendant[v->next->vertex] <= m 
-				&& v->next->vertex != parent)
+				&& v->next->vertex != parent && v->next->edge==1)
 			{
 				/* Sum each set (roots childs) */ 
 				if(DEBUG == 1)
@@ -118,6 +118,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 				save(G, root, v->next->vertex, B);
 				/* Separate B and W */
 				deleteEdge(G, root, v->next->vertex);
+				v= v->next;
 				numVerticesCut ++;
 			}
 			if( v->next==NULL )
@@ -158,7 +159,7 @@ int childNumber(Graph *G, int root, int *descendant, int parent)
 	Vertex *i;
 	int sum = 0;
 	for (i = G->adj[root]->next; i!= NULL; i = i->next)
-		if (i->vertex != parent)
+		if (i->vertex != parent && i->edge == 1)
 			sum += childNumber(G, i->vertex, descendant, root);
 	descendant[root] = ++sum;
 	return sum;
@@ -169,7 +170,7 @@ void printChildTree(Graph *G, int parent, int vertex)
 	/* print vertex and all of its descendants */
 	Vertex *v;
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
-		if(v->vertex != parent)
+		if(v->vertex != parent && v->edge==1)
 			printChildTree(G, vertex, v->vertex);	
 	printf("%d ", vertex);
 }
@@ -179,7 +180,7 @@ void save(Graph *G, int parent, int vertex, int *B)
 	/* save vertex and all of its descendants */
 	Vertex *v;
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
-		if(v->vertex != parent)
+		if(v->vertex != parent && v->edge==1)
 			save(G, vertex, v->vertex, B);	
     setB[vertex] = 1;
 	B[Blength++] = vertex;

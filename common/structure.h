@@ -9,6 +9,7 @@ struct vertex
 {
 	int vertex;
 	Vertex *next;
+	int edge;
 };
 
 typedef struct graph Graph;

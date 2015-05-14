@@ -51,6 +51,9 @@ void includeEdges(Graph *G, int vertex1, int vertex2)
 	newVertex1->vertex = vertex1;
 	newVertex2->vertex = vertex2;
 
+	newVertex1->edge = 1;
+	newVertex2->edge = 1;
+
 	/*newVertex1->next = G->adj[vertex2];*/
 	newVertex1->next = G->adj[vertex2]->next;
 
@@ -85,20 +88,22 @@ void deleteEdge(Graph *G, int parent, int vertex)
 	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
 		if (v->next->vertex == vertex)
 		{
-			Vertex *rem;
+			v->next->edge = 0;
+			/*Vertex *rem;
 			rem = v->next;
 			v->next = rem->next;
-			free(rem);
+			free(rem);*/
 			break;
 		}
 
 	for(v = G->adj[vertex]; v->next!=NULL; v = v->next)
 		if(v->next->vertex == parent)
 		{
-			Vertex *rem;
+			v->next->edge = 0;
+			/*Vertex *rem;
 			rem = v->next;
 			v->next = rem->next;
-			free(rem);
+			free(rem);*/
 			break;
 		}
 }

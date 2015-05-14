@@ -67,7 +67,7 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
         {
         	if(setB[ver]!=setB[v->vertex])
         	{
-        		printf("%d -- %d\n", ver, v->vertex);
+        		/*printf("%d -- %d\n", ver, v->vertex);*/
             	numCut++;
         	}
             countEdgesAtCut(G, v->vertex, ver);

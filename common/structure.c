@@ -54,6 +54,33 @@ void includeEdges(Graph *G, int vertex1, int vertex2)
 	newVertex1->edge = 1;
 	newVertex2->edge = 1;
 
+	newVertex1->original = 1;
+	newVertex2->original = 1;
+
+	/*newVertex1->next = G->adj[vertex2];*/
+	newVertex1->next = G->adj[vertex2]->next;
+
+	G->adj[vertex2]->next = newVertex1; 
+
+	newVertex2->next = G->adj[vertex1]->next;
+	G->adj[vertex1]->next = newVertex2;
+}
+
+void includeNotOriginalEdges(Graph *G, int vertex1, int vertex2)
+{
+	Vertex *newVertex1, *newVertex2;
+	newVertex1 = malloc(sizeof(Vertex));
+	newVertex2 = malloc(sizeof(Vertex));
+
+	newVertex1->vertex = vertex1;
+	newVertex2->vertex = vertex2;
+
+	newVertex1->edge = 1;
+	newVertex2->edge = 1;
+
+	newVertex1->original = 0;
+	newVertex2->original = 0;
+
 	/*newVertex1->next = G->adj[vertex2];*/
 	newVertex1->next = G->adj[vertex2]->next;
 
@@ -73,7 +100,7 @@ void printGraph(Graph *G)
 		aux = G->adj[i]->next;
 		while(aux!=NULL)
 		{
-			printf("%d %d\n", i, aux->vertex);
+			printf("%d %d    : edge: %d \n", i, aux->vertex, aux->edge);
 			aux = aux->next;
 		}
 	}
@@ -88,11 +115,31 @@ void deleteEdge(Graph *G, int parent, int vertex)
 	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
 		if (v->next->vertex == vertex)
 		{
-			v->next->edge = 0;
-			/*Vertex *rem;
+			Vertex *rem;
 			rem = v->next;
 			v->next = rem->next;
-			free(rem);*/
+			free(rem);
+			break;
+		}
+
+	for(v = G->adj[vertex]; v->next!=NULL; v = v->next)
+		if(v->next->vertex == parent)
+		{
+			Vertex *rem;
+			rem = v->next;
+			v->next = rem->next;
+			free(rem);
+			break;
+		}
+}
+void eraseEdge(Graph *G, int parent, int vertex)
+/* Delete the edge that connect the childTree with the tree */
+{	
+	Vertex *v;
+	for(v = G->adj[parent]; v->next!=NULL; v = v->next)
+		if (v->next->vertex == vertex)
+		{
+			v->next->edge = 0;
 			break;
 		}
 
@@ -100,10 +147,6 @@ void deleteEdge(Graph *G, int parent, int vertex)
 		if(v->next->vertex == parent)
 		{
 			v->next->edge = 0;
-			/*Vertex *rem;
-			rem = v->next;
-			v->next = rem->next;
-			free(rem);*/
 			break;
 		}
 }

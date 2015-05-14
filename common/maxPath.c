@@ -63,7 +63,7 @@ int fartherVertex(Graph *G, int vertex, int *parents)
 		Vertex *aux;
 		for(aux = G->adj[q->init->num]->next; aux!=NULL; aux = aux->next)
 		{
-			if (parents[aux->vertex]==-1)
+			if (parents[aux->vertex]==-1 && aux->edge==1)
 			{
 				insertQueue(q, aux->vertex);
 				parents[aux->vertex] = q->init->num;

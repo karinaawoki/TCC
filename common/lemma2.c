@@ -64,7 +64,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 	/* Return the vertices number of B */
 	Vertex *v;
 	for(v = G->adj[root]->next; v!= NULL && 
-		(descendant[v->vertex] <= m || v->vertex == parent) ; v = v->next)
+		(descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)
 		/* If the tree satisfies the condition of the lemma, the tree is a answer 
 		 We don't need to comes down in the tree*/
 		/* ??????????? */
@@ -79,7 +79,8 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 			save(G, root, v->vertex, B);
 
 			/* separate B and W */
-			deleteEdge(G, root, v->vertex);
+			eraseEdge(G, root, v->vertex);
+
 			descendant[root] -= removeDescendant;
 			numVerticesCut = 1;
 			return removeDescendant;
@@ -107,31 +108,35 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 			printf("filhos com menos de m vertices.. raiz: %d\n", root);
 		for(v = G->adj[root]; v->next!=NULL; v = v->next)
 		{
+
 			while (v->next!=NULL && numVerticesB + descendant[v->next->vertex] <= m 
-				&& v->next->vertex != parent && v->next->edge==1)
+				|| v->next->vertex == parent || v->next->edge != 1)
 			{
 				/* Sum each set (roots childs) */ 
-				if(DEBUG == 1)
-					printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
-				numVerticesB += descendant[v->next->vertex];
-				printChildTree(G, root, v->next->vertex);
-				save(G, root, v->next->vertex, B);
-				/* Separate B and W */
-				deleteEdge(G, root, v->next->vertex);
-				v= v->next;
-				numVerticesCut ++;
+				if(v->next->edge == 1 && v->next->vertex != parent)
+				{
+					if(DEBUG == 1)
+						printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
+					numVerticesB += descendant[v->next->vertex];
+					printChildTree(G, root, v->next->vertex);
+					save(G, root, v->next->vertex, B);
+					/* Separate B and W */
+					eraseEdge(G, root, v->next->vertex);
+					v = v->next;
+					numVerticesCut ++;
+				}
+				else
+					v=v->next;
+				if(v->next == NULL)
+					break;
 			}
 			if( v->next==NULL )
-			{
-
 				break;
-			}
 			else if(v->next->vertex!=parent)
 			{
 				if(DEBUG == 1)
 					printf("saiu \n");
 				descendant[root] -= numVerticesB;
-				/*descendant[root] = -5;*/
 
 				return numVerticesB;
 			}

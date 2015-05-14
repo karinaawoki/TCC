@@ -31,7 +31,6 @@ int theorem4(Graph *G, int *B, int m, int root)
 	int Ssize;
 	int *maxPath, *vLabel, max, *r;
 	r = malloc(G->V*sizeof(int));
-	
 	maxPath = maximumPath(G, root);
 	
 	/* Labeling */
@@ -40,9 +39,8 @@ int theorem4(Graph *G, int *B, int m, int root)
 
 	Ssize = decideCases(G, maxPath, vLabel, m, r, B);
 
-
 	free(maxPath);
-	/*printLabel(G, vLabel, root);*/
+	printLabel(G, vLabel, r);
 	free(r);
 	free(vLabel);
 	printf("COUNT %d", countLabel);
@@ -218,8 +216,8 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	/* Separate B */
 
 
-	deleteEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
-	deleteEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
+	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
+	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 	
 	lemma3(G, mPrime, cPrime, maxPath[z], B);
 
@@ -273,10 +271,10 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	printf("m %d \n", mPrime);
 
 	/* Separate B */
-	deleteEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
+	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	printf("%d - %d  %d\n", maxPath[previousMaxPath(z)], 
 		maxPath[z], maxPath[nextMaxPath(z)]);
-	deleteEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
+	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 
 	lemma3(G, mPrime, cPrime, maxPath[z], B);
 
@@ -346,22 +344,19 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 
 	Ssize = maxPath[aux];
 	printf("aux %d\n", maxPath[aux]);
-	deleteEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
-printf("oieeee\n");
+	eraseEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
 
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
 		if(aux == 0)
 			divided = 1;
 		else if(aux == maxPathLength-1 && divided == 1)
-			includeEdges(G, maxPath[0], maxPath[maxPathLength-1]);
+			includeNotOriginalEdges(G, maxPath[0], maxPath[maxPathLength-1]);
 		aux = previousMaxPath(aux);
 	}
 	aux = nextMaxPath(aux);
-printf("aeee\n");
 	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
 
-	printf("sera\n");
 	return Ssize;
 }
 
@@ -383,10 +378,10 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 		if(aux == maxPathLength-1)
 			divided = 1;
 		else if(aux == 0 && divided == 1)
-			includeEdges(G, maxPath[0], maxPath[maxPathLength-1]);
+			includeNotOriginalEdges(G, maxPath[0], maxPath[maxPathLength-1]);
 		aux = nextMaxPath(aux);
 	}
-	deleteEdge(G, maxPath[previousMaxPath(aux)], maxPath[aux]);
+	eraseEdge(G, maxPath[previousMaxPath(aux)], maxPath[aux]);
 
 	return Ssize;
 }
@@ -410,7 +405,7 @@ void deleteAllNeighborBut(Graph *G, int vertex, int keep)
 	{
 	  	if(v->next->vertex != keep && v->next->edge == 1)
 		{
-			deleteEdge(G, vertex, v->next->vertex);
+			eraseEdge(G, vertex, v->next->vertex);
 		}
 		/*else
 		{

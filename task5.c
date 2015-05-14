@@ -41,7 +41,7 @@ void theorem6(Graph *G, int *B, int m)
 		Ssize = theorem4(G, B, m-Blength, Ssize);
 	}
 	
-	for(i = 0; i<G->V; i++)
+	/*for(i = 0; i<G->V; i++)
 	{
 	if(setB[i] == 1)
 	    printf("setB[%d] = %d\n", i, setB[i]);
@@ -50,10 +50,11 @@ void theorem6(Graph *G, int *B, int m)
 	for(i = 0; i<Blength; i++)
 	{
 	    printf("B[%d] = %d\n", i, B[i]);
-	}
+	}*/
 	
 	countEdgesAtCut(G, 0, 0);
-	printf("CORTE: %d", numCut);
+	printf("CORTE: %d\n", numCut);
+
 }
 
 
@@ -63,11 +64,11 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
     Vertex *v;
     for(v = G->adj[ver]->next; v!=NULL; v = v->next)
     {
-        if(v->vertex!=parent)
+        if(v->vertex!=parent && v->original==1)
         {
         	if(setB[ver]!=setB[v->vertex])
         	{
-        		/*printf("%d -- %d\n", ver, v->vertex);*/
+        		printf("%d -- %d\n", ver, v->vertex);
             	numCut++;
         	}
             countEdgesAtCut(G, v->vertex, ver);

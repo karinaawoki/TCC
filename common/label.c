@@ -55,7 +55,7 @@ int changeOrderAtAdj(Graph *G, int *maxPath, int *r)
 		r[maxPath[i]] = maxPath[i];
 		for (v = G->adj[maxPath[i]]; v->next != NULL; v = v->next)
 		{
-			if(maxPath[i-1] == v->next->vertex)
+			if(maxPath[i-1] == v->next->vertex && v->next->edge==1)
 			{
 				Vertex *move;
 				move = v->next;
@@ -92,7 +92,7 @@ void depthFirst(Graph *G, int vertex, int parent, int *vertLabel, int *r)
 	Vertex *v;
 	for(v = G->adj[vertex]->next; v!=NULL; v = v->next)
 	{
-		if(v->vertex!=parent)
+		if(v->vertex!=parent && v->edge==1)
 		{
 			if (r[v->vertex]==-1)
 				r[v->vertex] = r[vertex];

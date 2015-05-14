@@ -42,7 +42,7 @@ int theorem4(Graph *G, int *B, int m, int root)
 
 
 	free(maxPath);
-	/*printLabel(G, vLabel, root);*/
+	printLabel(G, vLabel, r);
 	free(r);
 	free(vLabel);
 	printf("COUNT %d", countLabel);

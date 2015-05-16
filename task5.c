@@ -2,7 +2,7 @@
 
 void theorem6(Graph *G, int m);
 void countEdgesAtCut(Graph *G, int ver, int parent);
-void relabel(int *label);
+void relabel(Graph *G, int *label, int *index);
 void reMaxPath(Graph *G, int *maxPath, int *index);
 
 
@@ -132,7 +132,26 @@ void reMaxPath(Graph *G, int *maxPath, int *index)
 }
 
 
-void relabel(int *label)
+void relabel(Graph *G, int *label, int *index)
 {
+	int *auxLabel, *auxIndex, i;
+	
+	auxLabel = malloc(G->V*sizeof(int));
+	auxIndex = malloc(G->V*sizeof(int));
+	for (i = 0; i < G->V; i++)
+	{
+		auxIndex[i] = -1;
+		auxLabel[i] = -1;
+	}
+	for(i = maxPathInit; i!=maxPathEnd; i = (i+1)%maxPathLength)
+	{
+		auxIndex[(i-maxPathInit + maxPathLength)%maxPathLength] = index[i];
+		auxLabel[index[i]] = (i-maxPathInit+maxPathLength)%maxPathLength;
+	}
 
+	free(label);
+	free(index);
+
+	label = auxLabel;
+	index = auxIndex;
 }

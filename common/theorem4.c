@@ -1,16 +1,16 @@
 #include "theorem4.h"
 
-int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *B);
-void case1(Graph *G, int firstVertexB, int m, int *index, int *B);
-int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label, int *B);
+int decideCases(Graph *G, int *maxPath, int*label, int m, int *r);
+void case1(Graph *G, int firstVertexB, int m, int *index);
+int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label);
 int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPb);
 int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPf);
 int treeLength(Graph *G, int root, int left, int right);
-int treeLengthB(Graph *G, int root, int left, int right, int *B);
+int treeLengthB(Graph *G, int root, int left, int right);
 float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP);
-int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, int *B);
-int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, int *B);
-void printB(int *B);
+int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label);
+int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label);
+void printB(Graph *G);
 void deleteAllNeighborBut(Graph *G, int vertex, int keep);
 int separateSBSpecial(Graph *G, int z, int *label, int *vLabel, int *maxPath, int m);
 int separateSFSpecial(Graph *G, int z, int *label, int *vLabel, int *maxPath, int m);
@@ -22,7 +22,7 @@ int previousMaxPath(int vertex);
 /* root[i] = j    -   i and j  by index */
 /* rLabel[i] = j  -   i and j  by label */
 
-int theorem4(Graph *G, int *B, int m, int root)
+int theorem4(Graph *G, int m, int root)
 {
 	/* Return an element of S */
 	/* argv[1] = filename */
@@ -37,18 +37,17 @@ int theorem4(Graph *G, int *B, int m, int root)
 	max = changeOrderAtAdj(G, maxPath, r);
 	vLabel = label(G, maxPath, max, r);
 
-	Ssize = decideCases(G, maxPath, vLabel, m, r, B);
+	Ssize = decideCases(G, maxPath, vLabel, m, r);
 
 	free(maxPath);
 	printLabel(G, vLabel, r);
 	free(r);
 	free(vLabel);
-	printf("COUNT %d", countLabel);
 	return Ssize;
 }
 
 
-int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *B)
+int decideCases(Graph *G, int *maxPath, int*label, int m, int *r)
 {
 	/* Return the vector of the set B */
 	int plusM, i, Ssize;
@@ -65,19 +64,19 @@ int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *B)
 		/* the next vertex must belong to another vertex */
 		if(rLabel[plusM] != rLabel[(plusM+1)%countLabel])
 		{
-			case1(G, (label[maxPath[i]]+1)%countLabel, m, index, B);
+			case1(G, (label[maxPath[i]]+1)%countLabel, m, index);
 			free(rLabel);
 			free(index);
 			return -1;
 		}
 	}
-	Ssize =  case2(G, m, index, maxPath, rLabel, label, B);
+	Ssize =  case2(G, m, index, maxPath, rLabel, label);
 	free(rLabel);
 	free(index);
 	return Ssize;
 }
 
-void case1(Graph *G, int firstVertexB, int m, int *index, int *B)
+void case1(Graph *G, int firstVertexB, int m, int *index)
 {
 	int i;
 	/* B is all the vertex with label between firstVertexB and
@@ -86,13 +85,11 @@ void case1(Graph *G, int firstVertexB, int m, int *index, int *B)
 	for(i =firstVertexB; i!=(firstVertexB+m-1)%countLabel; i = (i+1)%countLabel)
 	{
 		printf("%d ", index[i]);
-		B[Blength++] =  index[i];
 		setB[index[i]] = 1;
 	}
 	
 	printf("%d ", index[i]);
 	setB[index[i]] = 1;
-	B[Blength++] =  index[i];
 
 	/* when B is at the border */
 	if((firstVertexB-m+1)%countLabel == 0 || firstVertexB == countLabel-1)
@@ -100,10 +97,10 @@ void case1(Graph *G, int firstVertexB, int m, int *index, int *B)
 	else
 		printf("\n%d\n", 2);
 
-	printB(B);
+	printB(G);
 }
 
-int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label, int *B)
+int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 {
 	/* maxPath[z] = vertex with minimum rô.. and bSpecial indicate if 
 	z is bSpecial or fSpecial 
@@ -176,18 +173,18 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label, in
 	printf(" %d \n", bSpecial);
 	printf(" %f \n", zVal);
 	if(bSpecial==1)
-		Ssize = bSpecialTree(G, m, maxPath, z, rLabel, label, B);
+		Ssize = bSpecialTree(G, m, maxPath, z, rLabel, label);
 	else
-		Ssize = fSpecialTree(G, m, maxPath, z, rLabel, label, B);
+		Ssize = fSpecialTree(G, m, maxPath, z, rLabel, label);
 
-	printB(B);
+	printB(G);
 	free(pf);
 	free(pb);
 	return Ssize;
 }
 
 
-int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, int *B)
+int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 {	
 	/* j is the vertex before z on C */
 	int i, j, jSize = 0, mPrime, Ssize;
@@ -203,7 +200,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	{
 		jSize += treeLengthB(G, maxPath[i], 
 				maxPath[previousMaxPath(i)], 
-				maxPath[nextMaxPath(i)], B);
+				maxPath[nextMaxPath(i)]);
 
 	}
 	
@@ -219,7 +216,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 	
-	lemma3(G, mPrime, cPrime, maxPath[z], B);
+	lemma3(G, mPrime, cPrime, maxPath[z]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
@@ -229,7 +226,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 }
 
 
-int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, int *B)
+int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 {
 	/* j is the vertex before z on C */
 	int i, j, jSize = 0, mPrime, Ssize;
@@ -249,7 +246,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 		i = nextMaxPath(i))
 	{
 		jSize += treeLengthB(G, maxPath[i], maxPath[previousMaxPath(i)], 
-			maxPath[nextMaxPath(i)], B);
+			maxPath[nextMaxPath(i)]);
 	}
 
 	/* maxPath[i] is zf now */
@@ -260,7 +257,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 		if(v->vertex != maxPath[previousMaxPath(i)] 
 			&& v->vertex!= maxPath[nextMaxPath(i)])
 		{
-			jSize += treeLengthB(G, v->vertex, maxPath[i], -1, B);
+			jSize += treeLengthB(G, v->vertex, maxPath[i], -1);
 		}
 	}
 
@@ -276,7 +273,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label, 
 		maxPath[z], maxPath[nextMaxPath(z)]);
 	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 
-	lemma3(G, mPrime, cPrime, maxPath[z], B);
+	lemma3(G, mPrime, cPrime, maxPath[z]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
@@ -470,7 +467,7 @@ int treeLength(Graph *G, int root, int left, int right)
 	return ++sum;
 }
 
-int treeLengthB(Graph *G, int root, int left, int right, int *B)
+int treeLengthB(Graph *G, int root, int left, int right)
 {
 	/* Include each descendant in B */
 	/* This recursive function returns rhe number of descendant
@@ -480,8 +477,7 @@ int treeLengthB(Graph *G, int root, int left, int right, int *B)
 	int sum = 0;
 	for (i = G->adj[root]->next; i!= NULL; i = i->next)
 		if (i->vertex != left && i->vertex != right && i->edge == 1)
-			sum += treeLengthB(G, i->vertex, root, -1, B);
-	B[Blength++] = root;
+			sum += treeLengthB(G, i->vertex, root, -1);
 	setB[root] = 1;
 	return ++sum;
 }
@@ -515,13 +511,14 @@ int treeLengthB(Graph *G, int root, int left, int right, int *B)
 }*/
 
 
-void printB(int *B)
+void printB(Graph *G)
 {
 	int i;
 	printf("-------- B --------\n");
-	for (i = 0; i < Blength; ++i)
+	for (i = 0; i < G->V; ++i)
 	{
-		printf(" %d\n", B[i]);
+		if(setB[i] == 1)
+		printf(" %d\n", i);
 	}
 	printf("-------------------\n");
 }			

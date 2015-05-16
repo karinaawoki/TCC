@@ -1,6 +1,6 @@
 #include "common/theorem4.h"
 
-void theorem6(Graph *G, int *B, int m);
+void theorem6(Graph *G, int m);
 void countEdgesAtCut(Graph *G, int ver, int parent);
 int numCut;
 
@@ -9,36 +9,37 @@ int main(int argc, char *argv[])
 	/* argv[1] = filename */
 	/* argv[2] = m        */
 
-	int *B;
 	Graph *G;
 	Blength = 0;
-	cut = 0;
 	numCut = 0;
 
 	G = read(argv[1]);
+	if(G->V < atoi(argv[2]))
+	{
+		printf("m maior que o número de vértices!!\n");
+		return 0;
+	}
 	setBInit(G);
-	B = malloc(G->V*sizeof(int));
-	theorem6(G, B, atoi(argv[2]));
+	theorem6(G, atoi(argv[2]));
 
-	free(B);
 	freeGraph(G);
 	return 0;
 }
 
 
-void theorem6(Graph *G, int *B, int m)
+void theorem6(Graph *G, int m)
 {
-	int root, Ssize, i;
+	int root, Ssize;
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 	root = 1; 
 
-	Ssize = theorem4(G, B, m, root);
+	Ssize = theorem4(G, m, root);
 	while(Blength < m)
 	{
-		printf("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEY\n");
+		printf("kkkkk %d \n", Blength);
 		if(Ssize<0)
 			printf("ERROOOO\n");
-		Ssize = theorem4(G, B, m-Blength, Ssize);
+		Ssize = theorem4(G, m-Blength, Ssize);
 	}
 	
 	/*for(i = 0; i<G->V; i++)

@@ -1,11 +1,11 @@
 #include "lemma2.h"
 
 
-int mEqualsN(Graph *G, int m, int *B, int root);
-int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B);
+int mEqualsN(Graph *G, int m, int root);
+int searchByNode(Graph *G, int m, int root, int parent, int *descendant);
 void printChildTree(Graph *G, int parent, int vertex);
-int mLessThanN(Graph *G, int m, int root, int *B);
-void save(Graph *G, int parent, int vertex, int *B);
+int mLessThanN(Graph *G, int m, int root);
+void save(Graph *G, int parent, int vertex);
 
 
 
@@ -14,22 +14,22 @@ int numVerticesCut = 0;
     lemma2) and returns the number of edges at the cut.   */ 
 
 
-int lemma2(Graph *G, int m, int root, int *B, int NumVert)
+int lemma2(Graph *G, int m, int root, int NumVert)
 /*int main(int argc, char *argv[])*/
 {
 	if(DEBUG == 1)
 		printf("m: %d\n", m);
 	if(NumVert == m)
-		return mEqualsN(G, m, B, root);
+		return mEqualsN(G, m, root);
 	else if(m == 0)
 		return 0;
 	else
-		return mLessThanN(G, m, root, B);
+		return mLessThanN(G, m, root);
 }
 
 
 
-int mEqualsN(Graph *G, int m, int *B, int root)
+int mEqualsN(Graph *G, int m, int root)
 {
 	/* Return the number of edges in the cut */
 	/*int i;
@@ -41,25 +41,25 @@ int mEqualsN(Graph *G, int m, int *B, int root)
 		setB[i] = 1;
 	}*/
 	
-	save(G, root, root, B);
+	save(G, root, root);
 	
 	return 0;
 }
 
-int mLessThanN(Graph *G, int m, int root, int *B)
+int mLessThanN(Graph *G, int m, int root)
 {
 	int *descendant;
 	descendant = malloc(G->V*sizeof(int));
 	childNumber(G, root, descendant, root);
 	numVerticesCut = 0;
-	searchByNode(G, m, root, root, descendant, B);
+	searchByNode(G, m, root, root, descendant);
 
 	free(descendant);
 	return numVerticesCut;
 }
 
 
-int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
+int searchByNode(Graph *G, int m, int root, int parent, int *descendant)
 {
 	/* Return the vertices number of B */
 	Vertex *v;
@@ -76,7 +76,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 			if(DEBUG == 1)
 				printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
 			printChildTree(G, root, v->vertex);
-			save(G, root, v->vertex, B);
+			save(G, root, v->vertex);
 
 			/* separate B and W */
 			eraseEdge(G, root, v->vertex);
@@ -94,7 +94,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 		int aux;
 		if(DEBUG == 1)
 			printf("Desceu para: %d \n", v->vertex);
-		aux = searchByNode(G, m, v->vertex, root, descendant, B);
+		aux = searchByNode(G, m, v->vertex, root, descendant);
 		descendant[root] -= aux;
 		return aux;
 	}
@@ -119,7 +119,7 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant, int *B)
 						printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
 					numVerticesB += descendant[v->next->vertex];
 					printChildTree(G, root, v->next->vertex);
-					save(G, root, v->next->vertex, B);
+					save(G, root, v->next->vertex);
 					/* Separate B and W */
 					eraseEdge(G, root, v->next->vertex);
 					v = v->next;
@@ -180,13 +180,12 @@ void printChildTree(Graph *G, int parent, int vertex)
 	printf("%d ", vertex);
 }
 
-void save(Graph *G, int parent, int vertex, int *B)
+void save(Graph *G, int parent, int vertex)
 {
 	/* save vertex and all of its descendants */
 	Vertex *v;
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
 		if(v->vertex != parent && v->edge==1)
-			save(G, vertex, v->vertex, B);	
+			save(G, vertex, v->vertex);	
     setB[vertex] = 1;
-	B[Blength++] = vertex;
 }

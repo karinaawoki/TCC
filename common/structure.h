@@ -34,3 +34,6 @@ void eraseEdge(Graph *G, int parent, int vertex);
 
 int maxPathLength;
 int *setB; /* Vetor binário (pertence ou não a B) */
+
+int maxPathInit;
+int maxPathEnd;

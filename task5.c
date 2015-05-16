@@ -2,6 +2,10 @@
 
 void theorem6(Graph *G, int m);
 void countEdgesAtCut(Graph *G, int ver, int parent);
+void relabel(int *label);
+void reMaxPath(Graph *G, int *maxPath, int *index);
+
+
 int numCut;
 
 int main(int argc, char *argv[])
@@ -19,6 +23,7 @@ int main(int argc, char *argv[])
 		printf("m maior que o número de vértices!!\n");
 		return 0;
 	}
+
 	setBInit(G);
 	theorem6(G, atoi(argv[2]));
 
@@ -29,17 +34,30 @@ int main(int argc, char *argv[])
 
 void theorem6(Graph *G, int m)
 {
-	int root, Ssize;
-	root = (int)(G->V*1.0*rand()/RAND_MAX);
-	root = 1; 
+	int *maxPath, *labelVec, *r, *index;
+	int root, Ssize, max;
 
-	Ssize = theorem4(G, m, root);
+	root = (int)(G->V*1.0*rand()/RAND_MAX);
+
+	r = malloc(G->V*sizeof(int));
+
+	maxPath = maximumPath(G, root);
+
+	/* Labeling */
+	max = changeOrderAtAdj(G, maxPath, r);
+	labelVec = label(G, maxPath, max, r);
+
+	index = labelToIndex(G, labelVec);
+
+
+
+	Ssize = theorem4(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
 		printf("kkkkk %d \n", Blength);
 		if(Ssize<0)
 			printf("ERROOOO\n");
-		Ssize = theorem4(G, m-Blength, Ssize);
+		Ssize = theorem4(G, m-Blength, Ssize, labelVec, index, maxPath, r);
 	}
 	
 	/*for(i = 0; i<G->V; i++)
@@ -55,6 +73,11 @@ void theorem6(Graph *G, int m)
 	
 	countEdgesAtCut(G, 0, 0);
 	printf("CORTE: %d\n", numCut);
+
+	free(maxPath);
+	printLabel(G, labelVec, r);
+	free(r);
+	free(labelVec);
 
 }
 
@@ -75,4 +98,41 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
             countEdgesAtCut(G, v->vertex, ver);
         }   
     }
+}
+
+/* Both, first and last elemments of NEW label are at maxPath  */
+void reMaxPath(Graph *G, int *maxPath, int *index)
+{
+	int *auxMaxPath;
+	int init, end, i, j = 0;
+
+	init = index[maxPathInit];
+	end = index[maxPathEnd];
+
+    auxMaxPath = malloc((1+G->V)*sizeof(int));
+
+	for (i = 0; i<maxPathLength ; i++)
+	{
+		if(maxPath[i] == init)
+		{
+			while(maxPath[i] != end)
+			{
+				auxMaxPath[j++] = maxPath[i];
+				i = (i+1)%maxPathLength;
+			}
+			auxMaxPath[j++] = maxPath[i];
+			auxMaxPath[j] = -1;
+			maxPathLength = j;
+			break;
+		}
+	}
+
+	free(maxPath);
+	maxPath = auxMaxPath;
+}
+
+
+void relabel(int *label)
+{
+
 }

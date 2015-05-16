@@ -1,6 +1,6 @@
 #include "theorem4.h"
 
-int decideCases(Graph *G, int *maxPath, int*label, int m, int *r);
+int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *root);
 void case1(Graph *G, int firstVertexB, int m, int *index);
 int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label);
 int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int *numPb);
@@ -22,38 +22,25 @@ int previousMaxPath(int vertex);
 /* root[i] = j    -   i and j  by index */
 /* rLabel[i] = j  -   i and j  by label */
 
-int theorem4(Graph *G, int m, int root)
+int theorem4(Graph *G, int m, int root, int *label, int *index, int *maxPath, int *r)
 {
 	/* Return an element of S */
-	/* argv[1] = filename */
-	/* argv[2] = m        */
 
 	int Ssize;
-	int *maxPath, *vLabel, max, *r;
-	r = malloc(G->V*sizeof(int));
-	maxPath = maximumPath(G, root);
+	/* r shows the root (according to index) */
+
+	Ssize = decideCases(G, maxPath, label, m, r, index);
 	
-	/* Labeling */
-	max = changeOrderAtAdj(G, maxPath, r);
-	vLabel = label(G, maxPath, max, r);
-
-	Ssize = decideCases(G, maxPath, vLabel, m, r);
-
-	free(maxPath);
-	printLabel(G, vLabel, r);
-	free(r);
-	free(vLabel);
 	return Ssize;
 }
 
 
-int decideCases(Graph *G, int *maxPath, int*label, int m, int *r)
+int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *index)
 {
 	/* Return the vector of the set B */
 	int plusM, i, Ssize;
-	int *index, *rLabel;
+	int *rLabel;
 
-	index = labelToIndex(G, label);
 	rLabel = indexRbyLabel(G, r, label);
 
 	for(i = 0; maxPath[i]!=-1; i++)
@@ -337,6 +324,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	printf("z %d \n", maxPath[z]);
 	/* We jump the tree between z and TPz */
 	/* stops when it find an root at Pz */
+	/* B1 */
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] != label[maxPath[z]])
 		aux = previousMaxPath(aux);
 
@@ -344,7 +332,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	Ssize = maxPath[aux];
 	printf("aux %d\n", maxPath[aux]);
 	eraseEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
-
+	/* S */
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
 		if(aux == 0)

@@ -188,4 +188,5 @@ void save(Graph *G, int parent, int vertex)
 		if(v->vertex != parent && v->edge==1)
 			save(G, vertex, v->vertex);	
     setB[vertex] = 1;
+    Blength++;
 }

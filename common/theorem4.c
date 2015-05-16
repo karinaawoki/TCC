@@ -85,11 +85,13 @@ void case1(Graph *G, int firstVertexB, int m, int *index)
 	for(i =firstVertexB; i!=(firstVertexB+m-1)%countLabel; i = (i+1)%countLabel)
 	{
 		printf("%d ", index[i]);
+		Blength++;
 		setB[index[i]] = 1;
 	}
 	
 	printf("%d ", index[i]);
 	setB[index[i]] = 1;
+	Blength++;
 
 	/* when B is at the border */
 	if((firstVertexB-m+1)%countLabel == 0 || firstVertexB == countLabel-1)
@@ -478,6 +480,7 @@ int treeLengthB(Graph *G, int root, int left, int right)
 	for (i = G->adj[root]->next; i!= NULL; i = i->next)
 		if (i->vertex != left && i->vertex != right && i->edge == 1)
 			sum += treeLengthB(G, i->vertex, root, -1);
+	Blength++;
 	setB[root] = 1;
 	return ++sum;
 }

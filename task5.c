@@ -41,9 +41,9 @@ void theorem6(Graph *G, int m)
 {
 	int *maxPath, *labelVec, *r, *index;
 	int root, Ssize, max;
-
+	srand(seed);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-
+	root = 1;
 	r = malloc(G->V*sizeof(int));
 
 	maxPath = maximumPath(G, root);

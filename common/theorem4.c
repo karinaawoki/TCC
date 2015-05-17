@@ -137,7 +137,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	{
 		/* takes the minimum rô */
 		if (roB[label[maxPath[i]]]!=-1 && 
-			roB[label[maxPath[i]]] <= roF[label[maxPath[i]]] &&
+			roB[label[maxPath[i]]] < roF[label[maxPath[i]]] &&
 			(roB[label[maxPath[i]]] < zVal || zVal == -1))
 		{
 			z = i;

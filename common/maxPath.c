@@ -12,10 +12,15 @@ int *maximumPath(Graph *G, int r)
 	/* The result will be a vector with 
 	the maximum path - the number -1 indicate 
 	the end of the path */
-	int x0, y0, *parents, *maxPath;
+	int x0, y0, *parents, *maxPath, i;
 	printf("%d -- r \n", r); 
 	parents = malloc(G->V*sizeof(int));
 	maxPath = malloc((1+G->V)*sizeof(int));
+
+	for(i=0; i<G->V; i++)
+	{
+		maxPath[i] = -1;
+	}
 
 	x0 = fartherVertex(G, r, parents);
 	y0 = fartherVertex(G, x0, parents);

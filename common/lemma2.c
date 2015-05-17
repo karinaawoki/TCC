@@ -48,8 +48,12 @@ int mEqualsN(Graph *G, int m, int root)
 
 int mLessThanN(Graph *G, int m, int root)
 {
-	int *descendant;
+	int *descendant, i;
 	descendant = malloc(G->V*sizeof(int));
+	for (i = 0; i < G->V; i++)
+	{
+		descendant[i] = -1;
+	}
 	childNumber(G, root, descendant, root);
 	numVerticesCut = 0;
 	searchByNode(G, m, root, root, descendant);
@@ -63,12 +67,12 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant)
 {
 	/* Return the vertices number of B */
 	Vertex *v;
-	for(v = G->adj[root]->next; v!= NULL && 
-		(descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)
+	for(v = G->adj[root]->next; v!= NULL && (descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)
 		/* If the tree satisfies the condition of the lemma, the tree is a answer 
 		 We don't need to comes down in the tree*/
 		/* ??????????? */
 	{
+
 		if (descendant[v->vertex] > m/2.0 && v->vertex != parent && v->edge == 1)
 			/* m/2.0  -->  m/2 */
 		{
@@ -109,8 +113,8 @@ int searchByNode(Graph *G, int m, int root, int parent, int *descendant)
 		for(v = G->adj[root]; v->next!=NULL; v = v->next)
 		{
 
-			while (v->next!=NULL && numVerticesB + descendant[v->next->vertex] <= m 
-				|| v->next->vertex == parent || v->next->edge != 1)
+			while (v->next!=NULL && (numVerticesB + descendant[v->next->vertex] <= m 
+				|| v->next->vertex == parent || v->next->edge != 1))
 			{
 				/* Sum each set (roots childs) */ 
 				if(v->next->edge == 1 && v->next->vertex != parent)

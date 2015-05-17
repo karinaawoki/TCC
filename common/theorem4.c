@@ -53,13 +53,11 @@ int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *index)
 		{
 			case1(G, (label[maxPath[i]]+1)%countLabel, m, index);
 			free(rLabel);
-			free(index);
 			return -1;
 		}
 	}
 	Ssize =  case2(G, m, index, maxPath, rLabel, label);
 	free(rLabel);
-	free(index);
 	return Ssize;
 }
 
@@ -139,7 +137,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	{
 		/* takes the minimum rô */
 		if (roB[label[maxPath[i]]]!=-1 && 
-			roB[label[maxPath[i]]] < roF[label[maxPath[i]]] &&
+			roB[label[maxPath[i]]] <= roF[label[maxPath[i]]] &&
 			(roB[label[maxPath[i]]] < zVal || zVal == -1))
 		{
 			z = i;
@@ -333,6 +331,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	printf("aux %d\n", maxPath[aux]);
 	eraseEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
 	/* S */
+	maxPathEnd = label[maxPath[aux]];
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
 		if(aux == 0)
@@ -342,6 +341,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 		aux = previousMaxPath(aux);
 	}
 	aux = nextMaxPath(aux);
+	maxPathInit = label[maxPath[aux]];
 	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
 
 	return Ssize;
@@ -359,6 +359,7 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 		aux = nextMaxPath(aux);
 	}
 	Ssize = maxPath[aux];
+	maxPathInit = label[maxPath[aux]];
 	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
 	while(rLabel[(label[maxPath[aux]] - m + countLabel)%countLabel] == label[maxPath[z]])
 	{
@@ -368,6 +369,7 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 			includeNotOriginalEdges(G, maxPath[0], maxPath[maxPathLength-1]);
 		aux = nextMaxPath(aux);
 	}
+	maxPathEnd = label[maxPath[previousMaxPath(aux)]];
 	eraseEdge(G, maxPath[previousMaxPath(aux)], maxPath[aux]);
 
 	return Ssize;

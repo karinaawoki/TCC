@@ -4,6 +4,7 @@ void theorem6(Graph *G, int m);
 void countEdgesAtCut(Graph *G, int ver, int parent);
 void relabel(Graph *G, int *label, int *index);
 void reMaxPath(Graph *G, int *maxPath, int *index);
+void test(Graph *G, int *label, int *index, int *maxPath);
 
 
 int numCut;
@@ -15,11 +16,14 @@ int main(int argc, char *argv[])
 
 	Graph *G;
 	Blength = 0;
-	numCut = 0;
+	numCut  = 0;
+	maxPathInit = -1;
+	maxPathEnd  = -1;
 
 	G = read(argv[1]);
 	if(G->V < atoi(argv[2]))
 	{
+		freeGraph(G);
 		printf("m maior que o número de vértices!!\n");
 		return 0;
 	}
@@ -27,6 +31,7 @@ int main(int argc, char *argv[])
 	setBInit(G);
 	theorem6(G, atoi(argv[2]));
 
+	free(setB);
 	freeGraph(G);
 	return 0;
 }
@@ -50,35 +55,25 @@ void theorem6(Graph *G, int m)
 	index = labelToIndex(G, labelVec);
 
 
-
 	Ssize = theorem4(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
-		printf("kkkkk %d \n", Blength);
 		if(Ssize<0)
 			printf("ERROOOO\n");
+
+		reMaxPath(G, maxPath, index);
+		relabel(G, labelVec, index);
 		Ssize = theorem4(G, m-Blength, Ssize, labelVec, index, maxPath, r);
 	}
-	
-	/*for(i = 0; i<G->V; i++)
-	{
-	if(setB[i] == 1)
-	    printf("setB[%d] = %d\n", i, setB[i]);
-	}
-	printf("\n\n");
-	for(i = 0; i<Blength; i++)
-	{
-	    printf("B[%d] = %d\n", i, B[i]);
-	}*/
 	
 	countEdgesAtCut(G, 0, 0);
 	printf("CORTE: %d\n", numCut);
 
 	free(maxPath);
-	printLabel(G, labelVec, r);
+	/*printLabel(G, labelVec, r);*/
 	free(r);
 	free(labelVec);
-
+	free(index);
 }
 
 
@@ -100,6 +95,10 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
     }
 }
 
+
+
+
+
 /* Both, first and last elemments of NEW label are at maxPath  */
 void reMaxPath(Graph *G, int *maxPath, int *index)
 {
@@ -108,50 +107,82 @@ void reMaxPath(Graph *G, int *maxPath, int *index)
 
 	init = index[maxPathInit];
 	end = index[maxPathEnd];
-
+ 
     auxMaxPath = malloc((1+G->V)*sizeof(int));
 
-	for (i = 0; i<maxPathLength ; i++)
+	for(i = 0; i<G->V; i++)
 	{
-		if(maxPath[i] == init)
+		auxMaxPath[i] = maxPath[i];
+		maxPath[i] = -1;
+	}
+
+	for (i = 0; i<G->V ; i++)
+	{
+		if(auxMaxPath[i] == init)
 		{
-			while(maxPath[i] != end)
+			while(auxMaxPath[i] != end)
 			{
-				auxMaxPath[j++] = maxPath[i];
+				maxPath[j++] = auxMaxPath[i];
 				i = (i+1)%maxPathLength;
 			}
-			auxMaxPath[j++] = maxPath[i];
-			auxMaxPath[j] = -1;
+			maxPath[j++] = auxMaxPath[i];
+			maxPath[j] = -1;
 			maxPathLength = j;
 			break;
 		}
 	}
 
-	free(maxPath);
-	maxPath = auxMaxPath;
+	free(auxMaxPath);
 }
 
 
 void relabel(Graph *G, int *label, int *index)
 {
 	int *auxLabel, *auxIndex, i;
-	
+
 	auxLabel = malloc(G->V*sizeof(int));
 	auxIndex = malloc(G->V*sizeof(int));
 	for (i = 0; i < G->V; i++)
 	{
-		auxIndex[i] = -1;
-		auxLabel[i] = -1;
+		auxIndex[i] = index[i];
+		auxLabel[i] = label[i];
+		index[i] =-1;
+		label[i] = -1;
 	}
-	for(i = maxPathInit; i!=maxPathEnd; i = (i+1)%maxPathLength)
+	for(i = maxPathInit; i!=maxPathEnd; i = (i+1)%countLabel)
 	{
-		auxIndex[(i-maxPathInit + maxPathLength)%maxPathLength] = index[i];
-		auxLabel[index[i]] = (i-maxPathInit+maxPathLength)%maxPathLength;
+		index[(i-maxPathInit + countLabel)%countLabel] = auxIndex[i];
+		label[auxIndex[i]] = (i-maxPathInit+countLabel)%countLabel;
 	}
+	index[(i-maxPathInit + countLabel)%countLabel] = auxIndex[i];
+	label[auxIndex[i]] = (i-maxPathInit+countLabel)%countLabel;
 
-	free(label);
-	free(index);
+	countLabel = (maxPathEnd-maxPathInit + countLabel)%countLabel;
 
-	label = auxLabel;
-	index = auxIndex;
+	free(auxLabel);
+	free(auxIndex);
+}
+
+
+void test(Graph *G, int *label, int *index, int *maxPath)
+{
+	int i;
+	for(i = 0; i<G->V; i++)
+	{
+		printf("label[%d] = %d\n", i, label[i]);
+	}
+	printf("\n\n\n");
+
+	for(i = 0; i<G->V; i++)
+	{
+		printf("index[%d] = %d\n", i, index[i]);
+	}
+	printf("\n\n\n");
+
+	printf("%d\n", maxPathLength);
+
+	for(i = 0; i<G->V; i++)
+	{
+		printf("maxPath[%d] = %d\n", i, maxPath[i]);
+	}
 }

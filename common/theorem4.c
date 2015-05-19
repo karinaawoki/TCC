@@ -318,7 +318,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	/* Return an element of S */
 	/* Delete all edges, but  */
 	int Ssize;
-	int aux = previousMaxPath(z), divided = 0;
+	int aux = z/*previousMaxPath(z)*/, divided = 0;
 	printf("z %d \n", maxPath[z]);
 	/* We jump the tree between z and TPz */
 	/* stops when it find an root at Pz */
@@ -352,7 +352,7 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	/* Return an element of S */
 	/* Delete all edges, but  */
 	int Ssize;
-	int aux = nextMaxPath(z), divided = 0;
+	int aux = z/*nextMaxPath(z)*/, divided = 0;
 
 	while( rLabel[(label[maxPath[aux]]-m+countLabel)%countLabel] != label[maxPath[z]])
 	{

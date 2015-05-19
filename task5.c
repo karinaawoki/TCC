@@ -43,7 +43,7 @@ void theorem6(Graph *G, int m)
 	int root, Ssize, max;
 	srand(seed);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-	root = 1;
+	root = 3;
 	r = malloc(G->V*sizeof(int));
 
 	maxPath = maximumPath(G, root);
@@ -58,12 +58,16 @@ void theorem6(Graph *G, int m)
 	Ssize = theorem4(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
+		test(G, labelVec, index ,maxPath);
+		printGraph(G);
 		if(Ssize<0)
 			printf("ERROOOO\n");
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
 		Ssize = theorem4(G, m-Blength, Ssize, labelVec, index, maxPath, r);
+		printGraph(G);
+
 	}
 	
 	countEdgesAtCut(G, 0, 0);

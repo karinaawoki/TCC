@@ -100,7 +100,8 @@ void printGraph(Graph *G)
 		aux = G->adj[i]->next;
 		while(aux!=NULL)
 		{
-			printf("%d %d    : edge: %d \n", i, aux->vertex, aux->edge);
+			printf("%d %d    |    edge: %d    |   original: %d\n", i, aux->vertex, 
+				aux->edge, aux->original);
 			aux = aux->next;
 		}
 	}

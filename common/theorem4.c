@@ -215,7 +215,11 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 
 int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 {
-	/* j is the vertex before z on C */
+	/* j is the vertex before z on Cif(aux == z)
+		{
+			if(passedByZ==0) passedByZ=1;
+			else break;
+		} */
 	int i, j, jSize = 0, mPrime, Ssize;
 	float cPrime, d;
 	Vertex *v;
@@ -228,6 +232,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 		j = z;
 	}
 
+	/* B1 */
 	for (i = j; 
 		rLabel[(label[maxPath[i]]-m+countLabel)%countLabel]!=label[maxPath[z]]; 
 		i = nextMaxPath(i))
@@ -239,7 +244,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	/* maxPath[i] is zf now */
 	/* We have to add all the tree maxPath[i] but the root */
 	/* Count the number of all root's childs  */
-	for (v = G->adj[maxPath[i]]->next; v!=NULL; v = v->next)
+	for (v = G->adj[maxPath[i]]->next; v!=NULL && i!=z; v = v->next)
 	{
 		if(v->vertex != maxPath[previousMaxPath(i)] 
 			&& v->vertex!= maxPath[nextMaxPath(i)])
@@ -317,8 +322,8 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 {
 	/* Return an element of S */
 	/* Delete all edges, but  */
-	int Ssize;
-	int aux = previousMaxPath(z), divided = 0;
+	int Ssize, passedByZ = 0;
+	int aux = z/*previousMaxPath(z)*/, divided = 0;
 	printf("z %d \n", maxPath[z]);
 	/* We jump the tree between z and TPz */
 	/* stops when it find an root at Pz */
@@ -334,6 +339,11 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	maxPathEnd = label[maxPath[aux]];
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
+		if(aux == z)
+		{
+			if(passedByZ==0) passedByZ=1;
+			else break;
+		}
 		if(aux == 0)
 			divided = 1;
 		else if(aux == maxPathLength-1 && divided == 1)
@@ -351,24 +361,33 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 {
 	/* Return an element of S */
 	/* Delete all edges, but  */
-	int Ssize;
-	int aux = nextMaxPath(z), divided = 0;
+	int Ssize, passedByZ = 0;
+	int aux = z/*nextMaxPath(z)*/, divided = 0;
 
 	while( rLabel[(label[maxPath[aux]]-m+countLabel)%countLabel] != label[maxPath[z]])
 	{
 		aux = nextMaxPath(aux);
 	}
+
 	Ssize = maxPath[aux];
 	maxPathInit = label[maxPath[aux]];
 	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
+
 	while(rLabel[(label[maxPath[aux]] - m + countLabel)%countLabel] == label[maxPath[z]])
 	{
+		if(aux == z)
+		{
+			if(passedByZ==0) passedByZ=1;
+			else break;
+		}
 		if(aux == maxPathLength-1)
 			divided = 1;
 		else if(aux == 0 && divided == 1)
 			includeNotOriginalEdges(G, maxPath[0], maxPath[maxPathLength-1]);
 		aux = nextMaxPath(aux);
 	}
+		printf("oiee\n");
+
 	maxPathEnd = label[maxPath[previousMaxPath(aux)]];
 	eraseEdge(G, maxPath[previousMaxPath(aux)], maxPath[aux]);
 

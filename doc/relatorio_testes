@@ -1,0 +1,6 @@
+test/7
+m = 27
+obs.: Na primeira iteração, pega o conjunto B2
+	  E depois pega TODA a árvore Tz (incluindo
+	  a raíz) -- f-special se comporta diferente
+	  de b-special!

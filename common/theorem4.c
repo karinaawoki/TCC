@@ -137,7 +137,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	{
 		/* takes the minimum rô */
 		if (roB[label[maxPath[i]]]!=-1 && 
-			roB[label[maxPath[i]]] < roF[label[maxPath[i]]] &&
+			roB[label[maxPath[i]]] <= roF[label[maxPath[i]]] &&
 			(roB[label[maxPath[i]]] < zVal || zVal == -1))
 		{
 			z = i;
@@ -341,7 +341,11 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	{
 		if(aux == z)
 		{
-			if(passedByZ==0) passedByZ=1;
+			if(passedByZ==0) 
+			{
+				passedByZ=1;
+				deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
+			}
 			else break;
 		}
 		if(aux == 0)
@@ -352,7 +356,8 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	}
 	aux = nextMaxPath(aux);
 	maxPathInit = label[maxPath[aux]];
-	deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
+	if(passedByZ == 0)
+		deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
 
 	return Ssize;
 }
@@ -377,7 +382,8 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	{
 		if(aux == z)
 		{
-			if(passedByZ==0) passedByZ=1;
+			if(passedByZ==0) 
+				passedByZ=1;
 			else break;
 		}
 		if(aux == maxPathLength-1)
@@ -386,7 +392,6 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 			includeNotOriginalEdges(G, maxPath[0], maxPath[maxPathLength-1]);
 		aux = nextMaxPath(aux);
 	}
-		printf("oiee\n");
 
 	maxPathEnd = label[maxPath[previousMaxPath(aux)]];
 	eraseEdge(G, maxPath[previousMaxPath(aux)], maxPath[aux]);

@@ -30,6 +30,7 @@ void freeGraph(Graph *G);
 void deleteEdge(Graph *G, int parent, int vertex);
 void setBInit(Graph *G);
 void eraseEdge(Graph *G, int parent, int vertex);
+void setOriginal(Graph *G, int v1, int v2, int original);
 
 
 int maxPathLength;

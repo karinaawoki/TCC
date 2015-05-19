@@ -151,3 +151,26 @@ void eraseEdge(Graph *G, int parent, int vertex)
 			break;
 		}
 }
+
+
+void setOriginal(Graph *G, int v1, int v2, int original)
+{
+	Vertex *v;
+	for(v = G->adj[v1]->next; v!=NULL; v=v->next)
+	{
+		if(v->vertex == v2)
+		{
+			v->original = original;
+			break;
+		}
+	}
+
+	for(v = G->adj[v2]->next; v!=NULL; v=v->next)
+	{
+		if(v->vertex == v1)
+		{
+			v->original = original;
+			break;
+		}
+	}
+}

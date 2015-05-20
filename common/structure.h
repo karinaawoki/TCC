@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define seed 0
-#define DEBUG 0
 
 typedef struct vertex Vertex;
 struct vertex
@@ -38,3 +36,6 @@ int *setB; /* Vetor binário (pertence ou não a B) */
 
 int maxPathInit;
 int maxPathEnd;
+
+int DEBUG;
+int seed;

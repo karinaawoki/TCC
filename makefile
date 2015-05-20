@@ -43,9 +43,9 @@ all: t1 t2-lemma2 t2-lemma3 t3 t4 t5
 #	$(CC) $(CFLAGS) -c $< -o $@
 
 ## Clean ###############################################################
-#.PHONY: clean
-#clean:
-#	$(RM) common/*.o list/*.o *.o
+.PHONY: clean
+clean:
+	$(RM) common/*.o list/*.o *.o
 
 
 

@@ -19,6 +19,15 @@ int main(int argc, char *argv[])
 	numCut  = 0;
 	maxPathInit = -1;
 	maxPathEnd  = -1;
+	seed = 1;
+	DEBUG = 0;
+
+	if(argc>=4)
+	{
+		DEBUG = atoi(argv[3]);
+		if(argc>=5)
+			seed = atoi(argv[4]);
+	}
 
 	G = read(argv[1]);
 	if(G->V < atoi(argv[2]))
@@ -28,6 +37,7 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+	/* setB is a bit vector - a vertex is or not at B */
 	setBInit(G);
 	theorem6(G, atoi(argv[2]));
 
@@ -44,6 +54,8 @@ void theorem6(Graph *G, int m)
 	srand(seed);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 	root = 3;
+	
+	/* r shows the root (according to index) */
 	r = malloc(G->V*sizeof(int));
 
 	maxPath = maximumPath(G, root);
@@ -58,18 +70,19 @@ void theorem6(Graph *G, int m)
 	Ssize = theorem4(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
-		/*test(G, labelVec, index ,maxPath);
-		printGraph(G);*/
+		if(DEBUG==1){
+			test(G, labelVec, index ,maxPath);
+			printGraph(G); }
+
 		if(Ssize<0)
 			printf("ERROOOO\n");
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
 		Ssize = theorem4(G, m-Blength, Ssize, labelVec, index, maxPath, r);
-		/*printGraph(G);*/
-
 	}
-	
+	if(DEBUG == 1) printGraph(G);
+		
 	countEdgesAtCut(G, 0, 0);
 	printf("CORTE: %d\n", numCut);
 

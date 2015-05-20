@@ -323,7 +323,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	/* Return an element of S */
 	/* Delete all edges, but  */
 	int Ssize, passedByZ = 0;
-	int aux = z/*previousMaxPath(z)*/, divided = 0;
+	int aux = previousMaxPath(z), divided = 0;
 	printf("z %d \n", maxPath[z]);
 	/* We jump the tree between z and TPz */
 	/* stops when it find an root at Pz */
@@ -333,25 +333,23 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 
 
 	Ssize = maxPath[aux];
-	printf("aux %d\n", maxPath[aux]);
 	eraseEdge(G, maxPath[nextMaxPath(aux)], maxPath[aux]);
 	/* S */
 	maxPathEnd = label[maxPath[aux]];
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
-		if(aux == z)
-		{
-			if(passedByZ==0) 
-			{
-				passedByZ=1;
-				deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
-			}
-			else break;
-		}
 		if(aux == 0)
 			divided = 1;
 		else if(aux == maxPathLength-1 && divided == 1)
 			includeNotOriginalEdges(G, maxPath[0], maxPath[maxPathLength-1]);
+
+		if(aux == z)
+		{
+			passedByZ=1;
+			deleteAllNeighborBut(G, maxPath[aux], maxPath[nextMaxPath(aux)]);
+			aux = previousMaxPath(aux);
+			break;
+		}
 		aux = previousMaxPath(aux);
 	}
 	aux = nextMaxPath(aux);

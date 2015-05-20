@@ -58,15 +58,15 @@ void theorem6(Graph *G, int m)
 	Ssize = theorem4(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
-		test(G, labelVec, index ,maxPath);
-		printGraph(G);
+		/*test(G, labelVec, index ,maxPath);
+		printGraph(G);*/
 		if(Ssize<0)
 			printf("ERROOOO\n");
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
 		Ssize = theorem4(G, m-Blength, Ssize, labelVec, index, maxPath, r);
-		printGraph(G);
+		/*printGraph(G);*/
 
 	}
 	

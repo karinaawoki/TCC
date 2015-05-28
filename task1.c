@@ -1,4 +1,4 @@
-#include "common/lemma2.h"
+#include "common/simpleApproxCut.h"
 
 
 int main(int argc, char *argv[])

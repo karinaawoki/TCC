@@ -1,4 +1,4 @@
-#include "theorem4.h"
+#include "doubleDiam.h"
 
 int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *root);
 void case1(Graph *G, int firstVertexB, int m, int *index);
@@ -22,7 +22,7 @@ int previousMaxPath(int vertex);
 /* root[i] = j    -   i and j  by index */
 /* rLabel[i] = j  -   i and j  by label */
 
-int theorem4(Graph *G, int m, int root, int *label, int *index, int *maxPath, int *r)
+int doubleDiam(Graph *G, int m, int root, int *label, int *index, int *maxPath, int *r)
 {
 	/* Return an element of S */
 
@@ -210,7 +210,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 	
-	lemma3(G, mPrime, cPrime, maxPath[z]);
+	approxCut(G, mPrime, cPrime, maxPath[z]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
@@ -267,7 +267,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
 
-	lemma3(G, mPrime, cPrime, maxPath[z]);
+	approxCut(G, mPrime, cPrime, maxPath[z]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/

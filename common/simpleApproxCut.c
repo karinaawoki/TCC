@@ -1,4 +1,4 @@
-#include "lemma2.h"
+#include "simpleApproxCut.h"
 
 
 int mEqualsN(Graph *G, int m, int root);
@@ -11,10 +11,10 @@ void save(Graph *G, int parent, int vertex);
 
 int numVerticesCut = 0;
 /* This modele prints the vertices of B (according to the 
-    lemma2) and returns the number of edges at the cut.   */ 
+    simpleApproxCut - lemma2) and returns the number of edges at the cut.   */ 
 
 
-int lemma2(Graph *G, int m, int root, int NumVert)
+int simpleApproxCut(Graph *G, int m, int root, int NumVert)
 /*int main(int argc, char *argv[])*/
 {
 	if(DEBUG == 1)

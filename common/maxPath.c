@@ -1,4 +1,4 @@
-#include "lemma2.h" 
+#include "simpleApproxCut.h" 
 #include "list/queue.h"
 
 

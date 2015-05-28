@@ -1,6 +1,6 @@
-#include "common/theorem4.h"
+#include "common/doubleDiam.h"
 
-void theorem6(Graph *G, int m);
+void exactCut(Graph *G, int m);
 void countEdgesAtCut(Graph *G, int ver, int parent);
 void relabel(Graph *G, int *label, int *index);
 void reMaxPath(Graph *G, int *maxPath, int *index);
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
 	/* setB is a bit vector - a vertex is or not at B */
 	setBInit(G);
-	theorem6(G, atoi(argv[2]));
+	exactCut(G, atoi(argv[2]));
 
 	free(setB);
 	freeGraph(G);
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 }
 
 
-void theorem6(Graph *G, int m)
+void exactCut(Graph *G, int m)
 {
 	int *maxPath, *labelVec, *r, *index;
 	int root, Ssize, max;
@@ -67,7 +67,7 @@ void theorem6(Graph *G, int m)
 	index = labelToIndex(G, labelVec);
 
 
-	Ssize = theorem4(G, m, root, labelVec, index, maxPath, r);
+	Ssize = doubleDiam(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
 		if(DEBUG==1){
@@ -79,7 +79,7 @@ void theorem6(Graph *G, int m)
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
-		Ssize = theorem4(G, m-Blength, Ssize, labelVec, index, maxPath, r);
+		Ssize = doubleDiam(G, m-Blength, Ssize, labelVec, index, maxPath, r);
 	}
 	if(DEBUG == 1) printGraph(G);
 		

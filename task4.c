@@ -1,4 +1,4 @@
-#include "common/theorem4.h"
+#include "common/doubleDiam.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
 	index = labelToIndex(G, labelVec);
 
-	elementOfS = theorem4(G, atoi(argv[2]), root, labelVec, 
+	elementOfS = doubleDiam(G, atoi(argv[2]), root, labelVec, 
 		index, maxPath, r);
 
 	printf("///////--- %d\n", elementOfS);

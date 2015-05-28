@@ -1,24 +1,22 @@
-#include "common/lemma3.h"
-
+#include "common/simpleApproxCut.h"
 
 int main(int argc, char *argv[])
 {
 	/* argv[1] = filename */
 	/* argv[2] = m        */
-	/* argv[3] = c        */
+	int numEdges;
 	Graph *G;
 	int root;
-	int m = atoi(argv[2]);
-	float c = atof(argv[3]);
+	srand(seed);
+	Blength = 0;
 	seed = 1;
 	DEBUG = 0;
 
 	G = read(argv[1]);
 	setBInit(G);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
+	root = 6; /**/
 
-	Blength = 0;
-	
 	if(argc>=4)
 	{
 		DEBUG = atoi(argv[3]);
@@ -26,11 +24,10 @@ int main(int argc, char *argv[])
 			seed = atoi(argv[4]);
 	}
 	
-	lemma3(G, m, c, root);
+	numEdges = simpleApproxCut(G, atoi(argv[2]), root, G->V);
+	printf("\n%d \n", numEdges);
 
 	freeGraph(G);
 	free(setB);
-	
 	return 0;
 }
-

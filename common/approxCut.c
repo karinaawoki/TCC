@@ -1,9 +1,9 @@
-#include "lemma3.h"
+#include "approxCut.h"
 
 void Algorithm1(Graph *G, float c, int m, int root, int NumVert);
 
 
-void lemma3(Graph *G, int m, float c, int root)
+void approxCut(Graph *G, int m, float c, int root)
 {
 	int NumVert;
 
@@ -15,7 +15,7 @@ void lemma3(Graph *G, int m, float c, int root)
 	NumVert = childs[root];
 
 	if(m ==  NumVert || m == 0 || c <= 0.5)
-		printf("\n%d \n", lemma2(G, m, root, NumVert));
+		printf("\n%d \n", simpleApproxCut(G, m, root, NumVert));
 	else
 		/* c >= m/2 */
 		Algorithm1(G, c, m, root, NumVert);
@@ -36,7 +36,7 @@ void Algorithm1(Graph *G, float c, int m, int root, int NumVert)
 
 	while(lenB < c*m)
 	{
-		lenCut += lemma2(G, m - lenB, root, NumVert);
+		lenCut += simpleApproxCut(G, m - lenB, root, NumVert);
 		/* E se essa nova mini-árvore tiver um verice que 
 		é pai de algum dos vertices do conjunto B anterior?
 		Nesse caso, o corte seria menor do que o proposto acima!

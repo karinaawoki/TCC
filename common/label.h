@@ -1,4 +1,4 @@
-#include "lemma2.h"
+#include "simpleApproxCut.h"
 
 int changeOrderAtAdj(Graph *G, int *maxPath, int *r);
 int *label(Graph *G, int *maxPath, int max, int *r);

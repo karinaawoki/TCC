@@ -7,26 +7,26 @@
 #LDFLAGS := -g
 
 ## Objects #############################################################
-#COMMON  := common/structure.o common/input.o common/lemma2.o
+#COMMON  := common/structure.o common/input.o common/simpleApproxCut.o
 
 #t1_obj  	  := task1.o        $(COMMON) list/queue.o
-#t2_lemma2_obj := task2-lemma2.o $(COMMON)
-#t2_lemma3_obj := task2-lemma3.o $(COMMON) list/queue.o
+#t2_simpleApproxCut_obj := task2-simpleApproxCut.o $(COMMON)
+#t2_approxCut_obj := task2-approxCut.o $(COMMON) list/queue.o
 #t3_obj        := task3.o        $(COMMON) 
 
 ## Rules ###############################################################
 
 .PHONY: all
-all: t1 t2-lemma2 t2-lemma3 t3 t4 t5
+all: t1 t2-simpleApproxCut t2-approxCut t3 t4 t5
 
 ## Linkage #############################################################
 #t1: $(t1_obj)
 #	$(CC) $^ -o $@ $(LDFLAGS)
 
-#t2-lemma2: $(t2_lemma2_obj)
+#t2-simpleApproxCut: $(t2_simpleApproxCut_obj)
 #	$(CC) $^ -o $@ $(LDFLAGS)
 
-#t2-lemma3: $(t2_lemma3_obj)
+#t2-approxCut: $(t2_approxCut_obj)
 #	$(CC) $^ -o $@ $(LDFLAGS)
 
 #t3: $(t3_obj)
@@ -51,27 +51,27 @@ clean:
 
 
 #exec
-t1: task1.o structure.o input.o queue.o lemma2.o maxPath.o
-	gcc task1.o structure.o input.o queue.o lemma2.o maxPath.o -o _t1
-t2-lemma2: task2-lemma2.o structure.o input.o lemma2.o
-	gcc task2-lemma2.o structure.o input.o lemma2.o -o _t2-lemma2
-t2-lemma3: task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o
-	gcc task2-lemma3.o structure.o input.o queue.o lemma2.o lemma3.o -o _t2-lemma3
-t3: task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o
-	gcc task3.o structure.o input.o queue.o lemma2.o maxPath.o label.o -o _t3
-t4: task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o
-	gcc task4.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o _t4
-t5: task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o
-	gcc task5.o structure.o input.o queue.o lemma2.o maxPath.o label.o lemma3.o theorem4.o -o _t5
+t1: task1.o structure.o input.o queue.o simpleApproxCut.o maxPath.o
+	gcc task1.o structure.o input.o queue.o simpleApproxCut.o maxPath.o -o _t1
+t2-simpleApproxCut: task2-simpleApproxCut.o structure.o input.o simpleApproxCut.o
+	gcc task2-simpleApproxCut.o structure.o input.o simpleApproxCut.o -o _t2-simpleApproxCut
+t2-approxCut: task2-approxCut.o structure.o input.o queue.o simpleApproxCut.o approxCut.o
+	gcc task2-approxCut.o structure.o input.o queue.o simpleApproxCut.o approxCut.o -o _t2-approxCut
+t3: task3.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o
+	gcc task3.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o -o _t3
+t4: task4.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o
+	gcc task4.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o -o _t4
+t5: task5.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o
+	gcc task5.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o -o _t5
 
 
 # ROOT
 task1.o: task1.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result 	 -c task1.c -g
-task2-lemma2.o: task2-lemma2.c
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-lemma2.c -g
-task2-lemma3.o: task2-lemma3.c
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-lemma3.c -g
+task2-simpleApproxCut.o: task2-simpleApproxCut.c
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-simpleApproxCut.c -g
+task2-approxCut.o: task2-approxCut.c
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c task2-approxCut.c -g
 task3.o: task3.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task3.c -g
 task4.o: task4.c
@@ -82,8 +82,8 @@ task5.o: task5.c
 
 
 # COMMON
-lemma2.o: common/lemma2.c common/lemma2.h
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/lemma2.c -g
+simpleApproxCut.o: common/simpleApproxCut.c common/simpleApproxCut.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/simpleApproxCut.c -g
 input.o: common/input.c common/input.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/input.c -g
 structure.o: common/structure.c common/structure.h
@@ -92,10 +92,10 @@ maxPath.o: common/maxPath.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
 label.o: common/label.c common/label.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/label.c -g
-lemma3.o: common/lemma3.c common/lemma3.h
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/lemma3.c -g
-theorem4.o: common/theorem4.c common/theorem4.h
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/theorem4.c -g
+approxCut.o: common/approxCut.c common/approxCut.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/approxCut.c -g
+doubleDiam.o: common/doubleDiam.c common/doubleDiam.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/doubleDiam.c -g
 
 
 

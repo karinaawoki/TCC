@@ -88,7 +88,7 @@ input.o: common/input.c common/input.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/input.c -g
 structure.o: common/structure.c common/structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/structure.c -g
-maxPath.o: common/maxPath.c 
+maxPath.o: common/maxPath.c common/maxPath.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
 label.o: common/label.c common/label.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/label.c -g

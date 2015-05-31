@@ -1,5 +1,4 @@
-#include "simpleApproxCut.h" 
-#include "list/queue.h"
+#include "maxPath.h"
 
 
 int fartherVertex(Graph *G, int vertex, int *parents);

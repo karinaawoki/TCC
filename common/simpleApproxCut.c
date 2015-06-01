@@ -54,18 +54,24 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 
 	for(v = G->adj[root]->next; v!=NULL; v = v->next)
 	{
-		if(descendant[v->vertex] <= mPrime)
+		if(DEBUG) printf("vertex (sub-tree): %d\n", v->vertex);
+		if(v->vertex != rightNeighbor && v->vertex != leftNeighbor)
 		{
-			save(G, root, v->vertex);
-			mPrime -= descendant[v->vertex];
+			if(descendant[v->vertex] <= mPrime)
+			{
+				save(G, root, v->vertex);
+				mPrime -= descendant[v->vertex];
+			}
+			else
+				break;
 		}
-		else
-			break;
 	}
 
 
 	searchByNode(G, mPrime, v->vertex, descendant, leftNeighbor, rightNeighbor);
 
+
+	/*searchByNode(G, m, root, descendant, leftNeighbor, rightNeighbor);*/
 	free(descendant);
 	return numVerticesCut;
 }
@@ -75,8 +81,6 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, i
 {
 	/* Return the vertices number of B */
 	Vertex *v;
-
-	printf("poeee\n");
 	for(v = G->adj[root]->next; v!= NULL 
 		&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == leftNeighbor || v->vertex == rightNeighbor) ; v = v->next)
 		/* If the tree satisfies the condition of the lemma, the tree is a answer 
@@ -105,14 +109,13 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, i
 	}
 	/* when (if) it finish, v will be the root of the tree with more than m vertices */
 			
-			printf("lalalal\n");
 	/* Comes down in the tree */
 	if (v != NULL)
 	{
 		int aux;
 		if(DEBUG == 1)
 			printf("Desceu para: %d \n", v->vertex);
-		aux = searchByNode(G, m, v->vertex, descendant, leftNeighbor, rightNeighbor);
+		aux = searchByNode(G, m, v->vertex, descendant, root, -1);
 		descendant[root] -= aux;
 		return aux;
 	}

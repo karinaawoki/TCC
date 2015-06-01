@@ -1,9 +1,9 @@
 #include "approxCut.h"
 
-void Algorithm1(Graph *G, float c, int m, int root, int NumVert);
+void Algorithm1(Graph *G, float c, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor);
 
 
-void approxCut(Graph *G, int m, float c, int root)
+void approxCut(Graph *G, int m, float c, int root, int leftNeighbor, int rightNeighbor)
 {
 	int NumVert;
 
@@ -11,21 +11,21 @@ void approxCut(Graph *G, int m, float c, int root)
 	childs = malloc(G->V*sizeof(int));
 
 	srand(seed);
-	childNumber(G, root, childs, root);
+	childNumber(G, root, childs, leftNeighbor, rightNeighbor);
 	NumVert = childs[root];
 
 	if(m ==  NumVert || m == 0 || c <= 0.5)
-		printf("\n%d \n", simpleApproxCut(G, m, root, NumVert));
+		printf("\n%d \n", simpleApproxCut(G, m, root, NumVert, leftNeighbor, rightNeighbor));
 	else
 		/* c >= m/2 */
-		Algorithm1(G, c, m, root, NumVert);
+		Algorithm1(G, c, m, root, NumVert, leftNeighbor, rightNeighbor);
 	
 
 	free(childs);
 
 }
 
-void Algorithm1(Graph *G, float c, int m, int root, int NumVert)
+void Algorithm1(Graph *G, float c, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
 {
 	int lenB = 0;
 	int lenCut = 0, oldBLength = Blength;
@@ -36,7 +36,8 @@ void Algorithm1(Graph *G, float c, int m, int root, int NumVert)
 
 	while(lenB < c*m)
 	{
-		lenCut += simpleApproxCut(G, m - lenB, root, NumVert);
+		printf("oie\n");
+		lenCut += simpleApproxCut(G, m - lenB, root, NumVert, leftNeighbor, rightNeighbor);
 		/* E se essa nova mini-árvore tiver um verice que 
 		é pai de algum dos vertices do conjunto B anterior?
 		Nesse caso, o corte seria menor do que o proposto acima!

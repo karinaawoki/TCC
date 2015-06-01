@@ -207,10 +207,12 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	}
 
 	/* Separate B */
-	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
-	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
+	/*eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
+	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
 	
-	approxCut(G, mPrime, cPrime, maxPath[z]);
+	/* We will pass the neighbors instead delete the edges */
+
+	approxCut(G, mPrime, cPrime, maxPath[z], maxPath[nextMaxPath(z)], maxPath[previousMaxPath(z)]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
@@ -264,10 +266,12 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 		printf("m %d \n", mPrime);}
 
 	/* Separate B */
-	eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
-	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);
+	/*eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
+	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
 
-	approxCut(G, mPrime, cPrime, maxPath[z]);
+	/* We will pass the neighbors instead delete the edges */
+
+	approxCut(G, mPrime, cPrime, maxPath[z], maxPath[nextMaxPath(z)], maxPath[previousMaxPath(z)]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
 	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/

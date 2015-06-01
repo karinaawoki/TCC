@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 			seed = atoi(argv[4]);
 	}
 	
-	numEdges = simpleApproxCut(G, atoi(argv[2]), root, G->V);
+	numEdges = simpleApproxCut(G, atoi(argv[2]), root, G->V, -1, -1);
 	printf("\n%d \n", numEdges);
 
 	freeGraph(G);

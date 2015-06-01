@@ -2,7 +2,7 @@
 
 
 int mEqualsN(Graph *G, int m, int root);
-int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, int rightNeighbor);
+int searchByNode(Graph *G, int m, int root, int *descendant, int parent);
 void printChildTree(Graph *G, int parent, int vertex);
 int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor);
 void save(Graph *G, int parent, int vertex);
@@ -54,9 +54,9 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 
 	for(v = G->adj[root]->next; v!=NULL; v = v->next)
 	{
-		if(DEBUG) printf("vertex (sub-tree): %d\n", v->vertex);
 		if(v->vertex != rightNeighbor && v->vertex != leftNeighbor)
 		{
+			if(DEBUG) printf("vertex (sub-tree): %d\n", v->vertex);
 			if(descendant[v->vertex] <= mPrime)
 			{
 				save(G, root, v->vertex);
@@ -65,10 +65,14 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 			else
 				break;
 		}
+		if(DEBUG) printf("mPrime: %d\n", mPrime);
 	}
 
-
-	searchByNode(G, mPrime, v->vertex, descendant, leftNeighbor, rightNeighbor);
+	if(mPrime > 0)
+	{
+		if(v == NULL) printf("ERROR: m = |Tz| \n");
+		searchByNode(G, mPrime, v->vertex, descendant, root);
+	}
 
 
 	/*searchByNode(G, m, root, descendant, leftNeighbor, rightNeighbor);*/
@@ -77,19 +81,19 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 }
 
 
-int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, int rightNeighbor)
+int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
 {
 	/* Return the vertices number of B */
 	Vertex *v;
 	for(v = G->adj[root]->next; v!= NULL 
-		&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == leftNeighbor || v->vertex == rightNeighbor) ; v = v->next)
+		&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)
 		/* If the tree satisfies the condition of the lemma, the tree is a answer 
 		 We don't need to comes down in the tree*/
 		/* ??????????? */
 	{
 
 		if (descendant[v->vertex] > m/2.0 
-			&& v->vertex != leftNeighbor && v->vertex!=rightNeighbor 
+		 	&& v->vertex!=parent 
 			&& v->edge == 1)
 			/* m/2.0  -->  m/2 */
 		{
@@ -115,7 +119,7 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, i
 		int aux;
 		if(DEBUG == 1)
 			printf("Desceu para: %d \n", v->vertex);
-		aux = searchByNode(G, m, v->vertex, descendant, root, -1);
+		aux = searchByNode(G, m, v->vertex, descendant, root);
 		descendant[root] -= aux;
 		return aux;
 	}
@@ -131,11 +135,11 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, i
 		{
 
 			while (v->next!=NULL && (numVerticesB + descendant[v->next->vertex] <= m 
-				|| v->next->vertex == leftNeighbor || v->next->vertex == rightNeighbor 
+				|| v->next->vertex == parent 
 				|| v->next->edge != 1))
 			{
 				/* Sum each set (roots childs) */ 
-				if(v->next->edge == 1 && v->next->vertex != leftNeighbor && v->next->vertex!=rightNeighbor)
+				if(v->next->edge == 1 && v->next->vertex!= parent)
 				{
 					if(DEBUG == 1)
 						printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
@@ -154,7 +158,7 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int leftNeighbor, i
 			}
 			if( v->next==NULL )
 				break;
-			else if(v->next->vertex!=leftNeighbor && v->next->vertex !=rightNeighbor)
+			else if(v->next->vertex != parent)
 			{
 				if(DEBUG == 1)
 					printf("saiu \n");

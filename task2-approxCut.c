@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 			seed = atoi(argv[4]);
 	}
 	
-	approxCut(G, m, c, root);
+	approxCut(G, m, c, root, -1, -1);
 
 	freeGraph(G);
 	free(setB);

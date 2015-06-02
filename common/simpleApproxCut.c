@@ -74,8 +74,6 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 		searchByNode(G, mPrime, v->vertex, descendant, root);
 	}
 
-
-	/*searchByNode(G, m, root, descendant, leftNeighbor, rightNeighbor);*/
 	free(descendant);
 	return numVerticesCut;
 }

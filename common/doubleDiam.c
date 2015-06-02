@@ -137,7 +137,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	{
 		/* takes the minimum rô */
 		if (roB[label[maxPath[i]]]!=-1 && 
-			roB[label[maxPath[i]]] <= roF[label[maxPath[i]]] &&
+			roB[label[maxPath[i]]] < roF[label[maxPath[i]]] &&
 			(roB[label[maxPath[i]]] < zVal || zVal == -1))
 		{
 			z = i;
@@ -230,11 +230,18 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	Vertex *v;
 	
 	if(DEBUG) printf("f-special\n");
-	j = nextMaxPath(z);
 
 	if(rLabel[(label[maxPath[z]]-m+countLabel)%countLabel]==label[maxPath[z]] )
 	{ /* If z is the first element of P */
 		j = z;
+	}
+	else
+	{
+		j = nextMaxPath(z);
+		Blength++;
+		setB[maxPath[z]] = 1;
+		jSize++;
+		if(DEBUG) printf(" B1: %d\n", maxPath[z]);
 	}
 
 	/* B1 */
@@ -265,12 +272,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 		printf("c %f \n", cPrime);
 		printf("m %d \n", mPrime);}
 
-	/* Separate B */
-	/*eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
-	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
-
 	/* We will pass the neighbors instead delete the edges */
-
 	approxCut(G, mPrime, cPrime, maxPath[z], maxPath[nextMaxPath(z)], maxPath[previousMaxPath(z)]);
 
 	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
@@ -344,6 +346,7 @@ int separateSBSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 	maxPathEnd = label[maxPath[aux]];
 	while(rLabel[(label[maxPath[aux]] + m)%countLabel] == label[maxPath[z]])
 	{
+		if(DEBUG) printf("S - in maxPath: %d\n", maxPath[aux]);
 		if(aux == 0)
 			divided = 1;
 		else if(aux == maxPathLength-1 && divided == 1)
@@ -384,6 +387,7 @@ int separateSFSpecial(Graph *G, int z, int *label, int *rLabel, int *maxPath, in
 
 	while(rLabel[(label[maxPath[aux]] - m + countLabel)%countLabel] == label[maxPath[z]])
 	{
+		if(DEBUG) printf("S - in maxPath: %d\n", maxPath[aux]);
 		if(aux == z)
 		{
 			if(passedByZ==0) 
@@ -500,6 +504,8 @@ int treeLengthB(Graph *G, int root, int left, int right)
 			sum += treeLengthB(G, i->vertex, root, -1);
 	Blength++;
 	setB[root] = 1;
+	if(DEBUG) printf(" B1: %d\n", root);
+
 	return ++sum;
 }
 

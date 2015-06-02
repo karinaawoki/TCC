@@ -53,7 +53,7 @@ void exactCut(Graph *G, int m)
 	int root, Ssize, max;
 	srand(seed);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-	root = 3;
+	root = 21;
 	
 	/* r shows the root (according to index) */
 	r = malloc(G->V*sizeof(int));

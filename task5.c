@@ -58,7 +58,7 @@ void exactCut(Graph *G, int m)
 	/* r shows the root (according to index) */
 	r = malloc(G->V*sizeof(int));
 
-	maxPath = maximumPath(G, root);
+	maxPath = maximumPath(G);
 
 	/* Labeling */
 	max = changeOrderAtAdj(G, maxPath, r);

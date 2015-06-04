@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	}
 
 	r = (int)(G->V*1.0*rand()/RAND_MAX);
-	maxPath = maximumPath(G, r);
+	maxPath = maximumPath(G);
 	max = changeOrderAtAdj(G, maxPath, root);
 	vLabel = label(G, maxPath, max, root);
 

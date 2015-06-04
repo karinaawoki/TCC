@@ -9,7 +9,7 @@
 ## Objects #############################################################
 #COMMON  := common/structure.o common/input.o common/simpleApproxCut.o
 
-#t1_obj  	  := task1.o        $(COMMON) list/queue.o
+#t1_obj  	  := task0.o        $(COMMON) list/queue.o
 #t2_simpleApproxCut_obj := task2-simpleApproxCut.o $(COMMON)
 #t2_approxCut_obj := task2-approxCut.o $(COMMON) list/queue.o
 #t3_obj        := task3.o        $(COMMON) 
@@ -45,12 +45,14 @@ all: t1 t2-simpleApproxCut t2-approxCut t3 t4 t5
 ## Clean ###############################################################
 .PHONY: clean
 clean:
-	$(RM) common/*.o list/*.o *.o
+	$(RM) common/*.o list/*.o *.o _* *~ common/*~ list/*~
 
 
 
 
 #exec
+t0: task0.o structure.o input.o queue.o simpleApproxCut.o maxPathCris.o
+	gcc task0.o structure.o input.o queue.o simpleApproxCut.o maxPathCris.o -o _t0
 t1: task1.o structure.o input.o queue.o simpleApproxCut.o maxPath.o
 	gcc task1.o structure.o input.o queue.o simpleApproxCut.o maxPath.o -o _t1
 t2-simpleApproxCut: task2-simpleApproxCut.o structure.o input.o simpleApproxCut.o
@@ -66,6 +68,8 @@ t5: task5.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o appr
 
 
 # ROOT
+task0.o: task0.c
+	gcc -Wall -ansi -pedantic -Wno-unused-result 	 -c task0.c -g
 task1.o: task1.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result 	 -c task1.c -g
 task2-simpleApproxCut.o: task2-simpleApproxCut.c
@@ -90,6 +94,8 @@ structure.o: common/structure.c common/structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/structure.c -g
 maxPath.o: common/maxPath.c common/maxPath.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
+maxPathCris.o: common/maxPathCris.c common/maxPath.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPathCris.c -g
 label.o: common/label.c common/label.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/label.c -g
 approxCut.o: common/approxCut.c common/approxCut.h

@@ -514,11 +514,11 @@ int treeLengthB(Graph *G, int root, int left, int right)
 void printB(Graph *G)
 {
 	int i;
-	printf("-------- B --------\n");
+	if(DEBUG_2) printf("-------- B --------\n");
 	for (i = 0; i < G->V; ++i)
 	{
 		if(setB[i] == 1)
-		printf(" %d\n", i);
+		if(DEBUG_2) printf(" %d\n", i);
 	}
-	printf("-------------------\n");
+	if(DEBUG_2) printf("-------------------\n");
 }			

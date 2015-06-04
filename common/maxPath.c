@@ -33,7 +33,7 @@ int *maximumPath(Graph *G)
         /* If all vertices was visited, r will be G->V (BREAK)*/
     }
   
-    for (i=1; i<tree; i++) includeNotOriginalEdges(G, y[i-1], x[i]);
+    for (i=1; i<tree; i++) includeBridgeEdges(G, y[i-1], x[i]);
   
     free(parents); 
     free(x); 

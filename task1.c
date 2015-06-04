@@ -5,13 +5,13 @@ int main(int argc, char *argv[])
 	/* argv[1] = filename */
 	Graph *G;
 	int *maxPath;
-	int r;
+	/*int r;*/
 	G = read(argv[1]);
 	setBInit(G);
 	seed = 1;
 	DEBUG = 0;
 
-	r = (int)(G->V*1.0*rand()/RAND_MAX);
+	/*r = (int)(G->V*1.0*rand()/RAND_MAX);*/
 
 	if(argc>=4)
 	{
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 			seed = atoi(argv[4]);
 	}
 	
-	maxPath = maximumPath(G, r);
+	maxPath = maximumPath(G);
 	free(maxPath);
 	freeGraph(G);
 	free(setB);

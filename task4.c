@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	/* r shows the root (according to index) */
 	r = malloc(G->V*sizeof(int));
 
-	maxPath = maximumPath(G, root);
+	maxPath = maximumPath(G);
 
 	/* Label */
 	max = changeOrderAtAdj(G, maxPath, r);

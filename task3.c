@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
 	int *maxPath, *vLabel, max, *root;
 	Graph *G;
-	int r;
+	/*int r;*/
 	seed = 1;
 	DEBUG = 0;
 	G = read(argv[1]);
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 			seed = atoi(argv[4]);
 	}
 
-	r = (int)(G->V*1.0*rand()/RAND_MAX);
+	/*r = (int)(G->V*1.0*rand()/RAND_MAX);*/
 	maxPath = maximumPath(G);
 	max = changeOrderAtAdj(G, maxPath, root);
 	vLabel = label(G, maxPath, max, root);

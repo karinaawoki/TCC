@@ -1,4 +1,4 @@
-#include "maxPath.h"
+#include "maxPath-v1.h"
 
 
 int fartherVertex(Graph *G, int vertex, int *parents);

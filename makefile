@@ -17,7 +17,7 @@
 ## Rules ###############################################################
 
 .PHONY: all
-all: t1 t2-simpleApproxCut t2-approxCut t3 t4 t5
+all: t0 t1 t2-simpleApproxCut t2-approxCut t3 t4 t5
 
 ## Linkage #############################################################
 #t1: $(t1_obj)
@@ -51,8 +51,8 @@ clean:
 
 
 #exec
-t0: task0.o structure.o input.o queue.o simpleApproxCut.o maxPathCris.o
-	gcc task0.o structure.o input.o queue.o simpleApproxCut.o maxPathCris.o -o _t0
+t0: task0.o structure.o input.o queue.o simpleApproxCut.o maxPath-v1.o
+	gcc task0.o structure.o input.o queue.o simpleApproxCut.o maxPath-v1.o -o _t0
 t1: task1.o structure.o input.o queue.o simpleApproxCut.o maxPath.o
 	gcc task1.o structure.o input.o queue.o simpleApproxCut.o maxPath.o -o _t1
 t2-simpleApproxCut: task2-simpleApproxCut.o structure.o input.o simpleApproxCut.o
@@ -94,8 +94,8 @@ structure.o: common/structure.c common/structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/structure.c -g
 maxPath.o: common/maxPath.c common/maxPath.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath.c -g
-maxPathCris.o: common/maxPathCris.c common/maxPath.h
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPathCris.c -g
+maxPath-v1.o: common/maxPath-v1.c common/maxPath-v1.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/maxPath-v1.c -g
 label.o: common/label.c common/label.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c common/label.c -g
 approxCut.o: common/approxCut.c common/approxCut.h

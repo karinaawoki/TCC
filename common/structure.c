@@ -42,6 +42,35 @@ void freeGraph(Graph *G)
 	free(G);
 }
 
+
+void includeBridgeEdges(Graph *G, int vertex1, int vertex2)
+{
+	Vertex *newVertex1, *newVertex2;
+	newVertex1 = malloc(sizeof(Vertex));
+	newVertex2 = malloc(sizeof(Vertex));
+
+	newVertex1->vertex = vertex1;
+	newVertex2->vertex = vertex2;
+
+	newVertex1->edge = 1;
+	newVertex2->edge = 1;
+
+	newVertex1->original = 1;
+	newVertex2->original = 1;
+
+	newVertex1->bridge = 1;
+	newVertex2->bridge = 1;
+
+	/*newVertex1->next = G->adj[vertex2];*/
+	newVertex1->next = G->adj[vertex2]->next;
+
+	G->adj[vertex2]->next = newVertex1; 
+
+	newVertex2->next = G->adj[vertex1]->next;
+	G->adj[vertex1]->next = newVertex2;
+}
+
+
 void includeEdges(Graph *G, int vertex1, int vertex2)
 {
 	Vertex *newVertex1, *newVertex2;
@@ -56,6 +85,9 @@ void includeEdges(Graph *G, int vertex1, int vertex2)
 
 	newVertex1->original = 1;
 	newVertex2->original = 1;
+
+	newVertex1->bridge = 0;
+	newVertex2->bridge = 0;
 
 	/*newVertex1->next = G->adj[vertex2];*/
 	newVertex1->next = G->adj[vertex2]->next;
@@ -80,6 +112,9 @@ void includeNotOriginalEdges(Graph *G, int vertex1, int vertex2)
 
 	newVertex1->original = 0;
 	newVertex2->original = 0;
+
+	newVertex1->bridge = 0;
+	newVertex2->bridge = 0;
 
 	/*newVertex1->next = G->adj[vertex2];*/
 	newVertex1->next = G->adj[vertex2]->next;

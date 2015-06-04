@@ -14,50 +14,76 @@ int main(int argc, char *argv[])
 	/* argv[1] = filename */
 	/* argv[2] = m        */
 
-	Graph *G;
-	Blength = 0;
-	numCut  = 0;
-	maxPathInit = -1;
-	maxPathEnd  = -1;
-	seed = 1;
-	DEBUG = 0;
+  	Graph *G; int m, max = 0;
+  	Blength = 0;
+  	numCut  = 0;
+  	maxPathInit = -1;
+  	maxPathEnd  = -1;
+  	seed = 1;
+  	DEBUG = 0;
+  	DEBUG_2 = 1;
 
-	if(argc>=4)
-	{
-		DEBUG = atoi(argv[3]);
-		if(argc>=5)
-			seed = atoi(argv[4]);
-	}
+  	if(argc>=4)
+    {
+      	DEBUG = atoi(argv[3]);
+      	if(DEBUG == 2) DEBUG_2 = 0;
+      	if(argc>=5) seed = atoi(argv[4]);
+    }
+  
+  	G = read(argv[1]);
+  
+  	if(argc > 2 && argv[2][0]=='n')
+  	{
+  		for (m=0; m<G->V; m++) 
+	  	{
+	  		Blength = 0;
+		  	numCut  = 0;
+		  	maxPathInit = -1;
+		  	maxPathEnd  = -1;
+	    	setBInit(G);
+	    	exactCut(G, m);
+		    if (numCut > max) max = numCut;
+		    free(setB);
+  			freeGraph(G);
+	  		G = read(argv[1]);
+	  }
+	  	printf("Max cut found: %d\n", max);
+  	}
+  	else if(argc > 2 && G->V < atoi(argv[2]))
+      	printf("m maior que o número de vértices!!\n");
 
-	G = read(argv[1]);
-	if(G->V < atoi(argv[2]))
-	{
-		freeGraph(G);
-		printf("m maior que o número de vértices!!\n");
-		return 0;
-	}
+    else if (argc > 2)
+    {
+    	setBInit(G);
+	  	exactCut(G, atoi(argv[2]));
+	  
+	  	free(setB);
+    }
+  
+  /* setB is a bit vector - a vertex is or not at B */
 
-	/* setB is a bit vector - a vertex is or not at B */
-	setBInit(G);
-	exactCut(G, atoi(argv[2]));
 
-	free(setB);
-	freeGraph(G);
-	return 0;
+
+  	
+
+ 
+  	freeGraph(G);
+  	return 0;
 }
+
 
 
 void exactCut(Graph *G, int m)
 {
 	int *maxPath, *labelVec, *r, *index;
-	int root, elementOfS, max;
+	int root, Ssize, max;
 	srand(seed);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
-	root = 21;
 	
 	/* r shows the root (according to index) */
 	r = malloc(G->V*sizeof(int));
 
+	/* maxPath = maximumPath(G, root); */
 	maxPath = maximumPath(G);
 
 	/* Labeling */
@@ -66,19 +92,19 @@ void exactCut(Graph *G, int m)
 
 	index = labelToIndex(G, labelVec);
 
-
-	elementOfS = doubleDiam(G, m, root, labelVec, index, maxPath, r);
+	Ssize = doubleDiam(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
 		if(DEBUG==1){
 			test(G, labelVec, index ,maxPath);
 			printGraph(G); }
-		if(elementOfS<0)
+
+		if(Ssize<0)
 			printf("ERROOOO\n");
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
-		elementOfS = doubleDiam(G, m-Blength, elementOfS, labelVec, index, maxPath, r);
+		Ssize = doubleDiam(G, m-Blength, Ssize, labelVec, index, maxPath, r);
 	}
 	if(DEBUG == 1) printGraph(G);
 		
@@ -101,7 +127,7 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
     {
         if(v->vertex!=parent && v->original==1)
         {
-        	if(setB[ver]!=setB[v->vertex])
+        	if(setB[ver]!=setB[v->vertex] && v->bridge==0)
         	{
         		printf("%d -- %d\n", ver, v->vertex);
             	numCut++;

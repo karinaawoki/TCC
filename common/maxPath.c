@@ -19,7 +19,7 @@ int *maximumPath(Graph *G)
     for(i = 0; i<G->V; i++) maxPath[i] = -1;
     
     while (r < G->V) {
-        printf("%d ------ r \n", r); 
+        if(DEBUG_2)printf("%d ------ r \n", r); 
         /* defining the start and the end of the 
            maximumPath of the analized tree */
         x[tree] = fartherVertex(G, r, parents, visited);
@@ -38,7 +38,7 @@ int *maximumPath(Graph *G)
     free(parents); 
     free(x); 
     free(y);
-    printf("comprimento: %d\n", maxPathLength);
+    if(DEBUG_2) printf("comprimento: %d\n", maxPathLength);
     return maxPath;
 }
 
@@ -46,19 +46,19 @@ void printPath(int *parents, int init, int end, int *maxPath, int *i)
 {
     int vertex;
     
-    printf("TASK 1 - The longest path in the tree is: \n");
-    printf("%d  ", end);
+    if(DEBUG_2) printf("TASK 1 - The longest path in the tree is: \n");
+    if(DEBUG_2) printf("%d  ", end);
     maxPath[*i] = end; 
     (*i)++;
     vertex = parents[end];
     while(vertex != init) 
     {
-        printf("%d  ", vertex);
+        if(DEBUG_2) printf("%d  ", vertex);
         maxPath[*i] = vertex;
         vertex = parents[vertex];
         (*i)++;
     }
-    printf("%d\n\n", init);
+    if(DEBUG_2) printf("%d\n\n", init);
     maxPath[*i] = init;
     maxPathLength = (*i)+1;
     maxPath[(*i)+1] = -1;

@@ -64,7 +64,7 @@ void case1(Graph *G, int firstVertexB, int m, int *index)
 	int i;
 	/* B is all the vertex with label between firstVertexB and
 	firstVertexB -m */
-	if(DEBUG) printf("\n\n -- CASO 1 --\n");
+	if(DEBUG) printf("\n\n -- CASE 1 --\n");
 	for(i =firstVertexB; i!=(firstVertexB+m-1)%countLabel; i = (i+1)%countLabel)
 	{
 		Blength++;
@@ -92,7 +92,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	int i, *pb, *pf, *numPf, *numPb, bSpecial, z, elementOfS;
 	float *roB, *roF, zVal;
 	
-	if(DEBUG) printf("\n\n -- CASO 2 --\n");
+	if(DEBUG) printf("\n\n -- CASE 2 --\n");
 
 	zVal = -1;
 	numPb = malloc(countLabel*sizeof(int));

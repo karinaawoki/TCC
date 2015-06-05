@@ -5,38 +5,35 @@ void Algorithm1(Graph *G, float c, int m, int root, int NumVert, int leftNeighbo
 
 void approxCut(Graph *G, int m, float c, int root, int leftNeighbor, int rightNeighbor)
 {
-	int NumVert;
-
-	int *childs;
+	int NumVert, *childs;
 	childs = malloc(G->V*sizeof(int));
-
+	if(STEP) printf("  Approximate cut \n"); 
+    if(STEP) printf("    root: %d\n", root);
+    if(STEP) printf("    m:    %d\n", m);
 	srand(seed);
 	childNumber(G, root, childs, leftNeighbor, rightNeighbor);
 	NumVert = childs[root];
 
 	if(m ==  NumVert || m == 0 || c <= 0.5)
-		printf("\n%d \n", simpleApproxCut(G, m, root, NumVert, leftNeighbor, rightNeighbor));
+		printf("    Number of vertices cut: %d\n", simpleApproxCut(G, m, root, NumVert, leftNeighbor, rightNeighbor));
 	else
 		/* c >= m/2 */
 		Algorithm1(G, c, m, root, NumVert, leftNeighbor, rightNeighbor);
 	
-
 	free(childs);
-
 }
+
 
 void Algorithm1(Graph *G, float c, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
 {
 	int lenB = 0;
 	int lenCut = 0, oldBLength = Blength;
 
-	
-	
-	printf("root : %d\n", root);
+	if(STEP) printf("    Algorithm 1 - root: %d\n", root);
 
 	while(lenB < c*m)
 	{
-		printf("oie\n");
+		if (DEBUG||STEP) printf("Inside the loop of Algorithm 1.\n");
 		lenCut += simpleApproxCut(G, m - lenB, root, NumVert, leftNeighbor, rightNeighbor);
 		/* E se essa nova mini-árvore tiver um verice que 
 		é pai de algum dos vertices do conjunto B anterior?
@@ -54,7 +51,5 @@ void Algorithm1(Graph *G, float c, int m, int root, int NumVert, int leftNeighbo
 		printf("lenB = %d\n", lenB);
 		printf("lenCut = %d\n", lenCut);*/
 	}
-
-	printf("\n%d \n", lenCut);
-
+	if(STEP) printf("    Algorithm 1 - number of vertices cut: %d\n", lenCut);
 }

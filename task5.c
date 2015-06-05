@@ -21,12 +21,15 @@ int main(int argc, char *argv[])
   	maxPathEnd  = -1;
   	seed = 1;
   	DEBUG = 0;
+  	STEP = 0;
   	DEBUG_2 = 1;
+
 
   	if(argc>=4)
     {
       	DEBUG = atoi(argv[3]);
       	if(DEBUG == 2) DEBUG_2 = 0;
+      	if(DEBUG == 3) {STEP = 1; DEBUG = 0; DEBUG_2 = 0;}
       	if(argc>=5) seed = atoi(argv[4]);
     }
   
@@ -50,7 +53,7 @@ int main(int argc, char *argv[])
 	  	printf("Max cut found: %d\n", max);
   	}
   	else if(argc > 2 && G->V < atoi(argv[2]))
-      	printf("m maior que o número de vértices!!\n");
+        printf("Input error: m is greater than the number of vertices in the graph!!!\n");
 
     else if (argc > 2)
     {
@@ -100,7 +103,7 @@ void exactCut(Graph *G, int m)
 			printGraph(G); }
 
 		if(Ssize<0)
-			printf("ERROOOO\n");
+			printf("ERROR\n");
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
@@ -109,7 +112,7 @@ void exactCut(Graph *G, int m)
 	if(DEBUG == 1) printGraph(G);
 		
 	countEdgesAtCut(G, 0, 0);
-	printf("CORTE: %d\n", numCut);
+	printf("**** Cut **** : %d\n", numCut);
 
 	free(maxPath);
 	/*printLabel(G, labelVec, r);*/
@@ -129,7 +132,7 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
         {
         	if(setB[ver]!=setB[v->vertex] && v->bridge==0)
         	{
-        		if(DEBUG_2)printf("%d -- %d\n", ver, v->vertex);
+        		if(DEBUG_2) printf("%d -- %d\n", ver, v->vertex);
             	numCut++;
         	}
             countEdgesAtCut(G, v->vertex, ver);

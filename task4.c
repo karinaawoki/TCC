@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	elementOfS = doubleDiam(G, atoi(argv[2]), root, labelVec, 
 		index, maxPath, r);
 
-	printf("///////--- %d\n", elementOfS);
+	printf("element Of S: %d\n", elementOfS);
 	freeGraph(G);
 	free(r);
 	free(maxPath);

@@ -10,13 +10,15 @@ void save(Graph *G, int parent, int vertex);
 
 
 int numVerticesCut = 0;
-/* This modele prints the vertices of B (according to the 
+/* This model prints the vertices of B (according to the 
     simpleApproxCut - lemma2) and returns the number of edges at the cut.   */ 
 
 
 int simpleApproxCut(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
-/*int main(int argc, char *argv[])*/
 {
+	/* return the number of edges in the cut */
+
+	if(STEP) printf("    Simple approximate cut (Lemma 2)\n");
 	if(DEBUG == 1)
 		printf("m: %d\n", m);
 	if(NumVert == m)
@@ -40,6 +42,8 @@ int mEqualsN(Graph *G, int m, int root)
 
 int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 {
+	/* Return the number of edges in the cut */
+
 	int *descendant, i, mPrime = m;
 	Vertex *v;
 	descendant = malloc(G->V*sizeof(int));
@@ -50,7 +54,6 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 	childNumber(G, root, descendant, leftNeighbor, rightNeighbor);
 	numVerticesCut = 0;
 
-	/* colocar função de escolher raíz */
 
 	for(v = G->adj[root]->next; v!=NULL; v = v->next)
 	{
@@ -81,7 +84,7 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 
 int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
 {
-	/* Return the vertices number of B */
+	/* Return the number of vertices at B */
 	Vertex *v;
 	for(v = G->adj[root]->next; v!= NULL 
 		&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)

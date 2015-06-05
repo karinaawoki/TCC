@@ -27,8 +27,11 @@ int doubleDiam(Graph *G, int m, int root, int *label, int *index, int *maxPath, 
 	/* Return an element of S */
 
 	int elementOfS;
+	if(STEP) printf("\nDoubling diameter routine\n"); 
+   	if(STEP) printf("  Starts with B of size %d.\n", Blength);
 	elementOfS = decideCases(G, maxPath, label, m, r, index);
-	
+	if(STEP) printf("  Ends with B of size %d.\n", Blength);
+
 	return elementOfS;
 }
 
@@ -64,7 +67,7 @@ void case1(Graph *G, int firstVertexB, int m, int *index)
 	int i;
 	/* B is all the vertex with label between firstVertexB and
 	firstVertexB -m */
-	if(DEBUG) printf("\n\n -- CASE 1 --\n");
+	if(DEBUG||STEP) printf(" -- CASE 1 --\n");
 	for(i =firstVertexB; i!=(firstVertexB+m-1)%countLabel; i = (i+1)%countLabel)
 	{
 		Blength++;
@@ -73,12 +76,6 @@ void case1(Graph *G, int firstVertexB, int m, int *index)
 	
 	setB[index[i]] = 1;
 	Blength++;
-
-	/* when B is at the border */
-	/*if((firstVertexB-m+1)%countLabel == 0 || firstVertexB == countLabel-1)
-		printf("\n%d\n", 1);
-	else
-		printf("\n%d\n", 2);*/
 
 	printB(G);
 }
@@ -92,7 +89,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	int i, *pb, *pf, *numPf, *numPb, bSpecial, z, elementOfS;
 	float *roB, *roF, zVal;
 	
-	if(DEBUG) printf("\n\n -- CASE 2 --\n");
+	if(DEBUG||STEP) printf("\n\n -- CASE 2 --\n");
 
 	zVal = -1;
 	numPb = malloc(countLabel*sizeof(int));
@@ -156,7 +153,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	free(roB);
 	free(roF);
 
-	if(DEBUG)
+	if(DEBUG||STEP)
 	{
 		printf(" z = %d \n", maxPath[z]);
 		printf(" is b-special?  %d \n", bSpecial);
@@ -181,7 +178,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	int i, j, jSize = 0, mPrime, elementOfS;
 	float cPrime, d;
 
-	if(DEBUG) printf("b-special\n");
+	if(DEBUG||STEP) printf("b-special\n");
 
 	j = previousMaxPath(z);
 
@@ -200,7 +197,7 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	cPrime = 2-(1.0/(1-d));
 	mPrime = m - jSize;
 
-	if(DEBUG)
+	if(DEBUG||STEP)
 	{
 		printf("c %f \n", cPrime);
 		printf("m %d \n", mPrime);
@@ -229,7 +226,7 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 	float cPrime, d;
 	Vertex *v;
 	
-	if(DEBUG) printf("f-special\n");
+	if(DEBUG||STEP) printf("f-special\n");
 
 	if(rLabel[(label[maxPath[z]]-m+countLabel)%countLabel]==label[maxPath[z]] )
 	{ /* If z is the first element of P */
@@ -264,11 +261,12 @@ int fSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 			jSize += treeLengthB(G, v->vertex, maxPath[i], -1);
 		}
 	}
+	if(STEP) printf("  size of B: %d\n", Blength);
 
 	d = maxPathLength*1.0/countLabel;
 	cPrime = 2-(1.0/(1-d));
 	mPrime = m - jSize;
-	if(DEBUG){
+	if(DEBUG||STEP){
 		printf("c %f \n", cPrime);
 		printf("m %d \n", mPrime);}
 
@@ -297,7 +295,7 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 		rootLabel = rLabel[(label[maxPath[i]] + m)%countLabel];
 		p[label[maxPath[i]]] = rootLabel;
 		numPb[rootLabel]++;
-		if(DEBUG==1)
+		if(DEBUG)
 			printf("%d\n", p[label[maxPath[i]]]);
 	}
 	return p;
@@ -317,7 +315,7 @@ int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 		rootLabel = rLabel[(label[maxPath[i]] - m + countLabel)%countLabel];
 		p[label[maxPath[i]]] = rootLabel;
 		numPf[rootLabel]++;
-		if(DEBUG == 1)
+		if(DEBUG)
 			printf("%d\n", p[label[maxPath[i]]]);
 	}
 	return p;
@@ -514,11 +512,11 @@ int treeLengthB(Graph *G, int root, int left, int right)
 void printB(Graph *G)
 {
 	int i;
-	if(DEBUG_2) printf("-------- B --------\n");
+	if(DEBUG_2||STEP) printf("-------- B --------\n");
 	for (i = 0; i < G->V; ++i)
 	{
 		if(setB[i] == 1)
-		if(DEBUG_2) printf(" %d\n", i);
+		if(DEBUG_2||STEP) printf(" %d\n", i);
 	}
-	if(DEBUG_2) printf("-------------------\n");
+	if(DEBUG_2||STEP) printf("-------------------\n");
 }			

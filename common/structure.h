@@ -41,4 +41,5 @@ int maxPathEnd;
 
 int DEBUG;
 int DEBUG_2;
+int STEP;
 int seed;

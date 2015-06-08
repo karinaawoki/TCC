@@ -7,6 +7,7 @@ struct vertex
 {
 	int vertex;
 	Vertex *next;
+	float weight;
 	int edge; /*0: false   1:true*/
 	int original; /*0:not-original   1:original     Is not artificial*/
 	int bridge;  /* use to connect the trees */
@@ -21,7 +22,7 @@ struct graph
 
 
 void initGraph(Graph *G, int V);
-void includeEdges(Graph *G, int vertex1, int vertex2);
+void includeEdges(Graph *G, int vertex1, int vertex2, float weight);
 void includeNotOriginalEdges(Graph *G, int vertex1, int vertex2);
 void includeBridgeEdges(Graph *G, int vertex1, int vertex2);
 

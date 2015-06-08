@@ -8,6 +8,7 @@ void test(Graph *G, int *label, int *index, int *maxPath);
 
 
 int numCut;
+float numCutWeight;
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
   	Graph *G; int m, max = 0;
   	Blength = 0;
   	numCut  = 0;
+  	numCutWeight = 0;
   	maxPathInit = -1;
   	maxPathEnd  = -1;
   	seed = 1;
@@ -113,6 +115,7 @@ void exactCut(Graph *G, int m)
 		
 	countEdgesAtCut(G, 0, 0);
 	printf("**** Cut **** : %d\n", numCut);
+	printf("Cut-weight: %f \n", numCutWeight);
 
 	free(maxPath);
 	/*printLabel(G, labelVec, r);*/
@@ -134,6 +137,7 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
         	{
         		if(DEBUG_2) printf("%d -- %d\n", ver, v->vertex);
             	numCut++;
+            	numCutWeight+= v->weight;
         	}
             countEdgesAtCut(G, v->vertex, ver);
         }   

@@ -13,7 +13,7 @@ Graph *read(char *file_name)
 
 	while((fgets(line, sizeof(line), file)) != NULL)
 	{
-		float weight;
+	    char *aux;
 		if (lineCount == 0)
 		{ /* First line contains number of vertex */
 			initGraph(G, atoi(line));
@@ -22,18 +22,13 @@ Graph *read(char *file_name)
 
 		else
 		{
-			char *aux;
+		    float weight = 1;
 			char space[2] = " ";
 			int v1 = atoi(strtok(line, space));
 			int v2 = atoi(strtok(NULL, space));
 			aux = strtok(NULL, space);
-			if(aux!=NULL && aux[0]!='\n')
-				weight = atof(aux);
-			else
-				weight = 1;
-
-			printf("-%f--\n", weight);
-
+			if(aux!=NULL && aux[0]!='\n') weight = atof(aux);
+			
 			includeEdges(G, v1, v2, weight);
 		}
 	}

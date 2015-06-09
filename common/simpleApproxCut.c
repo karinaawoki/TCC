@@ -9,18 +9,20 @@ void save(Graph *G, int parent, int vertex);
 
 
 
-int numVerticesCut = 0;
+int numEdgesCut = 0; /* Updates the vector of descendants */
 /* This model prints the vertices of B (according to the 
     simpleApproxCut - lemma2) and returns the number of edges at the cut.   */ 
 
 
 int simpleApproxCut(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
 {
-	/* return the number of edges in the cut */
+	/* Returns the number of edges in the cut */
 
-	if(STEP) printf("    Simple approximate cut (Lemma 2)\n");
-	if(DEBUG == 1)
-		printf("m: %d\n", m);
+	if(STEP) printf("      Simple approximate cut (Lemma 2)\n");
+	if(DEBUG || STEP) {
+		printf("        root: %d\n", root);
+		printf("        m: %d\n", m);
+	}
 	if(NumVert == m)
 		return mEqualsN(G, m, root);
 	else if(m == 0)
@@ -33,7 +35,7 @@ int simpleApproxCut(Graph *G, int m, int root, int NumVert, int leftNeighbor, in
 
 int mEqualsN(Graph *G, int m, int root)
 {
-	/* Return the number of edges in the cut */
+	/* Returns the number of edges in the cut */
 	
 	save(G, root, root);
 	
@@ -42,7 +44,7 @@ int mEqualsN(Graph *G, int m, int root)
 
 int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 {
-	/* Return the number of edges in the cut */
+	/* Returns the number of edges in the cut */
 
 	int *descendant, i, mPrime = m;
 	Vertex *v;
@@ -52,7 +54,7 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 		descendant[i] = -1;
 	}
 	childNumber(G, root, descendant, leftNeighbor, rightNeighbor);
-	numVerticesCut = 0;
+	numEdgesCut = 0;
 
 
 	for(v = G->adj[root]->next; v!=NULL; v = v->next)
@@ -78,7 +80,7 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 	}
 
 	free(descendant);
-	return numVerticesCut;
+	return numEdgesCut;
 }
 
 
@@ -108,7 +110,6 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
 			eraseEdge(G, root, v->vertex);
 
 			descendant[root] -= removeDescendant;
-			numVerticesCut = 1;
 			return removeDescendant;
 		}
 	}
@@ -150,7 +151,7 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
 					/* Separate B and W */
 					eraseEdge(G, root, v->next->vertex);
 					v = v->next;
-					numVerticesCut ++;
+					numEdgesCut ++;
 				}
 				else
 					v=v->next;
@@ -204,7 +205,7 @@ void printChildTree(Graph *G, int parent, int vertex)
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
 		if(v->vertex != parent && v->edge==1)
 			printChildTree(G, vertex, v->vertex);	
-	printf("%d ", vertex);
+	if (DEBUG) printf("printChildTree: %d ", vertex);
 }
 
 void save(Graph *G, int parent, int vertex)

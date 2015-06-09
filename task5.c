@@ -8,8 +8,7 @@ void test(Graph *G, int *label, int *index, int *maxPath);
 
 
 int numCut;
-int numCutWeight;
-
+float numCutWeight;
 int main(int argc, char *argv[])
 {
 	/* argv[1] = filename */
@@ -17,9 +16,13 @@ int main(int argc, char *argv[])
 
   	Graph *G; int m, max = 0;
   	Blength = 0;
-  	numCut = numCutWeight = 0; 
-  	maxPathInit = maxPathEnd  = -1;
-  	DEBUG = STEP = seed = 0;
+  	numCut  = 0;
+  	numCutWeight = 0;
+  	maxPathInit = -1;
+  	maxPathEnd  = -1;
+  	seed = 1;
+  	DEBUG = 0;
+  	STEP = 0;
   	DEBUG_2 = 1;
 
 
@@ -41,8 +44,7 @@ int main(int argc, char *argv[])
 		  	numCut  = 0;
 		  	maxPathInit = -1;
 		  	maxPathEnd  = -1;
-	    	setBInit(G); 
-  			/* setB is a bit vector - a vertex is or not at B */
+	    	setBInit(G);
 	    	exactCut(G, m);
 		    if (numCut > max) max = numCut;
 		    free(setB);
@@ -60,7 +62,14 @@ int main(int argc, char *argv[])
 	  	exactCut(G, atoi(argv[2]));
 	  
 	  	free(setB);
-    }  
+    }
+  
+  /* setB is a bit vector - a vertex is or not at B */
+
+
+
+  	
+
  
   	freeGraph(G);
   	return 0;
@@ -104,9 +113,9 @@ void exactCut(Graph *G, int m)
 	if(DEBUG == 1) printGraph(G);
 		
 	countEdgesAtCut(G, 0, 0);
-	printf("**** Cut: %d\n", numCut);
-	printf("**** Cut(weight): %d\n", numCutWeight);
-
+	printf("**** Cut **** : %d\n", numCut);
+    printf("Cut-weight: %f \n", numCutWeight);
+    
 	free(maxPath);
 	/*printLabel(G, labelVec, r);*/
 	free(r);
@@ -127,7 +136,7 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
         	{
         		if(DEBUG_2) printf("%d -- %d\n", ver, v->vertex);
             	numCut++;
-            	numCutWeight += v->weight;
+            	numCutWeight+= v->weight;
         	}
             countEdgesAtCut(G, v->vertex, ver);
         }   

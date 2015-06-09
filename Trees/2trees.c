@@ -15,14 +15,16 @@ int auxNum;
 
 int main (int argc, char *argv[])
 {
-	int *aux, root2, i, j, distT1T2, end;
+	int *aux, root2, i, j, distT1T2, end, k;
 	auxNum = 0;
-	len = atoi(argv[1]);  distT1T2 = atoi(argv[2])--;
+	len = atoi(argv[1]);  distT1T2 = atoi(argv[2])-1;
+	i = (int)((pow(3, len)-1)/6) ;
+
 	num = 0;
-	/*printf("%d\n", 
-			(int)((pow(3, len)-1)/2) 
+	printf("%d\n", 
+			((int)((pow(3, len)-1)*5/3)) 
 		  );
-*/
+
 	/* creating T1 (small tree) */
 	create3Childs(0, 1);
 	aux = vec(len);
@@ -30,8 +32,9 @@ int main (int argc, char *argv[])
 	/* creating T2 (big tree) */
 	create3ChildsBigTree(root2, 1, aux);
 
-	printf("------------------\n");
 	
+
+
 
 	/* Edges next to T2 (big tree) */
 	num++;
@@ -51,13 +54,12 @@ int main (int argc, char *argv[])
 	}
 	newEdge(num, 0);
 
-
 	/* Edges between T1 and T2(big tree) */
 	j = 0;
-	i = (int)((pow(3, len)-1)/6) - 2*len+1;
+	i = (int)((pow(3, len)-1)/6) - 2*len-1;
 	if(distT1T2>i) distT1T2 = i;
 
-	for (i = 0; i < distT1T2; ++i)
+	for (k = 0; k < distT1T2; ++k)
 	{
 		newChild(j);
 		j = num;
@@ -66,12 +68,11 @@ int main (int argc, char *argv[])
 	newEdge(j, root2);
 
 	/*  */
-	printf("%s\n", );
 	while(i>0)
 	{
-		newChild(j);
+		newChild(end);
 		i--;
-		j = num;
+		end = num;
 	}
 
 	return 0;
@@ -112,7 +113,6 @@ void create3ChildsBigTree(int i, int height, int *aux)
 	else if(height == len)
 	{
 		int k;
-		printf("---------\n");
 		for(k=0; k<aux[auxNum]; k++)
 			newChild(i);
 		auxNum++;

@@ -13,8 +13,12 @@ int main(int argc, char *argv[])
 {
 	/* argv[1] = filename */
 	/* argv[2] = m        */
+	float bound;
 
-  	Graph *G; int m, max = 0;
+	int maxDegree = -1;
+
+  	Graph *G; int m, max = 0, i;
+  	Vertex *v;
   	Blength = 0;
   	numCut  = 0;
   	numCutWeight = 0;
@@ -35,7 +39,21 @@ int main(int argc, char *argv[])
     }
   
   	G = read(argv[1]);
-  
+
+  	for(i=0; i<G->V; i++)
+  	{
+  		int degree = 0;
+  		for (v = G->adj[i]->next; v!=NULL; v = v->next)
+  		{
+  			degree++;
+  		}
+  		if(degree>maxDegree)
+  		{
+  			maxDegree = degree;
+  		}
+  	}
+
+
   	if(argc > 2 && argv[2][0]=='n')
   	{
   		for (m=0; m<G->V; m++) 
@@ -69,6 +87,9 @@ int main(int argc, char *argv[])
 
 
   	
+printf(" MaxDegree: %d\n", maxDegree);
+  	bound = maxDegree*8.0*G->V/maxPathLength;
+    printf("Bound: %f\n", bound);
 
  
   	freeGraph(G);
@@ -89,6 +110,7 @@ void exactCut(Graph *G, int m)
 
 	/* maxPath = maximumPath(G, root); */
 	maxPath = maximumPath(G);
+
 
 	/* Labeling */
 	max = changeOrderAtAdj(G, maxPath, r);

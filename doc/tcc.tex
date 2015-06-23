@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{article}
+
+% Para usar a linguagem PT-BR.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\selectlanguage{brazilian} 
+
+\newcommand{\Oh}{\mathrm{O}}
+
+\sloppy
+
+\begin{document}
+\begin{center}
+   {\large \textbf{UNIVERSIDADE DE SÃO PAULO}} \\[1.4cm]
+   
+   {\large \textbf{INSTITUTO DE MATEMÁTICA E ESTATÍSTICA}}\\[4.2cm]
+   
+   {\Huge TRABALHO DE CONCLUSÃO }\\[0.3cm]
+   {\Huge DE CURSO }\\[9cm]
+   
+   {\large { Aluna: Karina Suemi Awoki}}\\[0.3cm]
+   
+   {\large { Orientadora: Cristina Gomes Fernandes}}
+   
+
+\end{center}
+
+\newpage
+\section{Introdução}
+..
+\bigskip
+
+\section{Definições}
+    
+    \subsection{Caminho máximo em árvores}
+
+        Dada uma árvore $G = (V,A)$, dizemos que o caminho máximo de G é a sequência de 
+        vértices $x_1$, $x_2$,... $x_n$ com $(x_i, x_{i+1}) \in A, \forall i \in$ [$1, n-1$],
+        tal que esse caminho possua o maior número de vértices possíveis.
+
+        \bigskip
+
+
+
+        Calcular o caminho máximo em árvores é uma tarefa simples, computacionalmente
+        falando. Primeiramente assumiremos que $\forall v \in V$, o vértice mais distante
+        de $v$ é $x_1$ ou $x_n$, que são os extremos do caminho mais longo.
+
+        Nota-se que se escolhermos qualquer vértice $v \in G$, e procurarmos pelo vértice mais
+        distante dele, chegaremos em um dos extremos do caminho mais longo ($x_1$ ou $x_n$) e o
+        chamaremos de $y$.
+        E se fizermos o mesmo com $y$, procurar qual o vértice mais distante dele, chegaremos no
+        outro extremo do caminho mais longo.
+        
+
+        Agora precisamos provar que $\forall v \in V$, o vértice mais distante
+        de $v$ é $x_1$ ou $x_n$.
+        Vamos chamar o conjunto de vértices do caminho máximo de $C$.
+        \begin{itemize}
+            \item Caso 1: Se $v \in C$, temos que o vértice mais distante de $v$ é $z$ com 
+            distância $z'$ . Suponhamos que $z$ não seja $x_1$ e nem $x_n$, 
+
+        \end{itemize}
+        
+    \subsection{Cálculo do Diâmetro de uma Árvore}
+    
+        
+                                
+    
+
+
+\newpage
+    
+    
+    
+
+\end{document}

@@ -35,38 +35,63 @@
     
     \subsection{Caminho máximo em árvores}
 
-        Dada uma árvore $G = (V,A)$, dizemos que o caminho máximo de G é a sequência de 
-        vértices $x_1$, $x_2$,... $x_n$ com $(x_i, x_{i+1}) \in A, \forall i \in$ [$1, n-1$],
-        tal que esse caminho possua o maior número de vértices possíveis.
+        Dada uma árvore $G = (V,A)$, dizemos que os caminhos máximos de G são representados 
+        pelas sequências de vértices $x_{1, k}$, $x_{2, k}$,... $x_{n, k}$ com 
+        $\{x_{i, k}, x_{i+1, k}\} \in A, \forall i \in$ [$1, n-1$]
+        e $x_i\neq x_j  \forall i, j \in [n]$ com $i \neq j$, e $k \in [c]$, 
+        onde $c$ é o número de caminhos máximos existentes nessa árvore.
+        E também deve ser satisfeita a condição de que cada sequência possua o maior número 
+        de vértices possíveis 
+        (portanto, todas essas sequências terão o mesmo tamanho - o máximo).
 
         \bigskip
 
-
-
-        Calcular o caminho máximo em árvores é uma tarefa simples, computacionalmente
+        Calcular um dos caminhos máximos em árvores é uma tarefa simples, computacionalmente
         falando. Primeiramente assumiremos que $\forall v \in V$, o vértice mais distante
-        de $v$ é $x_1$ ou $x_n$, que são os extremos do caminho mais longo.
+        de $v$ é $x_{1, k}$ ou $x_{n, k}$, que são os extremos do caminho mais longo $C_k$.
 
-        Nota-se que se escolhermos qualquer vértice $v \in G$, e procurarmos pelo vértice mais
-        distante dele, chegaremos em um dos extremos do caminho mais longo ($x_1$ ou $x_n$) e o
-        chamaremos de $y$.
+        Levando em consideração o que foi assumido anteriormente, nota-se que se escolhermos 
+        qualquer vértice $v \in G$, e procurarmos pelo vértice mais
+        distante dele, chegaremos em um dos extremos de um dos caminhos mais longos ($x_{1, k}$ 
+        ou $x_{n, k}$) e o chamaremos de $y$.
         E se fizermos o mesmo com $y$, procurar qual o vértice mais distante dele, chegaremos no
         outro extremo do caminho mais longo.
         
 
         Agora precisamos provar que $\forall v \in V$, o vértice mais distante
         de $v$ é $x_1$ ou $x_n$.
-        Vamos chamar o conjunto de vértices do caminho máximo de $C$.
+        Vamos chamar cada conjunto de vértices do caminho máximo de $C_k$, com $k \in [1, c]$, e $z$ 
+        será um dos vértices mais distantes de $v$.
+
         \begin{itemize}
-            \item Caso 1: Se $v \in C$, temos que o vértice mais distante de $v$ é $z$ com 
-            distância $z'$ . Suponhamos que $z$ não seja $x_1$ e nem $x_n$, 
+            \item Caso 1: Se $v \in C_k$.
+            Nesse caso é fácil ver que 
+
+            $dist(x_{1, k}, x_{n, k})=dist(x_{1, k}, v)+dist(x_{n, k}, v)$.
+
+            Agora suponhamos que 
+
+            $dist(z, v)>dist(x_{1, k}, v)$ ou $dist(z, v)>dist(x_{n, k}, v)$,
+            
+            nesse caso temos que 
+            
+            $dist(x_{1, k}, v)+dist(z, v)>dist(x_{1, k}, v)+dist(x_{n, k}, v)=dist(x_{1, k}, x_{n, k})$
+            
+            ou que 
+            
+            $dist(z, v)+dist(x_{n, k}, v)>dist(x_{1, k}, v)+dist(x_{n, k}, v)=dist(x_{1, k}, x_{n, k})$
+            
+            logo $x_{1, k}, x_{2, k},..., x_{n, k}$ não é um dos caminhos máximos e então entramos numa contradição.
+
+            Com isso temos que $dist(z, v)>dist(x_{1, k}, v)$ ou $dist(z, v)>dist(x_{n, k}, v)$ não á válido,
+            o que implica em $dist(z, v)\le dist(x_{1, k}, v)$ e $dist(z, v)\le dist(x_{n, k}, v)$. Portanto,
+            v é um dos vértices do caminho mais longo de $C_k$ ($x_{1, k} ou x_{n, k}$).
+
+            \item Caso 2: Se $c \notin C$. 
 
         \end{itemize}
         
     \subsection{Cálculo do Diâmetro de uma Árvore}
-    
-        
-                                
     
 
 

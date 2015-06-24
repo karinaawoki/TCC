@@ -60,34 +60,44 @@
 
         Agora precisamos provar que $\forall v \in V$, o vértice mais distante
         de $v$ é $x_1$ ou $x_n$.
-        Vamos chamar cada conjunto de vértices do caminho máximo de $C_k$, com $k \in [1, c]$, e $z$ 
-        será um dos vértices mais distantes de $v$.
+        Vamos chamar cada conjunto de vértices do caminho máximo de $C_k$, com $k \in [1, c]$,
+        e um dos vértices mais distantes de $v$ será chamado de $z$.
+        
 
         \begin{itemize}
-            \item Caso 1: Se $v \in C_k$.
+            \item Caso 1: Se $\exists k \in [1, c]$ tal que $v \in C_k$.
             Nesse caso é fácil ver que 
 
             $dist(x_{1, k}, x_{n, k})=dist(x_{1, k}, v)+dist(x_{n, k}, v)$.
 
             Agora suponhamos que 
 
-            $dist(z, v)>dist(x_{1, k}, v)$ ou $dist(z, v)>dist(x_{n, k}, v)$,
+            $dist(z, v)>dist(x_{1, k}, v)$ e $dist(z, v)>dist(x_{n, k}, v)$,
             
             nesse caso temos que 
             
             $dist(x_{1, k}, v)+dist(z, v)>dist(x_{1, k}, v)+dist(x_{n, k}, v)=dist(x_{1, k}, x_{n, k})$
             
-            ou que 
-            
-            $dist(z, v)+dist(x_{n, k}, v)>dist(x_{1, k}, v)+dist(x_{n, k}, v)=dist(x_{1, k}, x_{n, k})$
-            
             logo $x_{1, k}, x_{2, k},..., x_{n, k}$ não é um dos caminhos máximos e então entramos numa contradição.
 
-            Com isso temos que $dist(z, v)>dist(x_{1, k}, v)$ ou $dist(z, v)>dist(x_{n, k}, v)$ não á válido,
-            o que implica em $dist(z, v)\le dist(x_{1, k}, v)$ e $dist(z, v)\le dist(x_{n, k}, v)$. Portanto,
+            Com isso temos que $dist(z, v)>dist(x_{1, k}, v)$ e $dist(z, v)>dist(x_{n, k}, v)$ não á válido,
+            o que implica em $dist(z, v)\le dist(x_{1, k}, v)$ ou $dist(z, v)\le dist(x_{n, k}, v)$. Portanto,
             v é um dos vértices do caminho mais longo de $C_k$ ($x_{1, k} ou x_{n, k}$).
 
-            \item Caso 2: Se $c \notin C$. 
+            \item Caso 2: Se $\forall k \in [1, c], v \notin C_k$. Diremos que a distância $d$ entre $v$ e $C_k$ é 
+            min$\{dist(v, c'): c'\in C_k\}$.
+
+            Agora suponhamos que dado qualquer $k \in [1, c]$,
+            $dist(v, z)>dist(x_{1, k}, v)$ e $dist(v, z)>dist(x_{n, k}, v)$.
+            Já sabemos que $dist(v, x_{1, k})\ge d$ e $dist(v, x_{n, k})\ge d$, portanto, como $z$ é o vértice mais
+            distante de $v$, temos que
+            $dist(v, z)\ge d$.
+
+            É fácil ver que $dist(x_{1, k}, x_{n, k})=dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d$, e isso implica em
+            $dist(v, x_{1, k})+dist(v, z)-2\times d>dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d=d$, logo $d$ não é o
+            menor caminho e entramos numa .
+
+
 
         \end{itemize}
         

@@ -35,67 +35,120 @@
     
     \subsection{Caminho máximo em árvores}
 
-        Dada uma árvore $G = (V,A)$, dizemos que os caminhos máximos de G são representados 
-        pelas sequências de vértices $x_{1, k}$, $x_{2, k}$,... $x_{n, k}$ com 
-        $\{x_{i, k}, x_{i+1, k}\} \in A, \forall i \in$ [$1, n-1$]
-        e $x_i\neq x_j  \forall i, j \in [n]$ com $i \neq j$, e $k \in [c]$, 
-        onde $c$ é o número de caminhos máximos existentes nessa árvore.
-        E também deve ser satisfeita a condição de que cada sequência possua o maior número 
-        de vértices possíveis 
-        (portanto, todas essas sequências terão o mesmo tamanho - o máximo).
+        Dada uma árvore $G = (V,A)$ e os seus caminhos máximos 
+        $C_1, C_2,..., C_c$, dizemos que os vértices de um caminho
+        máximo $C_k$ são representados pela sequência de vértices 
+        $x_{1, k}$, $x_{2, k}$,... $x_{n, k}$ com 
+        $\{x_{i, k}, x_{i+1, k}\} \in A, \forall i \in$ [$1, n-1$],
+        $x_i\neq x_j \forall i, j \in [n]$ 
+        com $i \neq j$, 
+        e $k \in [c]$, 
+        onde $c$ é o número de caminhos máximos existentes nessa
+        árvore.
+        E também deve ser satisfeita a condição de que cada 
+        sequência possui o maior número de vértices possíveis 
+        (portanto, todas essas sequências são do mesmo tamanho - 
+        o máximo).
 
         \bigskip
 
-        Calcular um dos caminhos máximos em árvores é uma tarefa simples, computacionalmente
-        falando. Primeiramente assumiremos que $\forall v \in V$, o vértice mais distante
-        de $v$ é $x_{1, k}$ ou $x_{n, k}$, que são os extremos do caminho mais longo $C_k$.
+        Encontrar um dos caminhos máximos em uma árvore é uma 
+        tarefa simples, computacionalmente falando. Primeiramente
+        assumiremos que $\forall v \in V$, o vértice mais distante
+        de $v$ é $x_{1, k}$ ou $x_{n, k}$, que são os extremos do
+        caminho mais longo $C_k$.
 
-        Levando em consideração o que foi assumido anteriormente, nota-se que se escolhermos 
+        Levando em consideração o que foi assumido anteriormente,
+        nota-se que se escolhermos 
         qualquer vértice $v \in G$, e procurarmos pelo vértice mais
-        distante dele, chegaremos em um dos extremos de um dos caminhos mais longos ($x_{1, k}$ 
-        ou $x_{n, k}$) e o chamaremos de $y$.
-        E se fizermos o mesmo com $y$, procurar qual o vértice mais distante dele, chegaremos no
+        distante dele, chegaremos em um dos extremos de um dos 
+        caminhos mais longos ($x_{1, k}$ 
+        ou $x_{n, k}$), chamaremos esse vértice de $y$.
+        E se fizermos o mesmo com $y$, procurarmos qual o vértice 
+        mais distante dele, chegaremos no
         outro extremo do caminho mais longo.
         
 
-        Agora precisamos provar que $\forall v \in V$, o vértice mais distante
+        Agora precisamos provar que $\forall v \in V$, o vértice 
+        mais distante
         de $v$ é $x_1$ ou $x_n$.
-        Vamos chamar cada conjunto de vértices do caminho máximo de $C_k$, com $k \in [1, c]$,
-        e um dos vértices mais distantes de $v$ será chamado de $z$.
+        Vamos chamar de $z$ o vértice mais distante de $v$.
         
 
         \begin{itemize}
-            \item Caso 1: Se $\exists k \in [1, c]$ tal que $v \in C_k$.
+            \item Caso 1: Se $\exists k \in [1, c]$ tal que 
+            $v \in C_k$.
             Nesse caso é fácil ver que 
 
-            $dist(x_{1, k}, x_{n, k})=dist(x_{1, k}, v)+dist(x_{n, k}, v)$.
-
+            $dist(x_{1, k}, x_{n, k})=
+            dist(x_{1, k}, v)+dist(x_{n, k}, v)$, 
+            já que $v$ é um vértice do caminho máximo $k$.
             Agora suponhamos que 
 
-            $dist(z, v)>dist(x_{1, k}, v)$ e $dist(z, v)>dist(x_{n, k}, v)$,
+            $dist(z, v)>dist(x_{1, k}, v)$ e 
+            $dist(z, v)>dist(x_{n, k}, v)$,
             
-            nesse caso temos que 
+            então temos que 
             
-            $dist(x_{1, k}, v)+dist(z, v)>dist(x_{1, k}, v)+dist(x_{n, k}, v)=dist(x_{1, k}, x_{n, k})$
+            $dist(x_{1, k}, v)+dist(z, v)>
+            dist(x_{1, k}, v)+dist(x_{n, k}, v)=
+            dist(x_{1, k}, x_{n, k})$
             
-            logo $x_{1, k}, x_{2, k},..., x_{n, k}$ não é um dos caminhos máximos e então entramos numa contradição.
+            logo $x_{1, k}, x_{2, k},..., x_{n, k}$ não é um dos 
+            caminhos máximos e então entramos numa contradição.
 
-            Com isso temos que $dist(z, v)>dist(x_{1, k}, v)$ e $dist(z, v)>dist(x_{n, k}, v)$ não á válido,
-            o que implica em $dist(z, v)\le dist(x_{1, k}, v)$ ou $dist(z, v)\le dist(x_{n, k}, v)$. Portanto,
-            v é um dos vértices do caminho mais longo de $C_k$ ($x_{1, k} ou x_{n, k}$).
+            Com isso temos que 
+            $dist(z, v)>dist(x_{1, k}, v)$ e 
+            $dist(z, v)>dist(x_{n, k}, v)$ não á válido, o que 
+            implica em $dist(z, v)\le dist(x_{1, k}, v)$ ou 
+            $dist(z, v)\le dist(x_{n, k}, v)$. 
+            Portanto, como $z$ é o vértice mais distante, vale que
+            
+            $dist(z, v)=dist(x_{1, k}, v)$ ou 
+            $dist(z, v)=dist(x_{n, k}, v)$,
+            
+            ou seja, $v$ é um dos vértices do caminho mais longo
+            de $C_k$ ($x_{1, k}$ ou $x_{n, k}$).
 
-            \item Caso 2: Se $\forall k \in [1, c], v \notin C_k$. Diremos que a distância $d$ entre $v$ e $C_k$ é 
+            \item Caso 2: Se $\forall k \in [1, c], v \notin C_k$. 
+            Diremos que a distância $d$ entre $v$ e $C_k$ é 
             min$\{dist(v, c'): c'\in C_k\}$.
 
-            Agora suponhamos que dado qualquer $k \in [1, c]$,
-            $dist(v, z)>dist(x_{1, k}, v)$ e $dist(v, z)>dist(x_{n, k}, v)$.
-            Já sabemos que $dist(v, x_{1, k})\ge d$ e $dist(v, x_{n, k})\ge d$, portanto, como $z$ é o vértice mais
-            distante de $v$, temos que
+            Agora suponhamos que $\exists k \in [1, c]$, tal que
+            $dist(v, z)>dist(x_{1, k}, v)$ e 
+            $dist(v, z)>dist(x_{n, k}, v)$.
+            E dado que $d=$ min$\{dist(v, c'): c'\in C_k\}$, então
+            $dist(v, x_{1, k})\ge d$ e 
+            $dist(v, x_{n, k})\ge d$, 
+            portanto, como $z$ é o vértice mais distante de $v$, 
+            temos que
             $dist(v, z)\ge d$.
 
-            É fácil ver que $dist(x_{1, k}, x_{n, k})=dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d$, e isso implica em
-            $dist(v, x_{1, k})+dist(v, z)-2\times d>dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d=d$, logo $d$ não é o
-            menor caminho e entramos numa .
+            É fácil ver que 
+            $dist(x_{1, k}, x_{n, k})=
+            dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d$, 
+            e isso implica em
+            $dist(v, x_{1, k})+dist(v, z)-2\times d>
+            dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d=d$, 
+            logo $d$ não é o maior caminho e entramos numa 
+            contradição novamente, o que leva a afirmação
+            "$\exists k \in [1, c]$, tal que
+            $dist(v, z)>dist(x_{1, k}, v)$ e 
+            $dist(v, z)>dist(x_{n, k}, v)$" a ser falsa.
+
+            Consequentemente, $\forall k \in [1, c], 
+            dist(v, z)\le dist(x_{1, k}, v)$ ou
+            $dist(v, z)\le dist(x_{n, k}, v)$. 
+            E como $z$ é o vértice mais distante de $v$, 
+            
+            $dist(v, z)=dist(x_{1, k}, v)$ ou 
+            $dist(v, z)=dist(x_{n, k}, v)$,
+
+            o que implica que $z$ é um dos vértices extremos de 
+            $C_k$.
+
+
+
 
 
 

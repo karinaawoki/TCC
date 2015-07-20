@@ -79,21 +79,34 @@
             %conexão entre os dois caminhos.
 
             Logo, sabemos que existe um caminho $a$,$b$-$path$, 
-            de comprimento $c$,
+            de comprimento $c \ge 1$,
             que funciona como uma conexão entre os dois caminhos,
             possuindo assim apenas o vértice $a$ em 
             $x$,$y$-$path$ e apenas o vértice $b$ em
-            $x_0$,$y_0$-$path$ $b$.
+            $x_0$,$y_0$-$path$.
 
             Portanto temos,
             $$ dist(x,y) = dist(x,a) + dist(a,y) $$ e
             $$ dist(x_0,y_0) = dist(x_0,b) + dist(b,y_0).$$
 
-            Como $x$,$y$-$path$ é um caminho máximo e  temos que 
-            $$dist(x,y)\ge dist(x_0,y_0) \Rightarrow 
-            dist(x,a) + dist(a,y)\ge dist(x_0,b) + dist(b,y_0)$$ 
-            e como
+            Como $x$,$y$-$path$ é um caminho máximo,
+            $$ dist(x,y)\ge dist(y,x_0) \Rightarrow 
+            dist(x,a)+dist(a,y)\ge dist(a,y)+c+dist(x_0,b)
+            \Rightarrow$$
+            $$ dist(x,a)\ge c+dist(x_0,b) $$
 
+            e como $x_0$ é o vértice mais distante de $y_0$, temos
+            que 
+            $$ dist(x_0,y_0)\ge dist(x,y_0) \Rightarrow 
+            dist(x_0,b) + dist(b,y_0)\ge dist(b,y_0) + c + 
+            dist(x,a) \Rightarrow $$
+            $$ dist(x_0,b)\ge c + dist(x,a). $$ 
+            Logo, temos que
+            $$ dist(x,a)\ge 2c + dist(x, a). $$
+
+            Dado que $c\ge 1$, entramos numa contradição. 
+            Portanto, $x$,$y$-$path$ e $x_0$,$y_0$-$path$
+            possuem vértices em comum.
 
         \end{itemize}
 

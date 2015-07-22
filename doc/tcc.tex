@@ -3,8 +3,9 @@
 % Para usar a linguagem PT-BR.
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{tikz}
 \usepackage[brazilian]{babel}
-\usepackage[all, 2cell]{xy} \UseAllTwocells \SilentMatrices
+
 \selectlanguage{brazilian} 
 
 \newcommand{\Oh}{\mathrm{O}}
@@ -67,16 +68,8 @@
     	Suponhamos que $x$,$y$-$path$ seja um caminho máximo e:
 
     	\begin{itemize}
-            \item Caso 1: Os caminhos $x$,$y$-$path$ e 
+            \item \textbf{Caso 1:} Os caminhos $x$,$y$-$path$ e 
             $x_0$,$y_0$-$path$ não possuem vértices em comum.
-         
-
-            %Logo, sabemos que existe um caminho $a$,$b$-$path$ de 
-            %forma que $a \in x$,$y$-$path$, 
-            %$b \in x_0$,$y_0$-$path$ e os demais 
-            %vértices de $a$,$b$-$path$ não estão em nenhum dos 
-            %dois caminhos. Nota-se que $a$,$b$-$path$ é uma
-            %conexão entre os dois caminhos.
 
             Logo, sabemos que existe um caminho $a$,$b$-$path$, 
             de comprimento $c \ge 1$,
@@ -86,19 +79,19 @@
             $x_0$,$y_0$-$path$.
 
             Portanto temos,
-            $$ dist(x,y) = dist(x,a) + dist(a,y) $$ e
-            $$ dist(x_0,y_0) = dist(x_0,b) + dist(b,y_0).$$
+            $$ dist(x,y) = dist(x,a) + dist(y,a) $$ e
+            $$ dist(x_0,y_0) = dist(x_0,b) + dist(y_0,b).$$
 
             Como $x$,$y$-$path$ é um caminho máximo,
             $$ dist(x,y)\ge dist(y,x_0) \Rightarrow 
-            dist(x,a)+dist(a,y)\ge dist(a,y)+c+dist(x_0,b)
+            dist(x,a)+dist(y,a)\ge dist(y,a)+c+dist(x_0,b)
             \Rightarrow$$
             $$ dist(x,a)\ge c+dist(x_0,b) $$
 
-            e como $x_0$ é o vértice mais distante de $y_0$, temos
-            que 
+            e como $x_0$ é o vértice mais distante de $y_0$, 
+            temos que 
             $$ dist(x_0,y_0)\ge dist(x,y_0) \Rightarrow 
-            dist(x_0,b) + dist(b,y_0)\ge dist(b,y_0) + c + 
+            dist(x_0,b) + dist(y_0,b)\ge dist(y_0,b) + c + 
             dist(x,a) \Rightarrow $$
             $$ dist(x_0,b)\ge c + dist(x,a). $$ 
             Logo, temos que
@@ -108,133 +101,190 @@
             Portanto, $x$,$y$-$path$ e $x_0$,$y_0$-$path$
             possuem vértices em comum.
 
+            \begin{tikzpicture}
+				[scale=.8,auto=left,every node/.style={circle,
+				fill=blue!20}]
+				\node (x) at (0,4)  {x};
+				\node (y) at (12,4) {y};
+				\node (a) at (6,4)  {a};
+				  
+				\node (x0) at (0,0) {$x_0$};
+				\node (y0) at (12,0) {$y_0$};
+				\node (b)  at (6,0)  {b};
+
+				\node (n1) at (3,4) {...};
+				\node (n2) at (9,4) {...};
+				\node (n3) at (3,0) {...};
+				\node (n4) at (9,0) {...};
+				\node (n5) at (6,2) {...};
+
+				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/y,x0/n3,
+				n3/b,b/n4,n4/y0,a/n5,b/n5}
+				\draw (\from) -- (\to);
+			\end{tikzpicture}
+
+			\bigskip
+			\bigskip
+			\bigskip
+
+			\item \textbf{Caso 2:} Os caminhos $x$,$y$-$path$ e 
+            $x_0$,$y_0$-$path$ possuem vértices em comum.
+         	
+         	Logo, sabemos que existe um caminho $a$,$b$-$path$, 
+            de comprimento $c \ge 1$,
+            que funciona como uma interseção entre os dois 
+            caminhos, de modo que $dist(y,a)\ge dist(y,b)$.
+            
+            \begin{tikzpicture}
+				[scale=.8,auto=left,every node/.style={circle,
+				fill=blue!20}]
+				\node (x) at (0,4)  {x};
+				\node (y) at (12,4) {y};
+				\node (a) at (4,4)  {a};
+				\node (b) at (8,4)  {b};
+				  
+				\node (n1) at (2,4) {...};
+				\node (n2) at (6,4) {...};
+				\node (n3) at (10,4) {...};
+
+				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+				n3/y}
+				\draw (\from) -- (\to);
+			\end{tikzpicture}
+            
+            \bigskip
+
+            \textbf{Caso 2.1:} Se 
+            $dist(x_0,b)\ge dist(x_0,a)$, então a árvore será
+            como o ilustrado abaixo:
+
+            \begin{tikzpicture}
+				[scale=.8,auto=left,every node/.style={circle,
+				fill=blue!20}]
+				\node (x) at (0,4)  {x};
+				\node (y) at (12,4) {y};
+				\node (a) at (4,4)  {a};
+				\node (b) at (8,4)  {b};
+				\node (x0) at (1.5,6)  {$x_0$};
+				\node (y0) at (10.5,2)  {$y_0$};
+				  
+				\node (n1) at (2,4) {...};
+				\node (n2) at (6,4) {...};
+				\node (n3) at (10,4) {...};
+				\node (n4) at (9.25,3) {...};
+				\node (n5) at (2.75,5) {...};
+
+				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+				n3/y, a/n5,n5/x0,b/n4,n4/y0}
+				\draw (\from) -- (\to);
+			\end{tikzpicture}
+			
+			Então podemos afirmar que 
+			$$ dist(x,y) = dist(x,a) + dist(a,b) + dist(y,b) $$ e
+            $$ dist(x_0,y_0) = dist(x_0,b) + dist(a,b) + 
+            dist(y_0,b).$$
+
+			Nesse caso, como sabemos que $x_0$ é o vértice mais
+			distante de $y_0$, então
+			$$  dist(x_0,b)\ge dist(x,a) \Rightarrow 
+			dist(x_0,a) + dist(a,b)\ge dist(x,a) + dist(a,b)
+			\Rightarrow$$ 
+			$$ dist(x_0,a)\ge dist(x,a), $$
+			e como $x$,$y$-$path$ é o caminho máximo, então
+			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
+			dist(x,a)\ge dist(x_0,a), $$ 
+			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
+			dist(x,a) + dist(a,b)\ge dist(y_0,b)\Rightarrow
+			dist(x,b)\ge dist(y_0,b) $$
+			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
+			dist(y,b)\ge dist(y_0,b). $$
+			Com isso temos que $$dist(x_0,a)=dist(x,a).$$
+
+			Agora vamos recorrer ao vértice $v$, que é o vértice
+			que foi escolhido aleatoriamente no algorítmo.
+			Digamos que $v'$ é o vértice que está em
+			$x$,$y$-$path\cup x_0$,$y_0$-$path$ que está mais
+			perto de $v$.
+			Sabemos que $y_0$ é um vértice mais distante de $v$,
+			logo $y_0$ é um vértice mais distante de $v'$. 
+			
+			\textbf{Caso 2.1.1:} Se 
+			$v\in x$,$b$-$path\cup x_0$,$b$-$path$, temos que
+			$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
+			dist(v,b)+dist(y_0,b)\ge dist(v,b) + dist(y,b) 
+			\Rightarrow$$
+			$$ dist(y_0,b)\ge dist(y,b).$$
+
+			\textbf{Caso 2.1.2:} Já se $v\in b$,$y_0$-$path$, 
+			temos que
+			$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
+			dist(y_0,b)\ge dist(v,y_0)\ge 
+			dist(v,b) + dist(y,b)\ge dist(y,b) $$
+			$$ dist(y_0,b)\ge dist(y,b) $$
+
+			\textbf{Caso 2.1.3:} Caso contrário, quando 
+			$v\in b$,$y$-$path$, temos que
+			$$ dist(v,y_0)\ge dist(v,x) \Rightarrow
+			dist(y_0,b)+dist(v,b)\ge dist(x,b)+dist(v,b)
+			\Rightarrow $$
+			$$ dist(y_0,b)\ge dist(x,b) \Rightarrow
+			dist(y_0,b) = dist(x,b) \Rightarrow 
+			dist(y_0,b) = dist(x_0,b) $$
+			Como  $x_0$ é o vértice mais distante de $y_0$, temos
+			que
+			$$ dist(y_0,x_0)\ge dist(y_0,y) \Rightarrow
+			dist(y_0,b) + dist(x_0,b)\ge dist(y_0,b) + dist(y,b)
+			\Rightarrow $$
+			$$ dist(x_0,b)\ge dist(y,b) \Rightarrow 
+			dist(y_0,b)\ge dist(y,b) $$
+
+			\bigskip
+
+			Como $dist(y_0,b)\ge dist(y,b)$ para todos os casos
+			e $dist(y,b)\ge dist(y_0,b)$ então
+			$$ dist(y,b) =  dist(y_0,b) \Rightarrow
+			dist(x,y) = dist(x_0,y_0) $$
+			portanto, $x_0$,$y_0$-$path$ é um caminho máximo.
+
+			\bigskip
+			\bigskip
+
+			\textbf{Caso 2.2:} Se $dist(x_0,a)> dist(x_0,b)$,
+			então a árvore será como o ilustrado abaixo:
+
+			\begin{tikzpicture}
+				[scale=.8,auto=left,every node/.style={circle,
+				fill=blue!20}]
+				\node (x) at (0,4)  {x};
+				\node (y) at (12,4) {y};
+				\node (a) at (4,4)  {a};
+				\node (b) at (8,4)  {b};
+				\node (y0) at (1.5,6)  {$y_0$};
+				\node (x0) at (10.5,2)  {$x_0$};
+				  
+				\node (n1) at (2,4) {...};
+				\node (n2) at (6,4) {...};
+				\node (n3) at (10,4) {...};
+				\node (n4) at (9.25,3) {...};
+				\node (n5) at (2.75,5) {...};
+
+				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+				n3/y, a/n5,n5/y0,b/n4,n4/x0}
+				\draw (\from) -- (\to);
+			\end{tikzpicture}
+
+			E pode-se provar que $x_0$,$y_0$-$path$ é um caminho
+			máximo de uma forma análoga ao Caso 2.1.
+
+
+			
+
         \end{itemize}
-
-
-
 
     	\newpage
 
 
 
-        Dada uma árvore $T = (V,A)$ e os seus caminhos máximos 
-        $C_1, C_2,..., C_c$, dizemos que os vértices de um caminho
-        máximo $C_k$ são representados pela sequência de vértices 
-        $x_{1, k}$, $x_{2, k}$,... $x_{n, k}$ com 
-        $\{x_{i, k}, x_{i+1, k}\} \in A, \forall i \in$ [$1, n-1$],
-        $x_i\neq x_j \forall i, j \in [n]$ 
-        com $i \neq j$, 
-        e $k \in [c]$, 
-        onde $c$ é o número de caminhos máximos existentes nessa
-        árvore.
-        E também deve ser satisfeita a condição de que cada 
-        sequência possui o maior número de vértices possíveis 
-        (portanto, todas essas sequências são do mesmo tamanho - 
-        o máximo).
-
-        \bigskip
-
-        Encontrar um dos caminhos máximos em uma árvore é uma 
-        tarefa simples, computacionalmente falando. Primeiramente
-        assumiremos que $\forall v \in V$, o vértice mais distante
-        de $v$ é $x_{1, k}$ ou $x_{n, k}$, que são os extremos do
-        caminho mais longo $C_k$.
-
-        Levando em consideração o que foi assumido anteriormente,
-        nota-se que se escolhermos 
-        qualquer vértice $v \in T$, e procurarmos pelo vértice mais
-        distante dele, chegaremos em um dos extremos de um dos 
-        caminhos mais longos ($x_{1, k}$ 
-        ou $x_{n, k}$) - chamaremos esse vértice de $y$.
-        E se fizermos o mesmo com $y$, procurarmos qual o vértice 
-        mais distante dele, chegaremos no
-        outro extremo do caminho mais longo.
-        
-
-        Agora precisamos provar que $\forall v \in V$, o vértice 
-        mais distante
-        de $v$ é $x_1$ ou $x_n$.
-        Vamos chamar de $z$ o vértice mais distante de $v$.
-        
-
-        \begin{itemize}
-            \item Caso 1: Se $\exists k \in [1, c]$ tal que 
-            $v \in C_k$.
-            Nesse caso é fácil ver que 
-
-            $dist(x_{1, k}, x_{n, k})=
-            dist(x_{1, k}, v)+dist(x_{n, k}, v)$, 
-            já que $v$ é um vértice do caminho máximo $k$.
-            Agora suponhamos que 
-
-            $$dist(z, v)>dist(x_{1, k}, v)$$ e 
-            $dist(z, v)>dist(x_{n, k}, v)$,
-            
-            então temos que 
-            
-            $$dist(x_{1, k}, v)+dist(z, v)>
-            dist(x_{1, k}, v)+dist(x_{n, k}, v)=
-            dist(x_{1, k}, x_{n, k})$$
-            
-            logo $x_{1, k}, x_{2, k},..., x_{n, k}$ não é um dos 
-            caminhos máximos e então entramos numa contradição.
-
-            Com isso temos que 
-            $dist(z, v)>dist(x_{1, k}, v)$ e 
-            $dist(z, v)>dist(x_{n, k}, v)$ não á válido, o que 
-            implica em $dist(z, v)\le dist(x_{1, k}, v)$ ou 
-            $dist(z, v)\le dist(x_{n, k}, v)$. 
-            Portanto, como $z$ é o vértice mais distante, vale que
-            
-            $dist(z, v)=dist(x_{1, k}, v)$ ou 
-            $dist(z, v)=dist(x_{n, k}, v)$,
-            
-            ou seja, $v$ é um dos vértices do caminho mais longo
-            de $C_k$ ($x_{1, k}$ ou $x_{n, k}$).
-
-            \item Caso 2: Se $\forall k \in [1, c], v \notin C_k$. 
-            Diremos que a distância $d$ entre $v$ e $C_k$ é 
-            min$\{dist(v, c'): c'\in C_k\}$.
-
-            Agora suponhamos que $\exists k \in [1, c]$, tal que
-            $dist(v, z)>dist(x_{1, k}, v)$ e 
-            $dist(v, z)>dist(x_{n, k}, v)$.
-            E dado que $d=$ min$\{dist(v, c'): c'\in C_k\}$, então
-            $dist(v, x_{1, k})\ge d$ e 
-            $dist(v, x_{n, k})\ge d$, 
-            portanto, como $z$ é o vértice mais distante de $v$, 
-            temos que
-            $dist(v, z)\ge d$.
-
-            É fácil ver que 
-            $dist(x_{1, k}, x_{n, k})=
-            dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d$, 
-            e isso implica em
-            $dist(v, x_{1, k})+dist(v, z)-2\times d>
-            dist(v, x_{1, k})+dist(v, x_{n, k})-2\times d=d$, 
-            logo $d$ não é o maior caminho e entramos numa 
-            contradição novamente, o que leva a afirmação
-            "$\exists k \in [1, c]$, tal que
-            $dist(v, z)>dist(x_{1, k}, v)$ e 
-            $dist(v, z)>dist(x_{n, k}, v)$" a ser falsa.
-
-            Consequentemente, $\forall k \in [1, c], 
-            dist(v, z)\le dist(x_{1, k}, v)$ ou
-            $dist(v, z)\le dist(x_{n, k}, v)$. 
-            E como $z$ é o vértice mais distante de $v$, 
-            
-            $dist(v, z)=dist(x_{1, k}, v)$ ou 
-            $dist(v, z)=dist(x_{n, k}, v)$,
-
-            o que implica que $z$ é um dos vértices extremos de 
-            $C_k$.
-
-
-
-
-
-
-        \end{itemize}
         
     \subsection{Cálculo do Diâmetro de uma Árvore}
     

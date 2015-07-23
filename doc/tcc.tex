@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \usepackage[brazilian]{babel}
+\usepackage[]{algorithm2e}
 
 \selectlanguage{brazilian} 
 
@@ -34,20 +35,33 @@
 \bigskip
 
 \section{Definições}
-    
+
+	\subsection{Noções básicas}
+		\begin{itemize}
+			\item Um \textbf{caminho} em uma árvore $T=(V,E)$, de 
+	    	comprimento $p$, é uma sequência de vértices 
+	    	$v_0, v_1, ...,v_{p-1}, v_p$ 
+	    	onde {$v_{k-1}, v_k$} é uma aresta para todo 
+	    	$k = 1,2,..., p$. 
+	    	Como existe um único caminho que conecta dois vértices,
+	    	então chamaremos um caminho 
+	    	$v_0, v_1, ...,v_{p-1}, v_p$ de
+	    	$v_0$,$v_p$-$path$.
+
+			\item A \textbf{distância} entre dois vértices $a$ e 
+			$b$, contidos num grafo, é representada por 
+			$dist(a,b)$, que também é igual ao comprimento do
+			caminho $a$,$b$-$path$.
+
+		\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
     \subsection{Caminho máximo em árvores}
 
-    	Um \textbf{caminho} em uma árvore $T=(V,E)$, de 
-    	comprimento $p$, é uma sequência de vértices 
-    	$v_0, v_1, ...,v_{p-1}, v_p$ 
-    	onde {$v_{k-1}, v_k$} é uma aresta para todo 
-    	$k = 1,2,..., p$. 
-    	Como existe um único caminho que conecta dois vértices,
-    	então chamaremos um caminho $v_0, v_1, ...,v_{p-1}, v_p$ de
-    	$v_0$,$v_p$-$path$.
+    	
 
-    	Portanto, um \textbf{caminho máximo} em uma árvore $T$ é
-    	um caminho de $T$ cujo comprimento é máximo.
+    	Um \textbf{caminho máximo} em uma árvore $T$ é
+    	um caminho em $T$ cujo comprimento é máximo.
 
     	Encontrar um caminho máximo em uma árvore $T$ é uma tarefa
     	computacionalmente simples que pode ser realizada em tempo 
@@ -198,32 +212,32 @@
 			dist(x,b)\ge dist(y_0,b) $$
 			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
 			dist(y,b)\ge dist(y_0,b). $$
-			Com isso temos que $$dist(x_0,a)=dist(x,a).$$
+			Com isso, temos que: $$dist(x_0,a)=dist(x,a).$$
 
-			Agora vamos recorrer ao vértice $v$, que é o vértice
-			que foi escolhido aleatoriamente no algorítmo.
+			Agora vamos recorrer ao vértice $v$ o qual é o vértice
+			que foi escolhido aleatoriamente no algoritmo.
 			Digamos que $v'$ é o vértice que está em
-			$x$,$y$-$path\cup x_0$,$y_0$-$path$ que está mais
+			$x$,$y$-$path\cup x_0$,$y_0$-$path$ o qual está mais
 			perto de $v$.
 			Sabemos que $y_0$ é um vértice mais distante de $v$,
 			logo $y_0$ é um vértice mais distante de $v'$. 
 			
 			\textbf{Caso 2.1.1:} Se 
-			$v\in x$,$b$-$path\cup x_0$,$b$-$path$, temos que
+			$v\in x$,$b$-$path\cup x_0$,$b$-$path$, temos que:
 			$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
 			dist(v,b)+dist(y_0,b)\ge dist(v,b) + dist(y,b) 
 			\Rightarrow$$
 			$$ dist(y_0,b)\ge dist(y,b).$$
 
 			\textbf{Caso 2.1.2:} Já se $v\in b$,$y_0$-$path$, 
-			temos que
+			temos que:
 			$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
 			dist(y_0,b)\ge dist(v,y_0)\ge 
 			dist(v,b) + dist(y,b)\ge dist(y,b) $$
 			$$ dist(y_0,b)\ge dist(y,b) $$
 
 			\textbf{Caso 2.1.3:} Caso contrário, quando 
-			$v\in b$,$y$-$path$, temos que
+			$v\in b$,$y$-$path$, temos que:
 			$$ dist(v,y_0)\ge dist(v,x) \Rightarrow
 			dist(y_0,b)+dist(v,b)\ge dist(x,b)+dist(v,b)
 			\Rightarrow $$
@@ -231,7 +245,7 @@
 			dist(y_0,b) = dist(x,b) \Rightarrow 
 			dist(y_0,b) = dist(x_0,b) $$
 			Como  $x_0$ é o vértice mais distante de $y_0$, temos
-			que
+			que:
 			$$ dist(y_0,x_0)\ge dist(y_0,y) \Rightarrow
 			dist(y_0,b) + dist(x_0,b)\ge dist(y_0,b) + dist(y,b)
 			\Rightarrow $$
@@ -241,7 +255,7 @@
 			\bigskip
 
 			Como $dist(y_0,b)\ge dist(y,b)$ para todos os casos
-			e $dist(y,b)\ge dist(y_0,b)$ então
+			e $dist(y,b)\ge dist(y_0,b)$ então:
 			$$ dist(y,b) =  dist(y_0,b) \Rightarrow
 			dist(x,y) = dist(x_0,y_0) $$
 			portanto, $x_0$,$y_0$-$path$ é um caminho máximo.
@@ -277,16 +291,34 @@
 			máximo de uma forma análoga ao Caso 2.1.
 
 
-			
+			\begin{algorithm}[H]
+			 \caption{How to write algorithms :)}
+			 \KwData{this text}
+			 \KwResult{how to write algorithm with \LaTeX2e }
+			 initialization\;
+			 \While{not at end of this document}{
+			  read current\;
+			  \eIf{understand}{
+			   go to next section\;
+			   current section becomes this one\;
+			   }{
+			   go back to the beginning of current section\;
+			  }
+			 }
+			\end{algorithm}	
+
+
+
+
 
         \end{itemize}
 
     	\newpage
 
 
-
-        
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Cálculo do Diâmetro de uma Árvore}
+    	Dizemos que o 
     
 
 

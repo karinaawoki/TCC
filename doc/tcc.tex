@@ -5,7 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \usepackage[brazilian]{babel}
-\usepackage[]{algorithm2e}
+\usepackage[titlenumbered,ruled]{algorithm2e}
 
 \selectlanguage{brazilian} 
 
@@ -292,21 +292,44 @@
 
 
 			\begin{algorithm}[H]
-			 \caption{How to write algorithms :)}
-			 \KwData{this text}
-			 \KwResult{how to write algorithm with \LaTeX2e }
-			 initialization\;
-			 \While{not at end of this document}{
-			  read current\;
-			  \eIf{understand}{
-			   go to next section\;
-			   current section becomes this one\;
-			   }{
-			   go back to the beginning of current section\;
-			  }
-			 }
+				\SetKwInOut{Input}{input}
+				\SetKwInOut{Output}{output}
+
+				\caption{Encontra um caminho máximo}
+				\Input{$T = (V,E)$}
+				\Output{Um caminho máximo}
+				initialization\;
+				\While{not at end of this document}{
+					read current\;
+					\eIf{understand}{
+						go to next section\;
+						current section becomes this one\;
+					}{
+						go barent section\;
+					}
+				}
 			\end{algorithm}	
 
+
+			\begin{algorithm}[H]
+				\SetKwInOut{Input}{input}
+				\SetKwInOut{Output}{output}
+
+				\caption{Encontra um caminho máximo}
+				\Input{Uma árvore $T = (V,E)$}
+				\Output{Um caminho máximo de $T$}
+				$v \leftarrow$ vértice aleatório de $T$\;
+
+				$y_0 \leftarrow$ vértice mais distante de $v$
+				usando busca em largura\;
+				$x_0 \leftarrow$ vértice mais distante de $y_0$
+				também usando busca em largura, e um vetor de 
+				pais para sabermos qual foi o caminho percorrido
+				para se chegar de $y_0$ até $x_0$\;
+
+				\Return $x_0$,$y_0$-$path$\;
+				
+			\end{algorithm}	
 
 
 
@@ -318,7 +341,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Cálculo do Diâmetro de uma Árvore}
-    	Dizemos que o 
+    	Dizemos que o \textbf{diâmetro} de uma árvore $T$ é
+    	definido como:
+    	$$ diam(G)=max{dist(x,y):x,y\in v(T)} $$
     
 
 

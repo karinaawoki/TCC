@@ -65,7 +65,7 @@
 
     	Encontrar um caminho máximo em uma árvore $T$ é uma tarefa
     	computacionalmente simples que pode ser realizada em tempo 
-    	$O(n)$. 
+    	$O(n)$, sendo $n$ o número de vértices de $T$. 
     	Primeiramente, é necessário escolher um vértice aleatório 
     	$v \in V$ e encontrar $y_0$,
     	que é o vértice mais distante de $v$.
@@ -341,9 +341,19 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Cálculo do Diâmetro de uma Árvore}
-    	Dizemos que o \textbf{diâmetro} de uma árvore $T$ é
-    	definido como:
-    	$$ diam(G)=max\{dist(x,y):x,y\in v(T)\} $$
+    	Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
+    	comprimento de um caminho máximo de $G$. 
+    	Em outras palavras, o diâmetro pode ser definido como:
+    	$$ diam(G)=max\{dist(x,y):x,y\in V(G)\} $$
+
+    	\bigskip
+
+    	Há também o \textbf{diâmetro relativo} de um grafo $G$,
+    	não necessariamente conexo, que é a razão entre o número
+    	de vértices do caminho máximo e o número total de vértices
+    	de $G$. Este pode também ser representado por:
+    	$$ diam^*(G) = \frac{\displaystyle\sum_{
+    	G'~componente~conexa~de~G}^{}diam(G')+1}{\mid V(G)\mid} $$
     
 
 

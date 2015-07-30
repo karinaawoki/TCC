@@ -1,28 +1,88 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DEBUG 0
+
+typedef struct node Node;
+struct node
+{
+	int num;
+	Node *left;
+	Node *right;
+};
+
+
 int *permutationVector(int size);
 void printVector(int *v, int size);
+void insertTree(int num, Node *root);
+Node *newNode(int num, Node *left, Node*right);
+
+
 
 
 int main (int argc, char *argv[])
 {
-	/* 
-	   argv1 = seed */
-	int seed = atoi(argv[1]);
+	/* argv1 = size
+	   argv2 = seed */
+	int seed = atoi(argv[2]);
+	int size = atoi(argv[1]);
+	Node *root;
 	int *v;
+	int i;
 	srand(seed);
+	v = permutationVector(size);
 
-	v = permutationVector(11);
+	root = newNode(v[0], NULL, NULL);
 
-	printVector(v, 11);
+	printf("%d\n", size);
+
+	for(i = 1; i<size; i++)
+	{
+		insertTree(v[i], root);
+	}
+
+	if(DEBUG) printVector(v, size);
 
 	return 0;
 }
 
-void insertTree(int num)
+void insertTree(int num, Node *root)
 {
-	
+	if(num > root->num)
+	{
+		if(root->right == NULL)
+		{
+			Node *new;
+			new = newNode(num, NULL, NULL);
+			root->right = new;
+			printf("%d %d\n", root->num, num);
+		}
+		else
+			insertTree(num, root->right);
+	}
+	else
+	{
+		if(root->left == NULL)
+		{
+			Node*new;
+			new = newNode(num, NULL, NULL);
+			root->left = new;
+			printf("%d %d\n", root->num, num);
+		}
+		else
+			insertTree(num, root->left);
+	}
+}
+
+Node *newNode(int num, Node *left, Node*right)
+{
+	Node *node;
+	node = malloc(sizeof(Node));
+
+	node->num = num;
+	node->left = left;
+	node->right = right;
+	return node;
 }
 
 

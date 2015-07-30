@@ -17,7 +17,7 @@
 ## Rules ###############################################################
 
 .PHONY: all
-all: t0 t1 t2-simpleApproxCut t2-approxCut t3 t4 t5
+all: t0 t1 t2-simpleApproxCut t2-approxCut t3 t4 t5 gen
 
 ## Linkage #############################################################
 #t1: $(t1_obj)
@@ -65,7 +65,8 @@ t4: task4.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o appr
 	gcc task4.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o -o _t4
 t5: task5.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o
 	gcc task5.o structure.o input.o queue.o simpleApproxCut.o maxPath.o label.o approxCut.o doubleDiam.o -o _t5
-
+gen: randomBinaryTreeGenerator.o
+	gcc randomBinaryTreeGenerator.o -o _gen
 
 # ROOT
 task0.o: task0.c
@@ -82,7 +83,8 @@ task4.o: task4.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task4.c -g
 task5.o: task5.c
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c task5.c -g 
-
+randomBinaryTreeGenerator.o: randomBinaryTreeGenerator.c
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c randomBinaryTreeGenerator.c -g 
 
 
 # COMMON

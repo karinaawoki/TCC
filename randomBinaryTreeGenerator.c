@@ -24,11 +24,20 @@ int main (int argc, char *argv[])
 {
 	/* argv1 = size
 	   argv2 = seed */
-	int seed = atoi(argv[2]);
-	int size = atoi(argv[1]);
+	int seed;
+	int size;
 	Node *root;
 	int *v;
 	int i;
+
+	if(argc<=2) 
+	{
+		printf("Oops...\n ./(size, seed) \n");
+		return 0;
+	}
+
+	seed = atoi(argv[2]);
+	size = atoi(argv[1]);
 	srand(seed);
 	v = permutationVector(size);
 
@@ -89,6 +98,7 @@ Node *newNode(int num, Node *left, Node*right)
 
 int *permutationVector(int size)
 {
+	/* creates a vector [0,1,2,3...] and randomizes it*/
 	int *vector, index;
 	int i, aux;
 	vector = malloc(size*sizeof(int));
@@ -104,7 +114,7 @@ int *permutationVector(int size)
 		vector[index] = vector[i];
 		vector[i] = aux;
 	}
-
+	/* now, vector is a random vector */
 	return vector;
 }
 

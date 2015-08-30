@@ -30,9 +30,149 @@
 \end{center}
 
 \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%  INTRODUÇÃO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Introdução}
-..
-\bigskip
+
+O assunto a ser abordado no Trabalho de Conclusão de Curso se
+enquadra na área de Otimização Combinatória e diz respeito ao 
+\emph{Problema da Bissecção Mínima}. Para definir o problema 
+precisamente, seguem primeiro algumas definições. 
+
+Seja $G=(V,E)$ um grafo e $S$ um conjunto de vértices de $G$ tal 
+que~${\emptyset \neq S \subset V}$. 
+Denota-se por $\delta(S)$ o conjunto das arestas de $G$ com 
+exatamente um extremo em $S$. Um \emph{corte} em $G$ é um conjunto
+$C$ de arestas tal que~${C = \delta(S)}$ para algum conjunto $S$ 
+de vértices de $G$ com $\emptyset \neq S \subset V$. 
+Denota-se por $\bar{S}$ o conjunto $V \setminus S$. 
+Note que $\delta(\bar{S}) = C$ também. 
+O par de conjuntos $S$ e $\bar{S}$ é chamado de 
+\emph{par de margens} de $C$. 
+Note que se $G$ não é conexo, um corte pode ter mais de um par de 
+margens. 
+O corte $C$ é uma \emph{bissecção} se possui um par de margens $S$ 
+e $\bar{S}$ tal que $||S|- |\bar{S}|| \in \{0,1\}$, ou seja, $S$ e 
+$\bar{S}$ particionam o grafo basicamente ao meio. 
+O número $|C|$ é chamado de \emph{largura} do corte $C$. 
+
+O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
+encontrar uma bissecção no grafo de largura mínima.
+
+Sabe-se que o problema da bissecção é NP-difícil~\cite{GareyJS76} 
+e a melhor aproximação conhecida para o caso geral do problema tem 
+razão $\Oh(\lg n)$~\cite{Racke08}, onde $n$ é o número de vértices 
+do grafo. 
+Por outro lado, sabe-se que, para árvores e grafos que de uma 
+certa maneira se assemelham a árvores, há um algoritmo polinomial 
+de programação dinâmica para encontrar uma bissecção mínima, 
+proposto por Jansen, Karpinski, Lingas e 
+Seidel~\cite{JansenKLS01}. 
+
+Fernandes, Schmidt e Taraz têm interesse em entender a estrutura 
+dos grafos cuja bissecção mínima tem largura grande, de modo a 
+desenvolver bons algoritmos de aproximação para o problema ou 
+identificar melhor as classes de grafos onde o problema torna-se 
+especialmente difícil. 
+Para tanto, eles têm feito estudos de certas questões em árvores, 
+em grafos que têm uma estrutura semelhante às árvores, e também em 
+grafos planares~\cite{FernandesST13,FernandesST15}, para os quais 
+a complexidade do problema encontra-se em aberto. 
+
+Vários outros resultados são conhecidos para o Problema da 
+Bissecção Mínima, porém este trabalho de conclusão de curso irá se 
+concentrar no estudo do problema em árvores, e possivelmente em 
+grafos semelhantes a árvores.
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%   OBJETIVOS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Objetivos} 
+
+O principal objetivo deste trabalho foi o estudo, implementação e 
+análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
+Taraz~\cite{FernandesST13}, para encontrar uma bissecção 
+aproximadamente mínima em árvores de grau limitado, denotaremos
+esse algoritmo por FST. 
+A vantagem deste algoritmo sobre o algoritmo de Jansen et 
+al.~\cite{JansenKLS01}, que encontra uma bissecção de largura 
+mínima, é que este tem um consumo de tempo linear, enquanto que o 
+segundo tem um consumo de tempo cúbico no número de vértices da 
+árvore. 
+Implementamos também o algoritmo de Jansen et al., para fins de 
+comparação da largura das bissecções produzidas pelo algoritmo
+FST. 
+
+Como já mencionado, o algoritmo de Jansen et al.\ baseia-se em 
+programação dinâmica. 
+Já o algoritmo de Fernandes et al., para atingir um consumo 
+linear, utiliza técnicas bem conhecidas de percursos de árvore, 
+como busca em profundidade, bem como um rastreamento de 
+informações mais cuidadoso que permite que o processamento todo 
+seja executado em tempo linear. 
+É um algoritmo mais refinado, dividido na implementação de uma 
+série de etapas menores. 
+
+Uma vez implementados os dois algoritmos, foi feita uma análise 
+da sua performance em árvores binárias geradas aleatoriamente, e 
+eventualmente em uma classe maior de árvores de grau limitado.
+Obtivemos instâncias reais de um problema relacionado e as 
+utilizamos também no estudo experimental do algorimo implementado.
+ 
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%  MÉTODO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Método}
+
+O estudo do algoritmo de Fernandes et al.\ seguiu um roteiro de
+como a implementação foi feita, conforme a proposta do TCC. 
+A linguagem escolhida para a implementação foi \texttt{C} e os 
+algoritmos implementados foram colocados na página do gitHub. 
+O roteiro consistiu em uma divisão da implementação do algoritmo 
+em várias etapas, que permitiu um melhor acompanhamento do 
+trabalho desenvolvido, e uma organização da forma de estudo. 
+O algoritmo encontra-se descrito em um documento 
+longo~\cite{Schmidt15} juntamente com a sua análise teórica. 
+Este documento serviu como base para o entendimento de cada 
+etapa, e de como a implementação de cada etapa deveria ser feita 
+para que a implementação obtida fosse de fato linear. 
+
+Reuniões frequentes foram feitas junto à supervisora para 
+apresentar as etapas já implementadas, bem como para tirar dúvidas 
+sobre as próximas etapas ou detalhes da implementação. 
+Em maio e junho, Tina Schmidt, uma das autoras do algoritmo que 
+foi implementado, visitou o IME, e a parte da 
+implementação que estava pronta foi apresentada a ela, e 
+algumas discussões foram feitas e em especial, a Tina conseguiu
+um conjunto de instâncias reais com BLA para usarmos em nossos
+experimentos.   
+
+Em paralelo ao estudo e desenvolvimento da implementação, foram 
+lidos dois artigos da literatura. São eles o artigo de Garey, 
+Johnson e Stockmeyer~\cite{GareyJS76}, que contém a prova de que o 
+problema é NP-difícil, e o artigo de Jansen et al., que apresenta 
+o algoritmo de programação dinâmica para o problema em árvores. 
+Após a implementação do algoritmo de Fernandes et~al., foi feita 
+a implementação do algoritmo de Jansen et~al.\ e a comparação dos 
+dois. 
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  DEFINIÇÕES  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Definições}
 
@@ -54,290 +194,290 @@
 			caminho $a$,$b$-$path$.
 
 		\end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \subsection{Caminho máximo em árvores}
-
-    	
-
-    	Um \textbf{caminho máximo} em uma árvore $T$ é
-    	um caminho em $T$ cujo comprimento é máximo.
-
-    	Encontrar um caminho máximo em uma árvore $T$ é uma tarefa
-    	computacionalmente simples que pode ser realizada em tempo 
-    	$O(n)$, sendo $n$ o número de vértices de $T$. 
-    	Primeiramente, é necessário escolher um vértice aleatório 
-    	$v \in V$ e encontrar $y_0$,
-    	que é o vértice mais distante de $v$.
-    	Depois, repetimos o mesmo processo em $y_0$, encontrar
-    	$x_0$ que é o vértice mais distante de $y_0$. 
-    	Para encontrar o vértice mais distante de algum vértice, 
-    	basta usar uma busca em largura.  
-    	Feito isso, temos um caminho máximo de $T$, que é o único
-    	caminho que liga $x_0$ a $y_0$.
-
-
-    	Agora provaremos que, de fato, $x_0$,$y_0$-$path$ é um
-    	caminho máximo.
-    	Suponhamos que $x$,$y$-$path$ seja um caminho máximo e:
-
-    	\begin{itemize}
-            \item \textbf{Caso 1:} Os caminhos $x$,$y$-$path$ e 
-            $x_0$,$y_0$-$path$ não possuem vértices em comum.
-
-            Logo, sabemos que existe um caminho $a$,$b$-$path$, 
-            de comprimento $c \ge 1$,
-            que funciona como uma conexão entre os dois caminhos,
-            possuindo assim apenas o vértice $a$ em 
-            $x$,$y$-$path$ e apenas o vértice $b$ em
-            $x_0$,$y_0$-$path$.
-
-            Portanto temos,
-            $$ dist(x,y) = dist(x,a) + dist(y,a) $$ e
-            $$ dist(x_0,y_0) = dist(x_0,b) + dist(y_0,b).$$
-
-            Como $x$,$y$-$path$ é um caminho máximo,
-            $$ dist(x,y)\ge dist(y,x_0) \Rightarrow 
-            dist(x,a)+dist(y,a)\ge dist(y,a)+c+dist(x_0,b)
-            \Rightarrow$$
-            $$ dist(x,a)\ge c+dist(x_0,b) $$
-
-            e como $x_0$ é o vértice mais distante de $y_0$, 
-            temos que 
-            $$ dist(x_0,y_0)\ge dist(x,y_0) \Rightarrow 
-            dist(x_0,b) + dist(y_0,b)\ge dist(y_0,b) + c + 
-            dist(x,a) \Rightarrow $$
-            $$ dist(x_0,b)\ge c + dist(x,a). $$ 
-            Logo, temos que
-            $$ dist(x,a)\ge 2c + dist(x, a). $$
-
-            Dado que $c\ge 1$, entramos numa contradição. 
-            Portanto, $x$,$y$-$path$ e $x_0$,$y_0$-$path$
-            possuem vértices em comum.
-
-            \begin{tikzpicture}
-				[scale=.8,auto=left,every node/.style={circle,
-				fill=blue!20}]
-				\node (x) at (0,4)  {x};
-				\node (y) at (12,4) {y};
-				\node (a) at (6,4)  {a};
-				  
-				\node (x0) at (0,0) {$x_0$};
-				\node (y0) at (12,0) {$y_0$};
-				\node (b)  at (6,0)  {b};
-
-				\node (n1) at (3,4) {...};
-				\node (n2) at (9,4) {...};
-				\node (n3) at (3,0) {...};
-				\node (n4) at (9,0) {...};
-				\node (n5) at (6,2) {...};
-
-				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/y,x0/n3,
-				n3/b,b/n4,n4/y0,a/n5,b/n5}
-				\draw (\from) -- (\to);
-			\end{tikzpicture}
-
-			\bigskip
-			\bigskip
-			\bigskip
-
-			\item \textbf{Caso 2:} Os caminhos $x$,$y$-$path$ e 
-            $x_0$,$y_0$-$path$ possuem vértices em comum.
-         	
-         	Logo, sabemos que existe um caminho $a$,$b$-$path$, 
-            de comprimento $c \ge 1$,
-            que funciona como uma interseção entre os dois 
-            caminhos, de modo que $dist(y,a)\ge dist(y,b)$.
-            
-            \begin{tikzpicture}
-				[scale=.8,auto=left,every node/.style={circle,
-				fill=blue!20}]
-				\node (x) at (0,4)  {x};
-				\node (y) at (12,4) {y};
-				\node (a) at (4,4)  {a};
-				\node (b) at (8,4)  {b};
-				  
-				\node (n1) at (2,4) {...};
-				\node (n2) at (6,4) {...};
-				\node (n3) at (10,4) {...};
-
-				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
-				n3/y}
-				\draw (\from) -- (\to);
-			\end{tikzpicture}
-            
-            \bigskip
-
-            \textbf{Caso 2.1:} Se 
-            $dist(x_0,b)\ge dist(x_0,a)$, então a árvore será
-            como o ilustrado abaixo:
-
-            \begin{tikzpicture}
-				[scale=.8,auto=left,every node/.style={circle,
-				fill=blue!20}]
-				\node (x) at (0,4)  {x};
-				\node (y) at (12,4) {y};
-				\node (a) at (4,4)  {a};
-				\node (b) at (8,4)  {b};
-				\node (x0) at (1.5,6)  {$x_0$};
-				\node (y0) at (10.5,2)  {$y_0$};
-				  
-				\node (n1) at (2,4) {...};
-				\node (n2) at (6,4) {...};
-				\node (n3) at (10,4) {...};
-				\node (n4) at (9.25,3) {...};
-				\node (n5) at (2.75,5) {...};
-
-				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
-				n3/y, a/n5,n5/x0,b/n4,n4/y0}
-				\draw (\from) -- (\to);
-			\end{tikzpicture}
-			
-			Então podemos afirmar que 
-			$$ dist(x,y) = dist(x,a) + dist(a,b) + dist(y,b) $$ e
-            $$ dist(x_0,y_0) = dist(x_0,b) + dist(a,b) + 
-            dist(y_0,b).$$
-
-			Nesse caso, como sabemos que $x_0$ é o vértice mais
-			distante de $y_0$, então
-			$$  dist(x_0,b)\ge dist(x,a) \Rightarrow 
-			dist(x_0,a) + dist(a,b)\ge dist(x,a) + dist(a,b)
-			\Rightarrow$$ 
-			$$ dist(x_0,a)\ge dist(x,a), $$
-			e como $x$,$y$-$path$ é o caminho máximo, então
-			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
-			dist(x,a)\ge dist(x_0,a), $$ 
-			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
-			dist(x,a) + dist(a,b)\ge dist(y_0,b)\Rightarrow
-			dist(x,b)\ge dist(y_0,b) $$
-			$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
-			dist(y,b)\ge dist(y_0,b). $$
-			Com isso, temos que: $$dist(x_0,a)=dist(x,a).$$
-
-			Agora vamos recorrer ao vértice $v$ o qual é o vértice
-			que foi escolhido aleatoriamente no algoritmo.
-			Digamos que $v'$ é o vértice que está em
-			$x$,$y$-$path\cup x_0$,$y_0$-$path$ o qual está mais
-			perto de $v$.
-			Sabemos que $y_0$ é um vértice mais distante de $v$,
-			logo $y_0$ é um vértice mais distante de $v'$. 
-			
-			\textbf{Caso 2.1.1:} Se 
-			$v\in x$,$b$-$path\cup x_0$,$b$-$path$, temos que:
-			$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
-			dist(v,b)+dist(y_0,b)\ge dist(v,b) + dist(y,b) 
-			\Rightarrow$$
-			$$ dist(y_0,b)\ge dist(y,b).$$
-
-			\textbf{Caso 2.1.2:} Já se $v\in b$,$y_0$-$path$, 
-			temos que:
-			$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
-			dist(y_0,b)\ge dist(v,y_0)\ge 
-			dist(v,b) + dist(y,b)\ge dist(y,b) $$
-			$$ dist(y_0,b)\ge dist(y,b) $$
-
-			\textbf{Caso 2.1.3:} Caso contrário, quando 
-			$v\in b$,$y$-$path$, temos que:
-			$$ dist(v,y_0)\ge dist(v,x) \Rightarrow
-			dist(y_0,b)+dist(v,b)\ge dist(x,b)+dist(v,b)
-			\Rightarrow $$
-			$$ dist(y_0,b)\ge dist(x,b) \Rightarrow
-			dist(y_0,b) = dist(x,b) \Rightarrow 
-			dist(y_0,b) = dist(x_0,b) $$
-			Como  $x_0$ é o vértice mais distante de $y_0$, temos
-			que:
-			$$ dist(y_0,x_0)\ge dist(y_0,y) \Rightarrow
-			dist(y_0,b) + dist(x_0,b)\ge dist(y_0,b) + dist(y,b)
-			\Rightarrow $$
-			$$ dist(x_0,b)\ge dist(y,b) \Rightarrow 
-			dist(y_0,b)\ge dist(y,b) $$
-
-			\bigskip
-
-			Como $dist(y_0,b)\ge dist(y,b)$ para todos os casos
-			e $dist(y,b)\ge dist(y_0,b)$ então:
-			$$ dist(y,b) =  dist(y_0,b) \Rightarrow
-			dist(x,y) = dist(x_0,y_0) $$
-			portanto, $x_0$,$y_0$-$path$ é um caminho máximo.
-
-			\bigskip
-			\bigskip
-
-			\textbf{Caso 2.2:} Se $dist(x_0,a)> dist(x_0,b)$,
-			então a árvore será como o ilustrado abaixo:
-
-			\begin{tikzpicture}
-				[scale=.8,auto=left,every node/.style={circle,
-				fill=blue!20}]
-				\node (x) at (0,4)  {x};
-				\node (y) at (12,4) {y};
-				\node (a) at (4,4)  {a};
-				\node (b) at (8,4)  {b};
-				\node (y0) at (1.5,6)  {$y_0$};
-				\node (x0) at (10.5,2)  {$x_0$};
-				  
-				\node (n1) at (2,4) {...};
-				\node (n2) at (6,4) {...};
-				\node (n3) at (10,4) {...};
-				\node (n4) at (9.25,3) {...};
-				\node (n5) at (2.75,5) {...};
-
-				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
-				n3/y, a/n5,n5/y0,b/n4,n4/x0}
-				\draw (\from) -- (\to);
-			\end{tikzpicture}
-
-			E pode-se provar que $x_0$,$y_0$-$path$ é um caminho
-			máximo de uma forma análoga ao Caso 2.1.
-
-
-	
-
-
-			\begin{algorithm}[H]
-				\SetKwInOut{Input}{input}
-				\SetKwInOut{Output}{output}
-
-				\caption{Encontra um caminho máximo}
-				\Input{Uma árvore $T = (V,E)$}
-				\Output{Um caminho máximo de $T$}
-				$v \leftarrow$ vértice aleatório de $T$\;
-
-				$y_0 \leftarrow$ vértice mais distante de $v$
-				usando busca em largura\;
-				$x_0 \leftarrow$ vértice mais distante de $y_0$
-				também usando busca em largura, e um vetor de 
-				pais para sabermos qual foi o caminho percorrido
-				para se chegar de $y_0$ até $x_0$\;
-
-				\Return $x_0$,$y_0$-$path$\;
-				
-			\end{algorithm}	
-
-
-
-
-        \end{itemize}
-
-    	\newpage
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \subsection{Cálculo do Diâmetro de uma Árvore}
-    	Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
-    	comprimento de um caminho máximo de $G$. 
-    	Em outras palavras, o diâmetro pode ser definido como:
-    	$$ diam(G)=max\{dist(x,y):x,y\in V(G)\} $$
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 5     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    	\bigskip
 
-    	Há também o \textbf{diâmetro relativo} de um grafo $G$,
-    	não necessariamente conexo, que é a razão entre o número
-    	de vértices do caminho máximo e o número total de vértices
-    	de $G$. Este pode também ser representado por:
-    	$$ diam^*(G) = \frac{\displaystyle\sum_{
-    	G'~componente~conexa~de~G}^{}diam(G')+1}{\mid V(G)\mid} $$
-    
+\section{Caminho máximo em árvores}
+
+	Um \textbf{caminho máximo} em uma árvore $T$ é um caminho em 
+	$T$ cujo comprimento é máximo.
+
+	Encontrar um caminho máximo em uma árvore $T$ é uma tarefa
+	computacionalmente simples que pode ser realizada em tempo 
+	$O(n)$, sendo $n$ o número de vértices de $T$. 
+	Primeiramente, é necessário escolher um vértice aleatório 
+	$v \in V$ e encontrar $y_0$, que é o vértice mais distante de 
+	$v$.
+	Depois, repetimos o mesmo processo em $y_0$, encontrar
+	$x_0$ que é o vértice mais distante de $y_0$. 
+	Para encontrar o vértice mais distante de algum vértice, basta 
+	usar uma busca em largura.  
+	Feito isso, temos um caminho máximo de $T$, que é o único
+	caminho que liga $x_0$ a $y_0$.
+
+
+	Agora provaremos que, de fato, $x_0$,$y_0$-$path$ é um caminho 
+	máximo.
+	Suponhamos que $x$,$y$-$path$ seja um caminho máximo e:
+
+	\begin{itemize}
+        \item \textbf{Caso 1:} Os caminhos $x$,$y$-$path$ e 
+        $x_0$,$y_0$-$path$ não possuem vértices em comum.
+
+        Logo, sabemos que existe um caminho $a$,$b$-$path$, de 
+        comprimento $c \ge 1$, que funciona como uma conexão entre 
+        os dois caminhos, possuindo assim apenas o vértice $a$ em 
+        $x$,$y$-$path$ e apenas o vértice $b$ em
+        $x_0$,$y_0$-$path$.
+
+        Portanto temos,
+        $$ dist(x,y) = dist(x,a) + dist(y,a) $$ e
+        $$ dist(x_0,y_0) = dist(x_0,b) + dist(y_0,b).$$
+
+        Como $x$,$y$-$path$ é um caminho máximo,
+        $$ dist(x,y)\ge dist(y,x_0) \Rightarrow 
+        dist(x,a)+dist(y,a)\ge dist(y,a)+c+dist(x_0,b)
+        \Rightarrow$$
+        $$ dist(x,a)\ge c+dist(x_0,b) $$
+
+        e como $x_0$ é o vértice mais distante de $y_0$, temos que 
+        $$ dist(x_0,y_0)\ge dist(x,y_0) \Rightarrow  
+        dist(x_0,b) + dist(y_0,b)\ge dist(y_0,b) + c + 
+        dist(x,a) \Rightarrow $$
+        $$ dist(x_0,b)\ge c + dist(x,a). $$ 
+        Logo, temos que
+        $$ dist(x,a)\ge 2c + dist(x, a). $$
+
+        Dado que $c\ge 1$, entramos numa contradição. 
+        Portanto, $x$,$y$-$path$ e $x_0$,$y_0$-$path$
+        possuem vértices em comum.
+
+        \begin{tikzpicture}
+			[scale=.8,auto=left,every node/.style={circle,
+			fill=blue!20}]
+			\node (x) at (0,4)  {x};
+			\node (y) at (12,4) {y};
+			\node (a) at (6,4)  {a};
+			  
+			\node (x0) at (0,0) {$x_0$};
+			\node (y0) at (12,0) {$y_0$};
+			\node (b)  at (6,0)  {b};
+
+			\node (n1) at (3,4) {...};
+			\node (n2) at (9,4) {...};
+			\node (n3) at (3,0) {...};
+			\node (n4) at (9,0) {...};
+			\node (n5) at (6,2) {...};
+
+			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/y,x0/n3,
+			n3/b,b/n4,n4/y0,a/n5,b/n5}
+			\draw (\from) -- (\to);
+		\end{tikzpicture}
+
+		\bigskip
+		\bigskip
+		\bigskip
+
+		\item \textbf{Caso 2:} Os caminhos $x$,$y$-$path$ e 
+        $x_0$,$y_0$-$path$ possuem vértices em comum.
+     	
+     	Logo, sabemos que existe um caminho $a$,$b$-$path$, 
+        de comprimento $c \ge 1$,
+        que funciona como uma interseção entre os dois 
+        caminhos, de modo que $dist(y,a)\ge dist(y,b)$.
+        
+        \begin{tikzpicture}
+			[scale=.8,auto=left,every node/.style={circle,
+			fill=blue!20}]
+			\node (x) at (0,4)  {x};
+			\node (y) at (12,4) {y};
+			\node (a) at (4,4)  {a};
+			\node (b) at (8,4)  {b};
+			  
+			\node (n1) at (2,4) {...};
+			\node (n2) at (6,4) {...};
+			\node (n3) at (10,4) {...};
+
+			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+			n3/y}
+			\draw (\from) -- (\to);
+		\end{tikzpicture}
+        
+        \bigskip
+
+        \textbf{Caso 2.1:} Se 
+        $dist(x_0,b)\ge dist(x_0,a)$, então a árvore será
+        como o ilustrado abaixo:
+
+        \begin{tikzpicture}
+			[scale=.8,auto=left,every node/.style={circle,
+			fill=blue!20}]
+			\node (x) at (0,4)  {x};
+			\node (y) at (12,4) {y};
+			\node (a) at (4,4)  {a};
+			\node (b) at (8,4)  {b};
+			\node (x0) at (1.5,6)  {$x_0$};
+			\node (y0) at (10.5,2)  {$y_0$};
+			  
+			\node (n1) at (2,4) {...};
+			\node (n2) at (6,4) {...};
+			\node (n3) at (10,4) {...};
+			\node (n4) at (9.25,3) {...};
+			\node (n5) at (2.75,5) {...};
+
+			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+			n3/y, a/n5,n5/x0,b/n4,n4/y0}
+			\draw (\from) -- (\to);
+		\end{tikzpicture}
+		
+		Então podemos afirmar que 
+		$$ dist(x,y) = dist(x,a) + dist(a,b) + dist(y,b) $$ e
+        $$ dist(x_0,y_0) = dist(x_0,b) + dist(a,b) + 
+        dist(y_0,b).$$
+
+		Nesse caso, como sabemos que $x_0$ é o vértice mais
+		distante de $y_0$, então
+		$$  dist(x_0,b)\ge dist(x,a) \Rightarrow 
+		dist(x_0,a) + dist(a,b)\ge dist(x,a) + dist(a,b)
+		\Rightarrow$$ 
+		$$ dist(x_0,a)\ge dist(x,a), $$
+		e como $x$,$y$-$path$ é o caminho máximo, então
+		$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
+		dist(x,a)\ge dist(x_0,a), $$ 
+		$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
+		dist(x,a) + dist(a,b)\ge dist(y_0,b)\Rightarrow
+		dist(x,b)\ge dist(y_0,b) $$
+		$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
+		dist(y,b)\ge dist(y_0,b). $$
+		Com isso, temos que: $$dist(x_0,a)=dist(x,a).$$
+
+		Agora vamos recorrer ao vértice $v$ o qual é o vértice
+		que foi escolhido aleatoriamente no algoritmo.
+		Digamos que $v'$ é o vértice que está em
+		$x$,$y$-$path\cup x_0$,$y_0$-$path$ o qual está mais
+		perto de $v$.
+		Sabemos que $y_0$ é um vértice mais distante de $v$,
+		logo $y_0$ é um vértice mais distante de $v'$. 
+		
+		\textbf{Caso 2.1.1:} Se 
+		$v\in x$,$b$-$path\cup x_0$,$b$-$path$, temos que:
+		$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
+		dist(v,b)+dist(y_0,b)\ge dist(v,b) + dist(y,b) 
+		\Rightarrow$$
+		$$ dist(y_0,b)\ge dist(y,b).$$
+
+		\textbf{Caso 2.1.2:} Já se $v\in b$,$y_0$-$path$, 
+		temos que:
+		$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
+		dist(y_0,b)\ge dist(v,y_0)\ge 
+		dist(v,b) + dist(y,b)\ge dist(y,b) $$
+		$$ dist(y_0,b)\ge dist(y,b) $$
+
+		\textbf{Caso 2.1.3:} Caso contrário, quando 
+		$v\in b$,$y$-$path$, temos que:
+		$$ dist(v,y_0)\ge dist(v,x) \Rightarrow
+		dist(y_0,b)+dist(v,b)\ge dist(x,b)+dist(v,b)
+		\Rightarrow $$
+		$$ dist(y_0,b)\ge dist(x,b) \Rightarrow
+		dist(y_0,b) = dist(x,b) \Rightarrow 
+		dist(y_0,b) = dist(x_0,b) $$
+		Como  $x_0$ é o vértice mais distante de $y_0$, temos
+		que:
+		$$ dist(y_0,x_0)\ge dist(y_0,y) \Rightarrow
+		dist(y_0,b) + dist(x_0,b)\ge dist(y_0,b) + dist(y,b)
+		\Rightarrow $$
+		$$ dist(x_0,b)\ge dist(y,b) \Rightarrow 
+		dist(y_0,b)\ge dist(y,b) $$
+
+		\bigskip
+
+		Como $dist(y_0,b)\ge dist(y,b)$ para todos os casos
+		e $dist(y,b)\ge dist(y_0,b)$ então:
+		$$ dist(y,b) =  dist(y_0,b) \Rightarrow
+		dist(x,y) = dist(x_0,y_0) $$
+		portanto, $x_0$,$y_0$-$path$ é um caminho máximo.
+
+		\bigskip
+		\bigskip
+
+		\textbf{Caso 2.2:} Se $dist(x_0,a)> dist(x_0,b)$,
+		então a árvore será como o ilustrado abaixo:
+
+		\begin{tikzpicture}
+			[scale=.8,auto=left,every node/.style={circle,
+			fill=blue!20}]
+			\node (x) at (0,4)  {x};
+			\node (y) at (12,4) {y};
+			\node (a) at (4,4)  {a};
+			\node (b) at (8,4)  {b};
+			\node (y0) at (1.5,6)  {$y_0$};
+			\node (x0) at (10.5,2)  {$x_0$};
+			  
+			\node (n1) at (2,4) {...};
+			\node (n2) at (6,4) {...};
+			\node (n3) at (10,4) {...};
+			\node (n4) at (9.25,3) {...};
+			\node (n5) at (2.75,5) {...};
+
+			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+			n3/y, a/n5,n5/y0,b/n4,n4/x0}
+			\draw (\from) -- (\to);
+		\end{tikzpicture}
+
+		E pode-se provar que $x_0$,$y_0$-$path$ é um caminho
+		máximo de uma forma análoga ao Caso 2.1.
+
+
+
+
+
+		\begin{algorithm}[H]
+			\SetKwInOut{Input}{input}
+			\SetKwInOut{Output}{output}
+
+			\caption{Encontra um caminho máximo}
+			\Input{Uma árvore $T = (V,E)$}
+			\Output{Um caminho máximo de $T$}
+			$v \leftarrow$ vértice aleatório de $T$\;
+
+			$y_0 \leftarrow$ vértice mais distante de $v$
+			usando busca em largura\;
+			$x_0 \leftarrow$ vértice mais distante de $y_0$
+			também usando busca em largura, e um vetor de 
+			pais para sabermos qual foi o caminho percorrido
+			para se chegar de $y_0$ até $x_0$\;
+
+			\Return $x_0$,$y_0$-$path$\;
+			
+		\end{algorithm}	
+
+
+
+
+    \end{itemize}
+
+	\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Cálculo do Diâmetro de uma Árvore}
+		Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
+		comprimento de um caminho máximo de $G$. 
+		Em outras palavras, o diâmetro pode ser definido como:
+		$$ diam(G)=max\{dist(x,y):x,y\in V(G)\} $$
+
+		\bigskip
+
+		Há também o \textbf{diâmetro relativo} de um grafo $G$,
+		não necessariamente conexo, que é a razão entre o número
+		de vértices do caminho máximo e o número total de vértices
+		de $G$. Este pode também ser representado por:
+		$$ diam^*(G) = \frac{\displaystyle\sum_{
+		G'~componente~conexa~de~G}^{}diam(G')+1}{\mid V(G)\mid} $$
+
 
 
 \newpage
@@ -362,5 +502,68 @@
 			\end{algorithm}	
     
     
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 6     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Algoritmos de cortes aproximados 6}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 7     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Rotulação dos vértices da árvore 7}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 8     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Algoritmo da dobra do diâmetro 8}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 9     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Algoritmo FST para bissecção 9}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 10    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Complexidade do problema da bissecção 10}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 11    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Algoritmo de Jansen 11}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 12    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Geração de árvores binárias aleatórias 12}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 13    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Experimentos computacionais 13}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 14    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Conclusoes 14}
+
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{refs}
 \end{document}

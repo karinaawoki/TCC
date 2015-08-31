@@ -1,0 +1,21 @@
+PLANILHA - APROXIMAÇÃO
+
+numero de vertices:
+  seed | corte | time
+
+
+100:
+  1   |  2    |   0.002s    |
+  2   |  2    |       |
+  3   |  2    |       |
+  4   |  2    |       |
+  5   |  2    |       |
+  6   |  3    |       |
+  7   |  5    |       |
+  8   |  2    |       |
+  9   |  2    |       |
+  10  |  5    |       |
+
+
+
+200: 

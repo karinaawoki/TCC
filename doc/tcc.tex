@@ -175,25 +175,42 @@ dois.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Definições}
+	\begin{itemize}
+		\item Em um grafo $G =(V,E)$, denotemos $V(G)$
+		como o conjunto de vértices e 
+		$E(G)$ como o conjunto de arestas de $G$.
 
-	\subsection{Noções básicas}
-		\begin{itemize}
-			\item Um \textbf{caminho} em uma árvore $T=(V,E)$, de 
-	    	comprimento $p$, é uma sequência de vértices 
-	    	$v_0, v_1, ...,v_{p-1}, v_p$ 
-	    	onde {$v_{k-1}, v_k$} é uma aresta para todo 
-	    	$k = 1,2,..., p$. 
-	    	Como existe um único caminho que conecta dois vértices,
-	    	então chamaremos um caminho 
-	    	$v_0, v_1, ...,v_{p-1}, v_p$ de
-	    	$v_0$,$v_p$-$path$.
+		\item Dado um grafo $G$, dizemos que $(B,W)$ é um 
+		\textbf{corte}
+		de $G$ se $B \cup W = V(G)$ e $B \cap W = \emptyset$.
+		Sendo $e_G(B,W)$ o número de arestas no corte $(B,W)$.
 
-			\item A \textbf{distância} entre dois vértices $a$ e 
-			$b$, contidos num grafo, é representada por 
-			$dist(a,b)$, que também é igual ao comprimento do
-			caminho $a$,$b$-$path$.
+		\item O número de arestas que incidem em um determinado
+		vértice $v$ é chamado de 
+		\textbf{grau} de $v$ e será representado
+		por $grau(v)$. O 
+		\textbf{grau máximo}, que é o grau do vértice de
+		maior grau em $G$, será representado por $\Delta(G)$.
 
-		\end{itemize}
+		\item Um \textbf{caminho} em uma árvore $T$, de 
+    	comprimento $p$, é uma sequência de vértices 
+    	$v_0, v_1, \ldots,v_{p-1}, v_p$ 
+    	onde {$v_{k-1}, v_k$} é uma aresta para todo 
+    	$k = 1,2, \ldots, p$. 
+    	Como existe um único caminho que conecta quaisquer dois 
+    	vértices $v_0$ e $v_p$, então chamaremos tal caminho em $T$
+    	de  
+    	$v_0$,$v_p$-$caminho$.
+
+		\item A \textbf{distância} entre dois vértices $a$ e 
+		$b$ de T é representada por 
+		$dist(a,b)$, e é igual ao comprimento do
+		$a$,$b$-$caminho$ em $T$.
+
+		
+	\end{itemize}
+
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 5     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,68 +220,49 @@ dois.
 \section{Caminho máximo em árvores}
 
 	Um \textbf{caminho máximo} em uma árvore $T$ é um caminho em 
-	$T$ cujo comprimento é máximo.
+	$T$ de comprimento máximo.
 
-	Encontrar um caminho máximo em uma árvore $T$ é uma tarefa
+	Encontrar um caminho máximo em uma árvore $T=(V,E)$ é uma tarefa
 	computacionalmente simples que pode ser realizada em tempo 
-	$O(n)$, sendo $n$ o número de vértices de $T$. 
-	Primeiramente, é necessário escolher um vértice aleatório 
-	$v \in V$ e encontrar $y_0$, que é o vértice mais distante de 
+	$O(n)$, sendo $n$ o número de vértices de $T$, ou seja, 
+	$n = \mid V\mid$. 
+	Primeiramente escolhe-se um vértice arbitrário
+	$v \in V$ e encontra-se um vértice $y_0$ mais distante de 
 	$v$.
-	Depois, repetimos o mesmo processo em $y_0$, encontrar
-	$x_0$ que é o vértice mais distante de $y_0$. 
-	Para encontrar o vértice mais distante de algum vértice, basta 
-	usar uma busca em largura.  
-	Feito isso, temos um caminho máximo de $T$, que é o único
+	Depois, repetimos o mesmo processo a partir de $y_0$, 
+	encontrando um vértice
+	$x_0$ mais distante de $y_0$. 
+	Para encontrar um vértice mais distante de algum vértice dado, 
+	basta usar uma busca em largura.  
+	Feito isso, temos um caminho máximo em $T$, que é o único
 	caminho que liga $x_0$ a $y_0$.
 
 
-	Agora provaremos que, de fato, $x_0$,$y_0$-$path$ é um caminho 
-	máximo.
-	Suponhamos que $x$,$y$-$path$ seja um caminho máximo e:
+	Agora provaremos que de fato o $x_0$,$y_0$-$caminho$ é um caminho 
+	máximo em $T$.
+	Suponhamos que exista um outro caminho mais longo que o
+	$x_0$,$y_0$-$caminho$ e sejam $x$ e $y$ os seus extremos.
 
 	\begin{itemize}
-        \item \textbf{Caso 1:} Os caminhos $x$,$y$-$path$ e 
-        $x_0$,$y_0$-$path$ não possuem vértices em comum.
+        \item \textbf{Caso 1:} O $x$,$y$-$caminho$ e o 
+        $x_0$,$y_0$-$caminho$ não possuem vértices em comum.
 
-        Logo, sabemos que existe um caminho $a$,$b$-$path$, de 
-        comprimento $c \ge 1$, que funciona como uma conexão entre 
-        os dois caminhos, possuindo assim apenas o vértice $a$ em 
-        $x$,$y$-$path$ e apenas o vértice $b$ em
-        $x_0$,$y_0$-$path$.
+        Existe um $a$,$b$-$caminho$, de 
+        comprimento $c \ge 1$, que conecta os dois caminhos, 
+        possuindo assim apenas o vértice $a$ no 
+        $x$,$y$-$caminho$ e apenas o vértice $b$ no
+        $x_0$,$y_0$-$caminho$.
 
-        Portanto temos,
-        $$ dist(x,y) = dist(x,a) + dist(y,a) $$ e
-        $$ dist(x_0,y_0) = dist(x_0,b) + dist(y_0,b).$$
-
-        Como $x$,$y$-$path$ é um caminho máximo,
-        $$ dist(x,y)\ge dist(y,x_0) \Rightarrow 
-        dist(x,a)+dist(y,a)\ge dist(y,a)+c+dist(x_0,b)
-        \Rightarrow$$
-        $$ dist(x,a)\ge c+dist(x_0,b) $$
-
-        e como $x_0$ é o vértice mais distante de $y_0$, temos que 
-        $$ dist(x_0,y_0)\ge dist(x,y_0) \Rightarrow  
-        dist(x_0,b) + dist(y_0,b)\ge dist(y_0,b) + c + 
-        dist(x,a) \Rightarrow $$
-        $$ dist(x_0,b)\ge c + dist(x,a). $$ 
-        Logo, temos que
-        $$ dist(x,a)\ge 2c + dist(x, a). $$
-
-        Dado que $c\ge 1$, entramos numa contradição. 
-        Portanto, $x$,$y$-$path$ e $x_0$,$y_0$-$path$
-        possuem vértices em comum.
-
-        \begin{tikzpicture}
+        \begin{center} \begin{tikzpicture}
 			[scale=.8,auto=left,every node/.style={circle,
 			fill=blue!20}]
-			\node (x) at (0,4)  {x};
-			\node (y) at (12,4) {y};
-			\node (a) at (6,4)  {a};
+			\node (x) at (0,4)  {$x$};
+			\node (y) at (12,4) {$y$};
+			\node (a) at (6,4)  {$a$};
 			  
 			\node (x0) at (0,0) {$x_0$};
 			\node (y0) at (12,0) {$y_0$};
-			\node (b)  at (6,0)  {b};
+			\node (b)  at (6,0)  {$b$};
 
 			\node (n1) at (3,4) {...};
 			\node (n2) at (9,4) {...};
@@ -275,27 +273,84 @@ dois.
 			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/y,x0/n3,
 			n3/b,b/n4,n4/y0,a/n5,b/n5}
 			\draw (\from) -- (\to);
-		\end{tikzpicture}
+		\end{tikzpicture} \end{center}
+
+
+        Portanto temos que
+        $$ dist(x,y) = dist(x,a) + dist(a,y) $$ e
+        $$ dist(x_0,y_0) = dist(x_0,b) + dist(b,y_0).$$
+
+        Como o $x$,$y$-$caminho$ é máximo, 
+        $$ dist(x,y)\ge dist(x_0,y),$$
+        e isso implica que
+        $$ dist(x,a)\ge dist(x_0,b)+c.$$
+
+        Como $x_0$ é um vértice mais distante de $y_0$, temos que 
+        $$ dist(x_0,y_0)\ge dist(x,y_0),$$ que implica que
+        $$ dist(x_0,b)\ge dist(x,a)+c. $$ 
+        Logo temos que
+        $$ dist(x,a)\ge dist(x, a)+2c,$$
+        uma contradição, visto que
+		$c\ge 1$.
+
 
 		\bigskip
 		\bigskip
 		\bigskip
 
-		\item \textbf{Caso 2:} Os caminhos $x$,$y$-$path$ e 
-        $x_0$,$y_0$-$path$ possuem vértices em comum.
+
+		\item \textbf{Caso 2:} O $x$,$y$-$caminho$ e o 
+		$x_0$,$y_0$-$caminho$ possuem vértices em comum.
+
+		A interseção entre esses dois caminhos é um 
+		$a$,$b$-$caminho$ de comprimento $c \ge 0$.
+		Podemos assumir, sem perda de generalidade, que
+		$dist(x,a) \le dist(x,b)$ e que
+		$dist(x_0,a) \le dist(x_0,b)$, como na figura abaixo.
+
+
+
+
+		Como $x_0$ é um vértice mais distante de $y_0$,
+		temos que $dist(x_0,a) \ge dist(x,a)$.
+		Por outro lado, como $x$ é um vértice mais distante
+		de $y$, temos também que $dist(x,a)\ge dist(x_0,a)$,
+		e portanto $dist(x_0,a) = dist(x,a)$.
+		Similarmente, como $y$ é um vértice mais distante de
+		$x$, vale que $dist(y,b) \ge dist(y_0,b)$.
+
+		Agora consideremos o vértice $v$ que foi escolhido 
+		arbitrariamente no início do algoritmo, e seja $v'$
+		o vértice mais próximo de $v$ no $x_0$,$y_0$-$caminho$.
+		Se $v'\ne b$, então, como $y_0$ é um vértice mais 
+		distante de $v$,
+		$$ dist(v',y_0) \ge dist(v',y) = dist(v',b) + dist(b,y) $$
+		$$ \ge dist(v',b) + dist(b,y_0) \ge dist(v',y_0), $$
+		o que implica que $dist(v',y_0) = dist(v',y)$ assim
+		como $ dist(b,y) = dist(b,y_0) $. 
+		Ou seja, $dist(x,y) = dist(x_0,y_0)$.
+		Resta analisar o caso em que $v'=b$.
+		Seja $v''$ o vértice mais próximo de $y$ no  
+
+
+
+
+
+		\item \textbf{Caso 2:} O $x$,$y$-$caminho$ e o 
+        $x_0$,$y_0$-$caminho$ possuem vértices em comum.
      	
-     	Logo, sabemos que existe um caminho $a$,$b$-$path$, 
-        de comprimento $c \ge 1$,
-        que funciona como uma interseção entre os dois 
-        caminhos, de modo que $dist(y,a)\ge dist(y,b)$.
+     	Logo, sabemos que a intersecção entre esses caminhos é
+     	um $a$,$b$-$caminho$, 
+        de comprimento $c \ge 0$,
+        de modo que $dist(y,a)\ge dist(y,b)$.
         
-        \begin{tikzpicture}
+        \begin{center}\begin{tikzpicture}
 			[scale=.8,auto=left,every node/.style={circle,
 			fill=blue!20}]
-			\node (x) at (0,4)  {x};
-			\node (y) at (12,4) {y};
-			\node (a) at (4,4)  {a};
-			\node (b) at (8,4)  {b};
+			\node (x) at (0,4)  {$x$};
+			\node (y) at (12,4) {$y$};
+			\node (a) at (4,4)  {$a$};
+			\node (b) at (8,4)  {$b$};
 			  
 			\node (n1) at (2,4) {...};
 			\node (n2) at (6,4) {...};
@@ -304,21 +359,21 @@ dois.
 			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
 			n3/y}
 			\draw (\from) -- (\to);
-		\end{tikzpicture}
+		\end{tikzpicture} \end{center}
         
         \bigskip
 
-        \textbf{Caso 2.1:} Se 
-        $dist(x_0,b)\ge dist(x_0,a)$, então a árvore será
+        \textbf{Caso 2.1:}
+        $dist(x_0,b)\ge dist(x_0,a)$. A árvore será
         como o ilustrado abaixo:
 
-        \begin{tikzpicture}
+        \begin{center} \begin{tikzpicture}
 			[scale=.8,auto=left,every node/.style={circle,
 			fill=blue!20}]
-			\node (x) at (0,4)  {x};
-			\node (y) at (12,4) {y};
-			\node (a) at (4,4)  {a};
-			\node (b) at (8,4)  {b};
+			\node (x) at (0,4)  {$x$};
+			\node (y) at (12,4) {$y$};
+			\node (a) at (4,4)  {$a$};
+			\node (b) at (8,4)  {$b$};
 			\node (x0) at (1.5,6)  {$x_0$};
 			\node (y0) at (10.5,2)  {$y_0$};
 			  
@@ -331,22 +386,24 @@ dois.
 			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
 			n3/y, a/n5,n5/x0,b/n4,n4/y0}
 			\draw (\from) -- (\to);
-		\end{tikzpicture}
+		\end{tikzpicture} \end{center}
 		
-		Então podemos afirmar que 
+		Assim podemos afirmar que 
 		$$ dist(x,y) = dist(x,a) + dist(a,b) + dist(y,b) $$ e
-        $$ dist(x_0,y_0) = dist(x_0,b) + dist(a,b) + 
+        $$ dist(x_0,y_0) = dist(x_0,a) + dist(a,b) + 
         dist(y_0,b).$$
 
-		Nesse caso, como sabemos que $x_0$ é o vértice mais
+		Nesse caso, como sabemos que $x_0$ é um vértice mais
 		distante de $y_0$, então
-		$$  dist(x_0,b)\ge dist(x,a) \Rightarrow 
-		dist(x_0,a) + dist(a,b)\ge dist(x,a) + dist(a,b)
-		\Rightarrow$$ 
+		$$  dist(x_0,a)\ge dist(x,a) $$
+		implica que
+		$$dist(x_0,a) + dist(a,b)\ge dist(x,a) + dist(a,b),$$
+		então
 		$$ dist(x_0,a)\ge dist(x,a), $$
-		e como $x$,$y$-$path$ é o caminho máximo, então
-		$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
-		dist(x,a)\ge dist(x_0,a), $$ 
+		e como o $x$,$y$-$caminho$ é máximo, então
+		$$  dist(x,y)\ge dist(x_0,y)$$ 
+		implica que
+		$$dist(x,a)\ge dist(x_0,a), $$ 
 		$$  dist(x,y)\ge dist(x_0,y) \Rightarrow 
 		dist(x,a) + dist(a,b)\ge dist(y_0,b)\Rightarrow
 		dist(x,b)\ge dist(y_0,b) $$
@@ -354,30 +411,30 @@ dois.
 		dist(y,b)\ge dist(y_0,b). $$
 		Com isso, temos que: $$dist(x_0,a)=dist(x,a).$$
 
-		Agora vamos recorrer ao vértice $v$ o qual é o vértice
-		que foi escolhido aleatoriamente no algoritmo.
-		Digamos que $v'$ é o vértice que está em
-		$x$,$y$-$path\cup x_0$,$y_0$-$path$ o qual está mais
-		perto de $v$.
+		Agora vamos recorrer ao vértice $v$
+		que foi escolhido arbitrariamente no algoritmo.
+		Digamos que $v'$ é o vértice mais proóximo de $v$ 
+		que está ou no
+		$x$,$y$-$caminho$ ou no $x_0$,$y_0$-$caminho$.
 		Sabemos que $y_0$ é um vértice mais distante de $v$,
 		logo $y_0$ é um vértice mais distante de $v'$. 
 		
-		\textbf{Caso 2.1.1:} Se 
-		$v\in x$,$b$-$path\cup x_0$,$b$-$path$, temos que:
+		\textbf{Caso 2.1.1:}
+		$v\in x$,$b$-$caminho\cup x_0$,$b$-$caminho$. Temos que:
 		$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
 		dist(v,b)+dist(y_0,b)\ge dist(v,b) + dist(y,b) 
 		\Rightarrow$$
 		$$ dist(y_0,b)\ge dist(y,b).$$
 
-		\textbf{Caso 2.1.2:} Já se $v\in b$,$y_0$-$path$, 
-		temos que:
+		\textbf{Caso 2.1.2:} $v\in b$,$y_0$-$caminho$. 
+		Temos que:
 		$$ dist(v,y_0)\ge dist(v,y) \Rightarrow
 		dist(y_0,b)\ge dist(v,y_0)\ge 
 		dist(v,b) + dist(y,b)\ge dist(y,b) $$
 		$$ dist(y_0,b)\ge dist(y,b) $$
 
-		\textbf{Caso 2.1.3:} Caso contrário, quando 
-		$v\in b$,$y$-$path$, temos que:
+		\textbf{Caso 2.1.3:}
+		$v\in b$,$y$-$caminho$. Temos que:
 		$$ dist(v,y_0)\ge dist(v,x) \Rightarrow
 		dist(y_0,b)+dist(v,b)\ge dist(x,b)+dist(v,b)
 		\Rightarrow $$
@@ -398,21 +455,21 @@ dois.
 		e $dist(y,b)\ge dist(y_0,b)$ então:
 		$$ dist(y,b) =  dist(y_0,b) \Rightarrow
 		dist(x,y) = dist(x_0,y_0) $$
-		portanto, $x_0$,$y_0$-$path$ é um caminho máximo.
+		portanto, $x_0$,$y_0$-$caminho$ é um caminho máximo.
 
 		\bigskip
 		\bigskip
 
-		\textbf{Caso 2.2:} Se $dist(x_0,a)> dist(x_0,b)$,
-		então a árvore será como o ilustrado abaixo:
+		\textbf{Caso 2.2:} $dist(x_0,a)> dist(x_0,b)$.
+		A árvore será como o ilustrado abaixo:
 
-		\begin{tikzpicture}
+		\begin{center} \begin{tikzpicture}
 			[scale=.8,auto=left,every node/.style={circle,
 			fill=blue!20}]
-			\node (x) at (0,4)  {x};
-			\node (y) at (12,4) {y};
-			\node (a) at (4,4)  {a};
-			\node (b) at (8,4)  {b};
+			\node (x) at (0,4)  {$x$};
+			\node (y) at (12,4) {$y$};
+			\node (a) at (4,4)  {$a$};
+			\node (b) at (8,4)  {$b$};
 			\node (y0) at (1.5,6)  {$y_0$};
 			\node (x0) at (10.5,2)  {$x_0$};
 			  
@@ -425,35 +482,16 @@ dois.
 			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
 			n3/y, a/n5,n5/y0,b/n4,n4/x0}
 			\draw (\from) -- (\to);
-		\end{tikzpicture}
+		\end{tikzpicture}\end{center}
 
-		E pode-se provar que $x_0$,$y_0$-$path$ é um caminho
+		Pode-se provar que o $x_0$,$y_0$-$caminho$ é 
 		máximo de uma forma análoga ao Caso 2.1.
 
 
 
-
-
-		\begin{algorithm}[H]
-			\SetKwInOut{Input}{input}
-			\SetKwInOut{Output}{output}
-
-			\caption{Encontra um caminho máximo}
-			\Input{Uma árvore $T = (V,E)$}
-			\Output{Um caminho máximo de $T$}
-			$v \leftarrow$ vértice aleatório de $T$\;
-
-			$y_0 \leftarrow$ vértice mais distante de $v$
-			usando busca em largura\;
-			$x_0 \leftarrow$ vértice mais distante de $y_0$
-			também usando busca em largura, e um vetor de 
-			pais para sabermos qual foi o caminho percorrido
-			para se chegar de $y_0$ até $x_0$\;
-
-			\Return $x_0$,$y_0$-$path$\;
-			
-		\end{algorithm}	
-
+	Para implementar o algoritmo de Dijkstra descrito,
+	pode-se utilizar buscas em largura na árvore, o
+	que consome tempo $O(n).$
 
 
 
@@ -463,20 +501,21 @@ dois.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\subsection{Cálculo do Diâmetro de uma Árvore}
+
 		Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
 		comprimento de um caminho máximo de $G$. 
 		Em outras palavras, o diâmetro pode ser definido como:
-		$$ diam(G)=max\{dist(x,y):x,y\in V(G)\} $$
+		$$ diam(G)=max\{dist(x,y):x,y\in V(G)\}. $$
 
 		\bigskip
 
-		Há também o \textbf{diâmetro relativo} de um grafo $G$,
-		não necessariamente conexo, que é a razão entre o número
+		Seja $G$ um grafo não necessariamente conexo,
+		o \textbf{diâmetro relativo} de $G$,
+		 é a razão entre o número
 		de vértices do caminho máximo e o número total de vértices
 		de $G$. Este pode também ser representado por:
 		$$ diam^*(G) = \frac{\displaystyle\sum_{
-		G'~componente~conexa~de~G}^{}diam(G')+1}{\mid V(G)\mid} $$
+		G'~componente~conexa~de~G}^{}diam(G')+1}{\mid V(G)\mid}. $$
 
 
 
@@ -506,7 +545,23 @@ dois.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 6     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section {Algoritmos de cortes aproximados 6}
+\section {Algoritmos de cortes aproximados **6}
+
+Em \cite{Schmidt15}, são apresentados dois algoritmos que, dada uma 
+árvore $T$ e um inteiro $m\le n$, onde $n$ é o número de vértices 
+de $T$, produzem cortes com algumas propriedades.
+
+Abaixo reproduzimos os dois resultados de \cite{Schmidt15} que 
+atestam as propriedades dos cortes produzidos por estes algoritmos:
+
+\bigskip
+
+\textbf{Lema simples do corte aproximado} \cite{Schmidt15, Lemma 3}
+
+Para toda árvore $T=(V,E)$ com $n$ vértices e todo $m \in [n]$,
+existe um corte $(B,W)$ em $T$ tal que 
+$\frac{m}{2} < \mid B\mid \le m$,
+$e_T(B,W) \le \Delta(T)$,
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

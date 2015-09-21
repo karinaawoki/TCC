@@ -52,7 +52,7 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 
 \begin{alg}
 	Primeiramente é necessário escolher uma raíz arbitrária $r$ para $T$
-	e salvar os valores que representam o número de descendentes de cada nó
+	e salvar os valores que representam o número de vértices de cada nó
 	em um vetor.
 	Feito isso, percorremos os filhos de $r$ em busca de uma sub-árvore que
 	satisfaça o lema ou que tenha mais que $m$ descendentes. 
@@ -61,9 +61,41 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 	então podemos retornar essa sub-árvore.
 	Caso $k>m$, diremos que $v$ é a nova raíz e aplicamos o mesmo processo
 	que foi feito na raíz até que se chegue numa sub-árvore que possui as
-	características do lema ou que . 
+	características do lema ou que tenha todos os filh. 
 	Caso $k\le \frac{m}{2}$
 \end{alg}
+
+\begin{algorithm}[H]
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
+
+	\caption{Computa corte aproximado simples em árvores}
+	\Input{árvore $T = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	$c\in (\frac{1}{2}, 1)$}
+	\Output{Um corte $(B,W)$ tal que $m\le|B|\le m$}
+	$B \gets \emptyset$\;
+	\eIf{$m = n$}{
+		$B \gets V$\;
+		descendentes[]$\gets$  \; 
+	}
+	{
+		\For{$i=1  k$, sendo $k$ o número de árvores}{
+			\eIf{$|V_i| + |B|\le m$}{
+				 $B \gets B\cup V_i$\;
+			}	
+			{
+				Encontrar um corte $(B',W')$ em $G[V_i]$ com 
+				$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)\;
+
+				$B \gets B\cup B'$\;
+
+				break\;
+			}	
+		}
+	}
+	\Return $(B,V-B)$\;
+
+\end{algorithm}	
 
 \bigskip
 \bigskip
@@ -115,7 +147,7 @@ por floresta.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado simples}
-	\Input{$floresta G = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	\Input{floresta $G = (V,E)$ com $n$ vértices, $m \in [n]$, 
 	$c\in (\frac{1}{2}, 1)$}
 	\Output{Um corte $(B,W)$ tal que $m\le|B|\le m$}
 	$B \gets \emptyset$\;
@@ -182,7 +214,7 @@ por floresta.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado}
-	\Input{$floresta G = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	\Input{floresta $G = (V,E)$ com $n$ vértices, $m \in [n]$, 
 	$c\in (\frac{1}{2}, 1)$}
 	\Output{Um corte $(B,W)$ tal que $cm\le|B|\le m$}
 	$B \gets \emptyset$\;

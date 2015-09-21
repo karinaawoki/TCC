@@ -1,0 +1,210 @@
+\documentclass[a4paper,12pt]{article}
+
+% Para usar a linguagem PT-BR.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage[brazilian]{babel}
+\usepackage[titlenumbered,ruled]{algorithm2e}
+\usepackage{amsthm}
+
+
+\selectlanguage{brazilian} 
+
+\newtheorem{lem}{Lema}
+\newtheorem{alg}{Descrevendo o algoritmo}
+
+\newcommand{\Oh}{\mathrm{O}}
+
+\sloppy
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 6     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Algoritmos de cortes aproximados **6}
+
+Em \cite{Schmidt15}, são apresentados dois algoritmos que, dada uma 
+floresta $G$ e um inteiro $0<m\le n$, onde $n$ é o número de vértices 
+de $G$, produzem cortes com algumas propriedades.
+
+Abaixo reproduzimos os dois resultados de \cite{Schmidt15} que 
+atestam as propriedades dos cortes produzidos por estes algoritmos:
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\begin{lem}[Lema do corte aproximado simples para árvores]
+
+	Para toda árvore $T=(V,E)$ com $n$ vértices e todo $m \in [n]$,
+	existe um corte $(B,W)$ em $T$ tal que 
+	$\frac{m}{2} <|B| \le m$,
+	$e_T(B,W) \le \Delta(T)$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo $O(n)$.
+\end{lem}
+
+\medskip
+
+\begin{alg}
+	Primeiramente é necessário escolher uma raíz arbitrária $r$ para $T$
+	e salvar os valores que representam o número de descendentes de cada nó
+	em um vetor.
+	Feito isso, percorremos os filhos de $r$ em busca de uma sub-árvore que
+	satisfaça o lema ou que tenha mais que $m$ descendentes. 
+	Se o filho analisado $v$ é raíz de uma sub-árvore que possui $k$ 
+	descendentes, com $\frac{m}{2}<k\le m$,
+	então podemos retornar essa sub-árvore.
+	Caso $k>m$, diremos que $v$ é a nova raíz e aplicamos o mesmo processo
+	que foi feito na raíz até que se chegue numa sub-árvore que possui as
+	características do lema ou que . 
+	Caso $k\le \frac{m}{2}$
+\end{alg}
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\begin{lem}[Lema do corte aproximado simples \cite{Schmidt15, Lemma 3}]
+
+	Para toda floresta $G=(V,E)$ com $n$ vértices e todo $m \in [n]$,
+	existe um corte $(B,W)$ em $G$ tal que 
+	$\frac{m}{2} <|B| \le m$,
+	$e_G(B,W) \le \Delta(G)$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo $O(n)$.
+\end{lem}
+
+\medskip
+
+Nota-se que esse lema é uma adaptação do anterior, trocando árvore
+por floresta.
+
+\medskip
+
+\begin{alg}
+	É fácil ver que se $m=n$, os valores $B = V$ e $W = \emptyset$ 
+	satisfazem o lema, dado que $e_G(B,W)$ será $0$. Isso pode ser 
+	computado em tempo $O(n)$.
+
+	Caso contrário ($m<n$), temos que $T_1, T_2, \ldots,T_j $ são 
+	as árvores de $G$. 
+	Primeiro percorremos as árvores na ordem apresentada 
+	anteriormente. Seja $l$ o maior inteiro tal que 
+	$s = \displaystyle\sum_{i=1}^{l}|V(T_i)| \le m$,
+	colocamos $T_1,T_2, \ldots,T_l$ no conjunto $B$.
+	Caso $s=m$, temos $|B|=m$ com  $e_G(B,W)=0$, o que satisfaz o lema.
+	Caso contrário, se encontrármos um corte $(B',W')$ em $T_l+1$ que
+	satisfaça $\frac{m-s}{2}<|B'|\le m-s$ com $e_{T_{l+1}}(B',W') \le 
+	\Delta(T_{l+1})$, e acrescentarmos $B'$ no conjunto
+	$B$, teremos
+	$\frac{m+s}{2}<|B| \le m$ com 
+	$e_G(B,W) = \Delta(T_{l+1}) \le \Delta(G)$.
+	Logo, podemos acrescentar $B'$ em $B$ e teremos um corte
+	que satisfaz o lema, e podemos fazer isso utilizando o Lema 1.1.
+
+\end{alg}
+
+\begin{algorithm}[H]
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
+
+	\caption{Computa corte aproximado simples}
+	\Input{$floresta G = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	$c\in (\frac{1}{2}, 1)$}
+	\Output{Um corte $(B,W)$ tal que $m\le|B|\le m$}
+	$B \gets \emptyset$\;
+	\eIf{$m = n$}{
+		$B \gets V$\;
+	}
+	{
+		\For{$i=1  k$, sendo $k$ o número de árvores}{
+			\eIf{$|V_i| + |B|\le m$}{
+				 $B \gets B\cup V_i$\;
+			}	
+			{
+				Encontrar um corte $(B',W')$ em $G[V_i]$ com 
+				$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)\;
+
+				$B \gets B\cup B'$\;
+
+				break\;
+			}	
+		}
+	}
+	\Return $(B,V-B)$\;
+
+\end{algorithm}	
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\begin{lem}[Lema do corte aproximado \cite{Schmidt15, Lemma 3}]
+
+	Para toda floresta $G=(V,E)$ com $n$ vértices, todo $m \in [n]$
+	e todo $c \in [0,1)$,
+	existe um corte $(B,W)$ em $G$ tal que 
+	$cm \le |B| \le m$,
+	$e_G(B,W) \le \lceil \frac{2c}{1-c}\rceil \Delta(G)$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo $O(n)$.
+\end{lem}
+
+\medskip
+
+\begin{alg}
+	
+	Sabemos que se $c \le \frac{1}{2}$, podemos aplicar o Lema 1.2, 
+	dado que o resultado nos dará um conjunto $B'$ tal que
+	$|B'|>\frac{m}{2}\ge cm$.
+
+	Inicialmente temos que $B = \emptyset$.
+	Executaremos o Lema 1.2 diversas vezes para encontrar 
+	um corte $(B',W')$ em $G[V-B]$ tal que $\frac{m-|B|}{2}<|B'|\le m-|B|$,
+	acrescentando o conjunto $B'$ a $B$ em cada uma das chamadas ao Lema 1.2.
+	Fazemos isso até que $|B|\ge cm$ seja satisfeito.
+	Nota-se que em algum momento $|B|\ge cm$ irá ocorrer, pois a cada vez
+	que executamos o Lema 1.2, acrescentamos pelo menos um vértice em $B$,
+	e $|B|>m$ nunca irá ocorrer, pois o Lema 1.2 adicionará no máximo 
+	$m-|B|$ vértices em $B$.
+
+\end{alg}
+
+\begin{algorithm}[H]
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
+
+	\caption{Computa corte aproximado}
+	\Input{$floresta G = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	$c\in (\frac{1}{2}, 1)$}
+	\Output{Um corte $(B,W)$ tal que $cm\le|B|\le m$}
+	$B \gets \emptyset$\;
+	\eIf{$c\le \frac{1}{2}$}{
+		Encontrar um corte $(B',W')$ em $G$ com $\frac{m}{2} <|B'| \le m$ 
+		(usando o Lema 2)\;
+		
+		$B \gets B'$\;
+	}
+	{
+		\While{$|B|<cm$}{
+			Encontrar um corte $(B',W')$ em $G[V-B]$ com 
+			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)\;
+
+			$B \gets B\cup B'$\;		
+		}
+	}
+	\Return $(B,V-B)$
+
+\end{algorithm}	
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{document}

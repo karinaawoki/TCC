@@ -141,9 +141,8 @@ por floresta.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado simples}
-	\Input{floresta $G = (V,E)$ com $n$ vértices, $m \in [n]$, 
-	$c\in (\frac{1}{2}, 1)$}
-	\Output{Um corte $(B,W)$ tal que $m\le|B|\le m$}
+	\Input{floresta $G = (V,E)$ com $n$ vértices e $m \in [n]$}
+	\Output{Um corte $(B,W)$ tal que $\frac{m}{2}\le|B|\le m$}
 	$B \gets \emptyset$\;
 
 	\For{$i=1 \to k$, sendo $k$ o número de árvores}{

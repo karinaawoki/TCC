@@ -5,13 +5,14 @@
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \usepackage[brazilian]{babel}
-\usepackage[titlenumbered,ruled]{algorithm2e}
-\usepackage{amsthm}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{amsmath, amsthm, amssymb}
 
 \selectlanguage{brazilian} 
 
 \newtheorem{lem}{Lema}
-\newtheorem{alg}{Descrevendo o algoritmo}
+\newtheorem{prov}{Prova}
+\newtheorem{alg}{Análise do algoritmo}
 
 \newcommand{\Oh}{\mathrm{O}}
 
@@ -41,7 +42,7 @@
 
 \section{Introdução}
 
-O assunto a ser abordado no Trabalho de Conclusão de Curso se
+O assunto abordado no Trabalho de Conclusão de Curso se
 enquadra na área de Otimização Combinatória e diz respeito ao 
 \emph{Problema da Bissecção Mínima}. Para definir o problema 
 precisamente, seguem primeiro algumas definições. 
@@ -87,9 +88,8 @@ grafos planares~\cite{FernandesST13,FernandesST15}, para os quais
 a complexidade do problema encontra-se em aberto. 
 
 Vários outros resultados são conhecidos para o Problema da 
-Bissecção Mínima, porém este trabalho de conclusão de curso irá se 
-concentrar no estudo do problema em árvores, e possivelmente em 
-grafos semelhantes a árvores.
+Bissecção Mínima, porém este trabalho de conclusão de curso se 
+concentrou no estudo do problema em árvores.
 
 \newpage
 
@@ -126,7 +126,7 @@ série de etapas menores.
 
 Uma vez implementados os dois algoritmos, foi feita uma análise 
 da sua performance em árvores binárias geradas aleatoriamente, e 
-eventualmente em uma classe maior de árvores de grau limitado.
+em árvores ternárias.
 Obtivemos instâncias reais de um problema relacionado e as 
 utilizamos também no estudo experimental do algorimo implementado.
  
@@ -164,7 +164,8 @@ um conjunto de instâncias reais com BLA para usarmos em nossos
 experimentos.   
 
 Em paralelo ao estudo e desenvolvimento da implementação, foram 
-lidos dois artigos da literatura. São eles o artigo de Garey, 
+estudados também dois artigos da literatura. São eles o artigo 
+de Garey, 
 Johnson e Stockmeyer~\cite{GareyJS76}, que contém a prova de que o 
 problema é NP-difícil, e o artigo de Jansen et al., que apresenta 
 o algoritmo de programação dinâmica para o problema em árvores. 
@@ -180,16 +181,16 @@ dois.
 
 \section{Definições}
 		
-	 Em um grafo $G =(V,E)$, denotemos $V(G)$
-	como o conjunto de vértices e 
-	$E(G)$ como o conjunto de arestas de $G$.
+	Para um grafo $G$, denotamos seu
+	conjunto de vértices por $V(G)$ e seu
+	conjunto de arestas por $E(G)$.
 
 	\bigskip
 
-	Dado um grafo $G$, dizemos que $(B,W)$ é um 
+	Dizemos que $(B,W)$ é um 
 	\textbf{corte}
 	de $G$ se $B \cup W = V(G)$ e $B \cap W = \emptyset$.
-	Sendo $e_G(B,W)$ o número de arestas no corte $(B,W)$.
+	Denotamos por $e_G(B,W)$ o número de arestas no corte $(B,W)$.
 
 	\bigskip
 
@@ -197,7 +198,7 @@ dois.
 	vértice $v$ é chamado de 
 	\textbf{grau} de $v$ e será representado
 	por $grau(v)$. O 
-	\textbf{grau máximo}, que é o grau do vértice de
+	\textbf{grau máximo}, que é o grau de um vértice de
 	maior grau em $G$, será representado por $\Delta(G)$.
 
 	\bigskip
@@ -208,16 +209,16 @@ dois.
 	onde {$v_{k-1}, v_k$} é uma aresta para todo 
 	$k = 1,2, \ldots, p$. 
 	Como existe um único caminho que conecta quaisquer dois 
-	vértices $v_0$ e $v_p$, então chamaremos tal caminho em $T$
-	de  
-	$v_0$,$v_p$-$caminho$.
+	vértices $v_0$ e $v_p$ em $T$, chamaremos tal 
+	caminho em $T$ de  
+	$v_0$,$v_p$-\textbf{caminho}.
 
 	\bigskip
 
 	A \textbf{distância} entre dois vértices $a$ e 
 	$b$ de T é representada por 
 	$dist(a,b)$, e é igual ao comprimento do
-	$a$,$b$-$caminho$ em $T$.
+	$a$,$b$-caminho em $T$.
 
 		
 
@@ -236,7 +237,7 @@ dois.
 	Encontrar um caminho máximo em uma árvore $T=(V,E)$ é uma tarefa
 	computacionalmente simples que pode ser realizada em tempo 
 	$O(n)$, sendo $n$ o número de vértices de $T$, ou seja, 
-	$n = \mid V\mid$. 
+	$n = |V|$. 
 	Primeiramente escolhe-se um vértice arbitrário
 	$v \in V$ e encontra-se um vértice $y_0$ mais distante de 
 	$v$.
@@ -245,166 +246,175 @@ dois.
 	$x_0$ mais distante de $y_0$. 
 	Para encontrar um vértice mais distante de algum vértice dado, 
 	basta usar uma busca em largura.  
-	Feito isso, temos um caminho máximo em $T$, que é o único
+	Feito isso, temos um caminho máximo em $T$: o único
 	caminho que liga $x_0$ a $y_0$.
 
+	\bigskip
 
-	Agora provaremos que de fato o $x_0$,$y_0$-$caminho$ é um caminho 
-	máximo em $T$.
-	Suponhamos que exista um outro caminho mais longo que o
-	$x_0$,$y_0$-$caminho$ e sejam $x$ e $y$ os seus extremos.
+	\begin{lem}
+		O $x_0$,$y_0$-caminho é um caminho máximo em $T$.
+	\end{lem}
 
-	\begin{itemize}
-        \item \textbf{Caso 1:} O $x$,$y$-$caminho$ e o 
-        $x_0$,$y_0$-$caminho$ não possuem vértices em comum.
+	\bigskip
 
-        Existe um $a$,$b$-$caminho$, de 
-        comprimento $c \ge 1$, que conecta os dois caminhos, 
-        possuindo assim apenas o vértice $a$ no 
-        $x$,$y$-$caminho$ e apenas o vértice $b$ no
-        $x_0$,$y_0$-$caminho$.
+	\begin{proof}
+		Suponhamos que exista um outro caminho mais longo que o
+		$x_0$,$y_0$-caminho e sejam $x$ e $y$ os seus extremos.
 
-        \begin{center} \begin{tikzpicture}
-			[scale=.8,auto=left,every node/.style={circle,
-			fill=blue!20}]
-			\node (x) at (0,4)  {$x$};
-			\node (y) at (12,4) {$y$};
-			\node (a) at (6,4)  {$a$};
-			  
-			\node (x0) at (0,0) {$x_0$};
-			\node (y0) at (12,0) {$y_0$};
-			\node (b)  at (6,0)  {$b$};
+		\begin{itemize}
+	        \item \textbf{Caso 1:} O $x$,$y$-caminho e o 
+	        $x_0$,$y_0$-caminho não possuem vértices em comum.
 
-			\node (n1) at (3,4) {...};
-			\node (n2) at (9,4) {...};
-			\node (n3) at (3,0) {...};
-			\node (n4) at (9,0) {...};
-			\node (n5) at (6,2) {...};
+	        Existe um $a$,$b$-caminho, de 
+	        comprimento $c \ge 1$, que conecta os dois caminhos, 
+	        possuindo assim apenas o vértice $a$ no 
+	        $x$,$y$-caminho e apenas o vértice $b$ no
+	        $x_0$,$y_0$-caminho.
 
-			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/y,x0/n3,
-			n3/b,b/n4,n4/y0,a/n5,b/n5}
-			\draw (\from) -- (\to);
-		\end{tikzpicture} \end{center}
+	        \begin{center} \begin{tikzpicture}
+				[scale=.8,auto=left,every node/.style={circle,
+				fill=blue!20}]
+				\node (x) at (0,5)  {$x$};
+				\node (y) at (12,5) {$y$};
+				\node (a) at (6,4)  {$a$};
+				  
+				\node (x0) at (0,0) {$x_0$};
+				\node (y0) at (12,0) {$y_0$};
+				\node (b)  at (6,1)  {$b$};
 
+				\node (n1) at (3,4.5) {...}; %entre x e a 
+				\node (n2) at (9,4.5) {...}; %entre a e y
+				\node (n3) at (3,0.5) {...}; %entre x0 e b
+				\node (n4) at (9,0.5) {...}; %entre y0 e b
+				\node (n5) at (6,2.5) {...}; %entre a e b
 
-        Portanto temos que
-        $$ dist(x,y) = dist(x,a) + dist(a,y) $$ e
-        $$ dist(x_0,y_0) = dist(x_0,b) + dist(b,y_0).$$
-
-        Como o $x$,$y$-$caminho$ é máximo, 
-        $$ dist(x,y)\ge dist(x_0,y),$$
-        e isso implica que
-        $$ dist(x,a)\ge dist(x_0,b)+c.$$
-
-        Como $x_0$ é um vértice mais distante de $y_0$, temos que 
-        $$ dist(x_0,y_0)\ge dist(x,y_0),$$ que implica que
-        $$ dist(x_0,b)\ge dist(x,a)+c. $$ 
-        Logo temos que
-        $$ dist(x,a)\ge dist(x, a)+2c,$$
-        uma contradição, visto que
-		$c\ge 1$.
+				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/y,x0/n3,
+				n3/b,b/n4,n4/y0,a/n5,b/n5}
+				\draw (\from) -- (\to);
+			\end{tikzpicture} \end{center}
 
 
-		\bigskip
-		\bigskip
-		\bigskip
+	        Portanto temos que
+	        $ dist(x,y) = dist(x,a) + dist(a,y) $ e
+	        $ dist(x_0,y_0) = dist(x_0,b) + dist(b,y_0)$.
+
+	        Como o $x$,$y$-caminho é máximo, 
+	        $ dist(x,y)\ge dist(x_0,y)$,
+	        e isso implica que
+	        $ dist(x,a)\ge dist(x_0,b)+c$.
+
+	        Como $x_0$ é um vértice mais distante de $y_0$, temos que 
+	        $ dist(x_0,y_0)\ge dist(x,y_0)$, que implica que
+	        $ dist(x_0,b)\ge dist(x,a)+c$.
+	        Logo temos que
+	        $ dist(x,a)\ge dist(x, a)+2c$,
+	        uma contradição, visto que
+			$c\ge 1$.
 
 
-		\item \textbf{Caso 2:} O $x$,$y$-$caminho$ e o 
-		$x_0$,$y_0$-$caminho$ possuem vértices em comum.
-
-		A interseção entre esses dois caminhos é um 
-		$a$,$b$-$caminho$ de comprimento $c \ge 0$.
-		Podemos assumir, sem perda de generalidade, que
-		$dist(x,a) \le dist(x,b)$ e que
-		$dist(x_0,a) \le dist(x_0,b)$, como na figura abaixo.
-		(Do contrário ttroque $a$ por $b$ e possivelmente $x$
-		por $y$)
-
-		\begin{center} \begin{tikzpicture}
-			[scale=.8,auto=left,every node/.style={circle,
-			fill=blue!20}]
-			\node (x) at (0,4)  {$x$};
-			\node (y) at (12,4) {$y$};
-			\node (a) at (4,4)  {$a$};
-			\node (b) at (8,4)  {$b$};
-			\node (x0) at (1.5,6)  {$x_0$};
-			\node (y0) at (10.5,2)  {$y_0$};
-			  
-			\node (n1) at (2,4) {...};
-			\node (n2) at (6,4) {...};
-			\node (n3) at (10,4) {...};
-			\node (n4) at (9.25,3) {...};
-			\node (n5) at (2.75,5) {...};
-
-			\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
-			n3/y, a/n5,n5/x0,b/n4,n4/y0}
-			\draw (\from) -- (\to);
-		\end{tikzpicture} \end{center}
+			\bigskip
+			\bigskip
+			\bigskip
 
 
-		Como $x_0$ é um vértice mais distante de $y_0$,
-		temos que $dist(x_0,a) \ge dist(x,a)$.
-		Por outro lado, como $x$ é um vértice mais distante
-		de $y$, temos também que $dist(x,a)\ge dist(x_0,a)$,
-		e portanto $dist(x_0,a) = dist(x,a)$.
-		Similarmente, como $y$ é um vértice mais distante de
-		$x$, vale que $dist(y,b) \ge dist(y_0,b)$.
+			\item \textbf{Caso 2:} O $x$,$y$-caminho e o 
+			$x_0$,$y_0$-caminho possuem vértices em comum.
 
-		Agora consideremos o vértice $v$ que foi escolhido 
-		arbitrariamente no início do algoritmo, e seja $v'$
-		o vértice mais próximo de $v$ no $x_0$,$y_0$-$caminho$.
-		Se $v'\ne b$, então, como $y_0$ é um vértice mais 
-		distante de $v$,
-		$$ dist(v',y_0) \ge dist(v',y) = dist(v',b) + dist(b,y) $$
-		$$ \ge dist(v',b) + dist(b,y_0) \ge dist(v',y_0), $$
-		o que implica que $dist(v',y_0) = dist(v',y)$ assim
-		como $ dist(b,y) = dist(b,y_0) $. 
-		Ou seja, $dist(x,y) = dist(x_0,y_0)$.
-		Resta analisar o caso em que $v'=b$ (é um caso especial,
-		dado que pode-se ter arestas em comum entre $v$,$v'$-$caminho$ 
-		e $y$,$b$-$caminho$).
-		Como $y$ é um vértice mais distante de $x$, temos que 
-		$dist(v',y_0) \le dist(v',y)$.
-		Como $x_0$ é um vértice mais distante de $y_0$, temos
-		que $dist(x_0,v') \ge dist(y,v')$.
-		
-		Finalmente, como $y_0$ é um vértice mais distante de 
-		$v$, vale que $dist(y_0,v')\ge dist(x_0,v')$.
+			A interseção entre esses dois caminhos é um 
+			$a$,$b$-caminho de comprimento $c \ge 0$.
+			Podemos assumir, sem perda de generalidade, que
+			$dist(x,a) \le dist(x,b)$ e que
+			$dist(x_0,a) \le dist(x_0,b)$, como na figura abaixo.
+			(Do contrário troque $a$ por $b$ e possivelmente $x$
+			por $y$.)
 
-		Dessas três desigualdades, concluímos que 
-		$dist(y_0,v') = dist(y,v') = dist(x_0,v') = dist(x,v') $,
-		onde a última igualdade vale pois já mostramos que
-		$ dist(x_0,a) = dist(x,a) $.
+			\begin{center} \begin{tikzpicture}
+				[scale=.8,auto=left,every node/.style={circle,
+				fill=blue!20}]
+				\node (x) at (0,4)  {$x$};
+				\node (y) at (12,4) {$y$};
+				\node (a) at (4,4)  {$a$};
+				\node (b) at (8,4)  {$b$};
+				\node (x0) at (1.5,6)  {$x_0$};
+				\node (y0) at (10.5,2)  {$y_0$};
+				  
+				\node (n1) at (2,4) {...};
+				\node (n2) at (6,4) {...};
+				\node (n3) at (10,4) {...};
+				\node (n4) at (9.25,3) {...};
+				\node (n5) at (2.75,5) {...};
 
-		Assim sendo $dist(x_0,y_0) = dist(x,y) $, completando a prova.
+				\foreach \from/\to in {x/n1,n1/a,a/n2,n2/b,b/n3,
+				n3/y, a/n5,n5/x0,b/n4,n4/y0}
+				\draw (\from) -- (\to);
+			\end{tikzpicture} \end{center}
 
-	\end{itemize}
 
-		\bigskip
-		\bigskip
-		\bigskip
-		\bigskip
-		\bigskip
-		\bigskip
+			Como $x_0$ é um vértice mais distante de $y_0$,
+			temos que $dist(x_0,a) \ge dist(x,a)$.
+			Por outro lado, como $x$ é um vértice mais distante
+			de $y$, temos também que $dist(x,a)\ge dist(x_0,a)$,
+			e portanto $dist(x_0,a) = dist(x,a)$.
+			Similarmente, como $y$ é um vértice mais distante de
+			$x$, vale que $dist(y,b) \ge dist(y_0,b)$.
+
+			Agora consideremos o vértice $v$ que foi escolhido 
+			arbitrariamente no início do algoritmo, e seja $v'$
+			o vértice mais próximo de $v$ no $x_0$,$y_0$-caminho.
+			Se $v'\ne b$, então, como $y_0$ é um vértice mais 
+			distante de $v$,
+			\begin{align}
+				dist(v',y_0) &\ge dist(v',y) = dist(v',b) + dist(b,y)\nonumber \\
+				&\ge dist(v',b) + dist(b,y_0) \ge dist(v',y_0) \nonumber,
+			\end{align} 
+			o que implica que $dist(v',y_0) = dist(v',y)$ assim
+			como $ dist(b,y) = dist(b,y_0) $. 
+			Ou seja, $dist(x,y) = dist(x_0,y_0)$.
+			Resta analisar o caso em que $v'=b$ (é um caso especial,
+			dado que pode-se ter arestas em comum entre $v$,$v'$-caminho 
+			e o $y$,$b$-caminho).
+			Como $y$ é um vértice mais distante de $x$, temos que 
+			$dist(v',y_0) \le dist(v',y)$.
+			Como $x_0$ é um vértice mais distante de $y_0$, temos
+			que $dist(x_0,v') \ge dist(y,v')$.
+			
+			Finalmente, como $y_0$ é um vértice mais distante de 
+			$v$, vale que $dist(y_0,v')\ge dist(x_0,v')$.
+
+			Dessas três desigualdades, concluímos que 
+			$dist(y_0,v') = dist(y,v') = dist(x_0,v') = dist(x,v') $,
+			onde a última igualdade vale pois já mostramos que
+			$ dist(x_0,a) = dist(x,a) $.
+
+			Assim sendo $dist(x_0,y_0) = dist(x,y) $, completando a prova.
+
+		\end{itemize}
+	\end{proof}
+
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
-		comprimento de um caminho máximo de $G$. 
-		Em outras palavras, o diâmetro pode ser definido como:
-		$$ diam(G)=max\{dist(x,y):x,y\in V(G)\}. $$
+	Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
+	comprimento de um caminho máximo de $G$. 
+	Em outras palavras, o diâmetro pode ser definido como:
+	$$ diam(G)=\max\{dist(x,y):x,y\in V(G)\}. $$
 
-		\bigskip
+	\bigskip
 
-		Seja $G$ um grafo não necessariamente conexo,
-		o \textbf{diâmetro relativo} de $G$,
-		 é a razão entre o número
-		de vértices do caminho máximo e o número total de vértices
-		de $G$. Este pode também ser representado por:
-		$$ diam^*(G) = \frac{\displaystyle\sum_{
-		G'~componente~conexa~de~G}^{}(diam(G')+1)}{\mid V(G)\mid}. $$
+	Seja $G$ um grafo não necessariamente conexo,
+	o \textbf{diâmetro relativo} de $G$
+	 é a razão entre o número
+	de vértices de um caminho máximo e o número total de vértices
+	de $G$. Este pode também ser representado por
+	$$ diam^*(G) = \frac{\displaystyle\sum_{
+	G'~componente~conexa~de~G}^{}(diam(G')+1)}{|V(G)|}. $$
     
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -412,11 +422,11 @@ dois.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Algoritmos de cortes aproximados}
 
-Em \cite{Schmidt15}, são apresentados dois algoritmos que, dada uma 
+Em \cite{Schmidt15}, são apresentados três algoritmos que, dada uma 
 floresta $G$ e um inteiro $0<m\le n$, onde $n$ é o número de vértices 
 de $G$, produzem cortes com algumas propriedades.
 
-Abaixo reproduzimos os dois resultados de \cite{Schmidt15} que 
+Abaixo reproduzimos os três resultados de \cite{Schmidt15} que 
 atestam as propriedades dos cortes produzidos por estes algoritmos:
 
 \bigskip
@@ -426,9 +436,9 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 
 \begin{lem}[Lema do corte aproximado simples para árvores]
 
-	Para toda árvore $T=(V,E)$ com $n$ vértices e todo $m \in [n]$,
+	Para toda árvore $T$ com $n$ vértices e todo $m \in [n]$,
 	existe um corte $(B,W)$ em $T$ tal que 
-	$\frac{m}{2} <|B| \le m$,
+	$\frac{m}{2} <|B| \le m$ e
 	$e_T(B,W) \le \Delta(T)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
 	tempo $O(n)$.
@@ -436,14 +446,46 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 
 \medskip
 
-\begin{alg}
-	É fácil ver que se $m=n$, então os valores $B = V$ e $W = \emptyset$ 
-	satisfazem o lema, dado que $e_G(B,W)$ será $0$. Isso pode ser 
-	computado em tempo $O(n)$.
+\begin{algorithm}[H]
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
 
-	Caso contrário, é necessário escolher uma raíz arbitrária $r$ para $T$
-	e salvar em um vetor o número de vértices das sub-árvores enraizadas 
-	em cada um dos nós, que é igual ao número de descendentes somado a 1.
+	\caption{Computa corte aproximado}
+	\Input{floresta $G = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	$c\in (\frac{1}{2}, 1)$}
+	\Output{Um corte $(B,W)$ tal que $cm\le|B|\le m$}
+	$B \gets \emptyset$\;
+	\eIf{$c\le \frac{1}{2}$}{
+		Encontrar um corte $(B',W')$ em $G$ com $\frac{m}{2} <|B'| \le m$ 
+		(usando o Lema 2)\;
+		
+		$B \gets B'$\;
+	}
+	{
+		\While{$|B|<cm$}{
+			Encontrar um corte $(B',W')$ em $G[V-B]$ com 
+			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)\;
+
+			$B \gets B\cup B'$\;		
+		}
+	}
+	\Return $(B,V-B)$
+
+\end{algorithm}	
+
+\medskip
+\medskip
+
+\textbf{Análise do Algoritmo}
+
+	Suponha que $T=(V,E)$.
+	É fácil ver que se $m=n$, então os valores $B = V$ e $W = \emptyset$ 
+	satisfazem as condições do lema, dado que $e_G(B,W)$ será $0$. 
+	Isso pode ser computado em tempo $O(n)$.
+
+	Caso contrário, é necessário escolher uma raiz arbitrária $r$ para $T$
+	e calcular o número de vértices das sub-árvores enraizadas 
+	em cada um dos nós, que é o número de descendentes do nó.
 	Isso serve para que saibamos a quantidade de vértices das sub-árvores
 	sem que precisemos percorrer todos os nós das sub-árvores a cada consulta.
 
@@ -453,8 +495,8 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 	Se algum $V_i$ satisfizer $\frac{m}{2}<|V_i|\le m$, podemos retornar
 	a sub-árvore $|V_i|$ como sendo o conjunto $B$, satisfazendo o Lema 1,
 	dado que o corte será $1$.
-	Caso contrário, se algum $V_i$ satisfizer $|V_i|> m$, assumimos que 
-	$v$ agora é a raíz de $V_i$ e aplicamos novamente esse processo em $v$.
+	Caso contrário, se $|V_i|> m$ para algum $i$, assumimos que 
+	$v$ agora é a raiz de $V_i$ e aplicamos novamente esse processo em $v$.
 
 	Nota-se que esse procedimento irá parar em algum momento, dado que a árvore 
 	é finita, e ele parará quando encontrar
@@ -463,16 +505,14 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 	$|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$.
 	Nesse último caso, sabemos que $|V_1\cup V_2\cup \ldots \cup V_k|\ge m$, pois
 	a sub-árvore enraizada em $v$ possui mais que $m$ vértices. 
-	E sabemos também que $|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$. 
+	Sabemos também que $|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$. 
 	Com isso, percorremos os $V_i$ em ordem, e 
-	adicionamos $V_i$ ao conjunto $B$, parando antes que $|B| > m$. E isso nos dará
+	adicionamos $V_i$ ao conjunto $B$, parando antes que $|B| > m$. Isso nos dará
 	$e_T(B,V-B) < v \le \Delta(T)$, o que satisfaz o lema.
 	Sabemos que existe um $i$ tal que 
-	$\frac{m}{2} < |V_1 \cup V_2 \cup \ldots \cup V_i| \le m$, pois a sub-árvore
+	$\frac{m}{2} < |V_1 \cup V_2 \cup \cdots \cup V_i| \le m$, pois a sub-árvore
 	enraizada em $v$ possui mais que $m$ vértices e que se $|V_i|\le \frac{m}{2}$,
 	então $|V_i \cup V_{i+1}| \le m$.
-
-\end{alg}
 
 
 \bigskip

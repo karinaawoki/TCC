@@ -436,6 +436,7 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 \bigskip
 \bigskip
 \bigskip
+\bigskip
 
 \begin{lem}[Lema do corte aproximado simples para árvores]
 
@@ -448,6 +449,14 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 \end{lem}
 
 \medskip
+
+Seja $T$ uma árvore e $r$ um vértice de $T$. 
+Assumiremos que
+a função CALCULA\_NUMERO\_DE\_DESCENDENTES$(T,r)$ devolve um vetor
+que associa cada vértice de $T$ ao número de descendentes desse 
+vértice na árvore $T$, enraizada em $r$. Nota-se que essa função pode
+ser executada usando uma busca em profundidade e toma tempo $O(n)$.
+
 
 Segue o algoritmo que encontra um corte com as propriedades descritas
 no lema.
@@ -477,11 +486,14 @@ no lema.
 			\tcp{$T_u$ é a sub-árvore enraizada em $u$}
 		}
 		{
-		$i \gets$ PROXIMO\_FILHO$(v)$\;
-		\While{$|B\cup T_i| \le m$ AND $i \ne null$}
+		\For{cada filho $u$ de $v$}
 		{
-			$B\gets B\cup T_i$\;
-			$i\gets$ PROXIMO\_FILHO$(v)$
+			\eIf{$|B+T_u| \le m$}{
+				$B\gets B\cup T_u$\;
+			}
+			{
+				break\;
+			}
 		}
 		}
 	}
@@ -571,14 +583,16 @@ trocando árvore por floresta.
 	$c\in (\frac{1}{2}, 1)$}
 	\Output{corte $(B,W)$ tal que $\frac{m}{2}\le|B|\le m$}
 	$B \gets \emptyset$\;
-
-	\For{$i=1 \to k$, sendo $k$ o número de árvores}{
-		\eIf{$|V_i| + |B|\le m$}{
+	Sejam $V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
+	componentes conexas de $G$\;
+	\For{$i=1 \to k$}{
+		\If{$|V_i| + |B|\le m$}{
 			 $B \gets B\cup V_i$\;
 		}	
-		{
-			Encontrar um corte $(B',W')$ em $G[V_i]$ com 
-			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)\;
+		\ElseIf{$|B|<m$}{
+			$(B',W')\gets Algoritmo1(G[V_i], |V_i|, m-|B|)$\;
+			\tcp {Devolve o corte $(B',W')$ em $G[V_i]$ com 
+			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)}
 
 			$B \gets B\cup B'$\;
 
@@ -601,14 +615,21 @@ trocando árvore por floresta.
 	$s = \displaystyle\sum_{i=1}^{\ell}|V(T_i)| \le m$.
 	Colocamos $T_1,T_2, \ldots,T_\ell$ no conjunto $B$.
 	Caso $s=m$, temos $|B|=m$ com  $e_G(B,V\setminus B)=0$, o que satisfaz o lema.
-	Caso contrário, se encontrarmos um corte $(B',W')$ em $T_{\ell+1}$ que
+	Caso contrário, ao encontrar um corte $(B',W')$ em $T_{\ell+1}$ que
 	satisfaça $\frac{m-s}{2}<|B'|\le m-s$ com $e_{T_{\ell+1}}(B',W') \le 
 	\Delta(T_{\ell+1})$, e acrescentar $B'$ ao conjunto
-	$B$. Teremos
+	$B$, teremos
 	$\frac{m+s}{2}<|B| \le m$ com 
 	$e_G(B,W) = \Delta(T_{\ell+1}) \le \Delta(G)$.
 	Logo, depois de acrescentar $B'$ em $B$, teremos o corte $(B,V\setminus B)$
 	que satisfaz o lema, e podemos fazer isso utilizando o Lema 1.
+	
+	Nota-se que, como a linha 2 pode ser feita usando uma
+	busca em profundidade, tomando tempo $O(n)$, e as demais 
+	linhas envolvem verificar o tamanho das componentes 
+	(que já foi calculado na linha 2) e uma chamada ao
+	Algoritmo 1, que é linear em $n$, então essa operação pode 
+	ser feita em tempo $O(n)$. 
 
 \bigskip
 \bigskip

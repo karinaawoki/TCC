@@ -521,14 +521,14 @@ no lema.
 	$V_1, V_2, \ldots, V_k$ são as sub-árvores enraizadas nos $k$ filhos
 	de $v$.
 	Se algum $V_i$ satisfizer $\frac{m}{2}<|V_i|\le m$, podemos retornar
-	a sub-árvore $|V_i|$ como sendo o conjunto $B$, satisfazendo o Lema 1,
+	a sub-árvore $|V_i|$ como sendo o conjunto $B$, satisfazendo o -!Lema 2!-,
 	dado que o corte será $1$.
 	Caso contrário, se $|V_i|> m$ para algum $i$, assumimos que 
 	$v$ agora é a raiz de $V_i$ e aplicamos novamente esse processo em $v$.
 
 	Nota-se que esse procedimento irá parar em algum momento, dado que a árvore 
 	é finita, e ele parará quando encontrar
-	uma sub-árvore que satisfaça o Lema 1 (e essa sub-árvore será o conjunto $B$) 
+	uma sub-árvore que satisfaça o -!Lema 2!- (e essa sub-árvore será o conjunto $B$) 
 	ou quando chegarmos numa situação em que  
 	$|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$.
 	Nesse último caso, sabemos que $|V_1\cup V_2\cup \ldots \cup V_k|\ge m$, pois
@@ -553,7 +553,7 @@ no lema.
 \bigskip
 \bigskip
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%% LEMA 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% LEMA 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}[Lema do corte aproximado simples {\cite[Lemma 2]{Schmidt15}}]
 
@@ -592,7 +592,7 @@ trocando árvore por floresta.
 		\ElseIf{$|B|<m$}{
 			$(B',W')\gets Algoritmo1(G[V_i], |V_i|, m-|B|)$\;
 			\tcp {Devolve o corte $(B',W')$ em $G[V_i]$ com 
-			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)}
+			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o -!Lema 2!-)}
 
 			$B \gets B\cup B'$\;
 
@@ -622,13 +622,13 @@ trocando árvore por floresta.
 	$\frac{m+s}{2}<|B| \le m$ com 
 	$e_G(B,W) = \Delta(T_{\ell+1}) \le \Delta(G)$.
 	Logo, depois de acrescentar $B'$ em $B$, teremos o corte $(B,V\setminus B)$
-	que satisfaz o lema, e podemos fazer isso utilizando o Lema 1.
+	que satisfaz o lema, e podemos fazer isso utilizando o -!Lema 2!-.
 	
 	Nota-se que, como a linha 2 pode ser feita usando uma
 	busca em profundidade, tomando tempo $O(n)$, e as demais 
 	linhas envolvem verificar o tamanho das componentes 
 	(que já foi calculado na linha 2) e uma chamada ao
-	Algoritmo 1, que é linear em $n$, então essa operação pode 
+	-!Algoritmo 1!-, que é linear em $n$, então essa operação pode 
 	ser feita em tempo $O(n)$. 
 
 \bigskip
@@ -641,7 +641,7 @@ trocando árvore por floresta.
 \bigskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%% LEMA 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% LEMA 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}[Lema do corte aproximado {\cite[Lemma 3]{Schmidt15}}]
 
@@ -689,18 +689,20 @@ trocando árvore por floresta.
 
 \textbf{Análise do Algoritmo}
 
-	Sabemos que se $c \le \frac{1}{2}$, podemos aplicar o Lema 2, 
+	Sabemos que se $c \le \frac{1}{2}$, podemos aplicar o -!Algoritmo 2!-, 
 	dado que o resultado nos dará um conjunto $B'$ tal que
-	$|B'|>\frac{m}{2}\ge cm$.
+	$|B'|>\frac{m}{2}\ge cm$ e $e_G(B,W)\le \Delta(G)$.
 
-	Inicialmente temos que $B = \emptyset$.
-	Executaremos o Lema 2 diversas vezes para encontrar 
+	Caso contrário, inicialmente temos que $B = \emptyset$.
+	Executaremos o -!Algoritmo 2!-, referente ao -!Lema 3!- diversas vezes para 
+	encontrar 
 	um corte $(B',W')$ em $G[V\setminus B]$ tal que $\frac{m-|B|}{2}<|B'|\le m-|B|$,
-	acrescentando o conjunto $B'$ a $B$ em cada uma das chamadas ao Lema 2.
+	acrescentando o conjunto $B'$ a $B$ em cada uma das chamadas ao -!Lema 3!-.
 	Fazemos isso até que $|B|\ge cm$ seja satisfeito.
 	Nota-se que em algum momento $|B|\ge cm$ irá ocorrer, pois a cada vez
-	que executamos o Lema 2, acrescentamos pelo menos um vértice em $B$,
-	e $|B|>m$ nunca irá ocorrer, pois o Lema 2 adicionará no máximo 
+	que executamos o -!Algoritmo 3!-, acrescentamos pelo menos um vértice em $B$,
+	e $|B|>m$ nunca irá ocorrer, pois o conjunto $B'$ obtido no -!Lema 2!- é
+	tal que $|B'|\le m-|B|$. Logo, serão adicionados no máximo 
 	$m-|B|$ vértices em $B$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

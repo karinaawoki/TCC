@@ -8,6 +8,12 @@
 \usepackage[brazilian]{babel}
 \usepackage[linesnumbered,ruled]{algorithm2e}
 \usepackage{amsmath, amsthm, amssymb}
+\usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
+\tikzset
+{
+    treenode/.style = {circle, fill=blue!20, draw=black, align=center, minimum size=1cm},
+    subtree/.style  = {isosceles triangle, draw=black, align=center, minimum height=0.5cm, minimum width=1cm, shape border rotate=90, anchor=north}
+}
 
 \selectlanguage{brazilian} 
 
@@ -131,7 +137,7 @@ Uma vez implementados os dois algoritmos, foi feita uma análise
 da sua performance em árvores binárias geradas aleatoriamente, e 
 em árvores ternárias.
 Obtivemos instâncias reais de um problema relacionado e as 
-utilizamos também no estudo experimental do algorimo implementado.
+utilizamos também no estudo experimental do algoritmo implementado.
  
 
 \newpage
@@ -275,7 +281,7 @@ dois.
 	        $x_0$,$y_0$-caminho.
 
 	        \begin{center} \begin{tikzpicture}
-				[scale=.8,auto=left,every node/.style={circle,
+				[scale=.8,auto=left,every node/.style={circle, draw=black,
 				fill=blue!20}]
 				\node (x) at (0,5)  {$x$};
 				\node (y) at (12,5) {$y$};
@@ -332,7 +338,7 @@ dois.
 			por $y$.)
 
 			\begin{center} \begin{tikzpicture}
-				[scale=.8,auto=left,every node/.style={circle,
+				[scale=.8,auto=left,every node/.style={circle, draw=black,
 				fill=blue!20}]
 				\node (x) at (0,4)  {$x$};
 				\node (y) at (12,4) {$y$};
@@ -521,14 +527,14 @@ no lema.
 	$V_1, V_2, \ldots, V_k$ são as sub-árvores enraizadas nos $k$ filhos
 	de $v$.
 	Se algum $V_i$ satisfizer $\frac{m}{2}<|V_i|\le m$, podemos retornar
-	a sub-árvore $|V_i|$ como sendo o conjunto $B$, satisfazendo o -!Lema 2!-,
+	a sub-árvore $|V_i|$ como sendo o conjunto $B$, satisfazendo o Lema 2,
 	dado que o corte será $1$.
 	Caso contrário, se $|V_i|> m$ para algum $i$, assumimos que 
 	$v$ agora é a raiz de $V_i$ e aplicamos novamente esse processo em $v$.
 
 	Nota-se que esse procedimento irá parar em algum momento, dado que a árvore 
 	é finita, e ele parará quando encontrar
-	uma sub-árvore que satisfaça o -!Lema 2!- (e essa sub-árvore será o conjunto $B$) 
+	uma sub-árvore que satisfaça o Lema 2 (e essa sub-árvore será o conjunto $B$) 
 	ou quando chegarmos numa situação em que  
 	$|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$.
 	Nesse último caso, sabemos que $|V_1\cup V_2\cup \ldots \cup V_k|\ge m$, pois
@@ -537,11 +543,13 @@ no lema.
 	Com isso, percorremos os $V_i$ em ordem, e 
 	adicionamos $V_i$ ao conjunto $B$, parando antes que $|B| > m$. Isso nos dará
 	$e_T(B,V\setminus B) < grau(v) \le \Delta(T)$, o que satisfaz o lema.
-	Sabemos que existe um $i$ tal que 
-	$\frac{m}{2} < |V_1 \cup V_2 \cup \cdots \cup V_i| \le m$, pois a sub-árvore
-	enraizada em $v$ possui mais que $m$ vértices e que se 
-	$\{|V_i|\le \frac{m}{2}:$ para todo $i\}$,
-	então $|V_i \cup V_{i+1}| \le m$.
+	Dado que $|V_j|\le \frac{m}{2}$ para todo $j$,
+	sabemos que existe um $i$ tal que 
+	$\frac{m}{2} < |V_1 \cup V_2 \cup \cdots \cup V_i| \le m$, pois
+	a união das sub-árvores
+	enraizadas em $v$ possui mais que $m$ vértices e, para todo $\ell$ que satisfaça
+	$|V_1\cup V_2\cup \cdots \cup V_\ell|\le \frac{m}{2}$, temos que 
+	$|V_1\cup V_2\cup \cdots \cup V_\ell\cup V_{\ell+1}|\le m$.
 
 
 \bigskip
@@ -567,8 +575,8 @@ no lema.
 
 \medskip
 
-Agora examinaremos como computar o corte descrito pelo lema,
-nota-se que essa é uma adaptação do algoritmo anterior, 
+Agora examinaremos como computar o corte descrito pelo lema.
+Nota-se que essa é uma adaptação do algoritmo anterior, 
 trocando árvore por floresta.
 
 \medskip
@@ -579,8 +587,7 @@ trocando árvore por floresta.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado simples em uma floresta}
-	\Input{floresta $G = (V,E)$ com $n$ vértices e $m \in [n]$, 
-	$c\in (\frac{1}{2}, 1)$}
+	\Input{floresta $G = (V,E)$ com $n$ vértices e $m \in [n]$}
 	\Output{corte $(B,W)$ tal que $\frac{m}{2}\le|B|\le m$}
 	$B \gets \emptyset$\;
 	Sejam $V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
@@ -592,7 +599,7 @@ trocando árvore por floresta.
 		\ElseIf{$|B|<m$}{
 			$(B',W')\gets Algoritmo1(G[V_i], |V_i|, m-|B|)$\;
 			\tcp {Devolve o corte $(B',W')$ em $G[V_i]$ com 
-			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o -!Lema 2!-)}
+			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)}
 
 			$B \gets B\cup B'$\;
 
@@ -622,14 +629,15 @@ trocando árvore por floresta.
 	$\frac{m+s}{2}<|B| \le m$ com 
 	$e_G(B,W) = \Delta(T_{\ell+1}) \le \Delta(G)$.
 	Logo, depois de acrescentar $B'$ em $B$, teremos o corte $(B,V\setminus B)$
-	que satisfaz o lema, e podemos fazer isso utilizando o -!Lema 2!-.
+	que satisfaz o lema, e podemos fazer isso utilizando o Lema 2.
 	
 	Nota-se que, como a linha 2 pode ser feita usando uma
-	busca em profundidade, tomando tempo $O(n)$, e as demais 
+	busca em profundidade e as demais 
 	linhas envolvem verificar o tamanho das componentes 
 	(que já foi calculado na linha 2) e uma chamada ao
-	-!Algoritmo 1!-, que é linear em $n$, então essa operação pode 
-	ser feita em tempo $O(n)$. 
+	Algoritmo 1, então essa operação pode 
+	ser feita em tempo $O(n)$, dado que todas as operações
+	citadas são executadas em tempo linear. 
 
 \bigskip
 \bigskip
@@ -665,17 +673,19 @@ trocando árvore por floresta.
 	\Input{floresta $G = (V,E)$ com $n$ vértices, $m \in [n]$, 
 	$c\in (\frac{1}{2}, 1)$}
 	\Output{Um corte $(B,W)$ tal que $cm\le|B|\le m$}
-	$B \gets \emptyset$\;
 	\eIf{$c\le \frac{1}{2}$}{
-		Encontrar um corte $(B',W')$ em $G$ com $\frac{m}{2} <|B'| \le m$ 
-		(usando o Lema 2)\;
+		$(B,W) \gets$ Algoritmo2$(G, n, m)$ \;
+		\tcp{Devolve o corte $(B,W)$ em $G$ com 
+		$\frac{m}{2} <|B'| \le m$ (usando o Lema 3)}
 		
 		$B \gets B'$\;
 	}
 	{
+		$B \gets \emptyset$\;
 		\While{$|B|<cm$}{
-			Encontrar um corte $(B',W')$ em $G[V\setminus B]$ com 
-			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)\;
+			$(B',W') \gets$ Algoritmo2$(G[V\setminus B], n-|B|, m-|B|)$ \;
+			\tcp{Devolve o corte $(B',W')$ em $G[V\setminus B]$ com 
+			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 3)}
 
 			$B \gets B\cup B'$\;		
 		}
@@ -689,19 +699,19 @@ trocando árvore por floresta.
 
 \textbf{Análise do Algoritmo}
 
-	Sabemos que se $c \le \frac{1}{2}$, podemos aplicar o -!Algoritmo 2!-, 
+	Sabemos que se $c \le \frac{1}{2}$, podemos aplicar o Algoritmo 2, 
 	dado que o resultado nos dará um conjunto $B'$ tal que
 	$|B'|>\frac{m}{2}\ge cm$ e $e_G(B,W)\le \Delta(G)$.
 
-	Caso contrário, inicialmente temos que $B = \emptyset$.
-	Executaremos o -!Algoritmo 2!-, referente ao -!Lema 3!- diversas vezes para 
+	Caso contrário, temos que $B = \emptyset$.
+	Executaremos o Algoritmo 2, referente ao Lema 3 diversas vezes para 
 	encontrar 
 	um corte $(B',W')$ em $G[V\setminus B]$ tal que $\frac{m-|B|}{2}<|B'|\le m-|B|$,
-	acrescentando o conjunto $B'$ a $B$ em cada uma das chamadas ao -!Lema 3!-.
+	acrescentando o conjunto $B'$ a $B$ em cada uma das chamadas ao Lema 3.
 	Fazemos isso até que $|B|\ge cm$ seja satisfeito.
 	Nota-se que em algum momento $|B|\ge cm$ irá ocorrer, pois a cada vez
-	que executamos o -!Algoritmo 3!-, acrescentamos pelo menos um vértice em $B$,
-	e $|B|>m$ nunca irá ocorrer, pois o conjunto $B'$ obtido no -!Lema 2!- é
+	que executamos o Algoritmo 2, acrescentamos pelo menos um vértice em $B$,
+	e $|B|>m$ nunca irá ocorrer, pois o conjunto $B'$ obtido no Lema 3 é
 	tal que $|B'|\le m-|B|$. Logo, serão adicionados no máximo 
 	$m-|B|$ vértices em $B$.
 
@@ -710,12 +720,65 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
-\section {Rotulação dos vértices da árvore 7}
+\section {Rotulação dos vértices da árvore}
+
+	Mais adiante, iremos nos referir a vértices com uma característica 
+	específica, e para isso precisamos atribuir um rótulo numérico $x\in [n]$ 
+	distinto para cada um dos vértices da árvore, onde $n$ é o número de 
+	vértices da árvore $T$.
+
+	Primeiramente, usaremos o método mencionado na seção 5 para
+	calcular o $x$-$y$-caminho, que é máximo em $T$.
+
+	Temos que cada vértice contido no $x$-$y$-caminho receberá uma 
+	rotulação de forma que ó vértice será representado por um número
+	menor que 
+
+	Temos que para todo par de vértices $x_1$ e $x_2$, se $x_1$ vem antes 
+	de $x_2$ no $x$-$y$-caminho, então $x_1$ receberá um rótulo menor
+	do que $x_2$.
+
+	\begin{center} \begin{tikzpicture}[-,>=stealth', 
+	level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+	% 5cm de largura das setas .. 1,5cm de altura
+    \node [treenode] {$X$ \\ 100}
+    child
+    {
+        node [treenode] {$Y$ \\ 50} 
+        child
+        {
+            node [treenode] {$Z$ \\ 40} 
+            child
+            {
+                node [treenode] {$S1$ \\ 30} 
+            }
+            child
+            {
+                node [treenode] {$S2$ \\ 60} 
+            }
+        }
+        child[edge from parent path ={(\tikzparentnode.-50) -- (\tikzchildnode.north)}]
+        {
+            node [subtree,yshift=0.4cm] (a) {}   % delay the text till later
+        }
+    }
+    child[edge from parent path ={(\tikzparentnode.-30) -- (\tikzchildnode.north)}]
+    {
+        node [subtree,yshift=0.4cm] (b) {}       % delay the text till later
+    }
+;
+% ------------------------------------------------ put the text into subtree nodes
+\node[align=center,yshift=0.1cm] at (a) {$Z$\\200};
+\node[align=center,yshift=0.1cm] at (b) {$Z$\\200};
+\end{tikzpicture} \end{center}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 8     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
 \section {Algoritmo da dobra do diâmetro 8}
 
 

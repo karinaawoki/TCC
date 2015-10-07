@@ -725,84 +725,87 @@ trocando árvore por floresta.
 	Mais adiante, iremos nos referir a vértices com uma característica 
 	específica, e para isso precisamos atribuir um rótulo numérico $x\in [n]$ 
 	distinto para cada um dos vértices da árvore, onde $n$ é o número de 
-	vértices da árvore $T$.
+	vértices da árvore $T$. 
+	Denotaremos o \textbf{rótulo} de um vértice $v$ por $r(v)$.
 
 	Primeiramente, usaremos o método mencionado na seção 5 para
-	calcular o $x$-$y$-caminho, que é máximo em $T$.
-
-	Temos que cada vértice contido no $x$-$y$-caminho receberá uma 
-	rotulação de forma que ó vértice será representado por um número
-	menor que 
-
-	Temos que para todo par de vértices $x_1$ e $x_2$, se $x_1$ vem antes 
-	de $x_2$ no $x$-$y$-caminho, então $x_1$ receberá um rótulo menor
-	do que $x_2$.
-
+	calcular o $v_0$-$v_k$-caminho, de comprimento $p$, 
+	que é máximo em $T$. 
+	Dessa forma, teremos sub-árvores enraizadas nos vértices do
+	caminho máximo, como o mostrado na figura abaixo.
+	
 
  	%% fill=blue!30 -- núemro indica quão escuro é
 	\begin{center} \begin{tikzpicture}
-		[scale=.8,auto=left,every node/.style={circle, draw=black,
+		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=blue!20}]
-		\node (x0) at (0,5.4)   {$x$};
-		\node (x1) at (3,5)   {$x$};
-		\node (x2) at (6,5.4)   {$x$};
-		\node (x3) at (9,5)   {$x$};
-		\node (x4) at (12,5.4)  {$x$};
-		\node (x5) at (15,5)  {$x$};
-		\node (x6) at (18,5.4)  {...};
+		\node (x0) at (0,5.4)  {$v_0$};
+		\node (x1) at (3,5)    {$v_1$};
+		\node (x2) at (6,5.4)  {$v_2$};
+		\node (x3) at (9,5)    {$v_3$};
+		\node (x4) at (12,5.4) {$v_4$};
+		\node (x5) at (15,5)   {...};
+		\node (x6) at (18,5.4) {$v_p$};
 
 		\node [subtree, fill=red!30] (y1) at (3,4)  {};
 		\node [subtree, fill=red!30] (y2) at (6,4.4)  {};
 		\node [subtree, fill=red!30] (y3) at (9,4)  {};
 		\node [subtree, fill=red!30] (y4) at (12,4.4) {};
-		\node [subtree, fill=red!30] (y5) at (15,4) {};
 
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,
-		x1/y1,x2/y2,x3/y3,x4/y4,x5/y5}
+		x1/y1,x2/y2,x3/y3,x4/y4}
 		\draw (\from) -- (\to);
 	\end{tikzpicture} \end{center}
 
+	Temos que cada vértice contido no $v_0$-$v_p$-caminho receberá uma 
+	rotulação de forma que:
+	\begin{itemize}
+		\item $r(v_i)>r(v_j)$ para todo $i<j$ e
+		\item $r(v_{i-1})< v' \le r(v_i)$ para todo vértice $v'$ contido 
+		na sub-árvore enraizada em $v_i$. 
+	\end{itemize}
 
 
 
 
-	\begin{center} \begin{tikzpicture}[-,>=stealth', 
-	level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
-	% 5cm de largura das setas .. 1,5cm de altura
-	\node [style={circle, draw=black,
-				fill=blue!20}] (x) at (2,2)  {$y$};
-    \node [treenode] {$oi$}  %% 1 raíz
-    child
-    {
-        node [treenode] {$Y$ \\ 50}  %% 2 bola - filho raíz
-        child
-        {
-            node [treenode] {$Z$ \\ 40}   %% 3 bola - filho de 2
-            child
-            {
-                node [treenode] {$S1$ \\ 30}  %% 4 bola - filho de 3
-            }
-            child
-            {
-                node [treenode] {$S2$ \\ 60} 
-            }
-        }
-        child[edge from parent path ={(\tikzparentnode.-50) -- (\tikzchildnode.north)}]
-        {
-            node [subtree,yshift=0.4cm] (a) {}   % delay the text till later
-        }
-    }
-    child[edge from parent path ={(\tikzparentnode.-30) -- (\tikzchildnode.north)}]
-    {
-        node [subtree,yshift=0.4cm] (b) {}       % delay the text till later
-    }
-;
+
+% 	\begin{center} \begin{tikzpicture}[-,>=stealth', 
+% 	level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+% 	% 5cm de largura das setas .. 1,5cm de altura
+% 	\node [style={circle, draw=black,
+% 				fill=blue!20}] (x) at (2,2)  {$y$};
+%     \node [treenode] {$oi$}  %% 1 raíz
+%     child
+%     {
+%         node [treenode] {$Y$ \\ 50}  %% 2 bola - filho raíz
+%         child
+%         {
+%             node [treenode] {$Z$ \\ 40}   %% 3 bola - filho de 2
+%             child
+%             {
+%                 node [treenode] {$S1$ \\ 30}  %% 4 bola - filho de 3
+%             }
+%             child
+%             {
+%                 node [treenode] {$S2$ \\ 60} 
+%             }
+%         }
+%         child[edge from parent path ={(\tikzparentnode.-50) -- (\tikzchildnode.north)}]
+%         {
+%             node [subtree,yshift=0.4cm] (a) {}   % delay the text till later
+%         }
+%     }
+%     child[edge from parent path ={(\tikzparentnode.-30) -- (\tikzchildnode.north)}]
+%     {
+%         node [subtree,yshift=0.4cm] (b) {}       % delay the text till later
+%     }
+% ;
 
 
-% ------------------------------------------------ put the text into subtree nodes
-\node[align=center,yshift=0.1cm] at (a) {$Z$\\200};
-\node[align=center,yshift=0.1cm] at (b) {$Z$\\200};
-\end{tikzpicture} \end{center}
+% % ------------------------------------------------ put the text into subtree nodes
+% \node[align=center,yshift=0.1cm] at (a) {$Z$\\200};
+% \node[align=center,yshift=0.1cm] at (b) {$Z$\\200};
+% \end{tikzpicture} \end{center}
 
 
 

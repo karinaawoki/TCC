@@ -738,19 +738,49 @@ trocando árvore por floresta.
 	de $x_2$ no $x$-$y$-caminho, então $x_1$ receberá um rótulo menor
 	do que $x_2$.
 
+
+ 	%% fill=blue!30 -- núemro indica quão escuro é
+	\begin{center} \begin{tikzpicture}
+		[scale=.8,auto=left,every node/.style={circle, draw=black,
+				fill=blue!20}]
+		\node (x0) at (0,5.4)   {$x$};
+		\node (x1) at (3,5)   {$x$};
+		\node (x2) at (6,5.4)   {$x$};
+		\node (x3) at (9,5)   {$x$};
+		\node (x4) at (12,5.4)  {$x$};
+		\node (x5) at (15,5)  {$x$};
+		\node (x6) at (18,5.4)  {...};
+
+		\node [subtree, fill=red!30] (y1) at (3,4)  {};
+		\node [subtree, fill=red!30] (y2) at (6,4.4)  {};
+		\node [subtree, fill=red!30] (y3) at (9,4)  {};
+		\node [subtree, fill=red!30] (y4) at (12,4.4) {};
+		\node [subtree, fill=red!30] (y5) at (15,4) {};
+
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,
+		x1/y1,x2/y2,x3/y3,x4/y4,x5/y5}
+		\draw (\from) -- (\to);
+	\end{tikzpicture} \end{center}
+
+
+
+
+
 	\begin{center} \begin{tikzpicture}[-,>=stealth', 
 	level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
 	% 5cm de largura das setas .. 1,5cm de altura
-    \node [treenode] {$X$ \\ 100}
+	\node [style={circle, draw=black,
+				fill=blue!20}] (x) at (2,2)  {$y$};
+    \node [treenode] {$oi$}  %% 1 raíz
     child
     {
-        node [treenode] {$Y$ \\ 50} 
+        node [treenode] {$Y$ \\ 50}  %% 2 bola - filho raíz
         child
         {
-            node [treenode] {$Z$ \\ 40} 
+            node [treenode] {$Z$ \\ 40}   %% 3 bola - filho de 2
             child
             {
-                node [treenode] {$S1$ \\ 30} 
+                node [treenode] {$S1$ \\ 30}  %% 4 bola - filho de 3
             }
             child
             {
@@ -767,6 +797,8 @@ trocando árvore por floresta.
         node [subtree,yshift=0.4cm] (b) {}       % delay the text till later
     }
 ;
+
+
 % ------------------------------------------------ put the text into subtree nodes
 \node[align=center,yshift=0.1cm] at (a) {$Z$\\200};
 \node[align=center,yshift=0.1cm] at (b) {$Z$\\200};

@@ -11,8 +11,7 @@
 \usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
 \tikzset
 {
-    treenode/.style = {circle, fill=blue!20, draw=black, align=center, minimum size=1cm},
-    subtree/.style  = {isosceles triangle, draw=black, align=center, minimum height=0.5cm, minimum width=1cm, shape border rotate=90, anchor=north}
+    subtree/.style  = {isosceles triangle, draw=black, align=center, minimum height=0.5cm, minimum width=1cm, shape border rotate=90, anchor=north, fill=red!30}
 }
 
 \selectlanguage{brazilian} 
@@ -56,29 +55,30 @@ enquadra na área de Otimização Combinatória e diz respeito ao
 \emph{Problema da Bissecção Mínima}. Para definir o problema 
 precisamente, seguem primeiro algumas definições. 
 
-Seja $G=(V,E)$ um grafo e $S$ um conjunto de vértices de $G$ tal 
+Seja~$G=(V,E)$ um grafo e~$S$ um conjunto de vértices de~$G$ tal 
 que~${\emptyset \neq S \subset V}$. 
-Denota-se por $\delta(S)$ o conjunto das arestas de $G$ com 
-exatamente um extremo em $S$. Um \emph{corte} em $G$ é um conjunto
-$C$ de arestas tal que~${C = \delta(S)}$ para algum conjunto $S$ 
-de vértices de $G$ com $\emptyset \neq S \subset V$. 
-Denota-se por $\bar{S}$ o conjunto $V \setminus S$. 
-Note que $\delta(\bar{S}) = C$ também. 
-O par de conjuntos $S$ e $\bar{S}$ é chamado de 
-\emph{par de margens} de $C$. 
-Note que se $G$ não é conexo, um corte pode ter mais de um par de 
+Denota-se por~$\delta(S)$ o conjunto das arestas de~$G$ com 
+exatamente um extremo em~$S$. Um \emph{corte} em~$G$ é um 
+conjunto~$C$ de arestas tal que~${C =~\delta(S)}$ para algum 
+conjunto~$S$ 
+de vértices de~$G$ com~$\emptyset \neq S \subset V$. 
+Denota-se por~$\bar{S}$ o conjunto~$V \setminus S$. 
+Note que~$\delta(\bar{S}) =~C$ também. 
+O par de conjuntos~$S$ e~$\bar{S}$ é chamado de 
+\emph{par de margens} de~$C$. 
+Note que se~$G$ não é conexo, um corte pode ter mais de um par de 
 margens. 
-O corte $C$ é uma \emph{bissecção} se possui um par de margens $S$ 
-e $\bar{S}$ tal que $||S|- |\bar{S}|| \in \{0,1\}$, ou seja, $S$ e 
-$\bar{S}$ particionam o grafo basicamente ao meio. 
-O número $|C|$ é chamado de \emph{largura} do corte $C$. 
+O corte~$C$ é uma \emph{bissecção} se possui um par de margens~$S$ 
+e~$\bar{S}$ tal que~$||S|- |\bar{S}|| \in \{0,1\}$, ou seja,~$S$ 
+e~$\bar{S}$ particionam o grafo basicamente ao meio. 
+O número~$|C|$ é chamado de \emph{largura} do corte~$C$. 
 
 O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
 encontrar uma bissecção no grafo de largura mínima.
 
 Sabe-se que o problema da bissecção é NP-difícil~\cite{GareyJS76} 
 e a melhor aproximação conhecida para o caso geral do problema tem 
-razão $\Oh(\lg n)$~\cite{Racke08}, onde $n$ é o número de vértices 
+razão~$\Oh(\lg n)$~\cite{Racke08}, onde~$n$ é o número de vértices 
 do grafo. 
 Por outro lado, sabe-se que, para árvores e grafos que de uma 
 certa maneira se assemelham a árvores, há um algoritmo polinomial 
@@ -190,44 +190,41 @@ dois.
 
 \section{Definições}
 		
-	Para um grafo $G$, denotamos seu
-	conjunto de vértices por $V(G)$ e seu
-	conjunto de arestas por $E(G)$.
+	Para um grafo~$G$, denotamos seu
+	conjunto de vértices por~$V(G)$ e seu
+	conjunto de arestas por~$E(G)$.
 
 	\bigskip
 
-	Dizemos que $(B,W)$ é um 
+	Dizemos que~$(B,W)$ é um 
 	\textbf{corte}
-	de $G$ se $B \cup W = V(G)$ e $B \cap W = \emptyset$.
-	Denotamos por $e_G(B,W)$ o número de arestas no corte $(B,W)$.
+	de~$G$ se~$B \cup~W =~V(G)$ e~$B \cap W =~\emptyset$.
+	Denotamos por~$e_G(B,W)$ o número de arestas no corte~$(B,W)$.
 
 	\bigskip
 
 	O número de arestas que incidem em um determinado
-	vértice $v$ é chamado de 
-	\textbf{grau} de $v$ e será representado
-	por $grau(v)$. O 
+	vértice~$v$ é chamado de 
+	\textbf{grau} de~$v$ e será representado
+	por~$grau(v)$. O 
 	\textbf{grau máximo}, que é o grau de um vértice de
-	maior grau em $G$, será representado por $\Delta(G)$.
+	maior grau em~$G$, será representado por~$\Delta(G)$.
 
 	\bigskip
 
-	Um \textbf{caminho} em uma árvore $T$, de 
-	comprimento $p$, é uma sequência de vértices 
-	$v_0, v_1, \ldots,v_{p-1}, v_p$ 
-	onde {$v_{k-1}, v_k$} é uma aresta para todo 
-	$k = 1,2, \ldots, p$. 
+	Um \textbf{caminho} em uma árvore~$T$, de 
+	comprimento~$p$, é uma sequência de 
+	vértices~$v_0, v_1, \ldots,v_{p-1}, v_p$ 
+	onde~$v_{k-1}, v_k$ é uma aresta para todo~$k =~1,2, \ldots, p$. 
 	Como existe um único caminho que conecta quaisquer dois 
-	vértices $v_0$ e $v_p$ em $T$, chamaremos tal 
-	caminho em $T$ de  
-	$v_0$,$v_p$-\textbf{caminho}.
+	vértices~$v_0$ e~$v_p$ em~$T$, chamaremos tal 
+	caminho em~$T$ de~$v_0$,$v_p$-\textbf{caminho}.
 
 	\bigskip
 
-	A \textbf{distância} entre dois vértices $a$ e 
-	$b$ de T é representada por 
-	$dist(a,b)$, e é igual ao comprimento do
-	$a$,$b$-caminho em $T$.
+	A \textbf{distância} entre dois vértices~$a$ e~$b$ 
+	de~$T$ é representada por~$dist(a,b)$, 
+	e é igual ao comprimento do~$a$,$b$-caminho em~$T$.
 
 		
 
@@ -238,47 +235,44 @@ dois.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Caminho máximo em árvores}
+\section{Caminho máximo em árvores}\label{sec:caminhoMaximo}
+	Um \textbf{caminho máximo} em uma árvore~$T$ é um caminho 
+	em~$T$ de comprimento máximo.
 
-	Um \textbf{caminho máximo} em uma árvore $T$ é um caminho em 
-	$T$ de comprimento máximo.
-
-	Encontrar um caminho máximo em uma árvore $T=(V,E)$ é uma tarefa
-	computacionalmente simples que pode ser realizada em tempo 
-	$O(n)$, sendo $n$ o número de vértices de $T$, ou seja, 
-	$n = |V|$. 
-	Primeiramente escolhe-se um vértice arbitrário
-	$v \in V$ e encontra-se um vértice $y_0$ mais distante de 
-	$v$.
-	Depois, repetimos o mesmo processo a partir de $y_0$, 
-	encontrando um vértice
-	$x_0$ mais distante de $y_0$. 
+	Encontrar um caminho máximo em uma árvore~$T=(V,E)$ é uma tarefa
+	computacionalmente simples que pode ser realizada em tempo~$O(n)$, 
+	sendo~$n$ o número de vértices de~$T$, ou seja,~$n =~|V|$. 
+	Primeiramente escolhe-se um vértice arbitrário~$v \in V$ 
+	e encontra-se um vértice~$y_0$ mais distante de~$v$.
+	Depois, repetimos o mesmo processo a partir de~$y_0$, 
+	encontrando um vértice~$x_0$ mais distante de~$y_0$. 
 	Para encontrar um vértice mais distante de algum vértice dado, 
 	basta usar uma busca em largura.  
-	Feito isso, temos um caminho máximo em $T$: o único
-	caminho que liga $x_0$ a $y_0$.
+	Feito isso, temos um caminho máximo em~$T$: o único
+	caminho que liga~$x_0$ a~$y_0$.
 
 	\bigskip
 
 	\begin{lem}
-		O $x_0$,$y_0$-caminho é um caminho máximo em $T$.
+	\label{lema:caminhoMax}
+		O~$x_0$,$y_0$-caminho é um caminho máximo em~$T$.
 	\end{lem}
 
 	\bigskip
 
 	\begin{proof}
-		Suponhamos que exista um outro caminho mais longo que o
-		$x_0$,$y_0$-caminho e sejam $x$ e $y$ os seus extremos.
+		Suponhamos que exista um outro caminho mais longo que 
+		o~$x_0$,$y_0$-caminho e sejam~$x$ e~$y$ os seus extremos.
 
 		\begin{itemize}
-	        \item \textbf{Caso 1:} O $x$,$y$-caminho e o 
-	        $x_0$,$y_0$-caminho não possuem vértices em comum.
+	        \item \textbf{Caso 1:} O~$x$,$y$-caminho e 
+	        o~$x_0$,$y_0$-caminho não possuem vértices em comum.
 
-	        Existe um $a$,$b$-caminho, de 
-	        comprimento $c \ge 1$, que conecta os dois caminhos, 
-	        possuindo assim apenas o vértice $a$ no 
-	        $x$,$y$-caminho e apenas o vértice $b$ no
-	        $x_0$,$y_0$-caminho.
+	        Existe um~$a$,$b$-caminho, de 
+	        comprimento~$c \ge 1$, que conecta os dois caminhos, 
+	        possuindo assim apenas o vértice~$a$ 
+	        no ~$x$,$y$-caminho e apenas o vértice~$b$ 
+	        no~$x_0$,$y_0$-caminho.
 
 	        \begin{center} \begin{tikzpicture}
 				[scale=.8,auto=left,every node/.style={circle, draw=black,
@@ -303,22 +297,20 @@ dois.
 			\end{tikzpicture} \end{center}
 
 
-	        Portanto temos que
-	        $ dist(x,y) = dist(x,a) + dist(a,y) $ e
-	        $ dist(x_0,y_0) = dist(x_0,b) + dist(b,y_0)$.
+	        Portanto temos 
+	        que~$ dist(x,y) =~dist(x,a) +~dist(a,y)$ 
+	        e~$ dist(x_0,y_0) =~dist(x_0,b) +~dist(b,y_0)$.
 
-	        Como o $x$,$y$-caminho é máximo, 
-	        $ dist(x,y)\ge dist(x_0,y)$,
-	        e isso implica que
-	        $ dist(x,a)\ge dist(x_0,b)+c$.
+	        Como o~$x$,$y$-caminho é 
+	        máximo,~$dist(x,y)\ge dist(x_0,y)$,
+	        e isso implica que~$dist(x,a)\ge dist(x_0,b)+c$.
 
-	        Como $x_0$ é um vértice mais distante de $y_0$, temos que 
-	        $ dist(x_0,y_0)\ge dist(x,y_0)$, que implica que
-	        $ dist(x_0,b)\ge dist(x,a)+c$.
-	        Logo temos que
-	        $ dist(x,a)\ge dist(x, a)+2c$,
-	        uma contradição, visto que
-			$c\ge 1$.
+	        Como~$x_0$ é um vértice mais distante de~$y_0$, temos 
+	        que~$dist(x_0,y_0)\ge~dist(x,y_0)$, que implica 
+	        que~$dist(x_0,b)\ge~dist(x,a)+~c$.
+	        Logo temos 
+	        que~$dist(x,a)\ge~dist(x, a)+2c$,
+	        uma contradição, visto que~$c\ge 1$.
 
 
 			\bigskip
@@ -326,16 +318,16 @@ dois.
 			\bigskip
 
 
-			\item \textbf{Caso 2:} O $x$,$y$-caminho e o 
-			$x_0$,$y_0$-caminho possuem vértices em comum.
+			\item \textbf{Caso 2:} O~$x$,$y$-caminho e 
+			o~$x_0$,$y_0$-caminho possuem vértices em comum.
 
-			A interseção entre esses dois caminhos é um 
-			$a$,$b$-caminho de comprimento $c \ge 0$.
-			Podemos assumir, sem perda de generalidade, que
-			$dist(x,a) \le dist(x,b)$ e que
-			$dist(x_0,a) \le dist(x_0,b)$, como na figura abaixo.
-			(Do contrário troque $a$ por $b$ e possivelmente $x$
-			por $y$.)
+			A interseção entre esses dois caminhos é 
+			um~$a$,$b$-caminho de comprimento~$c \ge 0$.
+			Podemos assumir, sem perda de generalidade, 
+			que~$dist(x,a) \le~dist(x,b)$ e 
+			que~$dist(x_0,a) \le~dist(x_0,b)$, como na figura abaixo.
+			(Do contrário troque~$a$ por~$b$ e possivelmente~$x$
+			por~$y$.)
 
 			\begin{center} \begin{tikzpicture}
 				[scale=.8,auto=left,every node/.style={circle, draw=black,
@@ -359,43 +351,43 @@ dois.
 			\end{tikzpicture} \end{center}
 
 
-			Como $x_0$ é um vértice mais distante de $y_0$,
-			temos que $dist(x_0,a) \ge dist(x,a)$.
-			Por outro lado, como $x$ é um vértice mais distante
-			de $y$, temos também que $dist(x,a)\ge dist(x_0,a)$,
-			e portanto $dist(x_0,a) = dist(x,a)$.
-			Similarmente, como $y$ é um vértice mais distante de
-			$x$, vale que $dist(y,b) \ge dist(y_0,b)$.
+			Como~$x_0$ é um vértice mais distante de~$y_0$,
+			temos que~$dist(x_0,a)\ge~dist(x,a)$.
+			Por outro lado, como~$x$ é um vértice mais distante
+			de~$y$, temos também que~$dist(x,a)\ge dist(x_0,a)$,
+			e portanto~$dist(x_0,a) =~dist(x,a)$.
+			Similarmente, como~$y$ é um vértice mais distante de~$x$, 
+			vale que~$dist(y,b) \ge dist(y_0,b)$.
 
-			Agora consideremos o vértice $v$ que foi escolhido 
-			arbitrariamente no início do algoritmo, e seja $v'$
-			o vértice mais próximo de $v$ no $x_0$,$y_0$-caminho.
-			Se $v'\ne b$, então, como $y_0$ é um vértice mais 
-			distante de $v$,
+			Agora consideremos o vértice~$v$ que foi escolhido 
+			arbitrariamente no início do algoritmo, e seja~$v'$
+			o vértice mais próximo de~$v$ no~$x_0$,$y_0$-caminho.
+			Se~$v'\ne b$, então, como~$y_0$ é um vértice mais 
+			distante de~$v$,
 			\begin{align}
-				dist(v',y_0) &\ge dist(v',y) = dist(v',b) + dist(b,y)\nonumber \\
+				dist(v',y_0) &\ge dist(v',y) =~dist(v',b) + dist(b,y)\nonumber \\
 				&\ge dist(v',b) + dist(b,y_0) \ge dist(v',y_0) \nonumber,
 			\end{align} 
-			o que implica que $dist(v',y_0) = dist(v',y)$ assim
-			como $ dist(b,y) = dist(b,y_0) $. 
-			Ou seja, $dist(x,y) = dist(x_0,y_0)$.
-			Resta analisar o caso em que $v'=b$ (é um caso especial,
-			dado que pode-se ter arestas em comum entre $v$,$v'$-caminho 
-			e o $y$,$b$-caminho).
-			Como $y$ é um vértice mais distante de $x$, temos que 
-			$dist(v',y_0) \le dist(v',y)$.
-			Como $x_0$ é um vértice mais distante de $y_0$, temos
-			que $dist(x_0,v') \ge dist(y,v')$.
+			o que implica que~$dist(v',y_0)~=~dist(v',y)$ assim
+			como~$ dist(b,y)~=~dist(b,y_0)$. 
+			Ou seja,~$dist(x,y) =~dist(x_0,y_0)$.
+			Resta analisar o caso em que~$v'=b$ (é um caso especial,
+			dado que pode-se ter arestas em comum entre~$v$,$v'$-caminho 
+			e o~$y$,$b$-caminho).
+			Como~$y$ é um vértice mais distante de~$x$, temos 
+			que~$dist(v',y_0) \le~dist(v',y)$.
+			Como~$x_0$ é um vértice mais distante de~$y_0$, temos
+			que~$dist(x_0,v') \ge dist(y,v')$.
 			
-			Finalmente, como $y_0$ é um vértice mais distante de 
-			$v$, vale que $dist(y_0,v')\ge dist(x_0,v')$.
+			Finalmente, como~$y_0$ é um vértice mais distante 
+			de~$v$, vale que~$dist(y_0,v')\ge dist(x_0,v')$.
 
-			Dessas três desigualdades, concluímos que 
-			$dist(y_0,v') = dist(y,v') = dist(x_0,v') = dist(x,v') $,
-			onde a última igualdade vale pois já mostramos que
-			$ dist(x_0,a) = dist(x,a) $.
+			Dessas três desigualdades, concluímos 
+			que~$dist(y_0,v')~=~dist(y,v')~=~dist(x_0,v')~=~dist(x,v')$,
+			onde a última igualdade vale pois já mostramos 
+			que~$dist(x_0,a) =~dist(x,a)$.
 
-			Assim sendo $dist(x_0,y_0) = dist(x,y) $, completando a prova.
+			Assim sendo~$dist(x_0,y_0) =~dist(x,y)$, completando a prova.
 
 		\end{itemize}
 	\end{proof}
@@ -410,20 +402,20 @@ dois.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	Dizemos que o \textbf{diâmetro} de um grafo conexo $G$ é o
-	comprimento de um caminho máximo de $G$. 
+	Dizemos que o \textbf{diâmetro} de um grafo conexo~$G$ é o
+	comprimento de um caminho máximo de~$G$. 
 	Em outras palavras, o diâmetro pode ser definido como:
-	$$ diam(G)=\max\{dist(x,y):x,y\in V(G)\}. $$
+	$$ diam(G)=\max\{dist(x,y):x,y\in V(G)\}.$$
 
 	\bigskip
 
-	Seja $G$ um grafo não necessariamente conexo,
-	o \textbf{diâmetro relativo} de $G$
+	Seja~$G$ um grafo não necessariamente conexo,
+	o \textbf{diâmetro relativo} de~$G$
 	 é a razão entre o número
 	de vértices de um caminho máximo e o número total de vértices
-	de $G$. Este pode também ser representado por
-	$$ diam^*(G) = \frac{\displaystyle\sum_{
-	G'~componente~conexa~de~G}^{}(diam(G')+1)}{|V(G)|}. $$
+	de~$G$. Este pode também ser representado por
+	$$ diam^*(G) =~\frac{\displaystyle\sum_{
+	G'~componente~conexa~de~G}^{}(diam(G')+1)}{|V(G)|}.$$
     
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -432,8 +424,8 @@ dois.
 \section {Algoritmos de cortes aproximados}
 
 Em \cite{Schmidt15}, são apresentados três algoritmos que, dada uma 
-floresta $G$ e um inteiro $0<m\le n$, onde $n$ é o número de vértices 
-de $G$, produzem cortes com algumas propriedades.
+floresta~$G$ e um inteiro~$0<m\le~n$, onde~$n$ é o número de vértices 
+de~$G$, produzem cortes com algumas propriedades.
 
 Abaixo reproduzimos os três resultados de \cite{Schmidt15} que 
 atestam as propriedades dos cortes produzidos por estes algoritmos:
@@ -445,23 +437,22 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 \bigskip
 
 \begin{lem}[Lema do corte aproximado simples para árvores]
-
-	Para toda árvore $T$ com $n$ vértices e todo $m \in [n]$,
-	existe um corte $(B,W)$ em $T$ tal que 
-	$\frac{m}{2} <|B| \le m$ e
-	$e_T(B,W) \le \Delta(T)$.
+\label{lema:simpleApproxCutTree}
+	Para toda árvore~$T$ com~$n$ vértices e todo~$m \in [n]$,
+	existe um corte~$(B,W)$ em~$T$ tal 
+	que~$\frac{m}{2} <|B| \le~m$ e~$e_T(B,W) \le~\Delta(T)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
-	tempo $O(n)$.
+	tempo~$O(n)$.
 \end{lem}
 
 \medskip
 
-Seja $T$ uma árvore e $r$ um vértice de $T$. 
+Seja~$T$ uma árvore e~$r$ um vértice de~$T$. 
 Assumiremos que
-a função CALCULA\_NUMERO\_DE\_DESCENDENTES$(T,r)$ devolve um vetor
-que associa cada vértice de $T$ ao número de descendentes desse 
-vértice na árvore $T$, enraizada em $r$. Nota-se que essa função pode
-ser executada usando uma busca em profundidade e toma tempo $O(n)$.
+a função~CALCULA\_NUMERO\_DE\_DESCENDENTES$(T,r)$ devolve um vetor
+que associa cada vértice de~$T$ ao número de descendentes desse 
+vértice na árvore~$T$, enraizada em~$r$. Nota-se que essa função pode
+ser executada usando uma busca em profundidade e toma tempo~$O(n)$.
 
 
 Segue o algoritmo que encontra um corte com as propriedades descritas
@@ -470,32 +461,33 @@ no lema.
 \medskip
 
 \begin{algorithm}[H]
+\label{alg:simpleApproxCutTree}
 	\SetKwInOut{Input}{input}
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado em uma árvore}
-	\Input{árvore $T = (V,E)$ com $n$ vértices e $m \in [n]$}
-	\Output{Um corte $(B,W)$ tal que $\frac{m}{2}<|B|\le m$}
+	\Input{árvore~$T =~(V,E)$ com~$n$ vértices e~$m \in [n]$}
+	\Output{Um corte~$(B,W)$ tal que~$\frac{m}{2}<|B|\le~m$}
 	$B \gets \emptyset$\;
-	\eIf{$m = n$}{
+	\eIf{$m =~n$}{
 		$B \gets V$\;
 	}
 	{
-		$r$ um vértice arbitrário de $T$\;
-		$d \gets $ CALCULA\_NUMERO\_DE\_DESCENDENTES($T$,$r$)\;
+		$r$ um vértice arbitrário de~$T$\;
+		$d \gets~$ CALCULA\_NUMERO\_DE\_DESCENDENTES($T$,$r$)\;
 		$v \gets r$\;
-		\While{existe descendente $u$ de $v$ com $d[u]\ge m$ }{
+		\While{existe descendente~$u$ de~$v$ com~$d[u]\ge m$ }{
 			$v \gets u$ \;
 		}
-		\eIf{existe descendente $u$ de $v$ com $d[u]>\frac{m}{2}$}{
+		\eIf{existe descendente~$u$ de~$v$ com~$d[u]>\frac{m}{2}$}{
 			$B\gets T_u$\;  
-			\tcp{$T_u$ é a sub-árvore enraizada em $u$}
+			\tcp{$T_u$ é a sub-árvore enraizada em~$u$}
 		}
 		{
-		\For{cada filho $u$ de $v$}
+		\For{cada filho~$u$ de~$v$}
 		{
-			\eIf{$|B+T_u| \le m$}{
-				$B\gets B\cup T_u$\;
+			\eIf{$|B+T_u| \le~m$}{
+				$B\gets B\cup~T_u$\;
 			}
 			{
 				break\;
@@ -512,44 +504,47 @@ no lema.
 
 \textbf{Análise do Algoritmo}
 
-	Suponha que $T=(V,E)$.
-	É fácil ver que se $m=n$, então os valores $B = V$ e $W = \emptyset$ 
-	satisfazem as condições do lema, dado que $e_G(B,W)$ será $0$. 
-	Isso pode ser computado em tempo $O(n)$.
+	Suponha que~$T=(V,E)$.
+	É fácil ver que se~$m=n$, então os valores~$B =~V$ e~$W =~\emptyset$ 
+	satisfazem as condições do lema, dado que~$e_G(B,W)$ será~$0$. 
+	Isso pode ser computado em tempo~$O(n)$.
 
-	Caso contrário, é necessário escolher uma raiz arbitrária $r$ para $T$
+	Caso contrário, é necessário escolher uma raiz arbitrária~$r$ para~$T$
 	e calcular o número de vértices das sub-árvores enraizadas 
 	em cada um dos nós, que é o número de descendentes do nó.
 	Isso serve para que saibamos a quantidade de vértices das sub-árvores
 	sem que precisemos percorrer todos os nós das sub-árvores a cada consulta.
 
-	Feito isso, temos que $v$ é o vértice analisado no momento e 
-	$V_1, V_2, \ldots, V_k$ são as sub-árvores enraizadas nos $k$ filhos
-	de $v$.
-	Se algum $V_i$ satisfizer $\frac{m}{2}<|V_i|\le m$, podemos retornar
-	a sub-árvore $|V_i|$ como sendo o conjunto $B$, satisfazendo o Lema 2,
-	dado que o corte será $1$.
-	Caso contrário, se $|V_i|> m$ para algum $i$, assumimos que 
-	$v$ agora é a raiz de $V_i$ e aplicamos novamente esse processo em $v$.
+	Feito isso, temos que~$v$ é o vértice analisado no momento 
+	e~$V_1, V_2, \ldots, V_k$ são as sub-árvores enraizadas nos~$k$ filhos
+	de~$v$.
+	Se algum~$V_i$ satisfizer~$\frac{m}{2}<~|V_i|\le~m$, podemos retornar
+	a sub-árvore~$|V_i|$ como sendo o conjunto~$B$, satisfazendo o Lema 
+	\ref{lema:simpleApproxCutTree},
+	dado que o corte será~$1$.
+	Caso contrário, se~$|V_i|>~m$ para algum~$i$, assumimos que~$v$ 
+	agora é a raiz de~$V_i$ e aplicamos novamente esse processo em~$v$.
 
 	Nota-se que esse procedimento irá parar em algum momento, dado que a árvore 
 	é finita, e ele parará quando encontrar
-	uma sub-árvore que satisfaça o Lema 2 (e essa sub-árvore será o conjunto $B$) 
+	uma sub-árvore que satisfaça o Lema 
+	\ref{lema:simpleApproxCutTree}
+	(e essa sub-árvore será o conjunto~$B$) 
 	ou quando chegarmos numa situação em que  
-	$|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$.
-	Nesse último caso, sabemos que $|V_1\cup V_2\cup \ldots \cup V_k|\ge m$, pois
-	a sub-árvore enraizada em $v$ possui mais que $m$ vértices. 
-	Sabemos também que $|V_i|\le \frac{m}{2}$ para todos os $k$ filhos de $v$. 
-	Com isso, percorremos os $V_i$ em ordem, e 
-	adicionamos $V_i$ ao conjunto $B$, parando antes que $|B| > m$. Isso nos dará
-	$e_T(B,V\setminus B) < grau(v) \le \Delta(T)$, o que satisfaz o lema.
-	Dado que $|V_j|\le \frac{m}{2}$ para todo $j$,
-	sabemos que existe um $i$ tal que 
-	$\frac{m}{2} < |V_1 \cup V_2 \cup \cdots \cup V_i| \le m$, pois
+	~$|V_i|\le~\frac{m}{2}$ para todos os~$k$ filhos de~$v$.
+	Nesse último caso, sabemos que~$|V_1\cup~V_2\cup~\ldots \cup~V_k|\ge m$, pois
+	a sub-árvore enraizada em~$v$ possui mais que~$m$ vértices. 
+	Sabemos também que~$|V_i|\le~\frac{m}{2}$ para todos os~$k$ filhos de~$v$. 
+	Com isso, percorremos os~$V_i$ em ordem, e 
+	adicionamos~$V_i$ ao conjunto~$B$, parando antes que~$|B| >~m$. Isso nos 
+	dará~$e_T(B,V\setminus B) <~grau(v)\le~\Delta(T)$, o que satisfaz o lema.
+	Dado que~$|V_j|\le~\frac{m}{2}$ para todo~$j$,
+	sabemos que existe um~$i$ tal 
+	que~$\frac{m}{2} <~|V_1 \cup~V_2 \cup~\cdots \cup~V_i| \le~m$, pois
 	a união das sub-árvores
-	enraizadas em $v$ possui mais que $m$ vértices e, para todo $\ell$ que satisfaça
-	$|V_1\cup V_2\cup \cdots \cup V_\ell|\le \frac{m}{2}$, temos que 
-	$|V_1\cup V_2\cup \cdots \cup V_\ell\cup V_{\ell+1}|\le m$.
+	enraizadas em~$v$ possui mais que~$m$ vértices e, para todo~$\ell$ que 
+	satisfaça~$|V_1\cup~V_2\cup~\cdots\cup~V_\ell|\le~\frac{m}{2}$, temos 
+	que~$|V_1\cup~V_2\cup~\cdots~\cup~V_\ell\cup~V_{\ell+1}|\le~m$.
 
 
 \bigskip
@@ -564,13 +559,12 @@ no lema.
 %%%%%%%%%%%%%%%%% LEMA 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}[Lema do corte aproximado simples {\cite[Lemma 2]{Schmidt15}}]
-
-	Para toda floresta $G$ com $n$ vértices e todo $m \in [n]$,
-	existe um corte $(B,W)$ em $G$ tal que 
-	$\frac{m}{2} <|B| \le m$ e
-	$e_G(B,W) \le \Delta(G)$.
+\label{lema:simpleApproxCutForest}
+	Para toda floresta~$G$ com~$n$ vértices e todo~$m \in [n]$,
+	existe um corte~$(B,W)$ em~$G$ tal 
+	que~$\frac{m}{2} <|B| \le~m$ e~$e_G(B,W) \le~\Delta(G)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
-	tempo $O(n)$.
+	tempo~$O(n)$.
 \end{lem}
 
 \medskip
@@ -583,25 +577,26 @@ trocando árvore por floresta.
 \medskip
 
 \begin{algorithm}[H]
+\label{alg:simpleApproxCutForest}
 	\SetKwInOut{Input}{input}
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado simples em uma floresta}
-	\Input{floresta $G = (V,E)$ com $n$ vértices e $m \in [n]$}
-	\Output{corte $(B,W)$ tal que $\frac{m}{2}\le|B|\le m$}
+	\Input{floresta~$G =~(V,E)$ com~$n$ vértices e~$m \in [n]$}
+	\Output{corte~$(B,W)$ tal que~$\frac{m}{2}\le|B|\le~m$}
 	$B \gets \emptyset$\;
-	Sejam $V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
-	componentes conexas de $G$\;
+	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
+	componentes conexas de~$G$\;
 	\For{$i=1 \to k$}{
-		\If{$|V_i| + |B|\le m$}{
-			 $B \gets B\cup V_i$\;
+		\If{$|V_i| + |B|\le~m$}{
+			~$B \gets B\cup~V_i$\;
 		}	
 		\ElseIf{$|B|<m$}{
-			$(B',W')\gets Algoritmo1(G[V_i], |V_i|, m-|B|)$\;
-			\tcp {Devolve o corte $(B',W')$ em $G[V_i]$ com 
-			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 2)}
+			$(B',W')\gets Algoritmo\ref{alg:simpleApproxCutTree}(G[V_i], |V_i|, m-|B|)$\;
+			\tcp {Devolve o corte~$(B',W')$ em~$G[V_i]$ com 
+			$\frac{m-|B|}{2} <|B'| \le~m-|B|$ (usando o Lema \ref{lema:simpleApproxCutTree})}
 
-			$B \gets B\cup B'$\;
+			$B \gets B\cup~B'$\;
 
 			break\;
 		}	
@@ -615,28 +610,29 @@ trocando árvore por floresta.
 
 \textbf{Análise do Algoritmo}
 
-	Temos que $T_1, T_2, \ldots,T_k $ são 
-	as árvores de $G$. 
+	Temos que~$T_1, T_2, \ldots,T_k$ são 
+	as árvores de~$G$. 
 	Primeiro percorremos as árvores na ordem que compõem. 
-	Seja $\ell$ o maior inteiro tal que 
-	$s = \displaystyle\sum_{i=1}^{\ell}|V(T_i)| \le m$.
-	Colocamos $T_1,T_2, \ldots,T_\ell$ no conjunto $B$.
-	Caso $s=m$, temos $|B|=m$ com  $e_G(B,V\setminus B)=0$, o que satisfaz o lema.
-	Caso contrário, ao encontrar um corte $(B',W')$ em $T_{\ell+1}$ que
-	satisfaça $\frac{m-s}{2}<|B'|\le m-s$ com $e_{T_{\ell+1}}(B',W') \le 
-	\Delta(T_{\ell+1})$, e acrescentar $B'$ ao conjunto
-	$B$, teremos
-	$\frac{m+s}{2}<|B| \le m$ com 
-	$e_G(B,W) = \Delta(T_{\ell+1}) \le \Delta(G)$.
-	Logo, depois de acrescentar $B'$ em $B$, teremos o corte $(B,V\setminus B)$
-	que satisfaz o lema, e podemos fazer isso utilizando o Lema 2.
+	Seja~$\ell$ o maior inteiro tal 
+	que~$s=~\displaystyle\sum_{i=1}^{\ell}|V(T_i)| \le~m$.
+	Colocamos~$T_1,T_2, \ldots,T_\ell$ no conjunto~$B$.
+	Caso~$s=m$, temos~$|B|=m$ com~$e_G(B,V\setminus B)=0$, o que satisfaz o lema.
+	Caso contrário, ao encontrar um corte~$(B',W')$ em~$T_{\ell+1}$ que
+	satisfaça~$\frac{m-s}{2}<|B'|\le~m-s$ com~$e_{T_{\ell+1}}(B',W') \le~
+	\Delta(T_{\ell+1})$, e acrescentar~$B'$ ao conjunto~$B$, 
+	teremos~$\frac{m+s}{2}<|B| \le~m$ 
+	com~$e_G(B,W)=\Delta(T_{\ell+1}) \le~\Delta(G)$.
+	Logo, depois de acrescentar~$B'$ em~$B$, teremos o corte~$(B,V\setminus B)$
+	que satisfaz o lema, e podemos fazer isso utilizando o Lema 
+	\ref{lema:simpleApproxCutTree}.
 	
 	Nota-se que, como a linha 2 pode ser feita usando uma
 	busca em profundidade e as demais 
 	linhas envolvem verificar o tamanho das componentes 
 	(que já foi calculado na linha 2) e uma chamada ao
-	Algoritmo 1, então essa operação pode 
-	ser feita em tempo $O(n)$, dado que todas as operações
+	Algoritmo 
+	\ref{alg:simpleApproxCutTree}, então essa operação pode 
+	ser feita em tempo~$O(n)$, dado que todas as operações
 	citadas são executadas em tempo linear. 
 
 \bigskip
@@ -652,42 +648,45 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%% LEMA 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}[Lema do corte aproximado {\cite[Lemma 3]{Schmidt15}}]
-
-	Para toda floresta $G$ com $n$ vértices, todo $m \in [n]$
-	e todo $c \in [0,1)$,
-	existe um corte $(B,W)$ em $G$ tal que 
-	$cm \le |B| \le m$ e
-	$e_G(B,W) \le \lceil \frac{2c}{1-c}\rceil \Delta(G)$.
+\label{lema:approxCutForest}
+	Para toda floresta~$G$ com~$n$ vértices, todo~$m \in [n]$
+	e todo~$c \in [0,1)$,
+	existe um corte~$(B,W)$ em~$G$ tal 
+	que~$cm \le~|B| \le~m$ 
+	e~$e_G(B,W) \le~\lceil \frac{2c}{1-c}\rceil \Delta(G)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
-	tempo $O(n)$.
+	tempo~$O(n)$.
 \end{lem}
 
 \medskip
 \medskip
 
 \begin{algorithm}[H]
+\label{alg:approxCutForest}
 	\SetKwInOut{Input}{input}
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado em uma floresta}
-	\Input{floresta $G = (V,E)$ com $n$ vértices, $m \in [n]$, 
+	\Input{floresta~$G =~(V,E)$ com~$n$ vértices,~$m \in [n]$, 
 	$c\in (\frac{1}{2}, 1)$}
-	\Output{Um corte $(B,W)$ tal que $cm\le|B|\le m$}
-	\eIf{$c\le \frac{1}{2}$}{
-		$(B,W) \gets$ Algoritmo2$(G, n, m)$ \;
-		\tcp{Devolve o corte $(B,W)$ em $G$ com 
-		$\frac{m}{2} <|B'| \le m$ (usando o Lema 3)}
+	\Output{Um corte~$(B,W)$ tal que~$cm\le|B|\le~m$}
+	\eIf{$c\le~\frac{1}{2}$}{
+		$(B,W) \gets$ Algoritmo~\ref{alg:simpleApproxCutForest}$(G, n, m)$ \;
+		\tcp{Devolve o corte~$(B,W)$ em~$G$ com 
+		$\frac{m}{2} <|B'| \le~m$ (usando o Lema \ref{lema:simpleApproxCutForest})}
 		
 		$B \gets B'$\;
 	}
 	{
 		$B \gets \emptyset$\;
 		\While{$|B|<cm$}{
-			$(B',W') \gets$ Algoritmo2$(G[V\setminus B], n-|B|, m-|B|)$ \;
-			\tcp{Devolve o corte $(B',W')$ em $G[V\setminus B]$ com 
-			$\frac{m-|B|}{2} <|B'| \le m-|B|$ (usando o Lema 3)}
+			$(B',W') \gets$ 
+			Algoritmo\ref{alg:simpleApproxCutForest}$(G[V\setminus B], 
+			n-|B|, m-|B|)$ \;
+			\tcp{Devolve o corte~$(B',W')$ em~$G[V\setminus B]$ com 
+			$\frac{m-|B|}{2} <|B'| \le~m-|B|$ (usando o Lema \ref{lema:simpleApproxCutForest})}
 
-			$B \gets B\cup B'$\;		
+			$B \gets B\cup~B'$\;		
 		}
 	}
 	\Return $(B,V\setminus B)$
@@ -699,21 +698,30 @@ trocando árvore por floresta.
 
 \textbf{Análise do Algoritmo}
 
-	Sabemos que se $c \le \frac{1}{2}$, podemos aplicar o Algoritmo 2, 
-	dado que o resultado nos dará um conjunto $B'$ tal que
-	$|B'|>\frac{m}{2}\ge cm$ e $e_G(B,W)\le \Delta(G)$.
+	Sabemos que se~$c \le~\frac{1}{2}$, podemos aplicar o Algoritmo 
+	\ref{alg:simpleApproxCutForest}, 
+	dado que o resultado nos dará um conjunto~$B'$ tal 
+	que~$|B'|>\frac{m}{2}\ge cm$ e~$e_G(B,W)\le~\Delta(G)$.
 
-	Caso contrário, temos que $B = \emptyset$.
-	Executaremos o Algoritmo 2, referente ao Lema 3 diversas vezes para 
+	Caso contrário, temos que~$B =~\emptyset$.
+	Executaremos o 
+	Algoritmo~\ref{alg:simpleApproxCutForest}, referente ao 
+	Lema~\ref{lema:simpleApproxCutForest}
+	diversas vezes para 
 	encontrar 
-	um corte $(B',W')$ em $G[V\setminus B]$ tal que $\frac{m-|B|}{2}<|B'|\le m-|B|$,
-	acrescentando o conjunto $B'$ a $B$ em cada uma das chamadas ao Lema 3.
-	Fazemos isso até que $|B|\ge cm$ seja satisfeito.
-	Nota-se que em algum momento $|B|\ge cm$ irá ocorrer, pois a cada vez
-	que executamos o Algoritmo 2, acrescentamos pelo menos um vértice em $B$,
-	e $|B|>m$ nunca irá ocorrer, pois o conjunto $B'$ obtido no Lema 3 é
-	tal que $|B'|\le m-|B|$. Logo, serão adicionados no máximo 
-	$m-|B|$ vértices em $B$.
+	um corte~$(B',W')$ em~$G[V\setminus B]$ tal 
+	que~$\frac{m-|B|}{2}<|B'|\le~m-|B|$,
+	acrescentando o conjunto~$B'$ a~$B$ em cada uma das chamadas ao 
+	Lema~\ref{lema:simpleApproxCutForest}.
+	Fazemos isso até que~$|B|\ge cm$ seja satisfeito.
+	Nota-se que em algum momento~$|B|\ge cm$ irá ocorrer, pois a cada vez
+	que executamos o 
+	Algoritmo~\ref{alg:simpleApproxCutForest}, 
+	acrescentamos pelo menos um vértice em~$B$,
+	e~$|B|>m$ nunca irá ocorrer, pois o conjunto~$B'$ obtido no 
+	Lema~\ref{lema:simpleApproxCutForest} é
+	tal que~$|B'|\le~m-|B|$. Logo, serão adicionados no 
+	máximo~$m-|B|$ vértices em~$B$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 7     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -723,14 +731,18 @@ trocando árvore por floresta.
 \section {Rotulação dos vértices da árvore}
 
 	Mais adiante, iremos nos referir a vértices com uma característica 
-	específica, e para isso precisamos atribuir um rótulo numérico $x\in [n]$ 
-	distinto para cada um dos vértices da árvore, onde $n$ é o número de 
-	vértices da árvore $T$. 
-	Denotaremos o \textbf{rótulo} de um vértice $v$ por $r(v)$.
+	específica, e para isso precisamos atribuir um rótulo numérico~$x\in [n]$ 
+	distinto para cada um dos vértices da árvore, onde~$n$ é o número de 
+	vértices da árvore~$T$. 
+	Denotaremos o \textbf{rótulo} de um vértice~$v$ por~$rot(v)$.
 
-	Primeiramente, usaremos o método mencionado na seção 5 para
-	calcular o $v_0$-$v_k$-caminho, de comprimento $p$, 
-	que é máximo em $T$. 
+	Primeiramente, usaremos o método mencionado na seção
+	\ref{sec:caminhoMaximo} para
+	calcular o~$v_0$-$v_k$-caminho, de comprimento~$p$, que é máximo em~$T$. 
+	Para todo 
+	vértice~$v\in~V(v_0$-$v_k$-caminho$)$, teremos uma 
+	árvore~$T_v \in G\setminus E(v_0$-$v_k$-caminho$)$ de modo que~$v\in T_v$.
+
 	Dessa forma, teremos sub-árvores enraizadas nos vértices do
 	caminho máximo, como o mostrado na figura abaixo.
 	
@@ -739,6 +751,26 @@ trocando árvore por floresta.
 	\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=blue!20}]
+
+		\draw [draw=yellow, fill=yellow!20] (0,4.8) ellipse (1.3cm and 2.4cm); %0
+		\draw [draw=yellow, fill=yellow!20] (3,4.4) ellipse (1.3cm and 2.4cm); %1
+		\draw [draw=yellow, fill=yellow!20] (6,4.8) ellipse (1.3cm and 2.4cm); %2
+		\draw [draw=yellow, fill=yellow!20] (9,4.4) ellipse (1.3cm and 2.4cm); %3
+ 		\draw [draw=yellow, fill=yellow!20] (12,4.8) ellipse (1.3cm and 2.4cm); %4
+		\draw [draw=yellow, fill=yellow!20] (18,4.8) ellipse (1.3cm and 2.4cm); %5
+
+		\node [text=blue!65,draw=none, fill=none] at (-0.4,6.5) {$T_{v_0}$};
+		\node [text=blue!65,draw=none, fill=none] at (2.6,6.1) {$T_{v_1}$};
+		\node [text=blue!65,draw=none, fill=none] at (5.6,6.5) {$T_{v_2}$};
+		\node [text=blue!65,draw=none, fill=none] at (8.6,6.1) {$T_{v_3}$};
+		\node [text=blue!65,draw=none, fill=none] at (11.6,6.5) {$T_{v_4}$};
+		\node [text=blue!65,draw=none, fill=none] at (17.6,6.5) {$T_{v_p}$};
+
+		\node [subtree] (y1) at (3,4.6)  {};
+		\node [subtree, fill=red!30] (y2) at (6,5)  {};
+		\node [subtree] (y3) at (9,4.6)  {};
+		\node [subtree] (y4) at (12,5) {};
+
 		\node (x0) at (0,5.4)  {$v_0$};
 		\node (x1) at (3,5)    {$v_1$};
 		\node (x2) at (6,5.4)  {$v_2$};
@@ -747,68 +779,91 @@ trocando árvore por floresta.
 		\node (x5) at (15,5)   {...};
 		\node (x6) at (18,5.4) {$v_p$};
 
-		\node [subtree, fill=red!30] (y1) at (3,4)  {};
-		\node [subtree, fill=red!30] (y2) at (6,4.4)  {};
-		\node [subtree, fill=red!30] (y3) at (9,4)  {};
-		\node [subtree, fill=red!30] (y4) at (12,4.4) {};
 
-		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,
-		x1/y1,x2/y2,x3/y3,x4/y4}
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6}
 		\draw (\from) -- (\to);
+
 	\end{tikzpicture} \end{center}
 
-	Temos que cada vértice contido no $v_0$-$v_p$-caminho receberá uma 
+	Temos que cada vértice contido no~$v_0$-$v_p$-caminho receberá uma 
 	rotulação de forma que:
 	\begin{itemize}
-		\item $r(v_i)>r(v_j)$ para todo $i<j$ e
-		\item $r(v_{i-1})< v' \le r(v_i)$ para todo vértice $v'$ contido 
-		na sub-árvore enraizada em $v_i$. 
+		\item~$rot(v_i)>rot(v_j)$ para todo~$i<j$ e
+		\item~$rot(v_{i-1})<~v' \le~rot(v_i)$ para todo vértice~$v'$ contido 
+		na sub-árvore enraizada em~$v_i$. 
 	\end{itemize}
 
-	Issa rotulação pode ser obtida facilmente usando uma 
-	busca em profundidade, 
+	Essa rotulação pode ser obtida facilmente 
+	manipulando a lista de adjacência e em seguida,
+	usando uma busca em profundidade.
+	Ambas as ações são executadas em tempo linear, então
+	pode-se rotular uma árvore em tempo~$O(n)$.
+
+	Para cada vértice~$v_i$ contido no~$v_1$-$v_{p}$-caminho, percorremos
+	a sua lista de adjacência e quando encontrarmos o 
+	vértice~$v_{i-1}$, colocamos ele no início da lista.
+	Dessa forma, quando aplicamos uma busca em profundidade
+	nessa árvore, usando o~$v_p$ como raíz, a busca descerá primeiro
+	pelos vértices do caminho máximo e atribuirá a rotulação
+	somente quando terminar de ver todos os vértices filhos, garantindo
+	assim que para todo~$r\in \{1,\ldots, p\}$, temos 
+	que~$rot(T_{v_i})\le~rot(v_i)$ e~$rot(v_i)>~rot(v_{i-1})$.
+
+	Vamos definir agora as funções que mapeiam um vértice em 
+	outro, utilizando a rotulação como base.
+	Chamaremos de~$map^+_m$
+	a função que devolve o~$m$-ésimo próximo vértice e,
+	de~$map^-_m$ a função inversa da primeira, sendo assim
+	ela devolve o~$m$-ésimo vértice anterior.
+	Dessa forma, podemos ver que, seja~$v$ um 
+	vértice, ~$map^+_m(rot(v)) =~rot(v)+~m$ 
+	e~$map^-_m(rot(v)) =~rot(v)-~m$.
+
+	Para facilitar, identificaremos os vértices pelos
+	seus rótulos. Portanto temos 
+	que para um vértice~$v$, ~$map^+_m(v) =~v+~m$ 
+	e~$map^-_m(v) =~v-~m$ como simplificação das funções
+	enunciadas anteriormente.
+
+	\begin{center} \begin{tikzpicture}
+		[scale=.7,auto=left,every node/.style={circle, draw=black,
+				fill=blue!20}]
+
+		\draw [draw=yellow, fill=yellow!20] (7.5,1.5) rectangle (13.5, 6.5);
+
+		\node [text=blue!65,draw=none, fill=none] at (10.5,2.2) {\Large{$m$ vértices}};
+		\node [draw=none, fill=none] at (9,6.5) {\footnotesize{$map^+_m$}};
+		\node [draw=none, fill=none] at (9,7.9) {\footnotesize{$map^-_m$}};
+
+
+		\node [subtree] (y1) at (3,4.6)  {};
+		\node [subtree, fill=red!30] (y2) at (6,5)  {};
+		\node [subtree] (y3) at (9,4.6)  {};
+		\node [subtree] (y4) at (12,5) {};
+
+		\node (x0) at (0,5.4)  {$v_0$};
+		\node (x1) at (3,5)    {$v_1$};
+		\node (x2) at (6,5.4)  {$v_2$};
+		\node (x3) at (9,5)    {$v_3$};
+		\node (x4) at (12,5.4) {$v_4$};
+		\node (x5) at (15,5)   {...};
+		\node (x6) at (18,5.4) {$v_p$};
+
+
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6}
+		\draw (\from) -- (\to);
+		\path[->, line width=1.5pt]
+		(x2) edge[bend left=23 ] (x4);
+		\path[->, line width=1.5pt]
+
+		(x4) edge[bend right=45, looseness=1.7 ] (x2);
+
+
+	\end{tikzpicture} \end{center}
+	
 
 
 
-
-
-% 	\begin{center} \begin{tikzpicture}[-,>=stealth', 
-% 	level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
-% 	% 5cm de largura das setas .. 1,5cm de altura
-% 	\node [style={circle, draw=black,
-% 				fill=blue!20}] (x) at (2,2)  {$y$};
-%     \node [treenode] {$oi$}  %% 1 raíz
-%     child
-%     {
-%         node [treenode] {$Y$ \\ 50}  %% 2 bola - filho raíz
-%         child
-%         {
-%             node [treenode] {$Z$ \\ 40}   %% 3 bola - filho de 2
-%             child
-%             {
-%                 node [treenode] {$S1$ \\ 30}  %% 4 bola - filho de 3
-%             }
-%             child
-%             {
-%                 node [treenode] {$S2$ \\ 60} 
-%             }
-%         }
-%         child[edge from parent path ={(\tikzparentnode.-50) -- (\tikzchildnode.north)}]
-%         {
-%             node [subtree,yshift=0.4cm] (a) {}   % delay the text till later
-%         }
-%     }
-%     child[edge from parent path ={(\tikzparentnode.-30) -- (\tikzchildnode.north)}]
-%     {
-%         node [subtree,yshift=0.4cm] (b) {}       % delay the text till later
-%     }
-% ;
-
-
-% % ------------------------------------------------ put the text into subtree nodes
-% \node[align=center,yshift=0.1cm] at (a) {$Z$\\200};
-% \node[align=center,yshift=0.1cm] at (b) {$Z$\\200};
-% \end{tikzpicture} \end{center}
 
 
 

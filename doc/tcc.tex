@@ -27,6 +27,7 @@
 \sloppy
 
 \begin{document}
+ 
 \begin{center}
    {\large \textbf{UNIVERSIDADE DE SÃO PAULO}} \\[1.4cm]
    
@@ -41,6 +42,9 @@
    
 
 \end{center}
+
+\newpage
+\tableofcontents
 
 \newpage
 
@@ -69,7 +73,7 @@ O par de conjuntos~$S$ e~$\bar{S}$ é chamado de
 Note que se~$G$ não é conexo, um corte pode ter mais de um par de 
 margens. 
 O corte~$C$ é uma \emph{bissecção} se possui um par de margens~$S$ 
-e~$\bar{S}$ tal que~$||S|- |\bar{S}|| \in \{0,1\}$, ou seja,~$S$ 
+e~$\bar{S}$ tal que~$||S|- |\bar{S}|| \in~\{0,1\}$, ou seja,~$S$ 
 e~$\bar{S}$ particionam o grafo basicamente ao meio. 
 O número~$|C|$ é chamado de \emph{largura} do corte~$C$. 
 
@@ -189,20 +193,17 @@ dois.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Definições}
-		
 	Para um grafo~$G$, denotamos seu
 	conjunto de vértices por~$V(G)$ e seu
 	conjunto de arestas por~$E(G)$.
 
-	\bigskip
-
+	\subsection{Cortes num grafo}
 	Dizemos que~$(B,W)$ é um 
 	\textbf{corte}
 	de~$G$ se~$B \cup~W =~V(G)$ e~$B \cap W =~\emptyset$.
 	Denotamos por~$e_G(B,W)$ o número de arestas no corte~$(B,W)$.
 
-	\bigskip
-
+	\subsection{Grau de vértices}
 	O número de arestas que incidem em um determinado
 	vértice~$v$ é chamado de 
 	\textbf{grau} de~$v$ e será representado
@@ -210,8 +211,7 @@ dois.
 	\textbf{grau máximo}, que é o grau de um vértice de
 	maior grau em~$G$, será representado por~$\Delta(G)$.
 
-	\bigskip
-
+	\subsection{Caminhos em árvores}
 	Um \textbf{caminho} em uma árvore~$T$, de 
 	comprimento~$p$, é uma sequência de 
 	vértices~$v_0, v_1, \ldots,v_{p-1}, v_p$ 
@@ -220,8 +220,7 @@ dois.
 	vértices~$v_0$ e~$v_p$ em~$T$, chamaremos tal 
 	caminho em~$T$ de~$v_0$,$v_p$-\textbf{caminho}.
 
-	\bigskip
-
+	\subsection{Distâncias entre vértices}
 	A \textbf{distância} entre dois vértices~$a$ e~$b$ 
 	de~$T$ é representada por~$dist(a,b)$, 
 	e é igual ao comprimento do~$a$,$b$-caminho em~$T$.
@@ -236,13 +235,15 @@ dois.
 
 
 \section{Caminho máximo em árvores}\label{sec:caminhoMaximo}
+	\subsection{Algoritmo que encontra um caminho máximo}
+
 	Um \textbf{caminho máximo} em uma árvore~$T$ é um caminho 
 	em~$T$ de comprimento máximo.
 
 	Encontrar um caminho máximo em uma árvore~$T=(V,E)$ é uma tarefa
 	computacionalmente simples que pode ser realizada em tempo~$O(n)$, 
 	sendo~$n$ o número de vértices de~$T$, ou seja,~$n =~|V|$. 
-	Primeiramente escolhe-se um vértice arbitrário~$v \in V$ 
+	Primeiramente escolhe-se um vértice arbitrário~$v \in~V$ 
 	e encontra-se um vértice~$y_0$ mais distante de~$v$.
 	Depois, repetimos o mesmo processo a partir de~$y_0$, 
 	encontrando um vértice~$x_0$ mais distante de~$y_0$. 
@@ -252,6 +253,8 @@ dois.
 	caminho que liga~$x_0$ a~$y_0$.
 
 	\bigskip
+
+	\subsection{Prova de funcionalidade do algoritmo}
 
 	\begin{lem}
 	\label{lema:caminhoMax}
@@ -297,7 +300,7 @@ dois.
 			\end{tikzpicture} \end{center}
 
 
-	        Portanto temos 
+	        Portanto, temos 
 	        que~$ dist(x,y) =~dist(x,a) +~dist(a,y)$ 
 	        e~$ dist(x_0,y_0) =~dist(x_0,b) +~dist(b,y_0)$.
 
@@ -355,7 +358,7 @@ dois.
 			temos que~$dist(x_0,a)\ge~dist(x,a)$.
 			Por outro lado, como~$x$ é um vértice mais distante
 			de~$y$, temos também que~$dist(x,a)\ge dist(x_0,a)$,
-			e portanto~$dist(x_0,a) =~dist(x,a)$.
+			e, portanto,~$dist(x_0,a) =~dist(x,a)$.
 			Similarmente, como~$y$ é um vértice mais distante de~$x$, 
 			vale que~$dist(y,b) \ge dist(y_0,b)$.
 
@@ -394,18 +397,15 @@ dois.
 
 	\bigskip
 	\bigskip
-	\bigskip
-	\bigskip
-	\bigskip
-	\bigskip
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Diâmetro de um Grafo}
 
 	Dizemos que o \textbf{diâmetro} de um grafo conexo~$G$ é o
 	comprimento de um caminho máximo de~$G$. 
 	Em outras palavras, o diâmetro pode ser definido como:
-	$$ diam(G)=\max\{dist(x,y):x,y\in V(G)\}.$$
+	$$ diam(G)=\max\{dist(x,y):x,y\in~V(G)\}.$$
 
 	\bigskip
 
@@ -421,9 +421,10 @@ dois.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 6     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section {Algoritmos de cortes aproximados}
+\section {Lemas de cortes aproximados}
 
-Em \cite{Schmidt15}, são apresentados três algoritmos que, dada uma 
+Em \cite{Schmidt15}, são apresentados três lemas e seus
+respectivos algoritmos, que, dada uma 
 floresta~$G$ e um inteiro~$0<m\le~n$, onde~$n$ é o número de vértices 
 de~$G$, produzem cortes com algumas propriedades.
 
@@ -433,19 +434,18 @@ atestam as propriedades dos cortes produzidos por estes algoritmos:
 \bigskip
 \bigskip
 \bigskip
-\bigskip
-\bigskip
 
-\begin{lem}[Lema do corte aproximado simples para árvores]
+\subsection{Lema do corte aproximado simples para árvores}
+\begin{lem}[]
 \label{lema:simpleApproxCutTree}
-	Para toda árvore~$T$ com~$n$ vértices e todo~$m \in [n]$,
+	Para toda árvore~$T$ com~$n$ vértices e todo~$m \in~[n]$,
 	existe um corte~$(B,W)$ em~$T$ tal 
 	que~$\frac{m}{2} <|B| \le~m$ e~$e_T(B,W) \le~\Delta(T)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
 	tempo~$O(n)$.
 \end{lem}
 
-\medskip
+\bigskip
 
 Seja~$T$ uma árvore e~$r$ um vértice de~$T$. 
 Assumiremos que
@@ -466,7 +466,7 @@ no lema.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado em uma árvore}
-	\Input{árvore~$T =~(V,E)$ com~$n$ vértices e~$m \in [n]$}
+	\Input{árvore~$T =~(V,E)$ com~$n$ vértices e~$m \in~[n]$}
 	\Output{Um corte~$(B,W)$ tal que~$\frac{m}{2}<|B|\le~m$}
 	$B \gets \emptyset$\;
 	\eIf{$m =~n$}{
@@ -499,6 +499,7 @@ no lema.
 
 \end{algorithm}	
 
+\bigskip
 \bigskip
 \bigskip
 
@@ -550,24 +551,22 @@ no lema.
 \bigskip
 \bigskip
 \bigskip
-\bigskip
-\bigskip
-\bigskip
-\bigskip
-\bigskip
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% LEMA 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{lem}[Lema do corte aproximado simples {\cite[Lemma 2]{Schmidt15}}]
+\subsection{Lema do corte aproximado simples para florestas}
+
+\begin{lem}[{\cite[Lemma 2]{Schmidt15}}]
 \label{lema:simpleApproxCutForest}
-	Para toda floresta~$G$ com~$n$ vértices e todo~$m \in [n]$,
+	Para toda floresta~$G$ com~$n$ vértices e todo~$m \in~[n]$,
 	existe um corte~$(B,W)$ em~$G$ tal 
 	que~$\frac{m}{2} <|B| \le~m$ e~$e_G(B,W) \le~\Delta(G)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
 	tempo~$O(n)$.
 \end{lem}
 
-\medskip
+\bigskip
 
 Agora examinaremos como computar o corte descrito pelo lema.
 Nota-se que essa é uma adaptação do algoritmo anterior, 
@@ -582,7 +581,7 @@ trocando árvore por floresta.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado simples em uma floresta}
-	\Input{floresta~$G =~(V,E)$ com~$n$ vértices e~$m \in [n]$}
+	\Input{floresta~$G =~(V,E)$ com~$n$ vértices e~$m \in~[n]$}
 	\Output{corte~$(B,W)$ tal que~$\frac{m}{2}\le|B|\le~m$}
 	$B \gets \emptyset$\;
 	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
@@ -607,6 +606,7 @@ trocando árvore por floresta.
 
 \bigskip
 \bigskip
+\bigskip
 
 \textbf{Análise do Algoritmo}
 
@@ -623,34 +623,31 @@ trocando árvore por floresta.
 	teremos~$\frac{m+s}{2}<|B| \le~m$ 
 	com~$e_G(B,W)=\Delta(T_{\ell+1}) \le~\Delta(G)$.
 	Logo, depois de acrescentar~$B'$ em~$B$, teremos o corte~$(B,V\setminus B)$
-	que satisfaz o lema, e podemos fazer isso utilizando o Lema 
-	\ref{lema:simpleApproxCutTree}.
+	que satisfaz o lema, e podemos fazer isso utilizando o 
+	Lema~\ref{lema:simpleApproxCutTree}.
 	
 	Nota-se que, como a linha 2 pode ser feita usando uma
 	busca em profundidade e as demais 
 	linhas envolvem verificar o tamanho das componentes 
 	(que já foi calculado na linha 2) e uma chamada ao
-	Algoritmo 
-	\ref{alg:simpleApproxCutTree}, então essa operação pode 
+	Algoritmo~\ref{alg:simpleApproxCutTree}, então essa operação pode 
 	ser feita em tempo~$O(n)$, dado que todas as operações
 	citadas são executadas em tempo linear. 
 
 \bigskip
 \bigskip
 \bigskip
-\bigskip
-\bigskip
-\bigskip
-\bigskip
-\bigskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% LEMA 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{lem}[Lema do corte aproximado {\cite[Lemma 3]{Schmidt15}}]
+\subsection{Lema do corte aproximado}
+
+\begin{lem}[{\cite[Lemma 3]{Schmidt15}}]
 \label{lema:approxCutForest}
-	Para toda floresta~$G$ com~$n$ vértices, todo~$m \in [n]$
-	e todo~$c \in [0,1)$,
+	Para toda floresta~$G$ com~$n$ vértices, todo~$m \in~[n]$
+	e todo~$c \in~[0,1)$,
 	existe um corte~$(B,W)$ em~$G$ tal 
 	que~$cm \le~|B| \le~m$ 
 	e~$e_G(B,W) \le~\lceil \frac{2c}{1-c}\rceil \Delta(G)$.
@@ -667,8 +664,8 @@ trocando árvore por floresta.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado em uma floresta}
-	\Input{floresta~$G =~(V,E)$ com~$n$ vértices,~$m \in [n]$, 
-	$c\in (\frac{1}{2}, 1)$}
+	\Input{floresta~$G =~(V,E)$ com~$n$ vértices,~$m \in~[n]$, 
+	$c\in~(\frac{1}{2}, 1)$}
 	\Output{Um corte~$(B,W)$ tal que~$cm\le|B|\le~m$}
 	\eIf{$c\le~\frac{1}{2}$}{
 		$(B,W) \gets$ Algoritmo~\ref{alg:simpleApproxCutForest}$(G, n, m)$ \;
@@ -693,6 +690,7 @@ trocando árvore por floresta.
 
 \end{algorithm}	
 
+\bigskip
 \bigskip
 \bigskip
 
@@ -731,7 +729,7 @@ trocando árvore por floresta.
 \section {Rotulação dos vértices da árvore}
 
 	Mais adiante, iremos nos referir a vértices com uma característica 
-	específica, e para isso precisamos atribuir um rótulo numérico~$x\in [n]$ 
+	específica, e para isso precisamos atribuir um rótulo numérico~$x\in~[n]$ 
 	distinto para cada um dos vértices da árvore, onde~$n$ é o número de 
 	vértices da árvore~$T$. 
 	Denotaremos o \textbf{rótulo} de um vértice~$v$ por~$rot(v)$.
@@ -741,7 +739,7 @@ trocando árvore por floresta.
 	calcular o~$v_0$-$v_k$-caminho, de comprimento~$p$, que é máximo em~$T$. 
 	Para todo 
 	vértice~$v\in~V(v_0$-$v_k$-caminho$)$, teremos uma 
-	árvore~$T_v \in G\setminus E(v_0$-$v_k$-caminho$)$ de modo que~$v\in T_v$.
+	árvore~$T_v \in~G\setminus E(v_0$-$v_k$-caminho$)$ de modo que~$v\in~T_v$.
 
 	Dessa forma, teremos sub-árvores enraizadas nos vértices do
 	caminho máximo, como o mostrado na figura abaixo.
@@ -793,6 +791,10 @@ trocando árvore por floresta.
 		na sub-árvore enraizada em~$v_i$. 
 	\end{itemize}
 
+	\bigskip
+	\bigskip
+
+	\subsection{Descrição do algoritmo de rotulação}
 	Essa rotulação pode ser obtida facilmente 
 	manipulando a lista de adjacência e em seguida,
 	usando uma busca em profundidade.
@@ -806,9 +808,13 @@ trocando árvore por floresta.
 	nessa árvore, usando o~$v_p$ como raíz, a busca descerá primeiro
 	pelos vértices do caminho máximo e atribuirá a rotulação
 	somente quando terminar de ver todos os vértices filhos, garantindo
-	assim que para todo~$r\in \{1,\ldots, p\}$, temos 
+	assim que para todo~$r\in~\{1,\ldots, p\}$, temos 
 	que~$rot(T_{v_i})\le~rot(v_i)$ e~$rot(v_i)>~rot(v_{i-1})$.
+	
+	\bigskip
+	\bigskip
 
+	\subsection{Mapeamento dos rótulos de vértices }
 	Vamos definir agora as funções que mapeiam um vértice em 
 	outro, utilizando a rotulação como base.
 	Chamaremos de~$map^+_m$
@@ -820,10 +826,19 @@ trocando árvore por floresta.
 	e~$map^-_m(rot(v)) =~rot(v)-~m$.
 
 	Para facilitar, identificaremos os vértices pelos
-	seus rótulos. Portanto temos 
+	seus rótulos. Sendo assim, temos 
 	que para um vértice~$v$, ~$map^+_m(v) =~v+~m$ 
-	e~$map^-_m(v) =~v-~m$ como simplificação das funções
+	e~$map^-_m(v) =~v-~m$ como uma simplificação das funções
 	enunciadas anteriormente.
+
+	Nota-se que para todo $m\in~[n]$, caso~$n>2$, se existe 
+	um~$v$ tal 
+	que~$v\in~v_0$-$v_k$-caminho 
+	e~$map^+_m(v)\in~v_0$-$v_k$-caminho, então 
+	existe um corte $(B,W)\in~T$, tal 
+	que~$B =~\{v+1, v+2,\ldots,~v+m\}$, com~$|B|=~m$
+	e~$e_T(B,W)\le~2\le~\Delta(T)$.
+	Isso pode ser visto na figura abaixo.
 
 	\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
@@ -850,19 +865,28 @@ trocando árvore por floresta.
 		\node (x6) at (18,5.4) {$v_p$};
 
 
-		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6}
+		\foreach \from/\to in {x0/x1,x1/x2,x3/x4,x5/x6}
 		\draw (\from) -- (\to);
+
+		\path[-, line width=1.5pt, draw=red]
+		(x2) edge[right] (x3);
+		\path[-, line width=1.5pt, draw=red]
+		(x4) edge[right] (x5);
+
 		\path[->, line width=1.5pt]
 		(x2) edge[bend left=23 ] (x4);
 		\path[->, line width=1.5pt]
-
 		(x4) edge[bend right=45, looseness=1.7 ] (x2);
 
 
 	\end{tikzpicture} \end{center}
 	
-
-
+	Caso contrário, ~$n\le~2$. 
+	É fácil ver que todos os vértices
+	da árvore estarão no caminho máximo, portanto, para
+	qualquer~$m\in[n]$, teremos um conjunto~$B$ tal
+	que~$|B|=m$
+	e~$e_T(B,W)\le~|E(T)|=~n-1=~\Delta(T)$.
 
 
 

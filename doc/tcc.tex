@@ -59,23 +59,11 @@ enquadra na área de Otimização Combinatória e diz respeito ao
 \emph{Problema da Bissecção Mínima}. Para definir o problema 
 precisamente, seguem primeiro algumas definições. 
 
-Seja~$G=(V,E)$ um grafo e~$S$ um conjunto de vértices de~$G$ tal 
-que~${\emptyset \neq S \subset V}$. 
-Denota-se por~$\delta(S)$ o conjunto das arestas de~$G$ com 
-exatamente um extremo em~$S$. Um \emph{corte} em~$G$ é um 
-conjunto~$C$ de arestas tal que~${C =~\delta(S)}$ para algum 
-conjunto~$S$ 
-de vértices de~$G$ com~$\emptyset \neq S \subset V$. 
-Denota-se por~$\bar{S}$ o conjunto~$V \setminus S$. 
-Note que~$\delta(\bar{S}) =~C$ também. 
-O par de conjuntos~$S$ e~$\bar{S}$ é chamado de 
-\emph{par de margens} de~$C$. 
-Note que se~$G$ não é conexo, um corte pode ter mais de um par de 
-margens. 
-O corte~$C$ é uma \emph{bissecção} se possui um par de margens~$S$ 
-e~$\bar{S}$ tal que~$||S|- |\bar{S}|| \in~\{0,1\}$, ou seja,~$S$ 
-e~$\bar{S}$ particionam o grafo basicamente ao meio. 
-O número~$|C|$ é chamado de \emph{largura} do corte~$C$. 
+Seja~$G=(V,E)$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$,
+dizemos que~$(B,W)$ é um \textbf{corte}
+de~$G$ se~$B \cup~W =~V(G)$ e~$B\cap~W =~\emptyset$.
+Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura} do corte ou por~$e_G(B,W)$.
+O corte~$(B,W)$ é uma \textbf{bissecção} se~$||B|-|W||\in~\{0, 1\}$.
 
 O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
 encontrar uma bissecção no grafo de largura mínima.
@@ -173,8 +161,8 @@ Em maio e junho, Tina Schmidt, uma das autoras do algoritmo que
 foi implementado, visitou o IME, e a parte da 
 implementação que estava pronta foi apresentada a ela, e 
 algumas discussões foram feitas e em especial, a Tina conseguiu
-um conjunto de instâncias reais com BLA para usarmos em nossos
-experimentos.   
+um conjunto de instâncias reais com~\cite{Kampmeier} para usarmos 
+em nossos experimentos.   
 
 Em paralelo ao estudo e desenvolvimento da implementação, foram 
 estudados também dois artigos da literatura. São eles o artigo 
@@ -198,10 +186,7 @@ dois.
 	conjunto de arestas por~$E(G)$.
 
 	\subsection{Cortes num grafo}
-	Dizemos que~$(B,W)$ é um 
-	\textbf{corte}
-	de~$G$ se~$B \cup~W =~V(G)$ e~$B \cap W =~\emptyset$.
-	Denotamos por~$e_G(B,W)$ o número de arestas no corte~$(B,W)$.
+	
 
 	\subsection{Grau de vértices}
 	O número de arestas que incidem em um determinado

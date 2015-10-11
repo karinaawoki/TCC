@@ -107,8 +107,8 @@ int *permutationVector(int size)
 
 	for(i = size-1; i>0; i--)
 	{
-		/* [0 - size-1] */
-		index = (int)(size*1.0*rand()/RAND_MAX);
+		/* [0 - i] */
+		index = (int)((i+1)*1.0*rand()/RAND_MAX);
 
 		aux = vector[index];
 		vector[index] = vector[i];

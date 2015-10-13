@@ -5,10 +5,12 @@
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \usepackage{xcolor}
+\usepackage{array}
 \usepackage[brazilian]{babel}
 \usepackage[linesnumbered,ruled]{algorithm2e}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{mathtools,booktabs}
+\usepackage{colortbl}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
 \usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
@@ -1053,6 +1055,22 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 13    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Experimentos computacionais 13}
+
+	\begin{table}[ht]
+		\centering
+		\caption {Random Binary Trees}
+		\begin{tabular}{ c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
+			\hline
+			$|V(T)|$ & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
+			\hline
+			Jansen    & Noruega        & .955   & bla & blalaa \\ [6pt]
+			FST       & Austr{\'a}lia  & .938   & jksdfk & auhsua\\[6pt]
+			\hline                            
+		 
+		\end{tabular}
+	\end{table}
+
+
 
 
 

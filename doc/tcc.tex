@@ -11,6 +11,8 @@
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{mathtools,booktabs}
 \usepackage{colortbl}
+\usepackage{multirow}
+
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
 \usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
@@ -21,6 +23,7 @@
 
 \selectlanguage{brazilian} 
 
+\newtheorem{teo}{Teorema}
 \newtheorem{lem}{Lema}
 \newtheorem{prov}{Prova}
 \newtheorem{alg}{Análise do algoritmo}
@@ -647,7 +650,7 @@ trocando árvore por floresta.
 	que~$cm \le~|B| \le~m$ 
 	e~$e_G(B,W) \le~\ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)$.
 	Um corte que satisfaz esses requisitos pode ser computado em
-	tempo~$O(\ceil[\Big]{ \dfrac{2c}{1-c}} n)$.
+	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n\Big)$.
 \end{lem}
 
 \medskip
@@ -923,7 +926,56 @@ trocando árvore por floresta.
 	da árvore estarão no caminho máximo, portanto, para
 	qualquer~$m\in[n]$, teremos um conjunto~$B$ tal
 	que~$|B|=m$
-	e~$e_T(B,W)\le~|E(T)|=~n-1=~\Delta(T)$.
+	e~$e_T(B,W)\le~|E(T)|=~n-1=~\Delta(T)\le 2$.
+
+
+	\newpage
+	\subsection{Lema do corte em caminhos longos *!Esse nome ficou bom?!*}
+
+	Futuramente usaremos os resultados do lema abaixo na prova de um 
+	dos teoremas.
+
+	\begin{lem}[{\cite[Lemma 5]{Schmidt15}}]
+	\label{lema:}
+		Para toda árvore~$T$ com~$n$ vértices,~$diam^*(T)>~\dfrac{1}{2}$
+		e para todo~$m\in[n]$, existe um corte~$(B,W)$ em~$T$
+		com~$|B|=m$ e~$e_T(B,W)\le~2$. Um corte que satisfaz esses
+		requisitos pode ser computado em tempo~$O(n)$.
+	\end{lem}
+
+	\medskip
+	\medskip
+
+	Podemos ver que a função~$map^+_m(x)$ é injetora, dado que numa
+	soma, elementos distintos do domínio tem imagens distintas.
+
+	Uma árvore com a propriedade ~$diam^*(T)>~\dfrac{1}{2}$ é uma
+	árvore cujo caminho máximo contém mais que a metade dos vértices
+	da árvore, o que nos leva ao fato de que existem mais vértices
+	no caminho máximo do que fora dele. 
+
+	Como o mostrado anteriormente, se um vértice~$v$ mapeia um
+	vértice~$v'$ e ambos estão no caminho máximo, então existe um
+	corte~$(B,W)$ em~$T$ com~$e_T(B,W)\le 2$.
+	Usando o fato de que~$map^+_m(x)$ é uma função injetora e que
+	existem mais vértices no caminho máximo do que fora dele
+	(dado que~$diam^*(T)>~\dfrac{1}{2}$),
+	temos que pelo menos um vértice do caminho máximo irá mapear
+	outro vértice do caminho máximo. Isso ocorre porque todos
+	os vértices mapeiam algum outro vértice, e não temos um 
+	número suficiente de vértices fora do caminho máximo para serem
+	mapeados por todos os vértices do caminho máximo, então algum
+	vértice do caminho máximo vai acabar mapeando outro do caminho
+	máximo, e assim, obtemos um corte~$(B,W)$, com~$e_T(B,W)\le 2$,
+	como o descrito na subseção anterior.
+
+	Um algoritmo que encontra corte desse tipo, em árvores com essa 
+	propriedade, irá percorrer os vértices do caminho máximo
+	e verificar se algum deles mapeia um vértice do caminho máximo.
+	Isso pode ser feito em tempo~$O(n)$ se for mantido um
+	vetor binário que indica se cada um dos vértices está ou não no
+	caminho máximo.
+
 
 
 
@@ -932,15 +984,29 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 8     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-
 \section {Algoritmo da dobra do diâmetro 8}
-
+	
+	\begin{teo}[{\cite[Theorem 4]{Schmidt15}}]
+	\label{teo:dobraDiametro}
+		Para toda árvore~$T$ com~$n\ge 3$ vértices e todo~$m\in [n]$,
+		o conjunto de vértices de~$T$ pode ser particionado em três
+		partes~$B$,~$W$ e~$S$ tal que vale um dos seguintes itens:
+		\begin{enumerate}
+			\item $|B|=m$, $S=\emptyset$, e~$e_T(B,W)\le 2$, ou
+			\item $|B|\le m\le |B|+|S|$, com~$0<|S|\le\dfrac{n}{2}$,
+			$e_T(B,W,S)\le \dfrac{2 \Delta(T)}{diam^*(T)}$, 
+			e~$diam^*(T[S])\ge 2diam^*(T)$.
+		\end{enumerate}
+		Uma partição~$(B,W,S)$ que satisfaz 1. ou 2. pode ser
+		computada em tempo~$O\Big(\dfrac{n}{diam^*(T)}\Big)$ 
+	\end{teo}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 9     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section {Algoritmo FST para bissecção 9}
-
+	
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1054,18 +1120,29 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 13    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section {Experimentos computacionais 13}
 
-	\begin{table}[ht]
+	\begin{table}[[htbf]]
 		\centering
 		\caption {Random Binary Trees}
-		\begin{tabular}{ c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
-			\hline
-			$|V(T)|$ & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
-			\hline
-			Jansen    & Noruega        & .955   & bla & blalaa \\ [6pt]
-			FST       & Austr{\'a}lia  & .938   & jksdfk & auhsua\\[6pt]
-			\hline                            
+		\begin{tabular}{ c|c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
+			\specialrule{1.7pt}{1pt}{1pt}
+			$|V(T)|$ & seed & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
+
+			\specialrule{1.7pt}{1pt}{1pt}
+			\multirow{10}*{100} & 1  & 2   & 2  & 0.000146  & 0.002095 \\[3pt]\cmidrule{2-6} 
+		                        & 2  & 2   & 2  & 0.000187  & 0.002130 \\[3pt]\cmidrule{2-6}
+			                    & 3  & 2   & 2  & 0.000158  & 0.002440 \\[3pt]\cmidrule{2-6}
+			                    & 4  & 2   & 2  & 0.000142  & 0.001993 \\[3pt]\cmidrule{2-6}
+			                    & 5  & 3   & 2  & 0.000188  & 0.000967 \\[3pt]\cmidrule{2-6}
+			                    & 6  & 3   & 2  & 0.000185  & 0.001003 \\[3pt]\cmidrule{2-6}
+			                    & 7  & 2   & 2  & 0.000131  & 0.001005 \\[3pt]\cmidrule{2-6}
+			                    & 8  & 5   & 2  & 0.000183  & 0.000884 \\[3pt]\cmidrule{2-6}
+			                    & 9  & 2   & 2  & 0.000176  & 0.001037 \\[3pt]\cmidrule{2-6}
+			                    & 10 & 2   & 2  & 0.000130  & 0.001030 \\[3pt]
+
+			\specialrule{1.7pt}{1pt}{1pt}
 		 
 		\end{tabular}
 	\end{table}
@@ -1077,6 +1154,7 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 14    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section {Conclusões 14}
 
 

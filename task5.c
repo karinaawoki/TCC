@@ -1,4 +1,5 @@
 #include "common/doubleDiam.h"
+#include <time.h>
 
 void exactCut(Graph *G, int m);
 void countEdgesAtCut(Graph *G, int ver, int parent);
@@ -9,6 +10,8 @@ void test(Graph *G, int *label, int *index, int *maxPath);
 
 int numCut;
 float numCutWeight;
+clock_t tempoInicial, tempoFinal;
+double tempoGasto;
 int main(int argc, char *argv[])
 {
 	/* argv[1] = filename */
@@ -32,7 +35,7 @@ int main(int argc, char *argv[])
 
   	if(argc>=4)
     {
-      	DEBUG = atoi(argv[3]);
+    	DEBUG = atoi(argv[3]);
       	if(DEBUG == 2) DEBUG_2 = 0;
       	if(DEBUG == 3) {STEP = 1; DEBUG = 0; DEBUG_2 = 0;}
       	if(argc>=5) seed = atoi(argv[4]);
@@ -53,6 +56,7 @@ int main(int argc, char *argv[])
   		}
   	}
 
+  	tempoInicial = clock();
 
   	if(argc > 2 && argv[2][0]=='n')
   	{
@@ -85,14 +89,17 @@ int main(int argc, char *argv[])
   /* setB is a bit vector - a vertex is or not at B */
 
 
+    tempoFinal = clock();
 
   	
-printf(" MaxDegree: %d\n", maxDegree);
+	printf(" MaxDegree: %d\n", maxDegree);
   	bound = maxDegree*8.0*G->V/maxPathLength;
     printf("Bound: %f\n", bound);
 
  
   	freeGraph(G);
+  	tempoGasto = (tempoFinal-tempoInicial)*1.0/CLOCKS_PER_SEC;
+    printf("TEMPO: %f\n seg", tempoGasto);
   	return 0;
 }
 

@@ -399,7 +399,7 @@ dois.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\subsection{Diâmetro de um Grafo}
-
+	\label{subsec:diametro}
 	Dizemos que o \textbf{diâmetro} de um grafo conexo~$G$ é o
 	comprimento de um caminho máximo de~$G$. 
 	Em outras palavras, o diâmetro pode ser definido como:
@@ -414,6 +414,12 @@ dois.
 	de~$G$. Este pode também ser representado por
 	$$ diam^*(G) =~\dfrac{\displaystyle\sum_{
 	G'~componente~conexa~de~G}^{}(diam(G')+1)}{|V(G)|}.$$
+
+	\medskip
+
+	Nota-se que para todo grafo~$G$ com~$V(G)\ne \emptyset$, temos
+	que~$0<~diam^*(G)\le~1$, pois haverá no mínimo um vértice de~$G$ no
+	caminho máximo, e no máximo, todos os vértices de~$G$.
     
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -744,7 +750,7 @@ trocando árvore por floresta.
 	Algoritmo~\ref{alg:simpleApproxCutForest}, sabemos que o conjunto $B$ 
 	do corte devolvido terá mais que~$\dfrac{m-|B|}{2}$ vértices.
 	Portanto, executaremos o Algoritmo~\ref{alg:simpleApproxCutForest} no 
-	máximo~$\ceil[\Big]{\dfrac{cm}{\frac{(1-c)m}{2}}} 
+	máximo~$\ceil[\Big]{\dfrac{cm}{\dfrac{(1-c)m}{2}}} 
 	=~\ceil[\Big]{\dfrac{2c}{1-c}}$ vezes, dando, no total, um
 	tempo~$O(\ceil[\Big]{ \dfrac{2c}{1-c}} n)$.
 	Usaremos essa mesma linha de pensamento para calcular o largura
@@ -862,13 +868,13 @@ trocando árvore por floresta.
 	de~$map^-_m$ a função inversa da primeira, sendo assim
 	ela devolve o~$m$-ésimo vértice anterior.
 	Dessa forma, podemos ver que, seja~$v$ um 
-	vértice, ~$map^+_m(rot(v)) =~rot(v)+~m$ 
-	e~$map^-_m(rot(v)) =~rot(v)-~m$.
+	vértice, ~$map^+_m(rot(v)) =~(rot(v)+~m)\mod n$ 
+	e~$map^-_m(rot(v)) =~(rot(v)-~m)\mod n$.
 
 	Para facilitar, identificaremos os vértices pelos
 	seus rótulos. Sendo assim, temos 
-	que para um vértice~$v$, ~$map^+_m(v) =~v+~m$ 
-	e~$map^-_m(v) =~v-~m$ como uma simplificação das funções
+	que para um vértice~$v$, ~$map^+_m(v) =~(v+~m)\mod n$ 
+	e~$map^-_m(v) =~(v-~m)\mod n$ como uma simplificação das funções
 	enunciadas anteriormente.
 
 	Nota-se que para todo $m\in~[n]$, caso~$n>2$, se existe 
@@ -930,13 +936,14 @@ trocando árvore por floresta.
 
 
 	\newpage
-	\subsection{Lema do corte em caminhos longos *!Esse nome ficou bom?!*}
+	\subsection{Lema do corte em árvores de caminho longo
+	\color{red}{Esse nome está bom?}}
 
 	Futuramente usaremos os resultados do lema abaixo na prova de um 
 	dos teoremas.
 
 	\begin{lem}[{\cite[Lemma 5]{Schmidt15}}]
-	\label{lema:}
+	\label{lema:caminhoLongo}
 		Para toda árvore~$T$ com~$n$ vértices,~$diam^*(T)>~\dfrac{1}{2}$
 		e para todo~$m\in[n]$, existe um corte~$(B,W)$ em~$T$
 		com~$|B|=m$ e~$e_T(B,W)\le~2$. Um corte que satisfaz esses
@@ -957,9 +964,9 @@ trocando árvore por floresta.
 	Como o mostrado anteriormente, se um vértice~$v$ mapeia um
 	vértice~$v'$ e ambos estão no caminho máximo, então existe um
 	corte~$(B,W)$ em~$T$ com~$e_T(B,W)\le 2$.
-	Usando o fato de que~$map^+_m(x)$ é uma função injetora e que
-	existem mais vértices no caminho máximo do que fora dele
-	(dado que~$diam^*(T)>~\dfrac{1}{2}$),
+	Dado que~$diam^*(T)>\dfrac{1}{2}$, e usando o fato de 
+	que~$map^+_m(x)$ é uma função injetora e que
+	existem mais vértices no caminho máximo do que fora dele,
 	temos que pelo menos um vértice do caminho máximo irá mapear
 	outro vértice do caminho máximo. Isso ocorre porque todos
 	os vértices mapeiam algum outro vértice, e não temos um 
@@ -976,7 +983,8 @@ trocando árvore por floresta.
 	vetor binário que indica se cada um dos vértices está ou não no
 	caminho máximo.
 
-
+	{\color{red}{-O algoritmo é bem simples. Não precisa colocar
+	código né?}}
 
 
 
@@ -984,29 +992,233 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 8     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section {Algoritmo da dobra do diâmetro 8}
+\section {Algoritmo da dobra do diâmetro}
 	
-	\begin{teo}[{\cite[Theorem 4]{Schmidt15}}]
-	\label{teo:dobraDiametro}
-		Para toda árvore~$T$ com~$n\ge 3$ vértices e todo~$m\in [n]$,
-		o conjunto de vértices de~$T$ pode ser particionado em três
-		partes~$B$,~$W$ e~$S$ tal que vale um dos seguintes itens:
-		\begin{enumerate}
-			\item $|B|=m$, $S=\emptyset$, e~$e_T(B,W)\le 2$, ou
-			\item $|B|\le m\le |B|+|S|$, com~$0<|S|\le\dfrac{n}{2}$,
-			$e_T(B,W,S)\le \dfrac{2 \Delta(T)}{diam^*(T)}$, 
-			e~$diam^*(T[S])\ge 2diam^*(T)$.
-		\end{enumerate}
-		Uma partição~$(B,W,S)$ que satisfaz 1. ou 2. pode ser
-		computada em tempo~$O\Big(\dfrac{n}{diam^*(T)}\Big)$ 
-	\end{teo}
+	\subsection{Teorema da dobra do diâmetro}
+	
+		\begin{teo}[{\cite[Theorem 4]{Schmidt15}}]
+		\label{teo:dobraDiametro}
+			Para toda árvore~$T$ com~$n\ge 3$ vértices e todo~$m\in [n]$,
+			o conjunto de vértices de~$T$ pode ser particionado em três
+			partes~$B$,~$W$ e~$S$ tal que vale um dos seguintes itens:
+			\begin{enumerate}
+				\item $|B|=m$, $S=\emptyset$, e~$e_T(B,W)\le 2$, ou
+				\item $|B|\le m\le |B|+|S|$, com~$0<|S|\le\dfrac{n}{2}$,
+				$e_T(B,W,S)\le \dfrac{2\cdot \Delta(T)}{diam^*(T)}$, 
+				e~$diam^*(T[S])\ge 2diam^*(T)$.
+			\end{enumerate}
+			Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
+			computada em tempo~$O\Big(\dfrac{n}{diam^*(T)}\Big)$ 
+		\end{teo}
+
+	\medskip
+	\medskip
+
+
+	\subsection{Algortimo da dobra do diâmetro}
+	\begin{algorithm}[H]
+	\label{alg:dobraDiametro}
+		\SetKwInOut{Input}{input}
+		\SetKwInOut{Output}{output}
+
+		\caption{Inserção do nó $n$ na árvore binária de busca}
+		\Input{raiz $r$ da árvore e nó $n$}
+		\Output{}
+
+	\end{algorithm}	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 9     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section {Algoritmo FST para bissecção 9}
-	
+\section {Algoritmo FST para bissecção}
+
+	\subsection{Teorema do corte exato}
+	\begin{teo}[{\cite[Theorem 6]{Schmidt15}}]
+	\label{teo:corteExato}
+		Para todo~$i\in \mathbb{N^+_*}$, toda árvore~$T$ com~$n$
+		vértices e~$diam^*(T)>\dfrac{1}{2^i}$, e todo~$m\in[n]$,
+		existe um corte~$(B,W)$ em~$T$ com~$|B|=m$ 
+		e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
+		Um corte que satisfaz esses requisitos pode ser computado
+		em tempo~$O\Big(\dfrac{n}{diam^*(T)}\Big)$.
+	\end{teo}
+
+	\medskip
+	\medskip
+
+	\begin{proof}
+		Utilizaremos indução para provar o Teorema~\ref{teo:corteExato}
+		(não levaremos em conta o tempo de execução agora).
+		
+		Primeiramente, temos que~$0<diam^*(T)\le1$, como o mostrado na 
+		seção~\ref{subsec:diametro}. 
+		Sendo assim, sabe-se que~$i\ge1$,
+		logo~$i=1$ será a base utilizada na indução.
+		
+		Caso~$i=1$.
+		Para todo~$n\le 2$, sabe-se que~$|E(T)|=\Delta(T)$, e nesse
+		caso,~$e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot \Delta(T)$.
+		Para~$n>2$ temos que~$diam^*(T)>\dfrac{1}{2}$, logo, 
+		podemos utilizar o Lema~\ref{lema:caminhoLongo} para obter 
+		um corte~$(B,W)$ com~$e_T(B,W)\le 2 < 4\cdot 2^i\cdot \Delta(T)$.
+		Portanto, esse teorema é válido para~$i=1$.
+
+
+		Caso~$i\ge 2$. Provaremos agora que esse teorema é válido 
+		para~$i$, assumindo
+		que ele vale para~$i-1$.
+		De modo semelhante ao caso anterior, 
+		para~$n\le2$, temos 
+		que~$e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot \Delta(T)$.
+		Já se~$n>2$, podemos utilizar o Teorema~\ref{teo:dobraDiametro},
+		que nos devolverá cortes do tipo 1 ou 2.
+		\begin{itemize}
+			\item Se for do tipo 1, teremos~$|B|=m$ 
+			e~$e_T(B,W)\le2\le 2\cdot 2^i\cdot \Delta(T)$..
+
+			\item Se for do tipo 2, podemos obter um corte~$(B',W',S')$
+			tal que~$|B'|=m$ ou~$|B'|<m\le |B'|+|S'|$
+			com~$e_T(B',W',S')\le \dfrac{2\cdot \Delta(T)}{diam^*(T)}\le
+			2\cdot2^i\cdot\Delta(T)$.
+			
+			Se~$|B'|=m$, temos então as propriedades do corte desse
+			teorema.
+
+			Caso contrário,~$|B'|<m\le |B'|+|S'|$, o que nos leva 
+			a~$0<m-|B'|\le|S'|$. 
+			Pelas propriedades do Teorema~\ref{teo:dobraDiametro}, 
+			sabemos 
+			que~$diam^*(T[S'])\ge 2\cdot diam^*(T)>\dfrac{1}{2^{i-1}}$.
+			Como~$0<m-|B'|\le|S'|$ e~$diam^*(T[S'])>\dfrac{1}{2^{i-1}}$,
+			podemos usar o Teorema~\ref{teo:dobraDiametro} 
+			em~$T[S]$ com~$m$ valendo~$m-|B'|$ e~$i$ valendo~$i-1$.
+			
+			Porém, existem casos onde o conjunto~$S'$ retornado pelo
+			Teorema~\ref{teo:dobraDiametro} não é conexo, pois ele
+			pode se dividir em duas componentes, uma no começo e outra
+			no fim do caminho máximo. 
+			Como o Teorema~\ref{teo:corteExato} se trata de árvores, 
+			precisamos tornar~$S'$ conexo de forma a não alterar 
+			o~$\Delta(T)$.
+			Sabemos que se adicionármos uma aresta~$e$ em~$T$,
+			que liga o primeiro ao último vértice do caminho máximo,
+			então~$S'$ será conexo. 
+			Diremos que~$T' = T\cup e$.
+			De acordo com o Algoritmo~\ref{alg:dobraDiametro},
+			sabemos que, caso~$S'$ seja desconexo, ele será como o 
+			representado no desenho abaixo.
+
+
+			\begin{center} \begin{tikzpicture}
+				[scale=.7,auto=left,every node/.style={circle, draw=black,
+						fill=blue!20}]
+
+				\draw [draw=blue!65,fill=yellow!20] (-1,1.5) rectangle (7, 6.5);
+
+				\draw [draw=none, fill=yellow!20] (11,4.7) rectangle (19, 6.5);
+				\draw [draw=none, fill=yellow!20] (13.5,1.5) rectangle (19, 6.5);
+
+				\node [text=blue!65,draw=none, fill=none] at (0,2.5) {\Large{$S$}};
+				\node [text=blue!65,draw=none, fill=none] at (18,2.5) {\Large{$S$}};
+
+				\node [subtree] (y1) at (3,4.6)  {};
+				\node [subtree, fill=red!30] (y2) at (6,5)  {};
+				\node [subtree] (y3) at (9,4.6)  {};
+				\node [subtree] (y4) at (12,5) {};
+				\node [subtree] (y5) at (15,4.6) {};
+
+				\node (x0) at (0,5.4)  {$v_0$};
+				\node (x1) at (3,5)    {...};
+				\node (x2) at (6,5.4)  {$v_i$};
+				\node (x3) at (9,5)    {...};
+				\node (x4) at (12,5.4) {$v_j$};
+				\node (x5) at (15,5)   {...};
+				\node (x6) at (18,5.4) {$v_p$};
+
+				\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6}
+				\draw (\from) -- (\to);
+
+				% Define the points of a regular pentagon
+				\path (13.5,4.7) coordinate (P0);
+				\path (11,4.7) coordinate (P1);
+				\path (11,6.5) coordinate (P2);
+				\path (19,6.5) coordinate (P3);
+				\path (19,1.5) coordinate (P4);
+				\path (13.5,1.5) coordinate (P5);
+				% Draw the edges of the pentagon
+				\draw[draw=blue!65] (P0) -- (P1) -- (P2) -- (P3) -- (P4) -- (P5) -- cycle;
+
+
+			\end{tikzpicture} \end{center}
+
+			Portanto nota-se que em ambas
+			as componentes de~$S'$, temos que o caminho máximo de cada uma
+			é a interseção entre o caminho máximo de~$T$ e a componente,
+			logo, se adicionando~$e$, teremos um caminho máximo em~$S'$ e preservaremos, em parte, o caminho máximo de~$T$.
+
+			Somente os vértices dos extremos terão o seu grau alterado, e
+			ainda sabemos que esses vértices são folhas em~$T$, logo, 
+			possuem grau. 
+			Quando acrescentarmos~$e$, o grau de ambos passará a ser 2,
+			e como nesse caso~$n>2$, então~$\Delta(T)\ge 2$. 
+			Portanto,~$\Delta(T')=\Delta(T)$.
+			Agora podemos passar a árvore~$T'[S']$ para o 
+			Teorema~\ref{teo:corteExato}, sem nos preocupar com a 
+			modificação do grau máximo .
+			
+			Como assumimos que o Teorema~\ref{teo:corteExato} vale
+			para~$i-1$, então ele nos devolverá um corte~$(B'',W'')$
+			tal que~$|B''|=m-|B'|$ 
+			e~$e_{T[S]}(B'',W'')\le 4\cdot 2^{i-1}\cdot\Delta(T'[S'])
+			\le 4\cdot 2^{i-1}\cdot\Delta(T')$.
+			Dessa forma, podemos devolver o 
+			corte~($B'\cup B'', V(T)\setminus (B'\cup B''))$ 
+			como~$(B,W)$, tendo assim,~$|B|=|B'| + m-|B'| = m$ e
+			\begin{align}
+				e_T(B,W)&\le e_T(B',W',S') + e_{T[S]}(B'',W'') \nonumber\\
+				&\le 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
+				\Delta(T')\nonumber\\
+				&\le 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
+				\Delta(T)\nonumber\\
+				&\le 4\cdot 2^{i}\cdot\Delta(T) \nonumber
+			\end{align}
+			provando assim que o Teorema~\ref{teo:corteExato} é
+			válido para~$i$ partindo do pressuposto de que ele vale
+			para~$i-1$. Logo, temos que o Teorema~\ref{teo:corteExato}
+			é válido para todo~$i\in \mathbb{N^+_*}$.
+			
+		\end{itemize}
+	\end{proof}
+
+	\subsection{Algoritmo do corte exato}
+		\begin{algorithm}[H]
+		\label{alg:corteExato}
+			\SetKwInOut{Input}{input}
+			\SetKwInOut{Output}{output}
+
+			\caption{Inserção do nó $n$ na árvore binária de busca}
+			\Input{raiz $r$ da árvore e nó $n$}
+			\Output{}
+			\eIf {$n.chave>r.chave$}
+			{
+				\eIf{$r.right = NULL$}{
+					$r.right\gets n$\; 
+				}
+				{
+					Algoritmo \ref{alg:insertion}$(r.right,~n)$\;
+				}
+			}
+			{
+				\eIf{$r.left = NULL$}{
+					$r.left\gets n$\; 
+				}
+				{
+					Algoritmo \ref{alg:insertion}$(r.left, ~n)$\;
+				}
+			}
+
+		\end{algorithm}	
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

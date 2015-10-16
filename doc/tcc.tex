@@ -1022,7 +1022,7 @@ trocando árvore por floresta.
 		\SetKwInOut{Output}{output}
 
 		\caption{Inserção do nó $n$ na árvore binária de busca}
-		\Input{raiz $r$ da árvore e nó $n$}
+		\Input{árvore $T$ e $m\in[n]$}
 		\Output{}
 
 	\end{algorithm}	
@@ -1198,24 +1198,13 @@ trocando árvore por floresta.
 			\SetKwInOut{Output}{output}
 
 			\caption{Inserção do nó $n$ na árvore binária de busca}
-			\Input{raiz $r$ da árvore e nó $n$}
-			\Output{}
-			\eIf {$n.chave>r.chave$}
+			\Input{árvore $T$ e $m\in[n]$}
+			\Output{corte $(B,W)$ tal que $|B|=m$}
+			$B\gets \emptyset$\;
+			\While{$|B|<m$}
 			{
-				\eIf{$r.right = NULL$}{
-					$r.right\gets n$\; 
-				}
-				{
-					Algoritmo \ref{alg:insertion}$(r.right,~n)$\;
-				}
-			}
-			{
-				\eIf{$r.left = NULL$}{
-					$r.left\gets n$\; 
-				}
-				{
-					Algoritmo \ref{alg:insertion}$(r.left, ~n)$\;
-				}
+				$(B',W',S')\gets$ Algoritmo\ref{alg:dobraDiametro}$(T\setminus bça, m-|B| )$\;
+				$B\gets B\cup B'$\;
 			}
 
 		\end{algorithm}	

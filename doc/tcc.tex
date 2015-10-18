@@ -986,7 +986,8 @@ trocando árvore por floresta.
 
 	\newpage
 	\subsection{Lema do corte em árvores de caminho longo
-	\color{red}{Esse nome está bom?}}
+	%\color{red}{Esse nome está bom?}
+	}
 
 	Futuramente usaremos os resultados do lema abaixo na prova de 
 	um dos teoremas.
@@ -1033,8 +1034,8 @@ trocando árvore por floresta.
 	binário que indica se cada um dos vértices está ou não no
 	caminho máximo.
 
-	{\color{red}{-O algoritmo é bem simples. Não precisa colocar
-	código né?}}
+	%{\color{red}{-O algoritmo é bem simples. Não precisa colocar
+	%código né?}}
 
 
 
@@ -1400,7 +1401,7 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 10    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section {Complexidade do problema da bissecção 10}
+\section {Complexidade do problema da bissecção}
 	Nesta seção veremos duas reduções que provam que o problema 
 	da bissecção mínima é NP-Completo, assumindo
 	que o problema Max Sat2 é NP-completo.
@@ -1410,7 +1411,7 @@ trocando árvore por floresta.
 
 	\medskip
 
-	\begin{prob}[Max Sat2 - Satisfabilidade máxima com no máximo 
+	\begin{prob}[Max Sat2 - Satisfatibilidade máxima com no máximo 
 	duas literais por cláusula{~\cite{GareyJS76}}]
 		Dadas~$p$ cláusulas na forma disjuntiva distintas, com no máximo
 		duas literais cada, e um inteiro~$k\le p$,
@@ -1433,7 +1434,7 @@ trocando árvore por floresta.
 
 	
 
-	% \begin{prob}[Corte mínimo em sub-conjuntos de mesmo tamanho 
+	% \begin{prob}[Corte mínimo em subconjuntos de mesmo tamanho 
 	% {~\cite{GareyJS76}}]
 	% 	Dado um grafo~$G(V,E)$, onde cada uma das arestas tem 
 	% 	peso 1, e um inteiro positivo~$W\le|E|$, encontrar um
@@ -1589,7 +1590,7 @@ trocando árvore por floresta.
 		\bigskip
 		\bigskip
 
-		Se encontrármos um corte~$(T,F)$ em~$G$ tal 
+		Se encontrarmos um corte~$(T,F)$ em~$G$ tal 
 		que~$e_G(T, F)\ge |A_1| + 2\cdot k$, 
 		então teremos que, para todo vértice do tipo~$x_i$,
 		se~$x_i\in T$, a variável que ele representa será
@@ -1626,8 +1627,8 @@ trocando árvore por floresta.
 		Definiremos agora os vértices contidos nos 
 		subconjuntos~$T$ e~$F$ de~$G$.
 		Suponhamos que para todo~$i\in[0,3p]$,~$T_i\in T$ e~$F_i\in F$ e
-		para todo~$j\in[1,n]$ e $k\in[0,3p]$, ~$x_j$ perntence ao 
-		mesmo subcontunto que~$t_{jk}$ e ambos
+		para todo~$j\in[1,n]$ e $k\in[0,3p]$, ~$x_j$ pertence ao 
+		mesmo subconjunto que~$t_{jk}$ e ambos
 		 não pertencem ao mesmo 
 		subconjunto que~$\overline{x_j}$ e que~$f_{jk}$.
 		Assim sendo, temos que todas as arestas de~$E_1$ estão no 
@@ -1876,7 +1877,7 @@ trocando árvore por floresta.
 		verdadeiras, teremos duas arestas de~$E_1$ no corte, como
 		o mostrado anteriormente.
 
-		Se houvesse alguma aresta duplicada (duas arestas que liagam
+		Se houvesse alguma aresta duplicada (duas arestas que ligam
 		os mesmos vértices), teríamos um problema na contagem de
 		arestas dentro e fora do corte.
 		Isso poderia ocorrer no caso de duas cláusulas serem 
@@ -1892,11 +1893,12 @@ trocando árvore por floresta.
 
 		\bigskip
 
-***************
-		Mostramos que cada uma das entradas do problema Max Sat2
-		pode se reduzir ao existe um grafo, cuja solução .
-		Agora, mostraremos que dado um grafo reduzido de uma entrada
-		do problema Max Sat2, ...
+		Mostramos que existe uma solução, em Simple Max Cut, 
+		para todas as entradas do
+		problema MaxSat2 reduzidas para Simple Max Cut, de forma que
+		a solução do Simple Max Cut leva a uma solução de Max Sat2.
+		Agora mostraremos que qualquer solução obtida em 
+		uma redução para Simple Max Cut levará a uma solução de Max Sat2.
 
 	\subsection{Redução SimpleMaxCut para Bissecção}
 
@@ -2008,33 +2010,33 @@ trocando árvore por floresta.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 13    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+%\newpage
 \section {Experimentos computacionais 13}
 
 	\subsection{Árvores Binárias Aleatórias}
-	\begin{table}[htbf]
-		\centering
-		\caption {Random Binary Trees}
-		\begin{tabular}{ c|c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
-			\specialrule{1.7pt}{1pt}{1pt}
-			$|V(T)|$ & seed & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
+	% \begin{table}[htbf]
+	% 	\centering
+	% 	\caption {Random Binary Trees}
+	% 	\begin{tabular}{ c|c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
+	% 		\specialrule{1.7pt}{1pt}{1pt}
+	% 		$|V(T)|$ & seed & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
 
-			\specialrule{1.7pt}{1pt}{1pt}
-			\multirow{10}*{100} & 1  & 2   & 2  & 0.000146  & 0.002095 \\[3pt]\cmidrule{2-6} 
-		                        & 2  & 2   & 2  & 0.000187  & 0.002130 \\[3pt]\cmidrule{2-6}
-			                    & 3  & 2   & 2  & 0.000158  & 0.002440 \\[3pt]\cmidrule{2-6}
-			                    & 4  & 2   & 2  & 0.000142  & 0.001993 \\[3pt]\cmidrule{2-6}
-			                    & 5  & 3   & 2  & 0.000188  & 0.000967 \\[3pt]\cmidrule{2-6}
-			                    & 6  & 3   & 2  & 0.000185  & 0.001003 \\[3pt]\cmidrule{2-6}
-			                    & 7  & 2   & 2  & 0.000131  & 0.001005 \\[3pt]\cmidrule{2-6}
-			                    & 8  & 5   & 2  & 0.000183  & 0.000884 \\[3pt]\cmidrule{2-6}
-			                    & 9  & 2   & 2  & 0.000176  & 0.001037 \\[3pt]\cmidrule{2-6}
-			                    & 10 & 2   & 2  & 0.000130  & 0.001030 \\[3pt]
+	% 		\specialrule{1.7pt}{1pt}{1pt}
+	% 		\multirow{10}*{100} & 1  & 2   & 2  & 0.000146  & 0.002095 \\[3pt]\cmidrule{2-6} 
+	% 	                        & 2  & 2   & 2  & 0.000187  & 0.002130 \\[3pt]\cmidrule{2-6}
+	% 		                    & 3  & 2   & 2  & 0.000158  & 0.002440 \\[3pt]\cmidrule{2-6}
+	% 		                    & 4  & 2   & 2  & 0.000142  & 0.001993 \\[3pt]\cmidrule{2-6}
+	% 		                    & 5  & 3   & 2  & 0.000188  & 0.000967 \\[3pt]\cmidrule{2-6}
+	% 		                    & 6  & 3   & 2  & 0.000185  & 0.001003 \\[3pt]\cmidrule{2-6}
+	% 		                    & 7  & 2   & 2  & 0.000131  & 0.001005 \\[3pt]\cmidrule{2-6}
+	% 		                    & 8  & 5   & 2  & 0.000183  & 0.000884 \\[3pt]\cmidrule{2-6}
+	% 		                    & 9  & 2   & 2  & 0.000176  & 0.001037 \\[3pt]\cmidrule{2-6}
+	% 		                    & 10 & 2   & 2  & 0.000130  & 0.001030 \\[3pt]
 
-			\specialrule{1.7pt}{1pt}{1pt}
+	% 		\specialrule{1.7pt}{1pt}{1pt}
 		 
-		\end{tabular}
-	\end{table}
+	% 	\end{tabular}
+	% \end{table}
 
 
 		\subsection{Árvores Balanceadas}

@@ -1412,7 +1412,7 @@ trocando árvore por floresta.
 
 	\begin{prob}[Max Sat2 - Satisfabilidade máxima com no máximo 
 	duas literais por cláusula{~\cite{GareyJS76}}]
-		Dadas~$p$ cláusulas na forma disjuntiva, com no máximo
+		Dadas~$p$ cláusulas na forma disjuntiva distintas, com no máximo
 		duas literais cada, e um inteiro~$k\le p$,
 		encontrar valores para cada uma das literais, de forma
 		que~$k$ ou mais variáveis sejam verdadeiras.
@@ -1532,41 +1532,6 @@ trocando árvore por floresta.
 			\node (f3) at (13,10)  {$F_3$};
 
 
-			% Base de baixo mais espacada -- espaco=4
-			% \node (t0) at (4, 13)  {$T_0$};
-			% \node (t1) at (7, 13)  {$T_1$};
-			% \node (t2) at (10,13)  {$T_2$};
-			% \node (t3) at (13,13)  {$T_3$};
-
-			% \node (f0) at (2.5, 10)  {$F_0$};
-			% \node (f1) at (6.5, 10)  {$F_1$};
-			% \node (f2) at (10.5,10)  {$F_2$};
-			% \node (f3) at (14.5,10)  {$F_3$};
-
-			
-			% de cima mais aberto q o de baixo 3.5
-			% \node (t0) at (3.25, 13)  {$T_0$};
-			% \node (t1) at (6.75, 13)  {$T_1$};
-			% \node (t2) at (10.25,13)  {$T_2$};
-			% \node (t3) at (13.75,13)  {$T_3$};
-
-			% \node (f0) at (4, 10)  {$F_0$};
-			% \node (f1) at (7, 10)  {$F_1$};
-			% \node (f2) at (10,10)  {$F_2$};
-			% \node (f3) at (13,10)  {$F_3$};	
-
-
-			% parte de baixo mais larga3.5
-			% \node (t0) at (4, 13)  {$T_0$};
-			% \node (t1) at (7, 13)  {$T_1$};
-			% \node (t2) at (10,13)  {$T_2$};
-			% \node (t3) at (13,13)  {$T_3$};
-
-			% \node (f0) at (3.25, 10)  {$F_0$};
-			% \node (f1) at (6.75, 10)  {$F_1$};
-			% \node (f2) at (10.25,10)  {$F_2$};
-			% \node (f3) at (13.75,10)  {$F_3$};
-
 
 
 			\node (t10) at (2.5,6)  {$t_{10}$};
@@ -1635,10 +1600,18 @@ trocando árvore por floresta.
 
 		\bigskip
 		\bigskip
+		\bigskip
+		\bigskip
+		\bigskip
 
 		\textbf{Explicação:}
 
-		Primeiramente, vamos supor que já temos um conjunto de valores
+		\bigskip
+
+		Mostraremos agora que para todas as entradas do problema
+		Max Sat2, existe uma solução da sua redução para o problema
+		Simple Max Cut.
+		Para isso, vamos supor que já temos um conjunto de valores
 		para as variáveis do problema Max Sat2 de forma que~$k$ ou mais
 		cláusulas sejam verdadeiras.
 
@@ -1693,35 +1666,35 @@ trocando árvore por floresta.
 			\node (t2_) at (10+20,13)  {};
 			\node (t3_) at (13+20,13)  {};
 
-			\node (f0_) at (4 +20,10)  {};
-			\node (f1_) at (7 +20,10)  {};
-			\node (f2_) at (10+20,10)  {};
-			\node (f3_) at (13+20,10)  {};
+			\node [fill=violet!50](f0_) at (4 +20,10)  {};
+			\node [fill=violet!50](f1_) at (7 +20,10)  {};
+			\node [fill=violet!50](f2_) at (10+20,10)  {};
+			\node [fill=violet!50](f3_) at (13+20,10)  {};
 
 			\node (t10_) at (2.5+20,6)  {};
 			\node (t11_) at (2.5+20,4)  {};
 			\node (t12_) at (2.5+20,2)  {};
 			\node (t13_) at (2.5+20,0)  {};	
 
-			\node (f10_) at (4.5+20,6)  {};
-			\node (f11_) at (4.5+20,4)  {};
-			\node (f12_) at (4.5+20,2)  {};
-			\node (f13_) at (4.5+20,0)  {};
+			\node [fill=violet!50](f10_) at (4.5+20,6)  {};
+			\node [fill=violet!50](f11_) at (4.5+20,4)  {};
+			\node [fill=violet!50](f12_) at (4.5+20,2)  {};
+			\node [fill=violet!50](f13_) at (4.5+20,0)  {};
 			  
 			\node (f20_) at (14.5+20,6)  {};
 			\node (f21_) at (14.5+20,4)  {};
 			\node (f22_) at (14.5+20,2)  {};
 			\node (f23_) at (14.5+20,0)  {};
 
-			\node (t20_) at (12.5+20,6)  {};
-			\node (t21_) at (12.5+20,4)  {};
-			\node (t22_) at (12.5+20,2)  {};
-			\node (t23_) at (12.5+20,0)  {};
+			\node [fill=violet!50](t20_) at (12.5+20,6)  {};
+			\node [fill=violet!50](t21_) at (12.5+20,4)  {};
+			\node [fill=violet!50](t22_) at (12.5+20,2)  {};
+			\node [fill=violet!50](t23_) at (12.5+20,0)  {};
 			
-			\node (x1n_) at (0 +20, 3)  {};
+			\node [fill=violet!50](x1n_) at (0 +20, 3)  {};
 			\node (x1_)  at (7 +20, 3)  {};
 			\node (x2n_) at (10+20, 3) {};
-			\node (x2_)  at (17+20, 3) {};
+			\node [fill=violet!50](x2_)  at (17+20, 3) {};
 
 
 
@@ -1733,25 +1706,25 @@ trocando árvore por floresta.
 			\node (t2__) at (10+40,13)  {};
 			\node (t3__) at (13+40,13)  {};
 
-			\node (f0__) at (4 +40,10)  {};
-			\node (f1__) at (7 +40,10)  {};
-			\node (f2__) at (10+40,10)  {};
-			\node (f3__) at (13+40,10)  {};
+			\node [fill=violet!50](f0__) at (4 +40,10)  {};
+			\node [fill=violet!50](f1__) at (7 +40,10)  {};
+			\node [fill=violet!50](f2__) at (10+40,10)  {};
+			\node [fill=violet!50](f3__) at (13+40,10)  {};
 
-			\node (t10__) at (2.5+40,6)  {};
-			\node (t11__) at (2.5+40,4)  {};
-			\node (t12__) at (2.5+40,2)  {};
-			\node (t13__) at (2.5+40,0)  {};	
+			\node [fill=violet!50](t10__) at (2.5+40,6)  {};
+			\node [fill=violet!50](t11__) at (2.5+40,4)  {};
+			\node [fill=violet!50](t12__) at (2.5+40,2)  {};
+			\node [fill=violet!50](t13__) at (2.5+40,0)  {};	
 
 			\node (f10__) at (4.5+40,6)  {};
 			\node (f11__) at (4.5+40,4)  {};
 			\node (f12__) at (4.5+40,2)  {};
 			\node (f13__) at (4.5+40,0)  {};
 			  
-			\node (f20__) at (14.5+40,6)  {};
-			\node (f21__) at (14.5+40,4)  {};
-			\node (f22__) at (14.5+40,2)  {};
-			\node (f23__) at (14.5+40,0)  {};
+			\node [fill=violet!50](f20__) at (14.5+40,6)  {};
+			\node [fill=violet!50](f21__) at (14.5+40,4)  {};
+			\node [fill=violet!50](f22__) at (14.5+40,2)  {};
+			\node [fill=violet!50](f23__) at (14.5+40,0)  {};
 
 			\node (t20__) at (12.5+40,6)  {};
 			\node (t21__) at (12.5+40,4)  {};
@@ -1759,8 +1732,8 @@ trocando árvore por floresta.
 			\node (t23__) at (12.5+40,0)  {};
 			
 			\node (x1n__) at (0 +40, 3)  {};
-			\node (x1__)  at (7 +40, 3)  {};
-			\node (x2n__) at (10+40, 3) {};
+			\node [fill=violet!50](x1__)  at (7 +40, 3)  {};
+			\node [fill=violet!50](x2n__) at (10+40, 3) {};
 			\node (x2__)  at (17+40, 3) {};
 
 
@@ -1773,17 +1746,17 @@ trocando árvore por floresta.
 			\node (t2) at (10,13)  {};
 			\node (t3) at (13,13)  {};
 
-			\node (f0) at (4 ,10)  {};
-			\node (f1) at (7 ,10)  {};
-			\node (f2) at (10,10)  {};
-			\node (f3) at (13,10)  {};
+			\node [fill=violet!50](f0) at (4 ,10)  {};
+			\node [fill=violet!50](f1) at (7 ,10)  {};
+			\node [fill=violet!50](f2) at (10,10)  {};
+			\node [fill=violet!50](f3) at (13,10)  {};
 
 
 
-			\node (t10) at (2.5,6)  {};
-			\node (t11) at (2.5,4)  {};
-			\node (t12) at (2.5,2)  {};
-			\node (t13) at (2.5,0)  {};	
+			\node [fill=violet!50](t10) at (2.5,6)  {};
+			\node [fill=violet!50](t11) at (2.5,4)  {};
+			\node [fill=violet!50](t12) at (2.5,2)  {};
+			\node [fill=violet!50](t13) at (2.5,0)  {};	
 
 			\node (f10) at (4.5,6)  {};
 			\node (f11) at (4.5,4)  {};
@@ -1795,18 +1768,33 @@ trocando árvore por floresta.
 			\node (f22) at (14.5,2)  {};
 			\node (f23) at (14.5,0)  {};
 
-			\node (t20) at (12.5,6)  {};
-			\node (t21) at (12.5,4)  {};
-			\node (t22) at (12.5,2)  {};
-			\node (t23) at (12.5,0)  {};
+			\node [fill=violet!50](t20) at (12.5,6)  {};
+			\node [fill=violet!50](t21) at (12.5,4)  {};
+			\node [fill=violet!50](t22) at (12.5,2)  {};
+			\node [fill=violet!50](t23) at (12.5,0)  {};
 
 
 			\node (x1n) at (0,3)  {};
-			\node (x1)  at (7,3)  {};
+			\node [fill=violet!50](x1)  at (7,3)  {};
 			\node (x2n) at (10,3) {};
-			\node (x2)  at (17,3) {};
+			\node [fill=violet!50](x2)  at (17,3) {};
 
 
+
+			\node (l1) at (1,-7)  {};
+			\node [fill=violet!50](l2)  at (1,-5)  {};
+			\node [draw=none, fill=none] at 
+				(7,-5) {\small{vértice de $F$}};
+			\node [draw=none, fill=none] at 
+				(7,-7) {\small{vértice de $T$}};
+			\node [draw=none, fill=none](a1) at (35,-5) {};
+			\node [draw=none, fill=none](a1_) at (39,-5) {};
+			\node [draw=none, fill=none](a2) at (35,-7) {};
+			\node [draw=none, fill=none](a2_) at (39,-7) {};
+			\node [draw=none, fill=none] at 
+				(45,-5) {\small{aresta $\in(T,F)$}};
+			\node [draw=none, fill=none] at 
+				(45,-7) {\small{aresta $\not\in(T,F)$}};
 			\foreach \from/\to in {t0_/f0_,t0_/f1_,t0_/f2_,t0_/f3_,
 			t1_/f0_,t1_/f1_,t1_/f2_,t1_/f3_,
 			t3_/f0_,t3_/f1_,t3_/f2_,t3_/f3_,
@@ -1825,11 +1813,11 @@ trocando árvore por floresta.
 
 			\foreach \from/\to in 
 			{x1_/f10_,x1_/f11_,x1_/f12_,x1_/f13_,
-			x2_/f20_,x2_/f21_,x2_/f22_,x2_/f23_}
+			x2_/f20_,x2_/f21_,x2_/f22_,x2_/f23_,x1_/f1_,x2n_/f2_}
 			\draw[] (\from) -- (\to);
 
-			\foreach \from/\to in {x1_/x2n_,x1_/f1_,x2n_/f2_}
-			\draw[draw=red!60, line width=2.5pt] (\from) -- (\to);
+			\foreach \from/\to in {x1_/x2n_}
+			\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
 
 
 			
@@ -1852,11 +1840,11 @@ trocando árvore por floresta.
 
 			\foreach \from/\to in 
 			{x1__/f10__,x1__/f11__,x1__/f12__,x1__/f13__,
-			x2__/f20__,x2__/f21__,x2__/f22__,x2__/f23__}
+			x2__/f20__,x2__/f21__,x2__/f22__,x2__/f23__,a1/a1_}
 			\draw[] (\from) -- (\to);
 
-			\foreach \from/\to in {x1__/x2n__,x1__/f1__,x2n__/f2__}
-			\draw[draw=red!60, line width=2.5pt] (\from) -- (\to);
+			\foreach \from/\to in {x1__/x2n__,x1__/f1__,x2n__/f2__,a2/a2_}
+			\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
 
 
 
@@ -1876,12 +1864,39 @@ trocando árvore por floresta.
 			\draw[] (\from) -- (\to);
 
 			\foreach \from/\to in {x1/f10,x1/f11,x1/f12,x1/f13,
-			x2/f20,x2/f21,x2/f22,x2/f23}
+			x2/f20,x2/f21,x2/f22,x2/f23,x2n/f2,x1/x2n}
 			\draw[] (\from) -- (\to);
 
-			\foreach \from/\to in {x1/x2n,x1/f1,x2n/f2}
-			\draw[draw=red!60, line width=2.5pt] (\from) -- (\to);
+			\foreach \from/\to in {x1/f1}
+			\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
 		\end{tikzpicture} \end{center}
+
+		Sabe-se que temos~$2k$ ou mais arestas de~$E_1$ que estão no
+		corte~$(T,F)$, pois, para cada uma das~$k$ cláusulas
+		verdadeiras, teremos duas arestas de~$E_1$ no corte, como
+		o mostrado anteriormente.
+
+		Se houvesse alguma aresta duplicada (duas arestas que liagam
+		os mesmos vértices), teríamos um problema na contagem de
+		arestas dentro e fora do corte.
+		Isso poderia ocorrer no caso de duas cláusulas serem 
+		idênticas,~$C_i=C_j=(a_i,b_i)$.
+		Isso faria com que houvesse uma aresta duplicada entre
+		os vértices~$a_1$ e~$b_i$, mas isso não acontece, dado que
+		no enunciado é assumido que as cláusulas são distintas.
+		Também não há o problema de dois vértices estarem em cláusulas
+		diferentes, dado que para cada cláusula, os vértices se ligam
+		a um~$F_i$ diferente.
+		E mesmo se repetirmos as variáveis na mesma cláusula, cada
+		elemento da cláusula se ligará a um~$F_i$ diferente.
+
+		\bigskip
+
+***************
+		Mostramos que cada uma das entradas do problema Max Sat2
+		pode se reduzir ao existe um grafo, cuja solução .
+		Agora, mostraremos que dado um grafo reduzido de uma entrada
+		do problema Max Sat2, ...
 
 	\subsection{Redução SimpleMaxCut para Bissecção}
 

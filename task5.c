@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
 void exactCut(Graph *G, int m)
 {
 	int *maxPath, *labelVec, *r, *index;
-	int root, Ssize, max;
+	int root, elemmentOfS, max;
 	srand(seed);
 	root = (int)(G->V*1.0*rand()/RAND_MAX);
 	
@@ -125,19 +125,19 @@ void exactCut(Graph *G, int m)
 
 	index = labelToIndex(G, labelVec);
 
-	Ssize = doubleDiam(G, m, root, labelVec, index, maxPath, r);
+	elemmentOfS = doubleDiam(G, m, root, labelVec, index, maxPath, r);
 	while(Blength < m)
 	{
 		if(DEBUG==1){
 			test(G, labelVec, index ,maxPath);
 			printGraph(G); }
 
-		if(Ssize<0)
+		if(elemmentOfS<0)
 			printf("ERROR\n");
 
 		reMaxPath(G, maxPath, index);
 		relabel(G, labelVec, index);
-		Ssize = doubleDiam(G, m-Blength, Ssize, labelVec, index, maxPath, r);
+		elemmentOfS = doubleDiam(G, m-Blength, elemmentOfS, labelVec, index, maxPath, r);
 	}
 	if(DEBUG == 1) printGraph(G);
 		

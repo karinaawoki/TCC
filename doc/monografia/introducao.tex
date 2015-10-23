@@ -1,0 +1,124 @@
+\section{Introdução}
+
+O assunto abordado no Trabalho de Conclusão de Curso se
+enquadra na área de Otimização Combinatória e diz respeito ao 
+\emph{Problema da Bissecção Mínima}. Para definir o problema 
+precisamente, seguem primeiro algumas definições. 
+
+Seja~${G=(V,E)}$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$.
+Dizemos que~$(B,W)$ é um \textbf{corte}
+de~$G$ se~${B \cup W =V(G)}$ e~${B\cap W =\emptyset}$.
+Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura}
+do corte ou por~$e_G(B,W)$.
+O corte~$(B,W)$ é uma \textbf{bissecção} se~${|B| =|W|}$
+quando~$|V|$ é par, ou se~${||B|-|W|| =1}$ quando~$|V|$ é ímpar.
+
+O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
+encontrar uma bissecção no grafo de largura mínima.
+
+Sabe-se que o problema da bissecção é NP-difícil~\cite{GareyJS76} 
+e a melhor aproximação conhecida para o caso geral do problema tem 
+razão~$\Oh(\lg n)$~\cite{Racke08}, onde~$n$ é o número de vértices 
+do grafo. 
+Por outro lado, sabe-se que, para árvores e grafos que de uma 
+certa maneira se assemelham a árvores, há um algoritmo polinomial 
+de programação dinâmica para encontrar uma bissecção mínima, 
+proposto por Jansen, Karpinski, Lingas e 
+Seidel~\cite{JansenKLS01}. 
+
+Fernandes, Schmidt e Taraz têm interesse em entender a estrutura 
+dos grafos cuja bissecção mínima tem largura grande, de modo a 
+desenvolver bons algoritmos de aproximação para o problema ou 
+identificar melhor as classes de grafos onde o problema torna-se 
+especialmente difícil. 
+Para tanto, eles têm feito estudos de certas questões em árvores, 
+em grafos que têm uma estrutura semelhante às árvores, e também em 
+grafos planares~\cite{FernandesST13,FernandesST15}, para os quais 
+a complexidade do problema encontra-se em aberto. 
+
+Vários outros resultados são conhecidos para o Problema da 
+Bissecção Mínima, porém este trabalho de conclusão de curso se 
+concentrou no estudo do problema em árvores.
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%   OBJETIVOS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Objetivos} 
+
+O principal objetivo deste trabalho foi o estudo, implementação e 
+análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
+Taraz~\cite{FernandesST13}, para encontrar uma bissecção 
+aproximadamente mínima em árvores de grau limitado. Denotaremos
+esse algoritmo por FST. 
+A vantagem deste algoritmo sobre o algoritmo de Jansen et 
+al.~\cite{JansenKLS01}, que encontra uma bissecção de largura 
+mínima, é que este tem um consumo de tempo linear, enquanto que o 
+segundo tem um consumo de tempo cúbico no número de vértices da 
+árvore. 
+Implementamos também o algoritmo de Jansen et al., para fins de 
+comparação da largura das bissecções produzidas pelo algoritmo
+FST. 
+
+Como já mencionado, o algoritmo de Jansen et al.\ baseia-se em 
+programação dinâmica. 
+Já o algoritmo de Fernandes et al., para atingir um consumo 
+linear, utiliza técnicas bem conhecidas de percursos de árvore, 
+como busca em profundidade, bem como um rastreamento de 
+informações mais cuidadoso que permite que o processamento todo 
+seja executado em tempo linear. 
+É um algoritmo mais refinado, dividido na implementação de uma 
+série de etapas menores. 
+
+Uma vez implementados os dois algoritmos, foi feita uma análise 
+da sua performance em árvores binárias geradas aleatoriamente, e 
+em árvores ternárias.
+Obtivemos instâncias reais de um problema relacionado e as 
+utilizamos também no estudo experimental do algoritmo implementado.
+ 
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%  MÉTODO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Método}
+
+O estudo do algoritmo de Fernandes et al.\ seguiu um roteiro de
+como a implementação foi feita, conforme a proposta do TCC. 
+A linguagem escolhida para a implementação foi \texttt{C} e os 
+algoritmos implementados foram colocados na página do gitHub. 
+O roteiro consistiu em uma divisão da implementação do algoritmo 
+em várias etapas, que permitiu um melhor acompanhamento do 
+trabalho desenvolvido, e uma organização da forma de estudo. 
+O algoritmo encontra-se descrito em um documento 
+longo~\cite{Schmidt15} juntamente com a sua análise teórica. 
+Este documento serviu como base para o entendimento de cada 
+etapa, e de como a implementação de cada etapa deveria ser feita 
+para que a implementação obtida fosse de fato linear. 
+
+Reuniões frequentes foram feitas junto à supervisora para 
+apresentar as etapas já implementadas, bem como para tirar dúvidas 
+sobre as próximas etapas ou detalhes da implementação. 
+Em maio e junho, Tina Schmidt, uma das autoras do algoritmo que 
+foi implementado, visitou o IME, e a parte da 
+implementação que estava pronta foi apresentada a ela, e 
+algumas discussões foram feitas e em especial, a Tina conseguiu
+um conjunto de instâncias reais com Streffen, feitas por 
+Kampeier~\cite{Kampmeier}, para usarmos 
+em nossos experimentos.   
+
+Em paralelo ao estudo e desenvolvimento da implementação, foram 
+estudados também dois artigos da literatura. São eles o artigo 
+de Garey, 
+Johnson e Stockmeyer~\cite{GareyJS76}, que contém a prova de que o 
+problema é NP-difícil, e o artigo de Jansen et al., que apresenta 
+o algoritmo de programação dinâmica para o problema em árvores. 
+Após a implementação do algoritmo de Fernandes et~al., foi feita 
+a implementação do algoritmo de Jansen et~al.~\cite{JansenKLS01} e a comparação dos 
+dois. 

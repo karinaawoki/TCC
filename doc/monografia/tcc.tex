@@ -1,0 +1,224 @@
+\documentclass[a4paper,12pt]{article}
+
+% Para usar a linguagem PT-BR.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage[brazilian]{babel}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools,booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+%\usepackage[hmargin=3.5cm,vmargin=3.7cm,bmargin=2cm]{geometry}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+
+\usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
+\tikzset
+{
+    subtree/.style  = {isosceles triangle, draw=black, 
+    align=center, minimum height=0.5cm, minimum width=1cm, shape 
+    border rotate=90, anchor=north, fill=red!30}
+}
+
+\selectlanguage{brazilian} 
+
+\newtheorem{teo}{Teorema}
+\newtheorem{lem}{Lema}
+\newtheorem{prov}{Prova}
+\newtheorem{alg}{Análise do algoritmo}
+\newtheorem{prob}{Problema}
+
+\newcommand{\caminho}{\mathrm{-caminho}}
+\newcommand{\dist}{\mathrm{dist}}
+\newcommand{\grau}{\mathrm{grau}}
+\newcommand{\rot}{\mathrm{rot}}
+\newcommand{\Oh}{\mathrm{O}}
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}
+{#1}}
+\SetCommentSty{mycommfont}
+
+
+\sloppy
+
+\begin{document}
+ 
+\begin{center}
+   {\large \textbf{UNIVERSIDADE DE SÃO PAULO}} \\[1.4cm]
+   
+   {\large \textbf{INSTITUTO DE MATEMÁTICA E ESTATÍSTICA}}\\[4.2cm]
+   
+   {\Huge TRABALHO DE CONCLUSÃO }\\[0.3cm]
+   {\Huge DE CURSO }\\[9cm]
+   
+   {\large { Aluna: Karina Suemi Awoki}}\\[0.3cm]
+   
+   {\large { Orientadora: Cristina Gomes Fernandes}}
+   
+
+\end{center}
+
+\newpage
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%  INTRODUÇÃO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{introducao}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  DEFINIÇÕES  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{definicoes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 5     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\include{caminho_maximo}
+    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 6     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{lemas_corte}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 7     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{rotulacao}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 8     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{dobra_diametro}
+
+\section {Algoritmo da dobra do diâmetro}
+	
+	\subsection{Teorema da dobra do diâmetro}
+	
+		\begin{teo}[{\cite[Theorem 4]{Schmidt15}}]
+		\label{teo:dobraDiametro}
+			Para toda árvore~$T$ com~$n\ge 3$ vértices e 
+			todo~$m\in [n]$,
+			o conjunto de vértices de~$T$ pode ser particionado em 
+			três partes~$B$,~$W$ e~$S$ tal que vale um dos 
+			seguintes itens:
+			\begin{enumerate}
+				\item ${|B|=m}$, ${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
+				\item ${|B|\le m\le |B|+|S|}$, 
+				com~${0<|S|\le\dfrac{n}{2}}$,
+				${e_T(B,W,S)\le \dfrac{2\cdot 
+				\Delta(T)}{diam^*(T)}}$, 
+				e~${diam^*(T[S])\ge 2diam^*(T)}$.
+			\end{enumerate}
+			Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
+			computada em tempo~${O\Big(\dfrac{n}{diam^*(T)}\Big)}$ 
+		\end{teo}
+
+	\medskip
+	\medskip
+
+
+	\subsection{Algortimo da dobra do diâmetro}
+	\begin{algorithm}[H]
+	\label{alg:dobraDiametro}
+		\SetKwInOut{Input}{input}
+		\SetKwInOut{Output}{output}
+
+		\caption{}
+		\Input{árvore $T$ com $n$ vértices e ${m\in[n]}$}
+		\Output{}
+
+	\end{algorithm}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 9     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{fst}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 10    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{garey}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 11    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Algoritmo de Jansen 11}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 12    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{arvores_aleatorias}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 13    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+\section {Experimentos computacionais 13}
+
+	\subsection{Árvores Binárias Aleatórias}
+	% \begin{table}[htbf]
+	% 	\centering
+	% 	\caption {Random Binary Trees}
+	% 	\begin{tabular}{ c|c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
+	% 		\specialrule{1.7pt}{1pt}{1pt}
+	% 		$|V(T)|$ & seed & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
+
+	% 		\specialrule{1.7pt}{1pt}{1pt}
+	% 		\multirow{10}*{100} & 1  & 2   & 2  & 0.000146  & 0.002095 \\[3pt]\cmidrule{2-6} 
+	% 	                        & 2  & 2   & 2  & 0.000187  & 0.002130 \\[3pt]\cmidrule{2-6}
+	% 		                    & 3  & 2   & 2  & 0.000158  & 0.002440 \\[3pt]\cmidrule{2-6}
+	% 		                    & 4  & 2   & 2  & 0.000142  & 0.001993 \\[3pt]\cmidrule{2-6}
+	% 		                    & 5  & 3   & 2  & 0.000188  & 0.000967 \\[3pt]\cmidrule{2-6}
+	% 		                    & 6  & 3   & 2  & 0.000185  & 0.001003 \\[3pt]\cmidrule{2-6}
+	% 		                    & 7  & 2   & 2  & 0.000131  & 0.001005 \\[3pt]\cmidrule{2-6}
+	% 		                    & 8  & 5   & 2  & 0.000183  & 0.000884 \\[3pt]\cmidrule{2-6}
+	% 		                    & 9  & 2   & 2  & 0.000176  & 0.001037 \\[3pt]\cmidrule{2-6}
+	% 		                    & 10 & 2   & 2  & 0.000130  & 0.001030 \\[3pt]
+
+	% 		\specialrule{1.7pt}{1pt}{1pt}
+		 
+	% 	\end{tabular}
+	% \end{table}
+
+
+		\subsection{Árvores Balanceadas}
+		\subsection{Árvores de Caminho Longo}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 14    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section {Conclusões 14}
+
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{document}

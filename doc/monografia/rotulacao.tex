@@ -1,0 +1,250 @@
+\section {Rotulação dos vértices da árvore}
+
+	Mais adiante, iremos nos referir a vértices com uma 
+	característica específica, e para isso precisamos atribuir um 
+	rótulo numérico~$x\in [n]$ distinto para cada um dos vértices 
+	da árvore, onde~$n$ é o número de vértices da árvore~$T$. 
+	Denotaremos o \textbf{rótulo} de um vértice~$v$ por~$\rot(v)$.
+
+	Primeiramente, usaremos o método mencionado na 
+	seção~\ref{sec:caminhoMaximo} para calcular 
+	um caminho~$P$, que é máximo em~$T$. 
+	Para todo vértice~$v\in V(P)$, temos uma 
+	árvore~$T_v \in G - E(P)$ com~$v\in T_v$.
+
+	Dessa forma, teremos sub-árvores enraizadas nos vértices do
+	caminho máximo, como o mostrado na figura abaixo, onde denotamos
+	os vértices de~$P$ por~${v_0,v_1,\ldots,v_p}$.
+	
+
+ 	%% fill=blue!30 -- núemro indica quão escuro é
+	\begin{center} \begin{tikzpicture}
+		[scale=.7,auto=left,every node/.style={circle, draw=black,
+				fill=blue!20}]
+
+		\draw [draw=yellow, fill=yellow!20] (0,4.8) 
+		ellipse (1.3cm and 2.4cm); %0
+		\draw [draw=yellow, fill=yellow!20] (3,4.4) 
+		ellipse (1.3cm and 2.4cm); %1
+		\draw [draw=yellow, fill=yellow!20] (6,4.8) 
+		ellipse (1.3cm and 2.4cm); %2
+		\draw [draw=yellow, fill=yellow!20] (9,4.4) 
+		ellipse (1.3cm and 2.4cm); %3
+ 		\draw [draw=yellow, fill=yellow!20] (12,4.8) 
+ 		ellipse (1.3cm and 2.4cm); %4
+		\draw [draw=yellow, fill=yellow!20] (18,4.8) 
+		ellipse (1.3cm and 2.4cm); %5
+
+		\node [text=blue!65,draw=none, fill=none] at 
+		(-0.4,6.5) {$T_{v_0}$};
+		\node [text=blue!65,draw=none, fill=none] at 
+		(2.6,6.1) {$T_{v_1}$};
+		\node [text=blue!65,draw=none, fill=none] at 
+		(5.6,6.5) {$T_{v_2}$};
+		\node [text=blue!65,draw=none, fill=none] at 
+		(8.6,6.1) {$T_{v_3}$};
+		\node [text=blue!65,draw=none, fill=none] at 
+		(11.6,6.5) {$T_{v_4}$};
+		\node [text=blue!65,draw=none, fill=none] at 
+		(17.6,6.5) {$T_{v_p}$};
+
+		\node [subtree] (y1) at (3,4.6)  {};
+		\node [subtree, fill=red!30] (y2) at (6,5)  {};
+		\node [subtree] (y3) at (9,4.6)  {};
+		\node [subtree] (y4) at (12,5) {};
+
+		\node (x0) at (0,5.4)  {$v_0$};
+		\node (x1) at (3,5)    {$v_1$};
+		\node (x2) at (6,5.4)  {$v_2$};
+		\node (x3) at (9,5)    {$v_3$};
+		\node (x4) at (12,5.4) {$v_4$};
+		\node (x5) at (15,5)   {...};
+		\node (x6) at (18,5.4) {$v_p$};
+
+
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6}
+		\draw (\from) -- (\to);
+
+	\end{tikzpicture} \end{center}
+
+	\bigskip
+
+	Nota-se que as árvores~$T_{v_0}$ e~$T_{v_p}$ possuem um único
+	vértice cada uma. 
+	Isso ocorre porque~$v_0$ e~$v_p$ são vértices dos extremos
+	do caminho máximo, e se houvesse algum vértice~$v_\ell$ em uma
+	dessas sub-árvores,~$v_\ell$ faria parte do caminho máximo
+	e~$v_0$ ou~$v_p$ não seria um dos extremos, o que levaria a 
+	uma contradição.
+
+	\bigskip
+
+	Temos que cada vértice contido no caminho~$P$ receberá 
+	uma rotulação de forma que:
+	\begin{itemize}
+		\item~$\rot(v_i)>\rot(v_j)$ para todo~$i<j$ e
+		\item~${\rot(v_{i-1})<\rot(v') \le \rot(v_i)}$ para todo 
+		vértice~$v'$ contido na sub-árvore~$T{v_i}$. 
+	\end{itemize}
+
+	\bigskip
+	\bigskip
+
+	\subsection{Descrição do algoritmo de rotulação}
+	Essa rotulação pode ser obtida facilmente 
+	manipulando as listas de adjacências de ~$T$ e em seguida,
+	usando uma busca em profundidade.
+	Ambas as ações são executadas em tempo linear em~$n$, então
+	pode-se rotular uma árvore em tempo~$O(n)$.
+
+	Para cada vértice~$v_i$ contido no caminho~$P$, com~$i>0$,
+	percorremos a sua lista de adjacências e, quando encontrarmos o 
+	vértice~$v_{i-1}$, o colocamos no início da lista.
+	Dessa forma, ao aplicarmos uma busca em profundidade nessa 
+	árvore usando o~$v_p$ como raiz, a busca descerá primeiro
+	pelos vértices do caminho máximo e atribuirá a rotulação
+	a um vértice do caminho
+	somente quando terminar de ver todos os vértices da sub-árvore
+	do vértice, 
+	garantindo assim que para todo~$i\in \{1,\ldots, p\}$, temos 
+	que~$\rot(v_{i-1})<\rot(j)\le\rot(v_i)$ para todo~$j$ 
+	em~$V(T_{v_i})$.
+	
+	\bigskip
+	\bigskip
+	\bigskip
+
+	\subsection{Mapeamento dos rótulos de vértices }
+	Vamos definir agora as funções que mapeiam um vértice em 
+	outro, utilizando a rotulação como base.
+	Chamaremos de~${map^+_m}$ a função que devolve o~$m$-ésimo 
+	próximo vértice na rotulação, considerando que os rótulos
+	estão dispostos de forma circular
+	e, de~${map^-_m}$ a função inversa da primeira. 
+	Ou seja,~${map^-_m}$ devolve o~$m$-ésimo vértice anterior.
+	Dessa forma, podemos ver que, para um 
+	vértice~$v$,~${map^+_m(\rot(v)) =(\rot(v)+m)\mod n}$ 
+	e~${map^-_m(\rot(v)) =(\rot(v)-m)\mod n}$.
+
+	Para facilitar, identificaremos os vértices pelos seus 
+	rótulos. 
+	Sendo assim, temos que, para um 
+	vértice~$v$, ~${map^+_m(v) =(v+m)\mod n}$ 
+	e~${map^-_m(v) =(v-m)\mod n}$ como uma simplificação das 
+	funções enunciadas anteriormente.
+
+	Note que, para todo $m\in [n]$, caso~$n>2$, se existem
+	dois vértices~$v$ e~$v'$, ambos no~$v_0,v_p\caminho$, 
+	tal que~${v'= map^+_m(v)}$, então o corte $(B,W)$ em~$T$ 
+	com~${B =\{v+1, v+2,\ldots,~v+m\}}$ é tal que~${|B|=m}$
+	e~${e_T(B,W)\le 2\le \Delta(T)}$.
+	Isso pode ser visto na figura abaixo.
+
+	\begin{center} \begin{tikzpicture}
+		[scale=.7,auto=left,every node/.style={circle, draw=black,
+				fill=blue!20}]
+
+		\draw [draw=yellow, fill=yellow!20] (7.5,1.5) rectangle 
+		(13.5, 6.5);
+
+		\node [text=blue!65,draw=none, fill=none] at 
+		(10.5,2.2) {\Large{$m$ vértices}};
+		\node [draw=none, fill=none] at 
+		(9,6.5) {\footnotesize{$map^+_m$}};
+		\node [draw=none, fill=none] at 
+		(9,7.9) {\footnotesize{$map^-_m$}};
+
+
+		\node [subtree] (y1) at (3,4.6)  {};
+		\node [subtree, fill=red!30] (y2) at (6,5)  {};
+		\node [subtree] (y3) at (9,4.6)  {};
+		\node [subtree] (y4) at (12,5) {};
+
+		\node (x0) at (0,5.4)  {$v_0$};
+		\node (x1) at (3,5)    {...};
+		\node (x2) at (6,5.4)  {$v$};
+		\node (x3) at (9,5)    {...};
+		\node (x4) at (12,5.4) {$v'$};
+		\node (x5) at (15,5)   {...};
+		\node (x6) at (18,5.4) {$v_p$};
+
+
+		\foreach \from/\to in {x0/x1,x1/x2,x3/x4,x5/x6}
+		\draw (\from) -- (\to);
+
+		\path[-, line width=1.5pt, draw=red]
+		(x2) edge[right] (x3);
+		\path[-, line width=1.5pt, draw=red]
+		(x4) edge[right] (x5);
+
+		\path[->, line width=1.5pt]
+		(x2) edge[bend left=23 ] (x4);
+		\path[->, line width=1.5pt]
+		(x4) edge[bend right=45, looseness=1.7 ] (x2);
+
+
+	\end{tikzpicture} \end{center}
+
+	
+	Caso~$n\le 2$, 
+	é fácil ver que todos os vértices
+	da árvore estarão no caminho máximo, portanto, para
+	qualquer~$m\in[n]$, teremos um conjunto~$B$ tal
+	que~$|B|=m$
+	e~$e_T(B,W)\le |E(T)|=n-1=\Delta(T)\le 2$.
+
+	\bigskip
+	\bigskip
+	\bigskip
+
+	\subsection{Lema do corte em árvores de caminho longo
+	%\color{red}{Esse nome está bom?}
+	}
+
+	Futuramente usaremos os resultados do lema abaixo na prova de 
+	um dos teoremas.
+
+	\begin{lem}[{\cite[Lemma 5]{Schmidt15}}]
+	\label{lema:caminhoLongo}
+		Para toda árvore~$T$ com~$n$ 
+		vértices,~${diam^*(T)>\dfrac{1}{2}}$
+		e para todo~$m\in[n]$, existe um corte~$(B,W)$ em~$T$
+		com~$|B|=m$ e~${e_T(B,W)\le 2}$. Um corte que satisfaz esses
+		requisitos pode ser computado em tempo~$O(n)$.
+	\end{lem}
+
+	\medskip
+	\medskip
+
+	Podemos ver que a função~$map^+_m(x)$ é injetora, dado que numa
+	soma, elementos distintos do domínio tem imagens distintas.
+
+	Uma árvore com a propriedade ~$diam^*(T)>\dfrac{1}{2}$ é uma
+	árvore cujo caminho máximo contém mais que a metade dos 
+	vértices da árvore, o que nos leva ao fato de que existem mais 
+	vértices no caminho máximo do que fora dele. 
+
+	Como o mostrado anteriormente, se um vértice~$v$ mapeia um
+	vértice~$v'$ e ambos estão no caminho máximo, então existe um
+	corte~$(B,W)$ em~$T$ com~$e_T(B,W)\le 2$.
+	Dado que~$diam^*(T)>\dfrac{1}{2}$, e usando o fato de 
+	que~$map^+_m(x)$ é uma função injetora e que
+	existem mais vértices no caminho máximo do que fora dele,
+	temos que pelo menos um vértice do caminho máximo irá mapear
+	outro vértice do caminho máximo. Isso ocorre porque todos
+	os vértices mapeiam algum outro vértice, e não temos um 
+	número suficiente de vértices fora do caminho máximo para serem
+	mapeados por todos os vértices do caminho máximo, então algum
+	vértice do caminho máximo vai acabar mapeando outro do caminho
+	máximo, e assim, obtemos um corte~$(B,W)$, com~$e_T(B,W)\le 2$,
+	como o descrito na subseção anterior.
+
+	Um algoritmo que encontra corte desse tipo, em árvores com 
+	essa propriedade, irá percorrer os vértices do caminho máximo
+	e verificar se algum deles mapeia um vértice do caminho máximo.
+	Isso pode ser feito em tempo~$O(n)$ se for mantido um vetor 
+	binário que indica se cada um dos vértices está ou não no
+	caminho máximo.
+
+	%{\color{red}{-O algoritmo é bem simples. Não precisa colocar
+	%código né?}}

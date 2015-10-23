@@ -1,0 +1,367 @@
+\section {Lemas de cortes aproximados}
+
+Em \cite{Schmidt15}, são apresentados três lemas e seus
+respectivos algoritmos, que, dada uma floresta~$G$ e um 
+inteiro~$0<m\le n$, onde~$n$ é o número de vértices de~$G$, 
+produzem cortes com algumas propriedades.
+
+Abaixo reproduzimos os três resultados de \cite{Schmidt15} que 
+atestam as propriedades dos cortes produzidos por estes algoritmos.
+
+\bigskip
+\bigskip
+\bigskip
+
+\subsection{Lema do corte aproximado simples para árvores}
+\begin{lem}[]
+\label{lema:simpleApproxCutTree}
+	Para toda árvore~$T$ com~$n$ vértices e todo~$m \in [n]$,
+	existe um corte~$(B,W)$ em~$T$ tal 
+	que~${\dfrac{m}{2} <|B| \le m}$ e~${e_T(B,W) \le \Delta(T)}$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo~$O(n)$.
+\end{lem}
+
+\bigskip
+
+Seja~$T$ uma árvore e~$r$ um vértice de~$T$. 
+Assumiremos que
+a função {\sc número\_de\_descedentes}$(T$, $r)$ devolve um vetor
+que associa cada vértice de~$T$ ao número de descendentes desse 
+vértice na árvore~$T$, enraizada em~$r$. Note que essa função 
+pode ser implementada usando-se uma busca em profundidade,
+resultando em um consumo de tempo~$O(n)$.
+
+
+Segue um algoritmo que encontra um corte com as propriedades 
+descritas no lema.
+
+\medskip
+
+\begin{algorithm}[H]
+\label{alg:simpleApproxCutTree}
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
+
+	\caption{Computa corte aproximado em uma árvore}
+	\Input{árvore~${T =(V,E)}$ com~$n$ vértices, ~$m \in [n]$ e 
+	uma raíz $r$}
+	\Output{Um corte~$(B,W)$ em~$T$ tal que~$\dfrac{m}{2}<|B|\le m$ 
+	e~$e_T(B,W)\le \Delta(T)$}
+	$B \gets \emptyset$\;
+	\eIf{$m =n$}{
+		$B \gets V$\;
+	}
+	{
+		$d \gets~$ {\sc número\_de\_descendentes}$(T$, $r)$\;
+		$v \gets r$\;
+		\While{existe filho~$u$ de~$v$ com~$d[u]\ge m$ }{
+			$v \gets u$ \;
+		}
+		\eIf{existe filho~$u$ de~$v$ com~$d[u]>\dfrac{m}{2}$}
+		{
+			$B\gets V(T_u)$\;  
+			\tcp{$T_u$ é a sub-árvore de~$T$ enraizada em~$u$}
+		}
+		{
+		\For{cada filho~$u$ de~$v$}
+		{
+			\eIf{$|B|+|T_u| \le m$}{
+				$B\gets B\cup V(T_u)$\;
+			}
+			{
+				break\;
+			}
+		}
+		}
+	}
+	\Return $(B,V\setminus B)$
+
+\end{algorithm}	
+
+\bigskip
+\bigskip
+\bigskip
+
+\subsection*{Análise do Algoritmo}
+
+	Suponha que~$T=(V,E)$ e $n=|V|$.
+	É fácil ver que se~$m=n$, então os valores~$B =V$ 
+	e~$W =\emptyset$ satisfazem as condições do lema, dado 
+	que~$e_G(B,W)$ será~$0$. 
+	Isso pode ser computado em tempo~$O(n)$.
+
+	Caso contrário, o algoritmo escolhe uma raiz arbitrária~$r$ 
+	para~$T$ e calcula o número de vértices das sub-árvores 
+	enraizadas em cada um dos vértices, que é o número de 
+	descendentes do vértice.
+	Isso serve para que saibamos a quantidade de vértices das 
+	sub-árvores sem que precisemos percorrer todos os vértices das 
+	sub-árvores a cada consulta.
+
+	Feito isso, seja~$v$ o vértice analisado no momento 
+	e~${V_1, V_2, \ldots, V_k}$ os conjuntos de vértices das
+	sub-árvores enraizadas 
+	nos~$k$ filhos de~$v$.
+	Se algum~$V_i$ satisfizer~${\dfrac{m}{2}<|V_i|\le m}$, podemos 
+	devolver a sub-árvore~$V_i$ como o conjunto~$B$, 
+	satisfazendo o Lema~\ref{lema:simpleApproxCutTree}, dado que o
+	corte determinado por~$V_i$ contém uma única aresta. 
+	Caso contrário, se~${|V_i|>m}$ para algum~$i$, 
+	e~$v$ passa a ser a raiz de~$V_i$.
+	Aplicamos novamente esse processo em~$v$.
+
+	Nota-se que esse procedimento irá parar em algum momento, dado 
+	que a árvore é finita, e ele parará quando encontrar uma 
+	sub-árvore que satisfaça o Lema~\ref{lema:simpleApproxCutTree}
+	(e essa sub-árvore definirá o conjunto~$B$) 
+	ou quando chegarmos numa situação em 
+	que~${|V_i|\le \dfrac{m}{2}}$ para todos os~$k$ filhos de~$v$.
+	Nesse último caso, sabemos 
+	que~${|V_1\cup V_2\cup \cdots \cup V_k|\ge m}$, pois
+	a sub-árvore enraizada em~$v$ possui mais que~$m$ vértices. 
+	Sabemos também que~${|V_i|\le \dfrac{m}{2}}$ para todos os~$k$ 
+	filhos de~$v$. 
+	Com isso, percorremos os~$V_i$ em ordem, e 
+	adicionamos~$V_i$ ao conjunto~$B$, parando antes 
+	que~${|B| >m}$. 
+	O conjunto~$B$ resultante é tal 
+	que~${e_T(B,V\setminus B)<\grau_T(v)\le \Delta(T)}$, 
+	o que satisfaz o lema.
+	Dado que~${|V_j|\le \dfrac{m}{2}}$ para todo~$j$, sabemos que 
+	existe um~$i$ tal 
+	que~${\dfrac{m}{2} <|V_1\cup V_2 \cup \cdots \cup V_i|\le m}$, 
+	pois a união das sub-árvores enraizadas em~$v$ possui pelo 
+	menos~$m$ vértices e, para todo~$\ell$ que 
+	satisfaça~${|V_1\cup V_2\cup \cdots\cup V_\ell|\le 
+	\dfrac{m}{2}}$, temos 
+	que~${|V_1\cup V_2\cup\cdots\cup V_\ell\cup V_{\ell+1}|\le m}$.
+
+
+\bigskip
+\bigskip
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% LEMA 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Lema do corte aproximado simples para florestas}
+
+\begin{lem}[{\cite[Lema 2]{Schmidt15}}]
+\label{lema:simpleApproxCutForest}
+	Para toda floresta~$G$ com~$n$ vértices e todo~${m \in [n]}$,
+	existe um corte~$(B,W)$ em~$G$ tal 
+	que~${\dfrac{m}{2} <|B| \le m}$ e~${e_G(B,W) \le \Delta(G)}$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo~$O(n)$.
+\end{lem}
+
+\bigskip
+
+Agora examinaremos como determinar um corte descrito pelo lema.
+Nota-se que essa é uma adaptação do algoritmo anterior
+para florestas em vez de árvores.
+
+\medskip
+\medskip
+
+\begin{algorithm}[H]
+\label{alg:simpleApproxCutForest}
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
+
+	\caption{Computa corte aproximado simples em uma floresta}
+	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~$m \in [n]$}
+	\Output{corte~$(B,W)$ tal que~${\dfrac{m}{2}\le|B|\le m}$}
+	$B \gets \emptyset$\;
+	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
+	componentes conexas de~$G$\;
+	\For{${i=1 \to k}$}{
+		\If{$|V_i| + |B|\le m$}{
+			~$B \gets B\cup V_i$\;
+		}	
+		\ElseIf{$|B|<m$}{
+			$(B',W')\gets \mathbf{Algoritmo\ref{alg:simpleApproxCutTree}}(
+			G[V_i], |V_i|, m-|B|)$\;
+
+			$B \gets B\cup B'$\;
+
+			break\;
+		}	
+	}
+	\Return $(B,V\setminus B)$\;
+
+\end{algorithm}	
+
+\bigskip
+\bigskip
+\bigskip
+
+\subsection*{Análise do Algoritmo}
+
+	Sejam~${T_1, T_2, \ldots,T_k}$ as árvores que compõe~$G$. 
+	Primeiro o algoritmo percorre as árvores determinando
+	o maior inteiro~$\ell$ tal 
+	que~${s=\displaystyle\sum_{i=1}^{\ell}|V(T_i)| \le m}$.
+	Colocamos~${V(T_1),V(T_2), \ldots,V(T_\ell)}$ no conjunto~$B$.
+	Caso~${|B|=m}$, temos que~${e_G(B,V\setminus B)=0}$, o que 
+	satisfaz o lema.
+	Caso contrário, ao encontrar um corte~$(B',W')$ em~$T_{\ell+1}$
+	que satisfaça~${\dfrac{m-s}{2}<|B'|\le m-s}$ 
+	com~${e_{T_{\ell+1}}(B',W') \le \Delta(T_{\ell+1})}$, e 
+	acrescentar~$B'$ ao conjunto~$B$, 
+	teremos~${\dfrac{m+s}{2}<|B| \le m}$ 
+	com~${e_G(B,W)\le\Delta(T_{\ell+1}) \le \Delta(G)}$.
+	Logo, depois de acrescentar~$B'$ em~$B$, teremos o 
+	corte~${(B,V\setminus B)}$ que satisfaz o lema.
+	O corte~$(B,W)$ é encontrado por meio do 
+	Algoritmo~\ref{alg:simpleApproxCutTree}.
+
+	
+	Nota-se que, como a linha~2 pode ser feita usando uma busca em 
+	profundidade e as demais linhas envolvem verificar o tamanho 
+	das componentes (que já foi calculado na linha~2) e uma 
+	chamada única ao Algoritmo~\ref{alg:simpleApproxCutTree}, então 
+	essa rotina consome tempo~$O(n)$, dado que cada uma 
+	das operações citadas são executadas em tempo~$O(n)$. 
+
+\bigskip
+\bigskip
+\bigskip
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% LEMA 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Lema do corte aproximado}
+
+\begin{lem}[{\cite[Lema 3]{Schmidt15}}]
+\label{lema:approxCutForest}
+	Para toda floresta~$G$ com~$n$ vértices, todo~$m \in [n]$ e 
+	todo~$c \in [0,1)$, existe um corte~$(B,W)$ em~$G$ tal 
+	que~$cm \le |B| \le m$ 
+	e~$e_G(B,W) \le \ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
+\end{lem}
+
+\medskip
+\medskip
+
+\begin{algorithm}[H]
+\label{alg:approxCutForest}
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Output}{output}
+
+	\caption{Computa corte aproximado em uma floresta}
+	\Input{floresta~${G =(V,E)}$ com~$n$ vértices,~${m \in [n]}$, 
+	${c\in (\dfrac{1}{2}, 1)}$}
+	\Output{corte~${(B,W)}$ tal que~${cm\le|B|\le m}$
+	e~$e_G(B,W) \le \ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)$}
+	\If{$c=0$}{
+		$(B,W)\gets (\emptyset, V)$\;
+	}
+	\ElseIf{${c\le \dfrac{1}{2}}$}{
+		$(B,W) \gets \mathbf{Algoritmo\ref{alg:simpleApproxCutForest}}(
+		G, n, m)$ \;
+	}
+	\Else{
+		$B \gets \emptyset$\;
+		\While{$|B|<cm$}{
+			$(B',W') \gets 
+			\mathbf{Algoritmo\ref{alg:simpleApproxCutForest}}(
+			G[V\setminus B], n-|B|, m-|B|)$ \;
+
+			$B \gets B\cup B'$\;		
+		}
+	}
+	\Return $(B,V\setminus B)$
+
+\end{algorithm}	
+
+\bigskip
+\bigskip
+\bigskip
+
+\subsection*{Análise do Algoritmo}
+
+	Se~$c=0$, o Algoritmo~\ref{alg:approxCutForest} devolverá
+	um corte onde~$B=\emptyset$. Isso irá satisfazer as 
+	propriedades do Lema~\ref{lema:approxCutForest}, dado 
+	que~$cm=0=|B|$.
+
+	Caso contrário, se~$c \le \dfrac{1}{2}$, o algoritmo aplica o 
+	Algoritmo~\ref{alg:simpleApproxCutForest}, dado que esse 
+	nos dará um corte~$(B',W')$ tal 
+	que~$|B'|>\dfrac{m}{2}\ge cm$ e~${e_G(B',W')\le \Delta(G)}$.
+
+	Caso contrário, temos que~$B$ é inicializado com $\emptyset$.
+	O Algoritmo~\ref{alg:simpleApproxCutForest}, 
+	referente ao Lema~\ref{lema:simpleApproxCutForest}, é
+	executado diversas vezes para encontrar a cada vez
+	um corte~$(B',W')$ em~${G[V\setminus B]}$ 
+	tal que~${\dfrac{m-|B|}{2}<|B'|\le m-|B|}$ 
+	e~${e_{G[V\setminus B]}(B',W')\le\Delta(G[V\setminus B])}$, 
+	acrescentando o 
+	conjunto~$B'$ a~$B$ em cada uma das chamadas ao 
+	Algoritmo~\ref{alg:simpleApproxCutForest}.
+	Isso é feito até que~${|B|\ge cm}$.
+	Note que em algum momento~$|B|\ge cm$, pois a 
+	cada vez que executamos o 
+	Algoritmo~\ref{alg:simpleApproxCutForest}, acrescentamos pelo 
+	menos um vértice em~$B$, e~${|B|>m}$ nunca irá ocorrer, pois o 
+	conjunto~$B'$ obtido no Lema~\ref{lema:simpleApproxCutForest} 
+	é tal que~$|B'|\le m-|B|$. Logo, serão adicionados no 
+	máximo~${m-|B|}$ vértices em~$B$.
+	
+	\bigskip
+	\bigskip
+	
+	Verificaremos agora se o consumo de tempo e a largura do corte
+	devolvido pelo Algoritmo~\ref{alg:approxCutForest} satisfazem
+	o que foi proposto no Lema~\ref{lema:approxCutForest}.
+	
+	Caso~$c>0$, a largura do corte devolvido será igual a zero,
+	dado que todos os vértices de~$G$ estarão todos em~$W$,
+	portanto,~${e_G(B,W)=0=\ceil[\Big]{\dfrac{2c}{1-c}} \Delta(G)}$.
+	Já em relação ao tempo, o Algoritmo~\ref{alg:approxCutForest}
+	executa apenas operações que levam tempo constante, logo, ele
+	leva tempo~$O(1)$. 
+	Como~$\ceil[\Big]{\dfrac{2c}{1-c}} n+1 = 1$, então,
+	as propriedades do Lema~\ref{lema:approxCutForest} são
+	satisfeitas.
+
+	Caso~$0<c\le \dfrac{1}{2}$, executamos o
+	Algoritmo~\ref{alg:simpleApproxCutForest} uma única vez, 
+	portanto o tempo é~$O(n)$, que equivale 
+	a~${O\Big(\ceil[\Big]{\dfrac{2c}{1-c}} n+1\Big)}$.
+	Em relação à largura do corte, será devolvido o corte do 
+	Algoritmo~\ref{alg:simpleApproxCutForest} sem nenhuma 
+	modificação, então, sabe-se que~${e_G(B,W)\le \Delta(G)}$.
+	Como~${0<c\le\dfrac{1}{2}}$, temos que~${\dfrac{2c}{1-c}>0}$, 
+	que implica que~${\ceil[\Big]{ \dfrac{2c}{1-c}}\ge 1}$.
+	Logo,~${e_G(B,W)\le\Delta(G)\le \ceil[\Big]{\dfrac{2c}{1-c}}
+	\Delta(G)}$, 
+	satisfazendo assim as propriedades do 
+	Lema~\ref{lema:approxCutForest}.
+
+	Caso contrário,~${c>\dfrac{1}{2}}$. Como em todas as vezes que
+	executamos a linha~7 do Algoritmo~\ref{alg:approxCutForest}, 
+	vale que~${|B|<cm}$, então também é válido que~${m-|B|>(1-c)m}$.
+	Como~${m-|B|}$ é o valor do~$m$ que passaremos para o 
+	Algoritmo~\ref{alg:simpleApproxCutForest}, sabemos que o 
+	conjunto $B$ do corte devolvido terá mais 
+	que~$\dfrac{m-|B|}{2}$ vértices.
+	Portanto, executaremos o 
+	Algoritmo~\ref{alg:simpleApproxCutForest} no 
+	máximo~${\ceil[\bigg]{\dfrac{cm}{\frac{(1-c)m}{2}}} 
+	=\ceil[\Big]{\dfrac{2c}{1-c}}}$ vezes, consumindo, no total, um
+	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n\Big)$,
+	que equivale a~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
+	Usaremos essa mesma linha de pensamento para calcular a largura
+	máxima do corte devolvido. Sabemos que o 
+	Algoritmo~\ref{alg:simpleApproxCutForest} será 
+	chamado~$\ceil[\Big]{\dfrac{2c}{1-c}}$ vezes, e para cada uma 
+	das vezes este devolve um corte cuja largura 
+	máxima é~$\Delta(G)$, portanto a largura máxima do corte 
+	devolvido é~$\ceil[\Big]{\dfrac{2c}{1-c}}\Delta(G)$.

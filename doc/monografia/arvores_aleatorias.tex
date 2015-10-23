@@ -1,0 +1,89 @@
+\section {Geração de árvores binárias aleatórias}
+	Nesta seção falaremos sobre o gerador de árvores binárias 
+	aleatórias, um dos tipos de árvores que foi utilizado nos 
+	testes do algoritmo FST.
+
+	As árvores binárias aleatórias são árvores com um número 
+	pré-definido de vértices, que são construídas aleatoriamente e 
+	onde cada vértice possui no máximo dois filhos.
+
+	O gerador recebe um inteiro~$n$ e cria um vetor permutado 
+	aleatoriamente com valores de~$0$ a~$n-1$.
+	Depois, constrói uma árvore binária de busca e vai inserindo 
+	os vértices de acordo com a ordem dada pelo vetor.
+	Isso leva tempo~$O(n^2)$, dado que a inserção na árvore 
+	binária de busca leva tempo linear para cada um dos~$n$ vértices.
+
+	Segue abaixo o algoritmo do gerador.
+	\bigskip
+	\bigskip
+
+	\begin{algorithm}[H]
+	\label{alg:insertion}
+		\SetKwInOut{Input}{input}
+		\SetKwInOut{Output}{output}
+
+		\caption{Inserção do nó $n$ na árvore binária de busca}
+		\Input{raiz $r$ da árvore e nó $n$}
+		\Output{}
+		\eIf {$n.chave>r.chave$}
+		{
+			\eIf{$r.right = NULL$}{
+				$r.right\gets n$\; 
+			}
+			{
+				Algoritmo \ref{alg:insertion}$(r.right,~n)$\;
+			}
+		}
+		{
+			\eIf{$r.left = NULL$}{
+				$r.left\gets n$\; 
+			}
+			{
+				Algoritmo \ref{alg:insertion}$(r.left, ~n)$\;
+			}
+		}
+
+	\end{algorithm}	
+
+	\bigskip
+
+	\begin{algorithm}[H]
+	\label{alg:ABAgenerator}
+		\SetKwInOut{Input}{input}
+		\SetKwInOut{Output}{output}
+
+		\caption{Gerador de árvores binárias aleatórias}
+		\Input{inteiro $n$}
+		\Output{raiz da árvore binária aleatória gerada}
+		\bigskip
+		\tcp{Aleatoriza vetor}
+		\For {$i = 0 \to n-1$}
+		{
+			$v[i] \gets i$\;
+		}
+
+		\For {$i = n-1 \to 1$}{
+			$indice \gets$ RANDOM$(0\ldots i)$\;
+			$v[indice] \leftrightarrow v[i]$\;
+		}
+		\bigskip
+		\tcp{Inserção dos elementos do vetor na árvore binária de
+		busca}
+		$raiz.chave\gets v[0]$\;
+		\For{$i=1\to n-1$}
+		{
+			new $no.chave\gets v[i]$\;
+			Algoritmo~\ref{alg:insertion}$(raiz$, $no)$\;
+		}
+		\Return $raiz$\;
+
+	\end{algorithm}	
+
+	\bigskip
+	\bigskip
+
+	Nota-se que numa árvore desse tipo, em grande parte dos 
+	casos, a maioria dos vértices estará presente no caminho mais 
+	longo. 
+	O que favorece um pouco o algoritmo FST.

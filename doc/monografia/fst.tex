@@ -3,23 +3,26 @@
 	\subsection{Teorema do corte exato}
 	\begin{lem}
 	\label{lem:grauMaximo}
-		Para toda árvore~$T$ com~$n>2$ vértices
+		Para toda árvore~$T$ com~${n>2}$ vértices
 		e toda aresta~${e=\{v_1,v_2\}}$ em~$T$, 
-		tal que~$v_1,v_2\in V$ e~${\grau_T(v_1)=\grau_T(v_2)=1}$,
+		tal que~${v_1,v_2\in V}$ e~${\grau_T(v_1)=\grau_T(v_2)=1}$,
 		temos que~${\Delta(T) = \Delta(T\cup e)}$.
 	\end{lem}
 	
 	
 	\begin{proof}
-		Como~$n>2$ vértices, então temos que~$\Delta(T)\ge 2$.
+		Como~${n>2}$, então temos que~${\Delta(T)\ge 2}$.
 		Sabemos que ao adicionar~$e$ em~$T$, o grau de~$v_1$
-		e~$v_2$ passará a ser 2, e os demais vértices não terão
-		o grau alterado.
+		e~$v_2$ passará a ser 2, e os demais vértices da árvore
+		irão manter os seus respectivos graus.
+		Portanto,~${\grau_{T\cup e}(v_1)=\grau_{T\cup e}(v_2)=2}$
+		e, para todo vértice~$v$ tal que~$v\ne v_1$ e~$v\ne v_2$,
+		temos que~${\grau_{T\cup e}(v)=\grau_T(v)}$.
 		
 		Seja~$v$ um vértice de~$T$ tal 
-		que~${\grau_T(v) = \Delta(T)\le 2}$,
+		que~${\grau_T(v) = \Delta(T)\ge 2}$,
 		dado que~${\grau_T(v_1)=\grau_T(v_2)=1}$
-		sabe-se que~${v\ne v_1}$ e~${v\ne v_2}$, o que leva 
+		sabe-se que~${v\ne v_1}$ e~${v\ne v_2}$, o que nos leva 
 		a~${\grau_{T\cup e}(v)=\grau_T(v)=\Delta(T)}$.
 
 		
@@ -40,14 +43,14 @@
 	\bigskip
 
 	\begin{teo}[Teorema do corte exato
-	{\cite[Theorem 6]{Schmidt15}}]
+	{\cite[Teorema 6]{Schmidt15}}]
 	\label{teo:corteExato}
 		Para todo~${i\in \mathbb{N^+_*}}$, toda árvore~$T$ com~$n$
-		vértices e~${diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
+		vértices e~${\diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
 		existe um corte~$(B,W)$ em~$T$ com~$|B|=m$ 
 		e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
 		Um corte que satisfaz esses requisitos pode ser computado
-		em tempo~${O\Big(\dfrac{n}{diam^*(T)}\Big)}$.
+		em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
 	\end{teo}
 
 	\medskip
@@ -56,62 +59,66 @@
 	\begin{proof}
 		Utilizaremos indução para provar o 
 		Teorema~\ref{teo:corteExato} 
-		(não levaremos em conta o tempo de execução agora).
+		(sem levar em conta o tempo de execução por enquanto).
 		
-		Primeiramente, temos que~${diam^*(T)\le1}$, como o mostrado 
+		Primeiramente, temos que~${\diam^*(T)\le1}$, como o mostrado 
 		na seção~\ref{subsec:diametro}. 
 		Sendo assim, sabe-se que~${i\ge1}$, logo~${i=1}$ será a base 
 		utilizada na indução.
 		
-		Caso base,~${i=1}$.
-		Para todo~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$, e nesse
+		\textbf{Caso base,~${\mathbf {i=1}}$.}
+		Para todo~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$ e, nesse
 		caso,~${e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot 
 		\Delta(T)}$.
-		Para~$n>2$ temos que~${diam^*(T)>\dfrac{1}{2}}$, logo, 
+		Para~$n>2$ temos que~${\diam^*(T)>\dfrac{1}{2}}$, logo, 
 		podemos utilizar o Lema~\ref{lema:caminhoLongo} para obter 
 		um corte~$(B,W)$ 
 		com~${e_T(B,W)\le 2 < 4\cdot 2^i\cdot \Delta(T)}$.
 		Portanto, esse teorema é válido para~${i=1}$.
 
 
-		Caso~${i\ge 2}$. Provaremos que esse teorema vale para~$i$, 
-		assumindo que ele é válido para~$i-1$.
+		\textbf{Caso~${\mathbf{i\ge 2}}$.} Provaremos que esse teorema 
+		vale para~$i$, assumindo que ele é válido para~$i-1$.
 		De modo semelhante ao caso anterior, para~${n\le2}$, temos 
 		que~${e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot 
 		\Delta(T)}$.
 		Porém, se~${n>2}$, podemos utilizar o 
-		Teorema~\ref{teo:dobraDiametro}, que nos devolverá cortes 
-		do tipo 1 ou 2.
+		Algoritmo~\ref{alg:dobraDiametro}, que nos devolverá um 
+		corte~$(B',W'S')$ do tipo~1 ou~2.
 		\begin{itemize}
-			\item Se for do tipo 1, teremos~${|B|=m}$ 
-			e~${e_T(B,W)\le2\le 2\cdot 2^i\cdot \Delta(T)}$.
+			\item Se o corte~$(B',W',S')$ for do tipo 1, 
+			teremos~${|B'|=m}$,~${s'=\emptyset}$
+			e~${e_T(B',W')\le2\le 2\cdot 2^i\cdot \Delta(T)}$.
+			Logo, temos que o corte~$(B',W')$ satisfaz as propriedades
+			do corte desse teorema.
 
-			\item Se for do tipo 2, podemos obter um 
-			corte~$(B',W',S')$
-			tal que~${|B'|=m}$ ou~${|B'|<m\le |B'|+|S'|}$
-			com~${e_T(B',W',S')\le \dfrac{2\cdot\Delta(T)}{diam^*(T)}\le
+			\item Caso contrário, o corte~$(B',W',S')$ será do tipo 2. 
+			Sendo assim, teremos~${|B'|=m}$ ou~${|B'|<m\le |B'|+|S'|}$, ambos
+			com~${e_T(B',W',S')\le \dfrac{2\cdot\Delta(T)}{\diam^*(T)}\le
 			2\cdot2^i\cdot\Delta(T)}$.
 			
-			Se~${|B'|=m}$, temos então as propriedades do corte desse
+			Se~${|B'|=m}$, temos então que o corte~$(B,V\setminus B)$ satisfaz
+			as propriedades do corte desse
 			teorema.
 
-			Caso contrário,~${|B'|<m\le |B'|+|S'|}$, o que nos leva 
-			a~${0<m-|B'|\le|S'|}$. 
+			Caso contrário,~${|B'|<m\le |B'|+|S'|}$, que implica
+			em~${0<m-|B'|\le|S'|}$. 
 			Pelas propriedades do Teorema~\ref{teo:dobraDiametro}, 
-			sabemos que~${diam^*(T[S'])\ge 2\cdot diam^*(T)>
+			sabemos que~${\diam^*(T[S'])\ge 2\cdot \diam^*(T)>
 			\dfrac{1}{2^{i-1}}}$.
 			Como~${0<m-|B'|\le|S'|}$ 
-			e~${diam^*(T[S'])>\dfrac{1}{2^{i-1}}}$, podemos usar o 
-			Teorema~\ref{teo:corteExato} em~$T[S]$ com~$m$ 
-			valendo~${m-|B'|}$ e~$i$ valendo~${i-1}$.
+			e~${\diam^*(T[S'])>\dfrac{1}{2^{i-1}}}$, podemos aplicar o 
+			Teorema~\ref{teo:corteExato} em~$T[S']$ 
+			usando~${m-|B'|}$ como~$m$ e,~$i-1$ como~$i$.
 			
 			Porém, existem casos onde o conjunto~$S'$ retornado 
 			pelo Teorema~\ref{teo:dobraDiametro} não é conexo, 
 			pois, de acordo com o 
 			Algoritmo~\ref{alg:dobraDiametro},~$S'$ pode se 
 			dividir em duas componentes, uma no começo e outra
-			no fim do caminho máximo, como o mostrado na figura 
-			abaixo. 
+			no fim do caminho máximo. 
+
+			Isso pode ser visto na figura abaixo. 
 
 
 			\begin{center} \begin{tikzpicture}
@@ -172,21 +179,22 @@
 			então~$S'$ será conexo. 
 			Diremos que~${T' = T\cup e}$.
 
-			Nota-se também que em ambas as componentes de~$S'$, 
-			temos que o caminho máximo de cada uma é a interseção 
-			entre o caminho máximo de~$T$ e a componente.
-			Logo, se adicionando~$e$, teremos um caminho máximo 
-			em~$S'$ e preservaremos, em parte, o caminho máximo 
-			de~$T$. 
+			Note também que em ambas as componentes de~$T[S']$, 
+			temos que o caminho máximo de cada uma possui em um dos
+			seus extremos o vértice~$v_0$ ou o vértice~$v_p$.
+			Logo, se adicionármos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
+			então~$T[S']$ será uma componente conexa e
+			teremos um caminho máximo 
+			em~$T[S']$ com o maior número de vértices possíveis.
 			Além disso, de acordo com o Lema~\ref{lem:grauMaximo}, 
 			teremos que~${\Delta(T) = \Delta(T')}$, já que~$e$ 
-			conectará dois vértices extremos do caminho máximo, 
+			conectará dois vértices extremos do caminho máximo
 			que possuem grau um.
 			Podemos, então, passar a árvore~$T'[S']$ para o 
 			Teorema~\ref{teo:corteExato}, sem nos preocupar com a 
 			modificação do grau máximo.
 			
-			Como assumimos que o Teorema~\ref{teo:corteExato} vale
+			Como assumimos na indução que o Teorema~\ref{teo:corteExato} vale
 			para~${i-1}$, então existe um corte~$(B'',W'')$
 			tal que~${|B''|=m-|B'|}$ 
 			e~${e_{T[S]}(B'',W'')\le 4\cdot 2^{i-1}\cdot
@@ -215,6 +223,17 @@
 
 	\bigskip
 	\bigskip
+
+	\begin{coro}[{\cite[Corolário 7]{Schmidt15}}]
+		Para toda árvore~$T$ com~$n$ vértices e todo~${m\in[n]}$, existe
+		um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
+		e~${e_G(B,W)\le \dfrac{8}{\diam^*(G)}\Delta(G)}$.
+		Um corte que satisfaz esses requisitos pode ser computado em 
+		tempo~$O\Big(\dfrac{n}{\diam^*(G)}\Big)$.
+	\end{coro}
+
+	\bigskip
+	\bigskip
 	\bigskip
 	\bigskip
 	\bigskip
@@ -225,11 +244,39 @@
 		% Assumimos que a função INSERE\_ARESTA$(T,v_1,v_2)$ irá 
 		% inserir uma aresta em~$T$, ligando os 
 		% vértices~$v_1$ e~$v_2$ em tempo constante. 
-		Assumimos que a função COMPUTA\_CAMINHO\_MÁXIMO$(T)$ 
+
+		Assumimos que a função {\sc caminho\_máximo}$(T)$ 
 		devolve um vetor contendo os vértices do caminho 
-		máximo, de acordo com a ordem que aparecem no caminho, 
+		máximo, de acordo com a ordem apresentada no caminho, 
 		isso pode ser feito em tempo~$O(n)$, como o descrito na 
 		seção~\ref{sec:caminhoMaximo}.
+
+		A função {\sc rotula}$(c$, $T)$ recebe um vetor~$c$
+		contendo os vértices de um caminho e uma árvore~$T$
+		e, retorna dois vetores, o primeiro mapeia um vértice até 
+		a sua rotulação e o segundo a rotulação até o seu respectivo
+		vértice. 
+		Essa função pode ser executada em tempo~$O(n)$, sendo~$n$
+		o número de vértices de~$T$, como o mostrado na 
+		seção~\ref{sec:rotulacao}.
+
+		A função {\sc recalcula\_caminho}$(c$, $V)$
+		recebe como parâmetros um vetor~$c$, referente a um 
+		caminho, e um conjunto de vértices~$V$. Essa função devolve
+		um vetor, ordenado de acordo com~$c$, contendo os 
+		vértices em~$c$ que estão no conjunto~$V$. 
+		Isso pode ser feito em tempo~$O(|c|)$ se mantivérmos um 
+		vetor binário indicando presença ou ausencia dos vértices 
+		em~$V$.
+
+		% Também temos a função {\sc recalcula\_rotulação}$(V$, $r$, $v$, $c)$,
+		% um conjunto de vértices~$V$ e três vetores, o primeiro 
+		% que mapeia os vértices
+		% até as suas rotulações, o segundo que mapeia uma rotulação
+		% até o seu vertice e o terceiro representa os vértices de um
+		% caminho. 
+		% Essa função retorna um vetor 
+
 
 		% Seja~$vet$ um vetor, temos que as funções PRIMEIRO$(vet)$ 
 		% e ULTIMO$(vet)$ devolvem o primeiro e o último elementos 
@@ -243,23 +290,25 @@
 		\begin{algorithm}[H]
 		\label{alg:corteExato}
 			\SetKwInOut{Input}{input}
-			\SetKwInOut{Output}{outp}
+			\SetKwInOut{Output}{output}
 
 			\caption{Computa corte exato em uma árvore}
 			\Input{árvore $T=(V,E)$ com $n$ vértices e $m\in[n]$}
-			\Output{corte $(B,W)$ tal que $|B|=m$}
+			\Output{corte $(B,W)$ tal que $|B|=m$ 
+			e~$e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)$}
 			$B\gets \emptyset$\;
 			$S'\gets V$\;
 			$raiz\gets$ um vértice arbitrário de~$T$\;
-	
+			$P\gets$ {\sc caminho\_máximo}$(T)$\;
+			$[rotulo$, $indice]\gets$ {\sc rotula}$(P$, $T)$
 			\While{$|B|<m$}
 			{
-				$P\gets$ COMPUTA\_CAMINHO\_MAXIMO$(T[S'])$\;
-				$[(B',W',S'), raiz]\gets$
-				Algoritmo\ref{alg:dobraDiametro}$(T[S']$,
-				$|S'|$, $m-|B|$, $P$, $raiz)$\;
+				$[(B',W',S')$, $raiz]\gets
+				\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T[S']$,
+				$|S'|$, $m-|B|$, $P$, $rotulo$, $indice$, $raiz)$\;
 				$B\gets B\cup B'$\;
-
+				$P\gets$ {\sc recalcula\_caminho}$(P$, $S')$\;
+				$[rotulo$, $indice]\gets$ {\sc rotula}$(P$, $T[S'])$
 				% \If{$T[S']$ não é conexo}
 				% {
 				% 	INSERE\_ARESTA$(T[S']$, PRIMEIRO$(P)$, 
@@ -274,7 +323,7 @@
 		\bigskip
 		\bigskip
 
-		\textbf{Análise do Algoritmo}
+		\subsection*{Análise do Algoritmo}
 
 		% Sabe-se que calcular um caminho máximo faz parte do
 		% Teorema~\ref{teo:dobraDiametro} e deveria estar no
@@ -285,8 +334,8 @@
 		% portanto, encontrar um caminho máximo fará parte do 
 		% Algoritmo~\ref{alg:corteExato}.
 
-		No algoritmo, temos que transformar o conjunto de 
-		vértices~$S'$ em um grafo. 
+		No algoritmo, temos que retirar arestas de~$G$ para desconectar
+		os vértices de~$S'$ dos vértices de~$V(T)\setminus S'$.
 		Poderíamos fazer isso verificando todas as arestas que 
 		ligam dois vértices de~$S'$ e colocar no grafo, mas podemos
 		fazer isso no Algoritmo~\ref{alg:dobraDiametro} de forma 
@@ -298,11 +347,40 @@
 		arestas que ligam~$S'$ e~$V(T)\setminus S$ estão inativas, 
 		tornando $S'$ uma componente conexa isolada. 
 		Isso pode ser feito em tempo~$O(1)$.
-		O Algoritmo~\ref{alg:dobraDiametro} também devolverá 
-		algum vértice de~$S'$ que será usado como raiz na 
-		próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
 		Acrescentar a aresta~$e$, como o descrito no
 		Teorema~\ref{teo:corteExato} também pode ser feito de 
 		forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
-		que assim como 
+		da mesma forma que foi feito o procedimento citado acima.
+
+		O Algoritmo~\ref{alg:dobraDiametro} também devolverá 
+		algum vértice de~$S'$ que será usado como raiz na 
+		próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
+
+		Temos uma outra modificação no Algoritmo~\ref{alg:corteExato}   
+		em relação ao Teorema~\ref{teo:corteExato}.
+		Ao invés de calcularmos novamente o caminho máximo da nova
+		árvore, podemos reutilizar o caminho calculado anteriormente,
+		aproveitando somente a parte do caminho que está contida 
+		em~$S'$. 
+		Se usármos essa parte como caminho máximo,
+		manteremos a propriedade da dobra do diâmetro.
+		A prova disso pode ser vista em {\cite{Schmidt15}}.
+
+		\bigskip
+
+		Agora vamos analisar o consumo de tempo do algoritmo.
+		Sabemos que o Algoritmo~\ref{alg:corteExato} irá executar
+		o Algoritmo~\ref{alg:dobraDiametro}(em 
+		tempo ~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ ), a função
+		{\sc recalcula\_caminho}(em tempo~$O(n)$) e a função
+		{\sc rotula}(em tempo~$O(n)$) no máximo~$i$ vezes.
+		Portanto temos que o tempo de execução é
+		\begin{align}
+			\displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{n_\ell}{\diam^*(T)} + 2\cdot n_\ell\Big)
+			\le \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{\ell-1}}\cdot\dfrac{n}{\diam^*(T)}\Big)
+		\end{align}
+
+
+
+		

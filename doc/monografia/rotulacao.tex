@@ -1,4 +1,5 @@
 \section {Rotulação dos vértices da árvore}
+\label{sec:rotulacao}
 
 	Mais adiante, iremos nos referir a vértices com uma 
 	característica específica, e para isso precisamos atribuir um 
@@ -197,19 +198,22 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Lema do corte em árvores de caminho longo
-	%\color{red}{Esse nome está bom?}
-	}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection{Árvores de diâmetro grande}
 
 	Futuramente usaremos os resultados do lema abaixo na prova de 
 	um dos teoremas.
 
-	\begin{lem}[{\cite[Lemma 5]{Schmidt15}}]
+	\begin{lem}[{\cite[Lema 5]{Schmidt15}}]
 	\label{lema:caminhoLongo}
 		Para toda árvore~$T$ com~$n$ 
-		vértices,~${diam^*(T)>\dfrac{1}{2}}$
-		e para todo~$m\in[n]$, existe um corte~$(B,W)$ em~$T$
-		com~$|B|=m$ e~${e_T(B,W)\le 2}$. Um corte que satisfaz esses
+		vértices e~${\diam^*(T)>\dfrac{1}{2}}$
+		e para todo~${m\in[n]}$, existe um corte~$(B,W)$ em~$T$
+		com~${|B|=m}$ e~${e_T(B,W)\le 2}$. Um corte que satisfaz esses
 		requisitos pode ser computado em tempo~$O(n)$.
 	\end{lem}
 
@@ -219,15 +223,15 @@
 	Podemos ver que a função~$map^+_m(x)$ é injetora, dado que numa
 	soma, elementos distintos do domínio tem imagens distintas.
 
-	Uma árvore com a propriedade ~$diam^*(T)>\dfrac{1}{2}$ é uma
+	Uma árvore com a propriedade ~${\diam^*(T)>\dfrac{1}{2}}$ é uma
 	árvore cujo caminho máximo contém mais que a metade dos 
 	vértices da árvore, o que nos leva ao fato de que existem mais 
 	vértices no caminho máximo do que fora dele. 
 
 	Como o mostrado anteriormente, se um vértice~$v$ mapeia um
 	vértice~$v'$ e ambos estão no caminho máximo, então existe um
-	corte~$(B,W)$ em~$T$ com~$e_T(B,W)\le 2$.
-	Dado que~$diam^*(T)>\dfrac{1}{2}$, e usando o fato de 
+	corte~$(B,W)$ em~$T$ com~${e_T(B,W)\le 2}$.
+	Dado que~${\diam^*(T)>\dfrac{1}{2}}$, e usando o fato de 
 	que~$map^+_m(x)$ é uma função injetora e que
 	existem mais vértices no caminho máximo do que fora dele,
 	temos que pelo menos um vértice do caminho máximo irá mapear

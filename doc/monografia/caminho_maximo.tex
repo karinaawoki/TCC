@@ -2,9 +2,6 @@
 \label{sec:caminhoMaximo}
 	\subsection{Algoritmo que encontra um caminho máximo}
 
-	Um \textbf{caminho máximo} em uma árvore~$T$ é um caminho 
-	em~$T$ de comprimento máximo.
-
 	Encontrar um caminho máximo em uma árvore~$T=(V,E)$ é uma 
 	tarefa computacionalmente simples que pode ser realizada em 
 	tempo~$O(n)$, sendo~$n$ o número de vértices de~$T$, ou 
@@ -173,7 +170,7 @@
 	O \textbf{diâmetro} de um grafo conexo~$G$ é o
 	comprimento de um caminho máximo em~$G$. 
 	Em outras palavras, o diâmetro pode ser definido como:
-	$$ diam(G)=\max\{\dist(x,y):x,y\in V(G)\}.$$
+	$$ \diam(G)=\max\{\dist(x,y):x,y\in V(G)\}.$$
 
 	\bigskip
 
@@ -182,12 +179,12 @@
 	 é a razão entre o número
 	de vértices de um caminho máximo e o número total de vértices
 	de~$G$. Este pode também ser representado por
-	$$ diam^*(G) =\dfrac{\displaystyle\sum_{
-	G'~componente~conexa~de~G}^{}(diam(G')+1)}{|V(G)|}.$$
+	$$ \diam^*(G) =\dfrac{\displaystyle\sum_{
+	G'~componente~conexa~de~G}^{}(\diam(G')+1)}{|V(G)|}.$$
 
 	\medskip
 
 	Nota-se que para todo grafo~$G$ com~${V(G)\ne \emptyset}$, temos
-	que~${0<diam^*(G)\le 1}$, pois haverá no mínimo um vértice 
+	que~${0<\diam^*(G)\le 1}$, pois haverá no mínimo um vértice 
 	de~$G$ no caminho máximo, e no máximo, todos os vértices 
 	de~$G$.

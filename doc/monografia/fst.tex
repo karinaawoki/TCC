@@ -381,15 +381,17 @@
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
 		Dado que usamos o conjunto~$S'$ como a nova árvore
-		e sabendo que~$S'\le \dfrac{n}{2}$,
+		e sabendo que~$|S'|\le \dfrac{n}{2}$,
 		temos que o número de vértices de~$T_{\ell}$
 		é maior ou igual ao 
 		dobro do número de vértices de~$T_{\ell-1}$, logo
 		\begin{align}
-			 &4\cdot n_{\ell+2} \le 2\cdot n_{\ell+1} \le n_\ell \nonumber\\
-			\Rightarrow  &2^{i-1}\cdot n_i\le 2^{i-2}\cdot n_{i-1} \le\cdots\le
-			 2\cdot n_{2}\le n_1 \nonumber
+			 & n_{\ell} \ge 2\cdot n_{\ell-1} \ge 4\cdot n_{\ell-2} \nonumber\\
+			\Rightarrow & n = 2^0\cdot n_i\ge 2^1\cdot n_{i-1} \ge\cdots\ge
+			2^{i-j}n_j\ge\cdots\ge
+			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1 \nonumber 
 		\end{align}
+		Logo, para todo~$\ell\in[1,c]$ temos que~$n\ge $
 		Portanto temos que o tempo de execução é
 		\begin{align}
 			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big)

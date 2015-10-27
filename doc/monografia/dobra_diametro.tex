@@ -1,0 +1,38 @@
+\section {Algoritmo da dobra do diâmetro}
+	
+	\subsection{Teorema da dobra do diâmetro}
+	
+		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
+		\label{teo:dobraDiametro}
+			Para toda árvore~$T$ com~$n\ge 3$ vértices e 
+			todo~$m\in [n]$,
+			o conjunto de vértices de~$T$ pode ser particionado em 
+			três partes~$B$,~$W$ e~$S$ tal que vale um dos 
+			seguintes itens:
+			\begin{enumerate}
+				\item ${|B|=m}$, ${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
+				\item ${|B|\le m\le |B|+|S|}$, 
+				com~${0<|S|\le\dfrac{n}{2}}$,
+				${e_T(B,W,S)\le \dfrac{2\cdot 
+				\Delta(T)}{\diam^*(T)}}$, 
+				e~${\diam^*(T[S])\ge 2\diam^*(T)}$.
+			\end{enumerate}
+			Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
+			computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
+		\end{teo}
+
+	\medskip
+	\medskip
+
+
+	\subsection{Algortimo da dobra do diâmetro}
+	\begin{algorithm}[H]
+	\label{alg:dobraDiametro}
+		\SetKwInOut{Input}{input}
+		\SetKwInOut{Output}{output}
+
+		\caption{}
+		\Input{árvore $T$ com $n$ vértices e ${m\in[n]}$}
+		\Output{}
+
+	\end{algorithm}	

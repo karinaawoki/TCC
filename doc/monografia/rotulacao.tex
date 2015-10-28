@@ -118,25 +118,25 @@
 	\subsection{Mapeamento dos rótulos de vértices }
 	Vamos definir agora as funções que mapeiam um vértice em 
 	outro, utilizando a rotulação como base.
-	Chamaremos de~${map^+_m}$ a função que devolve o~$m$-ésimo 
+	Chamaremos de~${\map^+_m}$ a função que devolve o~$m$-ésimo 
 	próximo vértice na rotulação, considerando que os rótulos
 	estão dispostos de forma circular
-	e, de~${map^-_m}$ a função inversa da primeira. 
-	Ou seja,~${map^-_m}$ devolve o~$m$-ésimo vértice anterior.
+	e, de~${\map^-_m}$ a função inversa da primeira. 
+	Ou seja,~${\map^-_m}$ devolve o~$m$-ésimo vértice anterior.
 	Dessa forma, podemos ver que, para um 
-	vértice~$v$,~${map^+_m(\rot(v)) =(\rot(v)+m)\mod n}$ 
-	e~${map^-_m(\rot(v)) =(\rot(v)-m)\mod n}$.
+	vértice~$v$,~${\map^+_m(\rot(v)) =(\rot(v)+m)\mod n}$ 
+	e~${\map^-_m(\rot(v)) =(\rot(v)-m)\mod n}$.
 
 	Para facilitar, identificaremos os vértices pelos seus 
 	rótulos. 
 	Sendo assim, temos que, para um 
-	vértice~$v$, ~${map^+_m(v) =(v+m)\mod n}$ 
-	e~${map^-_m(v) =(v-m)\mod n}$ como uma simplificação das 
+	vértice~$v$, ~${\map^+_m(v) =(v+m)\mod n}$ 
+	e~${\map^-_m(v) =(v-m)\mod n}$ como uma simplificação das 
 	funções enunciadas anteriormente.
 
 	Note que, para todo $m\in [n]$, caso~$n>2$, se existem
 	dois vértices~$v$ e~$v'$, ambos no~$v_0,v_p\caminho$, 
-	tal que~${v'= map^+_m(v)}$, então o corte $(B,W)$ em~$T$ 
+	tal que~${v'= \map^+_m(v)}$, então o corte $(B,W)$ em~$T$ 
 	com~${B =\{v+1, v+2,\ldots,~v+m\}}$ é tal que~${|B|=m}$
 	e~${e_T(B,W)\le 2\le \Delta(T)}$.
 	Isso pode ser visto na figura abaixo.
@@ -151,9 +151,9 @@
 		\node [text=blue!65,draw=none, fill=none] at 
 		(10.5,2.2) {\Large{$m$ vértices}};
 		\node [draw=none, fill=none] at 
-		(9,6.5) {\footnotesize{$map^+_m$}};
+		(9,6.5) {\footnotesize{$\map^+_m$}};
 		\node [draw=none, fill=none] at 
-		(9,7.9) {\footnotesize{$map^-_m$}};
+		(9,7.9) {\footnotesize{$\map^-_m$}};
 
 
 		\node [subtree] (y1) at (3,4.6)  {};
@@ -220,7 +220,7 @@
 	\medskip
 	\medskip
 
-	Podemos ver que a função~$map^+_m(x)$ é injetora, dado que numa
+	Podemos ver que a função~$\map^+_m(x)$ é injetora, dado que numa
 	soma, elementos distintos do domínio tem imagens distintas.
 
 	Uma árvore com a propriedade ~${\diam^*(T)>\dfrac{1}{2}}$ é uma
@@ -232,7 +232,7 @@
 	vértice~$v'$ e ambos estão no caminho máximo, então existe um
 	corte~$(B,W)$ em~$T$ com~${e_T(B,W)\le 2}$.
 	Dado que~${\diam^*(T)>\dfrac{1}{2}}$, e usando o fato de 
-	que~$map^+_m(x)$ é uma função injetora e que
+	que~$\map^+_m(x)$ é uma função injetora e que
 	existem mais vértices no caminho máximo do que fora dele,
 	temos que pelo menos um vértice do caminho máximo irá mapear
 	outro vértice do caminho máximo. Isso ocorre porque todos

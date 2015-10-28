@@ -182,7 +182,7 @@
 			Note também que em ambas as componentes de~$T[S']$, 
 			temos que o caminho máximo de cada uma possui em um dos
 			seus extremos o vértice~$v_0$ ou o vértice~$v_p$.
-			Logo, se adicionármos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
+			Logo, se adicionarmos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
 			então~$T[S']$ será uma componente conexa e
 			teremos um caminho máximo 
 			em~$T[S']$ com o maior número de vértices possíveis.
@@ -225,12 +225,28 @@
 	\bigskip
 
 	\begin{coro}[{\cite[Corolário 7]{Schmidt15}}]
+	\label{coro:corteExato}
 		Para toda árvore~$T$ com~$n$ vértices e todo~${m\in[n]}$, existe
 		um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
 		e~${e_G(B,W)\le \dfrac{8}{\diam^*(G)}\Delta(G)}$.
 		Um corte que satisfaz esses requisitos pode ser computado em 
 		tempo~$O\Big(\dfrac{n}{\diam^*(G)}\Big)$.
 	\end{coro}
+
+	\begin{proof}
+		De acordo com o Teorema~\ref{teo:corteExato}, para toda árvore~$T$
+		existe um~$i$ tal que~$\diam^*(T)>\dfrac{1}{2^i}$. 
+		Como~$\dfrac{1}{2^i}$ é decrescente, então existe um~$j$ tal
+		que~$\dfrac{1}{2^{j-1}}\ge\diam^*(T)>\dfrac{1}{2^j}$,
+		o que implica em~$2^j\le\dfrac{2}{\diam^*(T)}$.
+
+		Dado que o Teorema~\ref{teo:corteExato} afirma a existência de um 
+		corte~$(B,W)$ com~${|B|=m}$ 
+		e~$e_T(B,W)\le 4\cdot 2^j\Delta(G)\le \dfrac{8}{\diam^*(T)}$,
+		e esse corte satisfaz as propriedades do 
+		Corolário~\ref{coro:corteExato}, então podemos afirmar a existência 
+		de cortes desse tipo.
+	\end{proof}
 
 	\bigskip
 	\bigskip
@@ -265,8 +281,8 @@
 		caminho, e um conjunto de vértices~$V$. Essa função devolve
 		um vetor, ordenado de acordo com~$c$, contendo os 
 		vértices em~$c$ que estão no conjunto~$V$. 
-		Isso pode ser feito em tempo~$O(|c|)$ se mantivérmos um 
-		vetor binário indicando presença ou ausencia dos vértices 
+		Isso pode ser feito em tempo~$O(|c|)$ se mantivermos um 
+		vetor binário indicando presença ou ausência dos vértices 
 		em~$V$.
 
 		% Também temos a função {\sc recalcula\_rotulação}$(V$, $r$, $v$, $c)$,
@@ -363,7 +379,7 @@
 		árvore, podemos reutilizar o caminho calculado anteriormente,
 		aproveitando somente a parte do caminho que está contida 
 		em~$S'$. 
-		Se usármos essa parte como caminho máximo,
+		Se usarmos essa parte como caminho máximo,
 		manteremos a propriedade da dobra do diâmetro.
 		A prova disso pode ser vista em {\cite{Schmidt15}}.
 
@@ -391,15 +407,15 @@
 			2^{i-j}n_j\ge\cdots\ge
 			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1 \nonumber 
 		\end{align}
-		Logo, para todo~$\ell\in[1,c]$ temos que~$n\ge $
-		Portanto temos que o tempo de execução é
+		Logo, para todo~$\ell\in[1,i]$ temos que~$n_\ell \le\dfrac{n} {2^{i-\ell}}$
+		Portanto temos que o tempo e execução é
 		\begin{align}
 			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big)
 			+ O(n_\ell) + O(n_\ell)\Big)
-			= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big) \nonumber\\
-			\le \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{\ell-1}}\cdot\dfrac{n}{\diam^*(T)}\Big)
+			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big) \nonumber\\
+			&\le \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{i-\ell}}
+			\cdot\dfrac{n}{\diam^*(T)}\Big) \nonumber\\
+			&\le O\Big(\dfrac{n}{\diam^*(T)}\Big). \nonumber
 		\end{align}
 
-
-
-		
+		Logo, o algoritmo leva tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.

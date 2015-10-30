@@ -1,5 +1,5 @@
 \section {Algoritmo da dobra do diâmetro}
-	
+
 	\subsection{Teorema da dobra do diâmetro}
 	
 		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
@@ -21,9 +21,103 @@
 			computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
 		\end{teo}
 
-	\medskip
-	\medskip
+	\bigskip
+	\bigskip
 
+		% Primeiramente, faremos uma série de definições para que
+		% depois possamos explicar melhor como o teorema e o algoritmo
+		% funcionam.
+
+		% Usaremos o que foi explicado na seção~\ref{sec:caminhMaximo}
+		% para encontrármos um caminho máximo. 
+		% Depois, usaremos 
+
+		Primeiramente, temos uma árvore~$T$ com~$n\ge 3$ vértices e um 
+		inteiro~$m\in[n]$.
+		Seja~$P$ um caminho máximo de~$T$ e sabendo que os vértices
+		estão rotulados como o descrito na seção~\ref{sec:rotulacao}. 
+
+	\bigskip
+	\bigskip
+	\bigskip
+
+
+	\begin{center} \begin{tikzpicture}
+		[scale=.7,auto=left,every node/.style={circle, draw=black,
+				fill=white!70}]
+
+		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
+		raise=4pt}, draw=brown, line width=1.5pt] 
+		(8,5.7) -- (2,5.7);
+
+		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
+		raise=4pt}, draw=yellow, line width=1.5pt] 
+		(4,2.7) -- (8.5,2.7);
+
+		\draw [draw=yellow, fill=yellow!20] (18.1,3.7) 
+		ellipse (1.9cm and 3.7cm); 
+
+		\node [text=blue!65,draw=none, fill=none] at 
+		(17.7,6.8) {$T_z$};
+
+
+		
+
+		\node [scale=1.3,subtree,fill=red!50](y1) at (2.5,5) {};
+		\node [subtree, fill=yellow!40]      (y2) at (5,5)   {};
+		\node [subtree, fill=yellow!40]      (y3) at (7.5,5) {};
+		\node [scale=1.3,subtree,fill=red!50](y4) at (10,5)  {};
+		\node [subtree, fill=Emerald]        (y5) at (12.5,5){};
+		\node [subtree, fill=Emerald]        (y6) at (15,5)  {};
+		\node [scale=1.9, subtree,fill=CornflowerBlue] (y7) at (18.1,5)  {};
+
+		\node (x0) at (0,5)  {...};
+		\node [fill=brown](x1) at (2.5,5)    {};
+		\node [fill=brown](x2) at (5,5)  {};
+		\node [fill=brown](x3) at (7.5,5)    {};
+		\node (x4) at (10,5) {};
+		\node (x5) at (12.5,5)   {};
+		\node (x6) at (15,5) {};
+		\node (x7) at (18.1,5) {};
+		\node (x8) at (20.6,5) {...};
+
+		\node [draw=none, fill=none] at 
+		(2,2) {\footnotesize{$\map^-_w(v)$}};
+		\node [draw=none, fill=none](nv) at (2,2){};
+		\node [draw=none, fill=none](nvt) at (2.5,3.6){};
+
+		\node [draw=none, fill=none] at 
+		(9.5,2) {\footnotesize{$\map^-_w(z)$}};
+		\node [draw=none, fill=none](nz) at (9.5,2){};
+		\node [draw=none, fill=none](nzt) at (10,3.6){};
+
+		\node [draw=none, fill=none] at 
+		(15.5,2.6) {\footnotesize{$x$}};
+		\node [draw=none, fill=none](z) at (15.5,2.6){};
+		\node [draw=none, fill=none](zt) at (18,2.6){};
+
+		\node [draw=none, fill=none] at (2.6,5.7){$z^b$};
+		\node [draw=none, fill=none] at (18.1,5.6){$z$};
+		\node [draw=none, fill=none] at (15,5.6){$v$};
+
+
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8}
+		\draw (\from) -- (\to);
+
+
+
+
+		\path[->, line width=1pt]
+		(nv) edge[left=23 ] (nvt);
+		\path[->, line width=1pt]
+		(z) edge[right=45] (zt);
+		\path[->, line width=1pt]
+		(nz) edge[right=45] (nzt);
+
+
+
+
+	\end{tikzpicture} \end{center}
 
 	\subsection{Algoritmo da dobra do diâmetro}
 	\begin{algorithm}[H]

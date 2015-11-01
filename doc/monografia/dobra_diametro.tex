@@ -32,14 +32,66 @@
 		% para encontrármos um caminho máximo. 
 		% Depois, usaremos 
 
-		Primeiramente, temos uma árvore~$T$ com~$n\ge 3$ vértices e um 
-		inteiro~$m\in[n]$.
+		Primeiramente, temos uma árvore~$T$ com~${n\ge 3}$ vértices e um 
+		inteiro~${m\in[n]}$.
 		Seja~$P$ um caminho máximo de~$T$ e sabendo que os vértices
-		estão rotulados como o descrito na seção~\ref{sec:rotulacao}. 
+		estão rotulados como o descrito na seção~\ref{sec:rotulacao},
+		teremos um corte~$(B,W,S)$ da seguinte forma:
+		%\begin{itemize}
+		\bigskip
+		\bigskip
+	
+	\subsubsection*{Caso 1:}
+			Se existe um vértice ~${v\in V(P)}$ tal 
+			que~${\map_m^+(v)\in V(P)}$, então o 
+			corte~$(B,W,S)$ 
+			com~${S=\emptyset}$,~${B =\{v+1, v+2,\ldots,~v+m\}}$
+			e~${W=V(T)\setminus B}$ satisfaz as propriedades do
+			primeiro caso do Teorema~\ref{teo:dobraDiametro},
+			como o explicado na seção~\ref{sec:map}.
 
 	\bigskip
 	\bigskip
-	\bigskip
+
+		\subsubsection*{Caso 2:}
+			Caso contrário, sabemos que para todo vértice~${v\in V(P)}$
+			teremos que~${\map_m^+(v)\not\in V(P)}$.
+			Isso implica que existem~$|V(P)|$ ou mais vértices fora de~$P$,
+			dado que cada vértice de~$P$ mapeia vértices distintos que estão
+			fora de~$P$.
+			Isso nos leva a~$d\le\dfrac{n}{2}$, pois no 
+			máximo~$\dfrac{n}{2}$ vértices estarão em~$P$.
+
+			Nesse caso, teremos um corte~$(B,W,S)$ que satisfaz as
+			propriedades do segundo caso do Teorema~\ref{teo:dobraDiametro}.
+			Isso será detalhado melhor a seguir.
+
+			\bigskip
+			
+			% Para todo~${z\in V(P)}$, e sendo~$x_1$ e~$x_2$ os menores
+			% vértices de~$T_z$ tal que~${\map^-_m(x_1)\in V(P)}$ 
+			% e~${\map^+_m(x_2)\in V(P)}$,
+			% usaremos as seguintes definições:
+			% \begin{align}
+			% 	z^b   = &\map^-_m(x_1) \nonumber \\
+			% 	z^f   = &\map^+_m(x_2) \nonumber \\
+			% 	P_z^b = &\map^-_m(V(T_z))\cap V(P) \nonumber\\
+			% 	P_z^f = &\map^+_m(V(T_z))\cap V(P) \nonumber%\\
+			% 	%H_z^f = &\map^+_m(V(T_))\cap V(P) \nonumber\\
+			% 	%H_z^f = &\map^+_m(V(T_z))\cap V(P) \nonumber
+			% \end{align}
+
+			Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
+			sendo~$x$ o menor vértice de~$T_z$ tal 
+			que~${\map^-_m(x)\in V(P)}$, temos 
+			que~${z^b = \map^-_m(x)}$.
+			Temos também
+			que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
+			e~${H_z^f =T_u}$ para todo 
+			vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
+
+			Segue uma imagem com a representação da disposição dos 
+			conjuntos de vértices.
 
 
 	\begin{center} \begin{tikzpicture}
@@ -51,7 +103,7 @@
 		(8,5.7) -- (2,5.7);
 
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
-		raise=4pt}, draw=yellow, line width=1.5pt] 
+		raise=4pt}, draw=Emerald, line width=1.5pt] 
 		(4,2.7) -- (8.5,2.7);
 
 		\draw [draw=yellow, fill=yellow!20] (18.1,3.7) 
@@ -61,14 +113,21 @@
 		(17.7,6.8) {$T_z$};
 
 
-		
+		% \node [scale=1.3,subtree,fill=Green](y1) at (2.5,5) {};
+		% \node [subtree, fill=Cyan]      (y2) at (5,5)   {};
+		% \node [subtree, fill=Cyan]      (y3) at (7.5,5) {};
+		% \node [scale=1.3,subtree,fill=Green](y4) at (10,5)  {};
+		% \node [subtree, fill=Blue]        (y5) at (12.5,5){};
+		% \node [subtree, fill=Blue]        (y6) at (15,5)  {};
+		% \node [scale=1.9, subtree,fill=Gray] (y7) at (18.1,5)  {};
+
 
 		\node [scale=1.3,subtree,fill=red!50](y1) at (2.5,5) {};
-		\node [subtree, fill=yellow!40]      (y2) at (5,5)   {};
-		\node [subtree, fill=yellow!40]      (y3) at (7.5,5) {};
+		\node [subtree, fill=Emerald]      (y2) at (5,5)   {};
+		\node [subtree, fill=Emerald]      (y3) at (7.5,5) {};
 		\node [scale=1.3,subtree,fill=red!50](y4) at (10,5)  {};
-		\node [subtree, fill=Emerald]        (y5) at (12.5,5){};
-		\node [subtree, fill=Emerald]        (y6) at (15,5)  {};
+		\node [subtree, fill=yellow]        (y5) at (12.5,5){};
+		\node [subtree, fill=yellow]        (y6) at (15,5)  {};
 		\node [scale=1.9, subtree,fill=CornflowerBlue] (y7) at (18.1,5)  {};
 
 		\node (x0) at (0,5)  {...};
@@ -82,12 +141,12 @@
 		\node (x8) at (20.6,5) {...};
 
 		\node [draw=none, fill=none] at 
-		(2,2) {\footnotesize{$\map^-_w(v)$}};
+		(2,2) {\footnotesize{$\map^-_m(v)$}};
 		\node [draw=none, fill=none](nv) at (2,2){};
 		\node [draw=none, fill=none](nvt) at (2.5,3.6){};
 
 		\node [draw=none, fill=none] at 
-		(9.5,2) {\footnotesize{$\map^-_w(z)$}};
+		(9.5,2) {\footnotesize{$\map^-_m(z)$}};
 		\node [draw=none, fill=none](nz) at (9.5,2){};
 		\node [draw=none, fill=none](nzt) at (10,3.6){};
 
@@ -99,13 +158,11 @@
 		\node [draw=none, fill=none] at (2.6,5.7){$z^b$};
 		\node [draw=none, fill=none] at (18.1,5.6){$z$};
 		\node [draw=none, fill=none] at (15,5.6){$v$};
-
+		\node [text=Brown,draw=none, fill=none] at (5,7){$P^b_z$};
+		\node [text=Emerald,draw=none, fill=none] at (6.25,1.3){$H^b_z$};
 
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8}
 		\draw (\from) -- (\to);
-
-
-
 
 		\path[->, line width=1pt]
 		(nv) edge[left=23 ] (nvt);
@@ -114,10 +171,129 @@
 		\path[->, line width=1pt]
 		(nz) edge[right=45] (nzt);
 
+	\end{tikzpicture} \end{center}
+
+		\bigskip
+
+			De forma análoga, para um vértice~${z\in V(P)}$ tal 
+			que~$z$ é f-especial,
+			temos que~${z^f = \map^+_m(x)}$,
+			sendo~$x$ o menor vértice de~$T_z$ tal 
+			que~${\map^+_m(x)\in V(P)}$.
+			Também temos
+			que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
+			e~${H_z^f =T_u}$ para todo 
+			vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
+
+			Segue abaixo outra imagem com a representação da disposição 
+			dos conjuntos de vértices.
 
 
+	\begin{center} \begin{tikzpicture}
+		[scale=.6,auto=left,every node/.style={circle, draw=black,
+				fill=white!70}]
+
+		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
+		raise=4pt}, draw=brown, line width=1.5pt] 
+		(-4.5,5.9) -- (-10.5,5.9);
+
+		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
+		raise=4pt}, draw=Emerald, line width=1.5pt] 
+		(-8.5,2.7) -- (-4,2.7);
+
+		\draw [draw=yellow, fill=yellow!20] (-18.1,3.7) 
+		ellipse (2cm and 4.5cm); 
+
+		\node [text=blue!65,draw=none, fill=none] at 
+		(-18.5,6.8) {$T_z$};
+
+
+		
+
+		\node [scale=1.3,subtree,fill=red!50](y1) at (-2.5,5) {};
+		\node [subtree, fill=Emerald]      (y2) at (-5,5)   {};
+		\node [subtree, fill=Emerald]      (y3) at (-7.5,5) {};
+		\node [scale=1.3,subtree,fill=red!50](y4) at (-10,5)  {};
+		\node [subtree, fill=yellow]        (y5) at (-12.5,5){};
+		\node [subtree, fill=yellow]        (y6) at (-15,5)  {};
+		\node [scale=1.9, subtree,fill=CornflowerBlue] (y7) at (-18.1,5)  {};
+
+		\node (x0) at (0,5)  {...};
+		\node (x1) at (-2.5,5)    {};
+		\node [fill=brown](x2) at (-5,5)  {};
+		\node [fill=brown](x3) at (-7.5,5)    {};
+		\node [fill=brown](x4) at (-10,5) {};
+		\node (x5) at (-12.5,5)   {};
+		\node (x6) at (-15,5) {};
+		\node (x7) at (-18.1,5) {};
+		\node (x8) at (-20.6,5) {};
+		\node (x9) at (-23.1,5) {...};
+
+		\node [draw=none, fill=none] at 
+		(-2,1) {\footnotesize{$\map^+_m(z)$}};
+		\node [draw=none, fill=none](nv) at (-2,1){};
+		\node [draw=none, fill=none](nvt) at (-2.5,3.6){};
+
+		\node [draw=none, fill=none] at 
+		(-9.5,1) {\footnotesize{$\map^+_m(v)$}};
+		\node [draw=none, fill=none](nz) at (-9.5,1){};
+		\node [draw=none, fill=none](nzt) at (-10,3.6){};
+
+		\node [draw=none, fill=none] at 
+		(-15.5,2) {\footnotesize{$x$}};
+		\node [draw=none, fill=none](z) at (-15.5,2){};
+		\node [draw=none, fill=none](zt) at (-18,2){};
+
+		\node [draw=none, fill=none] at (-9.8,5.8){$z^f$};
+		\node [draw=none, fill=none] at (-18.1,5.6){$z$};
+		\node [draw=none, fill=none] at (-20.6,5.6){$v$};
+		\node [text=Brown,draw=none, fill=none] at (-7.5,7.3){$P^f_z$};
+		\node [text=Emerald,draw=none, fill=none] at (-6.35,1.1){$H^f_z$};
+
+
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8,x8/x9}
+		\draw (\from) -- (\to);
+
+		\path[->, line width=1pt]
+		(nv) edge[left=23 ] (nvt);
+		\path[->, line width=1pt]
+		(z) edge[right=45] (zt);
+		\path[->, line width=1pt]
+		(nz) edge[right=45] (nzt);
 
 	\end{tikzpicture} \end{center}
+
+	Note que os vértices~$\map^-_m(v)$,~$\map^-_m(z)$,~$\map^+_m(v)$ 
+	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no caso 2, onde
+	nenhum vértice de~$P$ é mapeado em outro vértice de~$P$.
+
+	Considerando que existe uma aresta ligando o primeiro ao último 
+	vértices de~$P$, vemos que os elementos de~$P_z^b$ aparecem 
+	como um caminho conexo e que para valores diferentes de~$z$,
+	temos que~$P_z^b$ é disjunto.
+	O mesmo vale para~$P_z^f$.
+
+	Usaremos futuramente as seguintes propriedades:
+	\begin{enumerate}
+		\item Para todo vértice~$z$ tal que~$z$ é b-especial, 
+		temos que a árvore~$T_{z^b}$ é f-especial.
+		Isso ocorre porque para o vértice~$v$, que vem antes 
+		de~$z$, temos que~${\map^-_m(v)\not\in V(P)}$, 
+		logo,~$\map^-_m(v)$ está em~$T_{z^b}$.
+		Sabemos que~$\map^-_m(v)$ não está na árvore a esquerda
+		de~$T{z^f}$, pois se estivesse, o~$z^f$ seria outro
+		vértice.
+
+		\item Para todo vértice~$z$ tal que~$z$ é f-especial, 
+		temos que a árvore~$T_{z^b}$ é b-especial.
+		Isso ocorre de forma análoga a anterior, dado que
+		para o vértice~$v$, que vem antes de~$z$, temos
+		que~${\map^+_m(v)\in T_{z^f}}$.
+
+		\item
+
+		\item
+	\end{enumerate}
 
 	\subsection{Algoritmo da dobra do diâmetro}
 	\begin{algorithm}[H]

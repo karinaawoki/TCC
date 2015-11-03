@@ -276,24 +276,67 @@
 	Usaremos futuramente as seguintes propriedades:
 	\begin{enumerate}
 		\item Para todo vértice~$z$ tal que~$z$ é b-especial, 
-		temos que a árvore~$T_{z^b}$ é f-especial.
+		temos que o vértice~$z^b$ é f-especial.
+
 		Isso ocorre porque para o vértice~$v$, que vem antes 
-		de~$z$, temos que~${\map^-_m(v)\not\in V(P)}$, 
+		de~$z$ em~$P$, temos que~${\map^-_m(v)\not\in V(P)}$, 
 		logo,~$\map^-_m(v)$ está em~$T_{z^b}$.
 		Sabemos que~$\map^-_m(v)$ não está na árvore a esquerda
-		de~$T{z^f}$, pois se estivesse, o~$z^f$ seria outro
+		de~$T{z^f}$, pois se estivesse, o~$z^f$ seria um outro
 		vértice.
 
 		\item Para todo vértice~$z$ tal que~$z$ é f-especial, 
-		temos que a árvore~$T_{z^b}$ é b-especial.
+		temos que o vértice~$z^f$ é b-especial.
+
 		Isso ocorre de forma análoga a anterior, dado que
-		para o vértice~$v$, que vem antes de~$z$, temos
+		para o vértice~$v$, que vem antes de~$z$ em~$P$, temos
 		que~${\map^+_m(v)\in T_{z^f}}$.
 
-		\item
+		\item Um vértice~${z\in V(P)}$ é b-especial sse existe um
+		vértice~${u\in V(P)}$ tal que~$u$ é f-especial e~${z=u^f}$.
 
-		\item
+		Sabemos que a volta é verdadeira usando a propriedade 2.
+		
+		A ida é verdadeira pois, dado que~$z$ é b-especial,
+		temos que existe um ou mais vértices~${v_i\in V(P)}$ tal
+		que~${\map^+_m(v_i)\in T_{z}}$.
+		Seja~$v_k$ o vértice com o maior rótulo e~$u$ o vértice 
+		que vem depois de~$v_k$ em~$P$. 
+		Temos então que~${\map^-_m(z)\in T_u}$ e que alguns vértices
+		de~$T_z$ mapeiam em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
+
+		\item Um vértice~${z\in V(P)}$ é f-especial sse existe um
+		vértice~${u\in V(P)}$ tal que~$u$ é b-especial e~${z=u^b}$.
+
+		Podemos verificar que essa propriedade é verdadeira de forma
+		semelhante a verificação da propriedade anterior.
 	\end{enumerate}
+
+	Sendo~$B$ um conjunto de todos os vértices b-especiais e~$F$ o
+	conjunto de todos os vértices f-especiais e, usando as propriedades 
+	3 e 4 respectivamente, temos que
+	\begin{align}
+		\displaystyle\sum_{u\in F}|T_{u^f}| = 
+		\displaystyle\sum_{z\in B}|T_{z}| \nonumber \\
+		\displaystyle\sum_{u\in B}|T_{u^b}| = 
+		\displaystyle\sum_{z\in F}|T_{z}| \nonumber
+	\end{align}
+
+	Note que para todo vértice b-especial~$z$ todos os vértices 
+	de~$H^b_z$ e de~$P^b_z$ mapeiam um vértice 
+	de~$T_z$ e que nem todos os vértices de~$T_z$ são mapeados por
+	vértices~$H^b_z\cup P_z^b$, 
+	dado que~$\map^-_m(z)\not\in H^b_z\cup P_z^b$.
+	O mesmo ocorre com os vértices f-especiais~$w$.
+	Portanto temos que
+	\begin{align}
+		|T_z| &> |P^b_z| + |H^b_z| \\
+		|T_w| &> |P^f_w| + |H^f_w|
+	\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\subsection{Algoritmo da dobra do diâmetro}
 	\begin{algorithm}[H]

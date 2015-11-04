@@ -312,14 +312,22 @@
 		semelhante a verificação da propriedade anterior.
 	\end{enumerate}
 
-	Sendo~$B$ um conjunto de todos os vértices b-especiais e~$F$ o
-	conjunto de todos os vértices f-especiais e, usando as propriedades 
+	Seja~$T'_z$ o conjunto de 
+	vértices~${V(T_z)\setminus \{z\}}$,~$B_{esp}$ 
+	um conjunto de todos os vértices b-especiais e~$F_{esp}$ o
+	conjunto de todos os vértices f-especiais, usando as propriedades 
 	3 e 4 respectivamente, temos que
 	\begin{align}
-		\displaystyle\sum_{u\in F}|T_{u^f}| = 
-		\displaystyle\sum_{z\in B}|T_{z}| \nonumber \\
-		\displaystyle\sum_{u\in B}|T_{u^b}| = 
-		\displaystyle\sum_{z\in F}|T_{z}| \nonumber
+		\displaystyle\sum_{u\in F_{esp}}|T_{u^f}| = 
+		\displaystyle\sum_{z\in B_{esp}}|T_{z}| %\nonumber \\
+		&\Rightarrow
+		\displaystyle\sum_{u\in F_{esp}}|T_{u^f}'| = 
+		\displaystyle\sum_{z\in B_{esp}}|T_{z}'| \label{eq:4}\\
+		\displaystyle\sum_{u\in B_{esp}}|T_{u^b}| = 
+		\displaystyle\sum_{z\in F_{esp}}|T_{z}| %\nonumber
+		&\Rightarrow
+		\displaystyle\sum_{u\in B_{esp}}|T_{u^b}'| = 
+		\displaystyle\sum_{z\in F_{esp}}|T_{z}'| \label{eq:3}.
 	\end{align}
 
 	Note que para todo vértice b-especial~$z$ todos os vértices 
@@ -330,10 +338,111 @@
 	O mesmo ocorre com os vértices f-especiais~$w$.
 	Portanto temos que
 	\begin{align}
-		|T_z| &> |P^b_z| + |H^b_z| \\
-		|T_w| &> |P^f_w| + |H^f_w|
+		|T_z| > |P^b_z| + |H^b_z| 
+		&\Rightarrow
+		|T_z'| \le |P^b_z| + |H^b_z| \label{eq:5}\\
+		|T_w| > |P^f_w| + |H^f_w|
+		&\Rightarrow
+		|T_w'| \le |P^f_w| + |H^f_w| \label{eq:6}.
 	\end{align}
 
+	Como~$P^b_z$ é disjunto e~$P^b_z\cup H^b_z\cup T'_{z^b}$
+	nada mais é do que o conjunto de sub-árvores enraizadas
+	nos vértices de~$P^b_z$, então temos 
+	que~${P^b_z\cup H^b_z\cup T'_{z^b}}$ também é disjunto.
+	Como todos os vértices de~$P$ são mapeados em alguma sub-árvore,
+	então todo vértice de~$V(P)$ pertence a algum~$P^b_z$, logo,
+	todo vértice de~$V(T)$ pertence a 
+	algum~${P^b_z\cup H^b_z\cup T'_{z^b}}$.
+	O mesmo é válido para~${P^f_z\cup H^f_z\cup T'_{z^f}}$.
+	Portanto
+	\begin{align}
+		(1-d)n = |V\setminus V(P)| &= 
+		\displaystyle\sum_{z\in B_{esp}}\Big(|T_{z^b}'|+|H_z^b|\Big)
+		\label{eq:7}\\
+		(1-d)n = |V\setminus V(P)| &= 
+		\displaystyle\sum_{z\in F_{esp}}\Big(|T_{z^f}'|+|H_z^f|\Big)
+		\label{eq:9}\\
+		dn = |V(P)| &= 
+		\displaystyle\sum_{z\in B_{esp}}|P_z^b|
+		\label{eq:8}\\
+		dn = |V(P)| &= 
+		\displaystyle\sum_{z\in F_{esp}}|P_z^f| 
+		\label{eq:10}.
+	\end{align}
+
+	Usando as equações~\ref{eq:7},~\ref{eq:9},~\ref{eq:8} e~\ref{eq:10}
+	e, as equações~\ref{eq:4} e~\ref{eq:3} depois, temos que
+	\begin{align}
+		\dfrac{1-d}{d} &= 
+		\dfrac{
+			\displaystyle\sum_{z\in B_{esp}}
+			\Big(|T'_{z^b}|+|H_z^b|\Big) + 
+			\displaystyle\sum_{z\in F_{esp}}
+			\Big(|T'_{z^f}|+|H_z^f|\Big)}
+			{\displaystyle\sum_{z\in B_{esp}}|P_z^b| +
+			\displaystyle\sum_{z\in F_{esp}}|P_z^f|}
+			\nonumber\\
+		&= \dfrac{
+			\displaystyle\sum_{z\in B_{esp}}
+			\Big(|T'_{z}|+|H_z^b|\Big) + 
+			\displaystyle\sum_{z\in F_{esp}}
+			\Big(|T'_{z}|+|H_z^f|\Big)}
+			{\displaystyle\sum_{z\in B_{esp}}|P_z^b| +
+			\displaystyle\sum_{z\in F_{esp}}|P_z^f|}
+			\nonumber \\
+			\Rightarrow	
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b| &+ 
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|
+			= \displaystyle\sum_{z\in B_{esp}}
+			\Big(|T'_{z}|+|H_z^b|\Big) + 
+			\displaystyle\sum_{z\in F_{esp}}
+			\Big(|T'_{z}|+|H_z^f|\Big)\nonumber
+	\end{align}
+
+	\newpage
+
+	Isso nos leva a dois casos
+	\begin{enumerate}[label=(\alph*)]
+		\item $\displaystyle\sum_{z\in B_{esp}}
+			\Big(|T'_{z}|+|H_z^b|\Big)\le
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|$
+			ou
+		\item $\displaystyle\sum_{z\in B_{esp}}
+			\Big(|T'_{z}|+|H_z^b|\Big)>
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|
+			\Rightarrow \\
+			\displaystyle\sum_{z\in F_{esp}}
+			\Big(|T'_{z}|+|H_z^f|\Big)<
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|
+			\Rightarrow \\
+			\displaystyle\sum_{z\in F_{esp}}
+			\Big(|T'_{z}|+|H_z^f|\Big)\le
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|$.
+	\end{enumerate}
+
+	Sabemos que se o caso (a) for verdadeiro, teremos um 
+	vértice~$z\in B_{esp}$ tal que~${|T'_z|+|H^b_z|\le |P^b_z|}$,
+	pois se todos os vértices em~$B_{esp}$ 
+	satisfizerem~${|T'_z|+|H^b_z| > |P^b_z|}$, então o caso (a)
+	não será verdadeiro.
+	O mesmo ocorre com o caso (b). 
+	Portanto temos um dos casos
+	a seguir sempre será válido.
+
+	\begin{enumerate}[label=(\alph*)]
+		\item existe um vértice~$z\in B_{esp}$ 
+			tal que $|T'_{z}|+|H_z^b|\le
+			\dfrac{1-d}{d}|P_z^b|$ ou
+		\item existe um vértice~$z\in F_{esp}$ 
+			tal que $|T'_{z}|+|H_z^f|\le
+			\dfrac{1-d}{d}|P_z^f|$
+	\end{enumerate}
+
+
+	\bigskip
+	\bigskip
+	\bigskip
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

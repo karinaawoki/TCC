@@ -1,5 +1,5 @@
 \section {Algoritmo da dobra do diâmetro}
-
+\label{sec:dobraDiametro}
 	\subsection{Teorema da dobra do diâmetro}
 	
 		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
@@ -340,10 +340,10 @@
 	\begin{align}
 		|T_z| > |P^b_z| + |H^b_z| 
 		&\Rightarrow
-		|T_z'| \le |P^b_z| + |H^b_z| \label{eq:5}\\
+		|T_z'| \ge |P^b_z| + |H^b_z| \label{eq:5}\\
 		|T_w| > |P^f_w| + |H^f_w|
 		&\Rightarrow
-		|T_w'| \le |P^f_w| + |H^f_w| \label{eq:6}.
+		|T_w'| \ge |P^f_w| + |H^f_w| \label{eq:6}.
 	\end{align}
 
 	Como~$P^b_z$ é disjunto e~$P^b_z\cup H^b_z\cup T'_{z^b}$
@@ -438,6 +438,60 @@
 			tal que $|T'_{z}|+|H_z^f|\le
 			\dfrac{1-d}{d}|P_z^f|$
 	\end{enumerate}
+
+	\bigskip
+	\bigskip
+	
+	\subsubsection*{Caso (a) seja verdadeiro:}
+		Existe um vértice~$z\in B_{esp}$ 
+		tal que ${|T'_{z}|+|H_z^b|\le
+		\dfrac{1-d}{d}|P_z^b|}$, logo, temos
+		que~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
+		Usando a equação~\ref{eq:5}, temos 
+		que
+		\begin{align}
+			|H^b_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^b_z|
+			\Rightarrow
+			|H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z| \nonumber
+		\end{align}
+
+		Construiremos o corte~$(B,W,S)$ de forma 
+		que~$S = |H^b_z|+|P^b_z|$.
+		Sabemos que~$S\ne \emptyset$, pois~$z$ é b-especial,
+		o que implica em~$P^b_z\ne \emptyset$. 
+		Dessa forma, temos que
+
+		\begin{align}
+			|S| = |H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z|
+			&\Rightarrow
+			|S| \le\dfrac{1}{2d}|P^b_z| \nonumber \\
+			&\Rightarrow
+			|S| \le\dfrac{1}{2d}|P^b_z|\le \dfrac{n}{2} 
+			\label{eq:metade} \\
+			&\Rightarrow
+			2d\le \dfrac{1}{|S|}|P^b_z|  
+			\label{eq:reaproveitaCaminho}\\
+			&\Rightarrow
+			2d\le \dfrac{1}{|S|}|P^b_z|\le \diam^*(T[S]) 
+			\nonumber
+		\end{align}
+
+
+		Seja o vértice~${z^b_l\in P^b_z}$ tal 
+		que~$\map^+_m(z^b_l)$ seja um vértice de~$T_z$ com 
+		maior rótulo possível e~$j$ o vértice que vem
+		antes de~$z$ em~$P$. Assumiremos que
+		\begin{align}
+			B_1 = \Big\{ v\in V(T):z^b_l<v\le j \Big\}
+			\nonumber.
+		\end{align}
+
+		Agora podemos usar o Lema~\ref{lema:approxCutForest}
+
+	\bigskip
+	\bigskip
+	
+	\subsubsection*{Caso (b) seja verdadeiro:}
 
 
 	\bigskip

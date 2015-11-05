@@ -478,7 +478,7 @@
 
 
 		Seja o vértice~${z^b_l\in P^b_z}$ tal 
-		que~$\map^+_m(z^b_l)$ seja um vértice de~$T_z$ com 
+		que~$\map^+_m(z^b_l)$ é o vértice de~$T_z$ com 
 		maior rótulo possível e~$j$ o vértice que vem
 		antes de~$z$ em~$P$. Assumiremos que
 		\begin{align}
@@ -498,6 +498,82 @@
 		Portanto, os valores passados como~$m$ e~$c$ são 
 		compatíveis com o que é pedido no 
 		Lema~\ref{lema:approxCutForest}.
+
+
+
+		\begin{center} \begin{tikzpicture}
+		[scale=.7,auto=left,every node/.style={circle, draw=black,
+				fill=white!70}]
+
+		\draw [draw=red!50, line width=2pt, fill=red!17](9,2.5) rectangle (16,6);
+
+		\draw [draw=Emerald, line width=2pt, fill=Emerald!20]
+		(8.7,1.4) -- (8.7,7.4) -- (1.8,7.4) -- (1.8,4.5) -- 
+		(3.7,4.5) -- (3.7,1.4) -- cycle;
+
+		\draw [draw=CornflowerBlue, line width=2pt, fill=CornflowerBlue!30]
+		(16.3,1.4) -- (17.3,3.9) -- (18.3,1.4) -- cycle;
+
+		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
+		raise=4pt}, draw=brown, line width=1.5pt] 
+		(8,5.7) -- (2,5.7);
+
+		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
+		raise=4pt}, draw=Emerald, line width=1.5pt] 
+		(4,3.2) -- (8.5,3.2);
+		
+
+
+		% \node [scale=1.3,subtree,fill=Green](y1) at (2.5,5) {};
+		% \node [subtree, fill=Cyan]      (y2) at (5,5)   {};
+		% \node [subtree, fill=Cyan]      (y3) at (7.5,5) {};
+		% \node [scale=1.3,subtree,fill=Green](y4) at (10,5)  {};
+		% \node [subtree, fill=Blue]        (y5) at (12.5,5){};
+		% \node [subtree, fill=Blue]        (y6) at (15,5)  {};
+		% \node [scale=1.9, subtree,fill=Gray] (y7) at (18.1,5)  {};
+
+
+		\node [scale=1.3,subtree,fill=white](y1) at (2.5,5) {};
+		\node [subtree, fill=Emerald]      (y2) at (5,5)   {};
+		\node [subtree, fill=Emerald]      (y3) at (7.5,5) {};
+		\node [subtree,fill=red!50]        (y4) at (10,5)  {};
+		\node [subtree,fill=red!50]        (y5) at (12.5,5){};
+		\node [subtree,fill=red!50]        (y6) at (15,5)  {};
+		\node [scale=1.9, subtree,fill=CornflowerBlue!70] (y7) at (18.1,5)  {};
+
+		\node (x0) at (0,5)  {...};
+		\node [fill=brown](x1) at (2.5,5)    {};
+		\node [fill=brown](x2) at (5,5)  {};
+		\node [fill=brown](x3) at (7.5,5)    {};
+		\node (x4) at (10,5) {};
+		\node (x5) at (12.5,5)   {};
+		\node (x6) at (15,5) {};
+		\node (x7) at (18.1,5) {};
+		\node (x8) at (20.6,5) {...};
+
+		\node [draw=none, fill=none] at (7.6,5.7){$z^b_l$};
+		\node [draw=none, fill=none] at (2.6,5.7){$z^b$};
+		\node [draw=none, fill=none] at (18.1,5.6){$z$};
+		\node [draw=none, fill=none] at (15,5.6){$f$};
+		\node [text=Brown,draw=none, fill=none] at (5,7){$P^b_z$};
+		\node [text=Emerald,draw=none, fill=none] at (6.25,1.8){$H^b_z$};
+
+		\node [text=Emerald,draw=none, fill=none] at (6.2,0.8){$\mathbf{S}$};
+		\node [text=red!50,draw=none, fill=none] at (12.5,1.9){$\mathbf{B_1}$};
+		\node [text=CornflowerBlue,draw=none,fill=none] at 
+		(17.3,0.8){$\mathbf{B_2}$};
+
+		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8}
+		\draw (\from) -- (\to);
+
+		\draw [draw=Emerald, line width=2pt]
+		(8.7,1.4) -- (8.7,7.4) -- (1.8,7.4) -- (1.8,4.5) -- 
+		(3.7,4.5) -- (3.7,1.4) -- cycle;
+
+		\draw [draw=CornflowerBlue, line width=2pt]
+		(16.3,1.4) -- (17.3,3.9) -- (18.3,1.4) -- cycle;
+
+	\end{tikzpicture} \end{center}
 
 	\bigskip
 	\bigskip

@@ -491,8 +491,16 @@
 		e~${2-\dfrac{1}{1-d}}$ como os valores de~$m$ e~$c$,
 		respectivamente.
 		Dessa forma, teremos um corte~$(B_2,W_2)$ tal 
-		que~$cm\le|B_2|\le m$ 
-		e~$e_{T_z'}(B_2,W_2)\le $
+		que~${cm\le|B_2|\le m}$ e
+		\begin{align}
+		e_{T_z'}(B_2,W_2)&\le \ceil[\Big]{ \dfrac{2c}{1-c}} 
+		\Delta(T_z') = \ceil[\Big]{ \dfrac{2}{d}-4} \Delta(T_z') 
+		\nonumber\\
+		&\le \ceil[\Big]{ \dfrac{2}{d}-4} \Delta(T) 
+		\nonumber\\
+		&\le \Big( \dfrac{2}{d}-3 \Big) \Delta(T).
+		\label{eq:corte}
+		\end{align}
 		Como temos que~${\map^+_m(z^b_l)\in T_z}$ e que todos
 		os vértices entre~$z^b_l+1$ e~$j$ estão em~$B_1$,
 		então~${m-|B_1|<|T_z|}$. Logo,~${1\le m-|B_1|\le |T'_z|}$.
@@ -501,6 +509,8 @@
 		Portanto, os valores passados como~$m$ e~$c$ são 
 		compatíveis com o que é pedido no 
 		Lema~\ref{lema:approxCutForest}.
+		A disposição dos vértices ficará como o representado a
+		seguir.
 
 
 
@@ -570,8 +580,66 @@
 	\end{tikzpicture} \end{center}
 
 
+		Temos, então, o corte~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
+		e~${W = V(T)\setminus (B\cup S)}$.
+		Dado que~${\map^+_m(z^b_l)\in T_z}$, temos 
+		que~${m<|B_1|}$ e, como obtemos~$B_2$ através do 
+		Lema~\ref{lema:approxCutForest} usando~$m-|B_1|$ 
+		como~$m$, então teremos que~${B_2\le m-|B_1|}$, implicando
+		em~${m\ge|B|}$.
+		De acordo com o Lema~\ref{lema:approxCutForest} também temos 
+		que~${|B_2|\ge c\cdot(m-|B_1|)}$ e, como estamos no caso~2, 
+		então~$d\le \dfrac{1}{2}$ e~$|P^b_z|\le |S|$, dado que
+		cada vértice de~$P^b_z$ irá mapear em um vértice diferente 
+		de~$S$.
+		Portanto
+		\begin{align}
+			m-|B| &= m-|B_1|-|B_2| \nonumber\\
+			&\le(m-|B_1|)-c\cdot (m-|B_1|) = (m-|B_1|)(1-c)
+			\nonumber \\
+			&\le|T_z'|(1-c) = |T_z'|\dfrac{d}{1-d} \le
+			|T_z'|\dfrac{\frac{1}{2}}{1-\frac{1}{2}} = |T_z'|
+			\nonumber \\
+			&\le |P^b_z| \le |S| \nonumber \\ 
+			\nonumber\\
+			\Rightarrow m\le |&B|+|S| \Rightarrow |B|\le 
+			m\le |B|+|S|. \nonumber
+		\end{align}
+
+		Agora mostraremos 
+		que~${e_T(B,W,S)\le \dfrac{2\cdot \Delta(T)}{\diam^*(T)}}$.
+		$\\$
+		% Sabemos que os vértices do corte~$(B,W,S)$ são as arestas
+		% que ligam~$z^b_l$ e~$f$ aos vértices que vêm depois deles 
+		% em~$P$
+		Temos que o número de arestas no corte~$(B,W,S)$ é, no 
+		máximo,~${(\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
+		(\Delta(T)-2)}$.
+		Essa soma representa a quantidade total de arestas, sendo elas
+		as que conectam~$z^b$
+		a~$W$, a que liga~$z^b_l$ a~$B_1$, a
+		que conecta~$f$ e~$z$, as presentes no corte~$(B_2,W_2)$ e, 
+		por fim, as arestas que ligam~$z$ a~$T_z'$ (talvez
+		existam arestas ligando~$B_2$ a~$z$).
+		Logo, usando a equação~\ref{eq:corte}, temos que
+		\begin{align}
+			e_T(B,W,S) &= (\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
+			(\Delta(T)-2) \nonumber\\
+			&= 2\cdot\Delta(T) + e_{T_z'}(B_2,W_2) - 1 
+			\nonumber\\
+			&\le 2\cdot\Delta(T) + \Big( \dfrac{2}{d}-3 \Big) 
+			\Delta(T) - 1 = \Big( \dfrac{2}{d}-1 \Big)\Delta(T)-1 
+			\nonumber\\
+			&< \dfrac{2\cdot \Delta(T)}{d}. \nonumber
+		\end{align}
+
+		Portanto, se as condições do caso~(a) forem satisfeitas, então 
+		existe um corte~$(B,W,S)$ que satisfaz as propriedades do
+		Teorema~\ref{teo:dobraDiametro}.
+
 	\bigskip
 	\bigskip
+	\newpage
 	
 	\subsubsection*{Caso (b) seja verdadeiro:}
 

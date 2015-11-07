@@ -19,7 +19,9 @@
 	
 
  	%% fill=blue!30 -- núemro indica quão escuro é
-	\begin{center} \begin{tikzpicture}
+	\begin{center} 
+	\begin{figure}[h]
+	\begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=blue!20}]
 
@@ -66,7 +68,11 @@
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6}
 		\draw (\from) -- (\to);
 
-	\end{tikzpicture} \end{center}
+
+	\end{tikzpicture} 
+	\caption{Sub-árvores enraizadas no caminho máximo}
+	\end{figure}
+	\end{center}
 
 	\bigskip
 
@@ -142,7 +148,9 @@
 	e~${e_T(B,W)\le 2\le \Delta(T)}$.
 	Isso pode ser visto na figura abaixo.
 
-	\begin{center} \begin{tikzpicture}
+	\begin{center} 
+	\begin{figure}[h]
+	\begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=blue!20}]
 
@@ -185,7 +193,12 @@
 		(x4) edge[bend right=45, looseness=1.7 ] (x2);
 
 
-	\end{tikzpicture} \end{center}
+	\end{tikzpicture}
+	\caption{Mapeamento dos vértices~$v$ e~$v'$.
+	Mapeamento entre vértices do caminho máximo
+	induz um corte~$(B,W)$ com~$|B| = m$ e~$e_T(B,W) = 2$.} 
+	\end{figure}
+	\end{center}
 
 	
 	Caso~$n\le 2$, 

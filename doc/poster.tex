@@ -1,0 +1,368 @@
+%\title{LaTeX Portrait Poster Template}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% a0poster Portrait Poster
+% LaTeX Template
+% Version 1.0 (22/06/13)
+%
+% The a0poster class was created by:
+% Gerlinde Kettl and Matthias Weiser (tex@kettl.de)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a0,portrait]{a0poster}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{multicol} % This is so we can have multiple columns of text side-by-side
+\columnsep=100pt % This is the amount of white space between the columns in the poster
+\columnseprule=3pt % This is the thickness of the black line between the columns in the poster
+
+\usepackage[svgnames]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
+
+\usepackage{times} % Use the times font
+
+\usepackage{graphicx} % Required for including images
+\graphicspath{{figures/}} % Location of the graphics files
+\usepackage{booktabs} % Top and bottom rules for table
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{amsfonts, amsmath, amsthm, amssymb} % For math fonts, symbols and environments
+\usepackage{wrapfig} % Allows wrapping text around tables and figures
+\usepackage{enumitem}
+\usepackage{mathtools,booktabs}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+
+\newtheorem{teo}{Teorema}
+\newtheorem{lem}{Lema}
+\newtheorem{prov}{Prova}
+\newtheorem{alg}{Análise do algoritmo}
+\newtheorem{prob}{Problema}
+\newtheorem{coro}{Corolário}
+
+\newcommand{\caminho}{\mathrm{-caminho}}
+\newcommand{\dist}{\mathrm{dist}}
+\newcommand{\diam}{\mathrm{diam}}
+\newcommand{\grau}{\mathrm{grau}}
+\newcommand{\rot}{\mathrm{rot}}
+\newcommand{\map}{\mathrm{map}}
+\newcommand{\Oh}{\mathrm{O}}
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	POSTER HEADER 
+%----------------------------------------------------------------------------------------
+
+% The header is divided into two boxes:
+% The first is 75% wide and houses the title, subtitle, names, university/organization and contact information
+% The second is 25% wide and houses a logo for your university/organization or a photo of you
+% The widths of these boxes can be easily edited to accommodate your content as you see fit
+
+\begin{minipage}[b]{0.75\linewidth}
+\VeryHuge \center \color{NavyBlue} \textbf{Estudo do Problema da Bissecção Mínima em Árvores} \color{Black}\\ % Title
+[2cm]
+\huge \textbf{Karina Suemi Awoki}\\[0.6cm] % Author(s)
+\huge Universidade de São Paulo, Instituto de Matemática e Estatística\\[0.6cm] % University/organization
+\end{minipage}
+%
+\begin{minipage}[b]{0.25\linewidth}
+\includegraphics[width=9cm]{imeusp.png}\
+\includegraphics[width=9cm]{usp.png}\\
+\end{minipage}
+
+\vspace{3cm} % A bit of extra whitespace between the header and poster content
+
+%----------------------------------------------------------------------------------------
+
+\begin{multicols}{3} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\color{Navy} % Navy color for the abstract
+
+%\begin{abstract}
+%The electrical energy from renewables in Algeria contributed about 3.4\% (280 MW) in 2008 of a total power of 8.1 GWe and will reach 5\% by the year 2017 according to the Algerian Electricity and Gas Regulation Commission (CREG). The country’s target is reaching 40\% by 2030. The geothermal resources in Algeria are of low-enthalpy type. Most of these geothermal resources are located in the north of the country and generate a heat discharge of 240 MWt.
+%\end{abstract}
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\color{Black} % SaddleBrown color for the introduction
+\section*{Introdução}
+O assunto abordado se
+enquadra na área de Otimização Combinatória e diz respeito ao 
+\emph{Problema da Bissecção Mínima}. Para definir o problema 
+precisamente, seguem primeiro algumas definições. 
+
+Seja~${G=(V,E)}$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$.
+Dizemos que~$(B,W)$ é um \textbf{corte}
+de~$G$ se~${B \cup W =V(G)}$ e~${B\cap W =\emptyset}$.
+Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura}
+do corte ou por~$e_G(B,W)$.
+O corte~$(B,W)$ é uma \textbf{bissecção} se~${|B| =|W|}$
+quando~$|V|$ é par, ou se~${||B|-|W|| =1}$ quando~$|V|$ é ímpar.
+
+O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
+encontrar uma bissecção no grafo de largura mínima.
+
+Sabe-se que o problema da bissecção é NP-difícil
+e a melhor aproximação conhecida para o caso geral do problema tem 
+razão~$O(\lg n)$, onde~$n$ é o número de vértices 
+do grafo. 
+Por outro lado, sabe-se que, para árvores e grafos que de uma 
+certa maneira se assemelham a árvores, há um algoritmo polinomial 
+de programação dinâmica para encontrar uma bissecção mínima, 
+proposto por Jansen. 
+
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+
+%----------------------------------------------------------------------------------------
+%	Objetivos
+%----------------------------------------------------------------------------------------
+
+\color{Black} % DarkSlateGray color for the rest of the content
+
+\section*{Objetivos}
+O principal objetivo deste trabalho foi o estudo, implementação e 
+análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
+Taraz, para encontrar uma bissecção 
+aproximadamente mínima em árvores de grau limitado. Denotaremos
+esse algoritmo por FST. 
+A vantagem deste algoritmo sobre o algoritmo de Jansen et 
+al., que encontra uma bissecção de largura 
+mínima, é que este tem um consumo de tempo linear, enquanto que o 
+segundo tem um consumo de tempo cúbico no número de vértices da 
+árvore. 
+
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+
+%----------------------------------------------------------------------------------------
+%	LEMAS
+%----------------------------------------------------------------------------------------
+\section* {Lemas de Cortes Aproximados}
+\begin{lem}[Lema do Corte Aproximado Simples]
+	Para toda floresta~$G$ com~$n$ vértices e todo~${m \in [n]}$,
+	existe um corte~$(B,W)$ em~$G$ tal 
+	que~${\dfrac{m}{2} <|B| \le m}$ e~${e_G(B,W) \le \Delta(G)}$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo~$O(n)$.
+\end{lem}
+
+\medskip
+
+\begin{lem}[Lema do Corte Aproximado]
+	Para toda floresta~$G$ com~$n$ vértices, todo~${m \in [n]}$ e 
+	todo~${c \in [0,1)}$, existe um corte~$(B,W)$ em~$G$ tal 
+	que~${cm \le |B| \le m}$ 
+	e~${e_G(B,W) \le \ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)}$.
+	Um corte que satisfaz esses requisitos pode ser computado em
+	tempo~$O{\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)}$.
+\end{lem}
+
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+
+%----------------------------------------------------------------------------------------
+%	ROTULAÇÃO
+%----------------------------------------------------------------------------------------
+
+\section*{Rotulação}
+	Dada uma árvore~$T$, atribuiremos um 
+	rótulo numérico~${x\in [n]}$ distinto para cada um dos vértices 
+	da árvore, onde~$n$ é o número de vértices de~$T$. 
+	Denotaremos o \textbf{rótulo} de um vértice~$v$ por~$\rot(v)$.
+
+	Primeiramente, calcularemos 
+	um caminho~$P$, que é máximo em~$T$. 
+	Para todo vértice~${v\in V(P)}$, temos uma 
+	árvore~${T_v \in G - E(P)}$ com~$v\in T_v$.
+
+	Dessa forma, teremos sub-árvores enraizadas nos vértices do
+	caminho máximo, como o mostrado na figura abaixo, onde denotamos
+	os vértices de~$P$ por~${v_0,v_1,\ldots,v_p}$.
+    
+\includegraphics[width=1.0\linewidth]{1subarvores_enraizadas.png}
+
+Temos que cada vértice contido no caminho~$P$ receberá 
+	uma rotulação de forma que:
+	\begin{itemize}
+		\item~${\rot(v_i)>\rot(v_j)}$ para todo~${i<j}$ e
+		\item~${\rot(v_{i-1})<\rot(v') \le \rot(v_i)}$ para todo 
+		vértice~$v'$ contido na sub-árvore~$T{v_i}$. 
+	\end{itemize}
+    
+	Chamaremos de~${\map^+_m}$ a função que devolve o~$m$-ésimo 
+	próximo vértice na rotulação, considerando que os rótulos
+	estão dispostos de forma circular
+	e, de~${\map^-_m}$ a função inversa da primeira. 
+	Ou seja,~${\map^-_m}$ devolve o~$m$-ésimo vértice anterior.
+
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+
+%----------------------------------------------------------------------------------------
+%	TEOREMA DOBRA DIAMETRO
+%----------------------------------------------------------------------------------------
+
+\section*{Teorema da Dobra do Diâmetro}
+\begin{teo}[]
+    Para toda árvore~$T$ com~${n\ge 3}$ vértices e 
+    todo~${m\in [n]}$,
+    o conjunto de vértices de~$T$ pode ser particionado em 
+    três partes~$B$,~$W$ e~$S$ tal que vale um dos 
+    seguintes itens:
+    \begin{enumerate}
+    \item ${|B|=m}$, ${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
+    \item ${|B|\le m\le |B|+|S|}$, 
+    com~${0<|S|\le\frac{n}{2}}$,
+    ${e_T(B,W,S)\le \frac{2\cdot 
+    \Delta(T)}{\diam^*(T)}}$, 
+    e~${\diam^*(T[S])\ge 2\diam^*(T)}$.
+    \end{enumerate}
+    Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
+    computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
+\end{teo}
+
+
+\subsection*{Caso 1.}
+Existe um vértice ~${v\in V(P)}$ tal 
+que~${\map_m^+(v)\in V(P)}$
+\includegraphics[width=1.0\linewidth]{2mapeamento.png}
+
+\subsection*{Caso 2.}
+Caso contrário, sabemos que para todo vértice~${v\in V(P)}$
+teremos que~${\map_m^+(v)\not\in V(P)}$.
+
+Um vértice~${z\in V(P)}$ é \textbf{b-especial}
+se existe um vértice~${x\in T_z}$ tal 
+que~${\map^{-}_m(x)\in V(P)}$, e ele é
+\textbf{f-especial} se existe um vértice~${x\in T_z}$
+tal que~${\map^{+}_m(x)\in V(P)}$.
+
+\bigskip
+\bigskip
+    
+Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
+sendo~$x$ o menor vértice de~$T_z$ tal 
+que~${\map^-_m(x)\in V(P)}$, temos 
+que~${z^b = \map^-_m(x)}$.
+Temos também
+que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
+e~${H_z^f =T_u}$ para todo 
+vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
+            
+\includegraphics[width=1.0\linewidth]{3conjuntos_mapeamento.png}
+
+\bigskip
+\bigskip
+
+De forma análoga, para um vértice~${z\in V(P)}$ tal 
+que~$z$ é f-especial,
+temos que~${z^f = \map^+_m(x)}$,
+sendo~$x$ o menor vértice de~$T_z$ tal 
+que~${\map^+_m(x)\in V(P)}$.
+Também temos
+que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
+e~${H_z^f =T_u}$ para todo 
+vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
+
+
+\includegraphics[width=1.0\linewidth]{4conjuntos_mapeamento_f.png}
+
+\subsubsection*{Caso 2.a)}
+Se~${\displaystyle\sum_{z\in B_{esp}}
+\Big(|T'_{z}|+|H_z^b|\Big)\le
+\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|}$,
+implicando na existência de um vértice~${z\in B_{esp}}$ 
+tal que ${|T'_{z}|+|H_z^b|\le
+\dfrac{1-d}{d}|P_z^b|}$.
+
+\includegraphics[width=1.0\linewidth]{5caso2a.png}
+
+\subsubsection*{Caso 2.b)}
+Caso contrário,~${\displaystyle\sum_{z\in F_{esp}}
+\Big(|T'_{z}|+|H_z^f|\Big)\le
+\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|}$,
+implicando na existência um vértice~${z\in F_{esp}}$ 
+tal que ${|T'_{z}|+|H_z^f|\le
+\dfrac{1-d}{d}|P_z^f|}$.
+
+\includegraphics[width=1.0\linewidth]{6caso2b.png}
+
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+%----------------------------------------------------------------------------------------
+%	TEOREMA DOBRA DIAMETRO
+%----------------------------------------------------------------------------------------
+\section*{Teorema de FST}
+\begin{teo}[]
+	\label{teo:corteExato}
+		Para todo~${i\in \mathbb{N^+_*}}$, toda árvore~$T$ com~$n$
+		vértices e~${\diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
+		existe um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
+		e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
+		Um corte que satisfaz esses requisitos pode ser computado
+		em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
+	\end{teo}
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+
+
+%----------------------------------------------------------------------------------------
+%	REDUÇÂO
+%----------------------------------------------------------------------------------------
+\section*{Redução}
+
+Estilo do grafo da redução Max Sat2(Satisfatibilidade
+máxima 
+com no máximo duas literais por cláusula) para
+SimpleMaxCut (Corte Máximo Simples).
+
+\medskip
+
+\includegraphics[width=1.0\linewidth]{7red_1.png}
+
+\includegraphics[width=1.0\linewidth]{8red_2.png}
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSIONS
+%----------------------------------------------------------------------------------------
+
+\color{SaddleBrown} % SaddleBrown color for the conclusions to make them stand out
+
+\section*{Conclusions}
+Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
+
+Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
+
+Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
+
+Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
+
+Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
+
+
+
+\color{Black} % Set the color back to DarkSlateGray for the rest of the content
+
+%----------------------------------------------------------------------------------------
+
+\end{multicols}
+\end{document}

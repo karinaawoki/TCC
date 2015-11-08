@@ -497,4 +497,136 @@
 		Agora mostraremos que qualquer solução obtida em 
 		uma redução para Simple Max Cut levará a uma solução de Max Sat2.
 
-	\subsection{Redução SimpleMaxCut para Bissecção}
+
+\subsection{Redução SimpleMaxCut para Bissecção}
+
+% \begin{center} \begin{tikzpicture}
+% 	[scale=.7,auto=left,every node/.style={circle, 
+% 	draw=black,
+% 	fill=blue!20}]
+
+% 	\node (an1) at (-3 -7, 1) {$v_1$};
+% 	\node (an2) at (-5 -7, 2) {$v_2$};
+% 	\node (an3) at (-3 -7, 10) {$v_3$};
+% 	\node (an4) at (-5 -7, 9) {$v_4$};
+% 	\node (an5) at (-6 -7, 6) {$v_5$};
+
+% 	%legenda
+% 	\node [draw=none, fill=none](a1)  at (-5  ,-0.5) {};
+% 	\node [draw=none, fill=none](a1_) at (-6.4,-0.5) {};
+% 	\node [draw=none, fill=none](a2)  at (-5  ,-1.5) {};
+% 	\node [draw=none, fill=none](a2_) at (-6.4,-1.5) {};
+
+% 	\node [draw=none, fill=none] at 
+% 		(-3,-0.5) {\small{aresta $\in(T,F)$}};
+% 	\node [draw=none, fill=none] at 
+% 		(-3,-1.5) {\small{aresta $\not\in(T,F)$}};
+	
+
+% 	\foreach \from/\to in {an1/an2,an1/an3,an1/an4,an2/an4,an2/an5,
+% 	a1/a1_}
+% 	\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
+
+% 	\foreach \from/\to in {an1/an5,an2/an3,an3/an4,an3/an5,an4/an5,
+% 	a2/a2_}
+% 	\draw[draw=CornflowerBlue,line width=1.3pt] (\from) -- (\to);
+
+% \end{tikzpicture} \end{center}
+
+
+\begin{center} \begin{tikzpicture}
+	[scale=.7,auto=left,every node/.style={circle, 
+	draw=black,
+	fill=blue!20}]
+
+	\draw [rotate around={60:(-13,1.5)}, draw=YellowOrange, fill=YellowOrange!25,line width=3pt] (-13,1.5) 
+		ellipse (1.3cm and 2.4cm);
+	\draw [rotate around={143:(-13.5,8)}, draw=NavyBlue, fill=NavyBlue!20,line width=3pt] (-13.5,8) 
+		ellipse (2cm and 3.8cm);
+	
+
+
+
+	\draw [rotate around={60:(-4,1.5)}, draw=YellowOrange, fill=YellowOrange!25,line width=3pt] (-4,1.5) 
+		ellipse (1.3cm and 2.4cm);
+	\draw [rotate around={143:(-4.5,8)}, draw=NavyBlue, fill=NavyBlue!20,line width=3pt] (-4.5,8) 
+		ellipse (2cm and 3.8cm);
+
+
+
+
+	\draw [rotate around={-60:(4,1.5)}, draw=red!80, fill=red!20,line width=3pt] (4,1.5) 
+		ellipse (1.3cm and 2.4cm);
+	\draw [rotate around={-143:(4.5,8)}, draw=Emerald, fill=Emerald!25,line width=3pt] (4.5,8) 
+		ellipse (2cm and 3.8cm);
+	
+
+	\node [text=YellowOrange,draw=none, fill=none] at (-14.4,0.1){$\mathbf{V_1}$};
+	\node [text=NavyBlue,draw=none, fill=none] at (-15.8,9.3){$\mathbf{V_2}$};
+
+	\node [text=YellowOrange,draw=none, fill=none] at (-5.5,0.1){$\mathbf{V_1}$};
+	\node [text=NavyBlue,draw=none, fill=none] at (-6.8,9.3){$\mathbf{V_2}$};
+
+
+	\node [text=red!80,draw=none, fill=none] at (5.4,0.1){$\mathbf{U_2}$};
+	\node [text=Emerald,draw=none, fill=none] at (6.8,9.3){$\mathbf{U_1}$};
+
+	\node (an1) at (-12, 1) {$v_1$};
+	\node (an2) at (-14, 2) {$v_2$};
+	\node (an3) at (-12, 10) {$v_3$};
+	\node (an4) at (-14, 9) {$v_4$};
+	\node (an5) at (-15, 6) {$v_5$};
+
+	\node (v1) at (-3, 1)  {$v_1$};
+	\node (v2) at (-5, 2)  {$v_2$};
+	\node (v3) at (-3, 10) {$v_3$};
+	\node (v4) at (-5, 9)  {$v_4$};
+	\node (v5) at (-6, 6)  {$v_5$};
+
+	\node (u1) at (3, 1)  {$u_1$};
+	\node (u2) at (5, 2)  {$u_2$};
+	\node (u3) at (3, 10) {$u_3$};
+	\node (u4) at (5, 9)  {$u_4$};
+	\node (u5) at (6, 6)  {$u_5$};
+
+	%legenda
+	\node [draw=none, fill=none](a1)  at (2  ,-1.5) {};
+	\node [draw=none, fill=none](a1_) at (0.4,-1.5) {};
+	\node [draw=none, fill=none](a2)  at (2  ,-2.5) {};
+	\node [draw=none, fill=none](a2_) at (0.4,-2.5) {};
+
+	\node [draw=none, fill=none] at 
+		(3.5,-1.5) {\small{aresta $\in A$}};
+	\node [draw=none, fill=none] at 
+		(3.5,-2.5) {\small{aresta $\not\in A'$}};
+	
+
+	\foreach \from/\to in {v1/v4,v1/v2,v1/v3,v2/v4,v2/v5,
+	a1/a1_,
+	an1/an4,an1/an2,an1/an3,an2/an4,an2/an5}
+	\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
+
+	\foreach \from/\to in {v1/v5,v2/v3,v3/v4,v3/v5,v4/v5,
+	u1/u2,u1/u3,u1/u4,u1/u5,u2/u3,u2/u4,u2/u5,u3/u4,u3/u5,u4/u5,
+	v1/u1, v1/u2, v1/u3, v1/u4, v1/u5,
+	v2/u1, v2/u2, v2/u3, v2/u4, v2/u5,
+	v3/u1, v3/u2, v3/u3, v3/u4, v3/u5,
+	v4/u1, v4/u2, v4/u3, v4/u4, v4/u5,
+	v5/u1, v5/u2, v5/u3, v5/u4, v5/u5,
+	a2/a2_}
+	%an1/an5,an2/an3,an3/an4,an3/an5,an4/an5}
+	\draw[draw=CornflowerBlue,line width=1.3pt] (\from) -- (\to);
+
+	\draw [draw=black!70, line width=2pt]
+		(-11. ,5.4) -- 
+		(-11. ,5.8) --
+		(-9.5 ,5.8) --
+		(-9.5 ,6.3) --
+		(-8.  ,5.6) --%%%
+		(-9.5 ,4.9) --
+		(-9.5 ,5.4) --
+		cycle;
+
+	
+
+\end{tikzpicture} \end{center}

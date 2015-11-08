@@ -117,7 +117,7 @@
 
     Seja~${G=(V,E)}$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$.
     Dizemos que~$(B,W)$ é um \textbf{corte}
-    de~$G$ se~${B \cup W =V(G)}$ e~${B\cap W =\emptyset}$.
+    de~$G$ se~${B \cup W = V}$ e~${B\cap W =\emptyset}$.
     Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura}
     do corte ou por~$e_G(B,W)$.
     O corte~$(B,W)$ é uma \textbf{bissecção} se~${|B| =|W|}$
@@ -133,7 +133,7 @@
     Por outro lado, sabe-se que, para árvores e grafos que de uma 
     certa maneira se assemelham a árvores, há um algoritmo polinomial 
     de programação dinâmica para encontrar uma bissecção mínima, 
-    proposto por Jansen. 
+    proposto por Jansen, Karpinski, Lingas e Seidel. 
 
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
@@ -240,7 +240,7 @@
     todo~${m\in [n]}$,
     o conjunto de vértices de~$T$ pode ser particionado em 
     três partes~$B$,~$W$ e~$S$ tal que vale um dos 
-    seguintes itens:
+    seguintes casos:
     \begin{enumerate}
     \item ${|B|=m}$, ${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
     \item ${|B|\le m\le |B|+|S|}$, 
@@ -250,13 +250,13 @@
     e~${\diam^*(T[S])\ge 2\diam^*(T)}$.
     \end{enumerate}
     Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
-    computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
+    computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
 \end{teo}
 
 
 \subsection*{Caso 1.}
     Existe um vértice ~${v\in V(P)}$ tal 
-    que~${\map_m^+(v)\in V(P)}$
+    que~${\map_m^+(v)\in V(P)}$.
 \begin{center}
 \includegraphics[width=1.0\linewidth]{2mapeamento.png}
 \end{center}
@@ -272,6 +272,7 @@
     \textbf{f-especial} (ou~${z\in F_{esp}}$) 
     se existe um vértice~${x\in T_z}$
     tal que~${\map^{+}_m(x)\in V(P)}$.
+    Assumiremos que~$T'_z$ equivale a~$T_z\setminus \{z\}$.
 
     \bigskip
     \bigskip
@@ -279,10 +280,9 @@
     Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
     sendo~$x$ o menor vértice de~$T_z$ tal 
     que~${\map^-_m(x)\in V(P)}$, temos 
-    que~${z^b = \map^-_m(x)}$.
-    Temos também
-    que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
-    e~${H_z^f =T_u}$ para todo 
+    que~${z^b = \map^-_m(x)}$,
+    ~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
+    e~${H_z^f =T_u'}$ para todo 
     vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
 
     \begin{center}
@@ -299,18 +299,18 @@
     que~${\map^+_m(x)\in V(P)}$.
     Também temos
     que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
-    e~${H_z^f =T_u}$ para todo 
+    e~${H_z^f =T_u'}$ para todo 
     vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
 
 \begin{center}
     \includegraphics[width=1.0\linewidth]{4conjuntos_mapeamento_f.png}
 \end{center}
     \subsubsection*{Caso 2.a)}
-        Se~${\displaystyle\sum_{z\in B_{esp}}
+        É válido que~${\displaystyle\sum_{z\in B_{esp}}
         \Big(|T'_{z}|+|H_z^b|\Big)\le
         \dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|}$,
         implicando na existência de um vértice~${z\in B_{esp}}$ 
-        tal que ${|T'_{z}|+|H_z^b|\le
+        tal que~${|T'_{z}|+|H_z^b|\le
         \dfrac{1-d}{d}|P_z^b|}$.
 
 \begin{center}
@@ -319,9 +319,10 @@
     \subsubsection*{Caso 2.b)}
         Caso contrário,~${\displaystyle\sum_{z\in F_{esp}}
         \Big(|T'_{z}|+|H_z^f|\Big)\le
-        \dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|}$,
-        implicando na existência um vértice~${z\in F_{esp}}$ 
-        tal que ${|T'_{z}|+|H_z^f|\le
+        \dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|}$
+        e, isso implica na existência de um vértice~${z\in F_{esp}}$ 
+        tal 
+        que~${|T'_{z}|+|H_z^f|\le
         \dfrac{1-d}{d}|P_z^f|}$.
 
 \begin{center}
@@ -352,14 +353,14 @@
 %----------------------------------------------------------------------------------------
 \section*{Redução}
 
-    Estilo do grafo da redução Max Sat2(Satisfatibilidade
+    Estilo do grafo da redução Max Sat2~(Satisfatibilidade
     máxima 
     com no máximo duas literais por cláusula) para
-    SimpleMaxCut(Corte Máximo Simples).
+    SimpleMaxCut~(Corte Máximo Simples).
 
 \medskip
 \begin{center}
-\includegraphics[width=0.8\linewidth]{7red_1.png}
+\includegraphics[width=0.8\linewidth]{arrumado.png}
 \end{center}
 %\includegraphics[width=1.0\linewidth]{8red_2.png}
 

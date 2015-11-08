@@ -22,7 +22,10 @@
 \documentclass[a0,portrait]{a0poster}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[svgnames,dvipsnames,x11names]{xcolor} 
 \usepackage[brazilian]{babel}
+\usepackage{array}
+\usepackage{amsmath, amsthm, amssymb}
 \usepackage{multicol} % This is so we can have multiple columns of text side-by-side
 \columnsep=100pt % This is the amount of white space between the columns in the poster
 \columnseprule=3pt % This is the thickness of the black line between the columns in the poster
@@ -38,6 +41,8 @@
 \usepackage{amsfonts, amsmath, amsthm, amssymb} % For math fonts, symbols and environments
 \usepackage{wrapfig} % Allows wrapping text around tables and figures
 \usepackage{enumitem}
+\usepackage{colortbl}
+\usepackage{multirow}
 \usepackage{mathtools,booktabs}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
@@ -56,6 +61,7 @@
 \newcommand{\map}{\mathrm{map}}
 \newcommand{\Oh}{\mathrm{O}}
 
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \begin{document}
 
@@ -70,9 +76,11 @@
 
 \begin{minipage}[b]{0.75\linewidth}
 \VeryHuge \center \color{NavyBlue} \textbf{Estudo do Problema da Bissecção Mínima em Árvores} \color{Black}\\ % Title
-[2cm]
+[1.2cm]
 \huge \textbf{Karina Suemi Awoki}\\[0.6cm] % Author(s)
-\huge Universidade de São Paulo, Instituto de Matemática e Estatística\\[0.6cm] % University/organization
+\huge \textbf{Orientadora: Cristina Gomes Fernandes}\\[0.6cm] % Author(s)
+
+\huge Universidade de São Paulo, Instituto de Matemática e Estatística\\[0.5cm] % University/organization
 \end{minipage}
 %
 \begin{minipage}[b]{0.25\linewidth}
@@ -80,7 +88,7 @@
 \includegraphics[width=9cm]{usp.png}\\
 \end{minipage}
 
-\vspace{3cm} % A bit of extra whitespace between the header and poster content
+\vspace{2cm} % A bit of extra whitespace between the header and poster content
 
 %----------------------------------------------------------------------------------------
 
@@ -100,31 +108,32 @@
 %----------------------------------------------------------------------------------------
 
 \color{Black} % SaddleBrown color for the introduction
+%\color{Navy} % SaddleBrown color for the conclusions to make them stand out
 \section*{Introdução}
-O assunto abordado se
-enquadra na área de Otimização Combinatória e diz respeito ao 
-\emph{Problema da Bissecção Mínima}. Para definir o problema 
-precisamente, seguem primeiro algumas definições. 
+    O assunto abordado se
+    enquadra na área de Otimização Combinatória e diz respeito ao 
+    \emph{Problema da Bissecção Mínima}. Para definir o problema 
+    precisamente, seguem primeiro algumas definições. 
 
-Seja~${G=(V,E)}$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$.
-Dizemos que~$(B,W)$ é um \textbf{corte}
-de~$G$ se~${B \cup W =V(G)}$ e~${B\cap W =\emptyset}$.
-Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura}
-do corte ou por~$e_G(B,W)$.
-O corte~$(B,W)$ é uma \textbf{bissecção} se~${|B| =|W|}$
-quando~$|V|$ é par, ou se~${||B|-|W|| =1}$ quando~$|V|$ é ímpar.
+    Seja~${G=(V,E)}$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$.
+    Dizemos que~$(B,W)$ é um \textbf{corte}
+    de~$G$ se~${B \cup W =V(G)}$ e~${B\cap W =\emptyset}$.
+    Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura}
+    do corte ou por~$e_G(B,W)$.
+    O corte~$(B,W)$ é uma \textbf{bissecção} se~${|B| =|W|}$
+    quando~$|V|$ é par, ou se~${||B|-|W|| =1}$ quando~$|V|$ é ímpar.
 
-O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
-encontrar uma bissecção no grafo de largura mínima.
+    O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
+    encontrar uma bissecção no grafo de largura mínima.
 
-Sabe-se que o problema da bissecção é NP-difícil
-e a melhor aproximação conhecida para o caso geral do problema tem 
-razão~$O(\lg n)$, onde~$n$ é o número de vértices 
-do grafo. 
-Por outro lado, sabe-se que, para árvores e grafos que de uma 
-certa maneira se assemelham a árvores, há um algoritmo polinomial 
-de programação dinâmica para encontrar uma bissecção mínima, 
-proposto por Jansen. 
+    Sabe-se que o problema da bissecção é NP-difícil
+    e a melhor aproximação conhecida para o caso geral do problema tem 
+    razão~$O(\lg n)$, onde~$n$ é o número de vértices 
+    do grafo. 
+    Por outro lado, sabe-se que, para árvores e grafos que de uma 
+    certa maneira se assemelham a árvores, há um algoritmo polinomial 
+    de programação dinâmica para encontrar uma bissecção mínima, 
+    proposto por Jansen. 
 
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
@@ -135,17 +144,19 @@ proposto por Jansen.
 
 \color{Black} % DarkSlateGray color for the rest of the content
 
+
 \section*{Objetivos}
-O principal objetivo deste trabalho foi o estudo, implementação e 
-análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
-Taraz, para encontrar uma bissecção 
-aproximadamente mínima em árvores de grau limitado. Denotaremos
-esse algoritmo por FST. 
-A vantagem deste algoritmo sobre o algoritmo de Jansen et 
-al., que encontra uma bissecção de largura 
-mínima, é que este tem um consumo de tempo linear, enquanto que o 
-segundo tem um consumo de tempo cúbico no número de vértices da 
-árvore. 
+
+    O principal objetivo deste trabalho foi o estudo, implementação e 
+    análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
+    Taraz, para encontrar uma bissecção 
+    aproximadamente mínima em árvores de grau limitado. Denotaremos
+    esse algoritmo por FST. 
+    A vantagem deste algoritmo sobre o algoritmo de Jansen et 
+    al., que encontra uma bissecção de largura 
+    mínima, é que este tem um consumo de tempo linear, enquanto que o 
+    segundo tem um consumo de tempo cúbico no número de vértices da 
+    árvore. 
 
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
@@ -154,6 +165,7 @@ segundo tem um consumo de tempo cúbico no número de vértices da
 %	LEMAS
 %----------------------------------------------------------------------------------------
 \section* {Lemas de Cortes Aproximados}
+
 \begin{lem}[Lema do Corte Aproximado Simples]
 	Para toda floresta~$G$ com~$n$ vértices e todo~${m \in [n]}$,
 	existe um corte~$(B,W)$ em~$G$ tal 
@@ -181,6 +193,7 @@ segundo tem um consumo de tempo cúbico no número de vértices da
 %----------------------------------------------------------------------------------------
 
 \section*{Rotulação}
+
 	Dada uma árvore~$T$, atribuiremos um 
 	rótulo numérico~${x\in [n]}$ distinto para cada um dos vértices 
 	da árvore, onde~$n$ é o número de vértices de~$T$. 
@@ -195,9 +208,11 @@ segundo tem um consumo de tempo cúbico no número de vértices da
 	caminho máximo, como o mostrado na figura abaixo, onde denotamos
 	os vértices de~$P$ por~${v_0,v_1,\ldots,v_p}$.
     
+\begin{center}
 \includegraphics[width=1.0\linewidth]{1subarvores_enraizadas.png}
+\end{center}
 
-Temos que cada vértice contido no caminho~$P$ receberá 
+	Temos que cada vértice contido no caminho~$P$ receberá 
 	uma rotulação de forma que:
 	\begin{itemize}
 		\item~${\rot(v_i)>\rot(v_j)}$ para todo~${i<j}$ e
@@ -219,6 +234,7 @@ Temos que cada vértice contido no caminho~$P$ receberá
 %----------------------------------------------------------------------------------------
 
 \section*{Teorema da Dobra do Diâmetro}
+
 \begin{teo}[]
     Para toda árvore~$T$ com~${n\ge 3}$ vértices e 
     todo~${m\in [n]}$,
@@ -239,87 +255,96 @@ Temos que cada vértice contido no caminho~$P$ receberá
 
 
 \subsection*{Caso 1.}
-Existe um vértice ~${v\in V(P)}$ tal 
-que~${\map_m^+(v)\in V(P)}$
+    Existe um vértice ~${v\in V(P)}$ tal 
+    que~${\map_m^+(v)\in V(P)}$
+\begin{center}
 \includegraphics[width=1.0\linewidth]{2mapeamento.png}
+\end{center}
 
 \subsection*{Caso 2.}
-Caso contrário, sabemos que para todo vértice~${v\in V(P)}$
-teremos que~${\map_m^+(v)\not\in V(P)}$.
+    Caso contrário, sabemos que para todo vértice~${v\in V(P)}$
+    teremos que~${\map_m^+(v)\not\in V(P)}$.
 
-Um vértice~${z\in V(P)}$ é \textbf{b-especial}
-se existe um vértice~${x\in T_z}$ tal 
-que~${\map^{-}_m(x)\in V(P)}$, e ele é
-\textbf{f-especial} se existe um vértice~${x\in T_z}$
-tal que~${\map^{+}_m(x)\in V(P)}$.
+    Dizemos que um vértice~${z\in V(P)}$ é \textbf{b-especial}
+    (ou~${z\in B_{esp}}$)
+    se existe um vértice~${x\in T_z}$ tal 
+    que~${\map^{-}_m(x)\in V(P)}$, e ele é
+    \textbf{f-especial} (ou~${z\in F_{esp}}$) 
+    se existe um vértice~${x\in T_z}$
+    tal que~${\map^{+}_m(x)\in V(P)}$.
 
-\bigskip
-\bigskip
-    
-Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
-sendo~$x$ o menor vértice de~$T_z$ tal 
-que~${\map^-_m(x)\in V(P)}$, temos 
-que~${z^b = \map^-_m(x)}$.
-Temos também
-que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
-e~${H_z^f =T_u}$ para todo 
-vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
-            
+    \bigskip
+    \bigskip
+
+    Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
+    sendo~$x$ o menor vértice de~$T_z$ tal 
+    que~${\map^-_m(x)\in V(P)}$, temos 
+    que~${z^b = \map^-_m(x)}$.
+    Temos também
+    que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
+    e~${H_z^f =T_u}$ para todo 
+    vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
+
+    \begin{center}
 \includegraphics[width=1.0\linewidth]{3conjuntos_mapeamento.png}
+\end{center}
 
-\bigskip
-\bigskip
+    \bigskip
+    \bigskip
 
-De forma análoga, para um vértice~${z\in V(P)}$ tal 
-que~$z$ é f-especial,
-temos que~${z^f = \map^+_m(x)}$,
-sendo~$x$ o menor vértice de~$T_z$ tal 
-que~${\map^+_m(x)\in V(P)}$.
-Também temos
-que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
-e~${H_z^f =T_u}$ para todo 
-vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
+    De forma análoga, para um vértice~${z\in V(P)}$ tal 
+    que~$z$ é f-especial,
+    temos que~${z^f = \map^+_m(x)}$,
+    sendo~$x$ o menor vértice de~$T_z$ tal 
+    que~${\map^+_m(x)\in V(P)}$.
+    Também temos
+    que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
+    e~${H_z^f =T_u}$ para todo 
+    vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
 
+\begin{center}
+    \includegraphics[width=1.0\linewidth]{4conjuntos_mapeamento_f.png}
+\end{center}
+    \subsubsection*{Caso 2.a)}
+        Se~${\displaystyle\sum_{z\in B_{esp}}
+        \Big(|T'_{z}|+|H_z^b|\Big)\le
+        \dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|}$,
+        implicando na existência de um vértice~${z\in B_{esp}}$ 
+        tal que ${|T'_{z}|+|H_z^b|\le
+        \dfrac{1-d}{d}|P_z^b|}$.
 
-\includegraphics[width=1.0\linewidth]{4conjuntos_mapeamento_f.png}
+\begin{center}
+    \includegraphics[width=1.0\linewidth]{5caso2a.png}
+\end{center}
+    \subsubsection*{Caso 2.b)}
+        Caso contrário,~${\displaystyle\sum_{z\in F_{esp}}
+        \Big(|T'_{z}|+|H_z^f|\Big)\le
+        \dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|}$,
+        implicando na existência um vértice~${z\in F_{esp}}$ 
+        tal que ${|T'_{z}|+|H_z^f|\le
+        \dfrac{1-d}{d}|P_z^f|}$.
 
-\subsubsection*{Caso 2.a)}
-Se~${\displaystyle\sum_{z\in B_{esp}}
-\Big(|T'_{z}|+|H_z^b|\Big)\le
-\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|}$,
-implicando na existência de um vértice~${z\in B_{esp}}$ 
-tal que ${|T'_{z}|+|H_z^b|\le
-\dfrac{1-d}{d}|P_z^b|}$.
-
-\includegraphics[width=1.0\linewidth]{5caso2a.png}
-
-\subsubsection*{Caso 2.b)}
-Caso contrário,~${\displaystyle\sum_{z\in F_{esp}}
-\Big(|T'_{z}|+|H_z^f|\Big)\le
-\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|}$,
-implicando na existência um vértice~${z\in F_{esp}}$ 
-tal que ${|T'_{z}|+|H_z^f|\le
-\dfrac{1-d}{d}|P_z^f|}$.
-
+\begin{center}
 \includegraphics[width=1.0\linewidth]{6caso2b.png}
-
+\end{center}
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
 %----------------------------------------------------------------------------------------
 %	TEOREMA DOBRA DIAMETRO
 %----------------------------------------------------------------------------------------
 \section*{Teorema de FST}
-\begin{teo}[]
-	\label{teo:corteExato}
-		Para todo~${i\in \mathbb{N^+_*}}$, toda árvore~$T$ com~$n$
-		vértices e~${\diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
-		existe um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
-		e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
-		Um corte que satisfaz esses requisitos pode ser computado
-		em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
-	\end{teo}
-\noindent\rule[0.5ex]{\linewidth}{1pt}
 
+\begin{teo}[]
+\label{teo:corteExato}
+	Para todo~${i\in \mathbb{N^+_*}}$, toda árvore~$T$ com~$n$
+    vértices e~${\diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
+    existe um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
+    e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
+    Um corte que satisfaz esses requisitos pode ser computado
+    em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
+\end{teo}
+
+\noindent\rule[0.5ex]{\linewidth}{1pt}
 
 
 %----------------------------------------------------------------------------------------
@@ -327,18 +352,73 @@ tal que ${|T'_{z}|+|H_z^f|\le
 %----------------------------------------------------------------------------------------
 \section*{Redução}
 
-Estilo do grafo da redução Max Sat2(Satisfatibilidade
-máxima 
-com no máximo duas literais por cláusula) para
-SimpleMaxCut (Corte Máximo Simples).
+    Estilo do grafo da redução Max Sat2(Satisfatibilidade
+    máxima 
+    com no máximo duas literais por cláusula) para
+  	SimpleMaxCut(Corte Máximo Simples).
 
 \medskip
+\begin{center}
+\includegraphics[width=0.8\linewidth]{7red_1.png}
+\end{center}
+%\includegraphics[width=1.0\linewidth]{8red_2.png}
 
-\includegraphics[width=1.0\linewidth]{7red_1.png}
+\bigskip
+\bigskip
 
-\includegraphics[width=1.0\linewidth]{8red_2.png}
+Estilo do grafo da redução SimpleMaxCut para Bissecção.
+    
+\begin{center}
+\includegraphics[width=0.9\linewidth]{ult.png}
+\end{center}
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+
+%----------------------------------------------------------------------------------------
+%	TABELAS
+%----------------------------------------------------------------------------------------
+\subsection*{Árvores Ternárias}
+
+	\begin{tabular}{| c | c | >{\columncolor{blue!14}}P{3.6cm} | >{\columncolor{red!14}}P{3.6cm} | >{\columncolor{blue!14}}P{5cm} | >{\columncolor{red!14}}P{5.1cm} | }
+
+	\specialrule{1.7pt}{1pt}{1pt}
+		Altura & $|V(T)|$ & $e_T(B,W)$ \textbf{FST} & $e_T(B,W)$ \textbf{Jansen} & Tempo \textbf{FST} (segundos) & Tempo \textbf{Jansen} (segundos)  \\[10pt]
+
+	\specialrule{1.7pt}{1pt}{1pt}
+		1 & 4    & 2  & 2  & 0.000091  &   0.000009 \\ [3pt]
+		2 & 13   & 8  & 3  & 0.000177  &   0.000033 \\ [3pt]
+		3 & 40   & 10 & 4  & 0.000173  &   0.000336 \\ [3pt]
+		4 & 121  & 11 & 4  & 0.000450  &   0.006730 \\ [3pt]
+		5 & 364  & 10 & 5  & 0.000568  &   0.071686 \\ [3pt]
+		6 & 1093 & 11 & 6  & 0.001301  &   1.655212 \\ [3pt]
+		7 & 3280 & 13 & 7  & 0.004268  &  44.435073 \\ [3pt]
+		8 & 9841 & 14 & 8  & 0.011514  &1193.373235 \\ [3pt]
+
+	\specialrule{1.7pt}{1pt}{1pt}	 
+\end{tabular}
 
 
+
+\subsection*{Árvores de Caminho Longo}
+
+\begin{tabular}{| c | >{\columncolor{blue!14}}P{4.6cm} | >{\columncolor{red!14}}P{4.5cm} | >{\columncolor{blue!14}}P{5.5cm} | >{\columncolor{red!14}}P{5.5cm} |}
+
+			\specialrule{1.7pt}{1pt}{1pt}
+			$|V(T)|$ & $e_T(B,W)$ \textbf{FST} & $e_T(B,W)$ \textbf{Jansen} & Tempo \textbf{FST} (segundos) & Tempo \textbf{Jansen}   (segundos) \\[10pt]
+
+	\specialrule{1.7pt}{1pt}{1pt}
+
+		100  & 2  &  1  & 0.000080  &   0.000663 \\ [3.2pt] 
+		200  & 2  &  1  & 0.000114  &   0.004626 \\ [3.2pt]
+		400  & 2  &  1  & 0.000181  &   0.037905 \\ [3.2pt]
+		800  & 2  &  1  & 0.000327  &   0.250858 \\ [3.2pt]
+		1600 & 2  &  2  & 0.00 584  &   2.136476 \\ [3.2pt]
+		3200 & 2  &  2  & 0.001118  &  17.872311 \\ [3.2pt]
+		6400 & 2  &  2  & 0.002568  & 130.088130 \\ [3.2pt]
+	   12800 & 2  &  2  & 0.006036  &1339.149309 \\ [3.2pt]
+
+	\specialrule{1.7pt}{1pt}{1pt}
+		 
+\end{tabular}
 
 
 %----------------------------------------------------------------------------------------
@@ -348,13 +428,6 @@ SimpleMaxCut (Corte Máximo Simples).
 \color{SaddleBrown} % SaddleBrown color for the conclusions to make them stand out
 
 \section*{Conclusions}
-Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
-
-Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
-
-Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
-
-Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
 
 Despite being a petroleum- and gas-rich country, Algeria is making efforts to exploit its renewable energies. The Algerian government has adopted new renewable energy laws and financial support for the investors to facilitate the exploitation of the renewable energies for electricity production and direct utilizations. Algeria has relatively abundant geothermal resources especially in the northeastern parts but not totally used.
 

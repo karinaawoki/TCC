@@ -25,10 +25,11 @@
 \usepackage[svgnames,dvipsnames,x11names]{xcolor} 
 \usepackage[brazilian]{babel}
 \usepackage{array}
+\usepackage[framemethod=TikZ]{mdframed}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{multicol} % This is so we can have multiple columns of text side-by-side
 \columnsep=100pt % This is the amount of white space between the columns in the poster
-\columnseprule=3pt % This is the thickness of the black line between the columns in the poster
+\columnseprule=3.7pt % This is the thickness of the black line between the columns in the poster
 
 \usepackage[svgnames]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
 
@@ -63,6 +64,18 @@
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
+
+\mdfdefinestyle{MyFrame}{%
+    linecolor=blue,
+    outerlinewidth=2pt,
+    roundcorner=15pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=15pt,
+    innerleftmargin=15pt,
+    backgroundcolor=blue!20
+}
+    
 \begin{document}
 
 %----------------------------------------------------------------------------------------
@@ -74,7 +87,10 @@
 % The second is 25% wide and houses a logo for your university/organization or a photo of you
 % The widths of these boxes can be easily edited to accommodate your content as you see fit
 
-\begin{minipage}[b]{0.75\linewidth}
+\begin{minipage}[b]{0.15\linewidth}
+\includegraphics[width=10.cm]{usp.png}\\
+\end{minipage}
+\begin{minipage}[b]{0.70\linewidth}
 \VeryHuge \center \color{NavyBlue} \textbf{Estudo do Problema da Bissecção Mínima em Árvores} \color{Black}\\ % Title
 [1.2cm]
 \huge \textbf{Karina Suemi Awoki}\\[0.6cm] % Author(s)
@@ -83,9 +99,8 @@
 \huge Universidade de São Paulo, Instituto de Matemática e Estatística\\[0.5cm] % University/organization
 \end{minipage}
 %
-\begin{minipage}[b]{0.25\linewidth}
-\includegraphics[width=9cm]{imeusp.png}\
-\includegraphics[width=9cm]{usp.png}\\
+\begin{minipage}[b]{0.15\linewidth}
+\includegraphics[width=10.cm]{imeusp.png}\\
 \end{minipage}
 
 \vspace{2cm} % A bit of extra whitespace between the header and poster content
@@ -103,10 +118,16 @@
 %\begin{abstract}
 %The electrical energy from renewables in Algeria contributed about 3.4\% (280 MW) in 2008 of a total power of 8.1 GWe and will reach 5\% by the year 2017 according to the Algerian Electricity and Gas Regulation Commission (CREG). The country’s target is reaching 40\% by 2030. The geothermal resources in Algeria are of low-enthalpy type. Most of these geothermal resources are located in the north of the country and generate a heat discharge of 240 MWt.
 %\end{abstract}
+
+
+
+
+  
+
 %----------------------------------------------------------------------------------------
 %   INTRODUCTION
 %----------------------------------------------------------------------------------------
-
+%\begin{mdframed}[style=MyFrame]
 \color{Black} % SaddleBrown color for the introduction
 %\color{Navy} % SaddleBrown color for the conclusions to make them stand out
 \section*{Introdução}
@@ -126,7 +147,7 @@
     O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
     encontrar uma bissecção no grafo de largura mínima.
 
-    Sabe-se que o problema da bissecção é NP-difícil
+    Sabe-se que o problema da bissecção é NP-difícil%~\cite{GareyJS76}
     e a melhor aproximação conhecida para o caso geral do problema tem 
     razão~$O(\lg n)$, onde~$n$ é o número de vértices 
     do grafo. 
@@ -134,6 +155,7 @@
     certa maneira se assemelham a árvores, há um algoritmo polinomial 
     de programação dinâmica para encontrar uma bissecção mínima, 
     proposto por Jansen, Karpinski, Lingas e Seidel. 
+%\end{mdframed}
 
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
@@ -151,9 +173,10 @@
     análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
     Taraz, para encontrar uma bissecção 
     aproximadamente mínima em árvores de grau limitado. Denotaremos
-    esse algoritmo por FST. 
-    A vantagem deste algoritmo sobre o algoritmo de Jansen et 
+    esse algoritmo por \textbf{FST}~\cite{Schmidt15}. 
+    A vantagem deste algoritmo sobre o algoritmo de \textbf{Jansen} et 
     al., que encontra uma bissecção de largura 
+    %al.~\cite{JansenKLS01}, que encontra uma bissecção de largura 
     mínima, é que este tem um consumo de tempo linear, enquanto que o 
     segundo tem um consumo de tempo cúbico no número de vértices da 
     árvore. 
@@ -353,21 +376,17 @@
 %----------------------------------------------------------------------------------------
 \section*{Redução}
 
-    Estilo do grafo da redução Max Sat2~(Satisfatibilidade
+    Estilos de grafos da redução Max Sat2~(Satisfatibilidade
     máxima 
     com no máximo duas literais por cláusula) para
     SimpleMaxCut~(Corte Máximo Simples).
-
-\medskip
 \begin{center}
-\includegraphics[width=0.8\linewidth]{arrumado.png}
+\includegraphics[width=0.93\linewidth]{8red_2.png}
+%\includegraphics[width=0.5\linewidth]{arrumado.png}
 \end{center}
 %\includegraphics[width=1.0\linewidth]{8red_2.png}
 
-\bigskip
-\bigskip
-
-Estilo do grafo da redução SimpleMaxCut para Bissecção Mínima.
+Estilo de grafo da redução SimpleMaxCut para Bissecção Mínima.
     
 \begin{center}
 \includegraphics[width=0.9\linewidth]{ult.png}
@@ -377,7 +396,8 @@ Estilo do grafo da redução SimpleMaxCut para Bissecção Mínima.
 %----------------------------------------------------------------------------------------
 %   TABELAS
 %----------------------------------------------------------------------------------------
-\subsection*{Árvores Ternárias}
+\section*{Resultados}
+\subsubsection*{Árvores Ternárias}
 
     \begin{tabular}{| c | c | >{\columncolor{blue!14}}P{3.6cm} | >{\columncolor{red!14}}P{3.6cm} | >{\columncolor{blue!14}}P{5cm} | >{\columncolor{red!14}}P{5.1cm} | }
 
@@ -399,7 +419,7 @@ Estilo do grafo da redução SimpleMaxCut para Bissecção Mínima.
 
 
 
-\subsection*{Árvores de Caminho Longo}
+\subsubsection*{Árvores de Caminho Longo}
 
 \begin{tabular}{| c | >{\columncolor{blue!14}}P{4.6cm} | >{\columncolor{red!14}}P{4.5cm} | >{\columncolor{blue!14}}P{5.5cm} | >{\columncolor{red!14}}P{5.5cm} |}
 
@@ -431,9 +451,12 @@ Estilo do grafo da redução SimpleMaxCut para Bissecção Mínima.
 %\section*{Conclusions}
 
 
-\color{Black} % Set the color back to DarkSlateGray for the rest of the content
+%\color{Black} % Set the color back to DarkSlateGray for the rest of the content
 
 %----------------------------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{refs}
+
 
 \end{multicols}
 \end{document}

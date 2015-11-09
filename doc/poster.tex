@@ -24,6 +24,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[svgnames,dvipsnames,x11names]{xcolor} 
 \usepackage[brazilian]{babel}
+
 \usepackage{array}
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage{amsmath, amsthm, amssymb}
@@ -45,6 +46,7 @@
 \usepackage{colortbl}
 \usepackage{multirow}
 \usepackage{mathtools,booktabs}
+
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
 \newtheorem{teo}{Teorema}
@@ -92,9 +94,9 @@
 \end{minipage}
 \begin{minipage}[b]{0.70\linewidth}
 \VeryHuge \center \color{NavyBlue} \textbf{Estudo do Problema da Bissecção Mínima em Árvores} \color{Black}\\ % Title
-[0.68cm]
+[0.7cm]
 \huge \textbf{Karina Suemi Awoki}\\[0.5cm] % Author(s)
-\huge \textbf{Orientadora: Cristina Gomes Fernandes}\\[0.5cm] % Author(s)
+\huge \textbf{Orientadora: Profª Drª Cristina Gomes Fernandes}\\[0.5cm] % Author(s)
 
 \huge Universidade de São Paulo, Instituto de Matemática e Estatística\\[0.2cm] %University/organization
 \Large \texttt{karina.awoki@usp.br ---} 
@@ -149,9 +151,9 @@
     O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
     encontrar uma bissecção no grafo de largura mínima.
 
-    Sabe-se que o problema da bissecção é NP-difícil%~\cite{GareyJS76}
+    Sabe-se que o problema da bissecção é NP-difícil~\cite{GareyJS76}
     e a melhor aproximação conhecida para o caso geral do problema tem 
-    razão~$O(\lg n)$, onde~$n$ é o número de vértices 
+    complexidade~$O(\lg n)$, onde~$n$ é o número de vértices 
     do grafo. 
     Por outro lado, sabe-se que, para árvores e grafos que de uma 
     certa maneira se assemelham a árvores, há um algoritmo polinomial 
@@ -177,8 +179,8 @@
     aproximadamente mínima em árvores de grau limitado. Denotaremos
     esse algoritmo por \textbf{FST}~\cite{Schmidt15}. 
     A vantagem deste algoritmo sobre o algoritmo de \textbf{Jansen} et 
-    al., que encontra uma bissecção de largura 
-    %al.~\cite{JansenKLS01}, que encontra uma bissecção de largura 
+    %al., que encontra uma bissecção de largura 
+    al.~\cite{JansenKLS01}, que encontra uma bissecção de largura 
     mínima, é que este tem um consumo de tempo linear, enquanto que o 
     segundo tem um consumo de tempo cúbico no número de vértices da 
     árvore. 
@@ -233,22 +235,20 @@
     caminho máximo, como o mostrado na figura abaixo, onde denotamos
     os vértices de~$P$ por~${v_0,v_1,\ldots,v_p}$.
     
-\begin{center}
-\includegraphics[width=1.0\linewidth]{000.png}
-\end{center}
-
+    \begin{center}
+    \includegraphics[width=1.0\linewidth]{000.png}
+    \end{center}
     Temos que cada vértice contido no caminho~$P$ receberá 
     uma rotulação de forma que:
     \begin{itemize}
         \item~${\rot(v_i)>\rot(v_j)}$ para todo~${i<j}$ e
         \item~${\rot(v_{i-1})<\rot(v') \le \rot(v_i)}$ para todo 
-        vértice~$v'$ contido na sub-árvore~$T{v_i}$. 
+        vértice~$v'$ contido na sub-árvore~$T_{v_i}$. 
     \end{itemize}
-    
     Chamaremos de~${\map^+_m}$ a função que devolve o~$m$-ésimo 
     próximo vértice na rotulação, considerando que os rótulos
     estão dispostos de forma circular
-    e, de~${\map^-_m}$ a função inversa da primeira. 
+    e de~${\map^-_m}$ a função inversa da primeira. 
     Ou seja,~${\map^-_m}$ devolve o~$m$-ésimo vértice anterior.
 
 \noindent\rule[0.5ex]{\linewidth}{1pt}
@@ -279,14 +279,13 @@
 \end{teo}
 
 
-\subsection*{Caso 1.}
+\subsubsection*{Caso 1.}
     Existe um vértice ~${v\in V(P)}$ tal 
     que~${\map_m^+(v)\in V(P)}$.
 \begin{center}
 \includegraphics[width=1.0\linewidth]{case_1.png}
 \end{center}
-
-\subsection*{Caso 2.}
+\subsubsection*{Caso 2.}
     Caso contrário, sabemos que para todo vértice~${v\in V(P)}$
     teremos que~${\map_m^+(v)\not\in V(P)}$.
 
@@ -300,27 +299,22 @@
     Assumiremos que~$T'_z$ equivale a~$T_z\setminus \{z\}$.
 
     \bigskip
-    \bigskip
 
-    Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
+    Considere um vértice~${z\in V(P)}$ tal que~$z$ é b-especial e
     sendo~$x$ o menor vértice de~$T_z$ tal 
-    que~${\map^-_m(x)\in V(P)}$, temos 
+    que~${\map^-_m(x)\in V(P)}$. Temos 
     que~${z^b = \map^-_m(x)}$,
     ~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
     e~${H_z^f =T_u'}$ para todo 
     vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
 
     \begin{center}
-\includegraphics[width=1.0\linewidth]{bspecial.png}
-\end{center}
-
-    \bigskip
-    \bigskip
-
+    \includegraphics[width=1.0\linewidth]{bspecial.png}
+    \end{center}
     De forma análoga, para um vértice~${z\in V(P)}$ tal 
     que~$z$ é f-especial,
     temos que~${z^f = \map^+_m(x)}$,
-    sendo~$x$ o menor vértice de~$T_z$ tal 
+    onde~$x$ é o menor vértice de~$T_z$ tal 
     que~${\map^+_m(x)\in V(P)}$.
     Também temos
     que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
@@ -331,7 +325,7 @@
     \includegraphics[width=1.0\linewidth]{fspecial.png}
 \end{center}
     \subsubsection*{Caso 2.a)}
-        É válido que~${\displaystyle\sum_{z\in B_{esp}}
+        ${\displaystyle\sum_{z\in B_{esp}}
         \Big(|T'_{z}|+|H_z^b|\Big)\le
         \dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|}$,
         implicando na existência de um vértice~${z\in B_{esp}}$ 
@@ -342,7 +336,7 @@
     \includegraphics[width=1.0\linewidth]{5caso2a.png}
 \end{center}
     \subsubsection*{Caso 2.b)}
-        Caso contrário,~${\displaystyle\sum_{z\in F_{esp}}
+        ${\displaystyle\sum_{z\in F_{esp}}
         \Big(|T'_{z}|+|H_z^f|\Big)\le
         \dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|}$
         e, isso implica na existência de um vértice~${z\in F_{esp}}$ 
@@ -378,20 +372,19 @@
 %----------------------------------------------------------------------------------------
 \section*{Redução}
 
-    Estilos de grafos da redução Max Sat2~(Satisfatibilidade
+    Estilos de grafos da redução Max2SAT~(Satisfatibilidade
     máxima 
     com no máximo duas literais por cláusula) para
-    SimpleMaxCut~(Corte Máximo Simples).
+    MaxCut~(Corte Máximo).
 \begin{center}
-\includegraphics[width=0.85\linewidth]{8red_2.png}
+\includegraphics[width=0.9\linewidth]{8red_2.png}
 %\includegraphics[width=0.5\linewidth]{arrumado.png}
 \end{center}
 %\includegraphics[width=1.0\linewidth]{8red_2.png}
-
-Estilo de grafo da redução SimpleMaxCut para Bissecção Mínima.
+Estilo de grafo da redução MaxCut para Bissecção Mínima.
     
 \begin{center}
-\includegraphics[width=0.84\linewidth]{ult.png}
+\includegraphics[width=0.9\linewidth]{ult.png}
 \end{center}
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
@@ -404,7 +397,7 @@ Estilo de grafo da redução SimpleMaxCut para Bissecção Mínima.
     \begin{tabular}{| c | c | >{\columncolor{blue!14}}P{3.6cm} | >{\columncolor{red!14}}P{3.6cm} | >{\columncolor{blue!14}}P{5cm} | >{\columncolor{red!14}}P{5.1cm} | }
 
     \specialrule{1.7pt}{1pt}{1pt}
-        Altura & $|V(T)|$ & $e_T(B,W)$ \textbf{FST} & $e_T(B,W)$ \textbf{Jansen} & Tempo \textbf{FST} (segundos) & Tempo \textbf{Jansen} (segundos)  \\[10pt]
+        Altura & $|V(T)|$ & $e_T(B,W)$ \textbf{FST} & $e_T(B,W)$ \textbf{Jansen et~al.} & Tempo \textbf{FST} (segundos) & Tempo \textbf{Jansen et al.} (segundos)  \\[10pt]
 
     \specialrule{1.7pt}{1pt}{1pt}
         1 & 4    & 2  & 2  & 0.000091  &   0.000009 \\ [3pt]
@@ -426,7 +419,7 @@ Estilo de grafo da redução SimpleMaxCut para Bissecção Mínima.
 \begin{tabular}{| c | >{\columncolor{blue!14}}P{4.6cm} | >{\columncolor{red!14}}P{4.5cm} | >{\columncolor{blue!14}}P{5.5cm} | >{\columncolor{red!14}}P{5.5cm} |}
 
             \specialrule{1.7pt}{1pt}{1pt}
-            $|V(T)|$ & $e_T(B,W)$ \textbf{FST} & $e_T(B,W)$ \textbf{Jansen} & Tempo \textbf{FST} (segundos) & Tempo \textbf{Jansen}   (segundos) \\[10pt]
+            $|V(T)|$ & $e_T(B,W)$ \textbf{FST} & $e_T(B,W)$ \textbf{Jansen et~al.} & Tempo \textbf{FST} (segundos) & Tempo \textbf{Jansen~et al.}   (segundos) \\[10pt]
 
     \specialrule{1.7pt}{1pt}{1pt}
 

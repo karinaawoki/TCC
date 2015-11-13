@@ -360,7 +360,7 @@
 		analisamos os vértices de~$S'$ que se ligam a vértices 
 		de~$V(T)\setminus S'$. 
 		Portanto, podemos usar uma marcação para indicar que as 
-		arestas que ligam~$S'$ e~$V(T)\setminus S$ estão inativas, 
+		arestas que ligam~$S'$ e~${V(T)\setminus S}$ estão inativas, 
 		tornando $S'$ uma componente conexa isolada. 
 		Isso pode ser feito em tempo~$O(1)$.
 
@@ -382,7 +382,9 @@
 		Se usarmos essa parte como caminho máximo,
 		manteremos a propriedade da dobra do diâmetro como pode
 		ser visto na equação~\ref{eq:reaproveitaCaminho} da 
-		seção~\ref{sec:dobraDiametro}.
+		seção~\ref{sec:dobraDiametro}. 
+		Dessa forma, a rotulação continua basicamente a mesma,
+		basta apenas "deslocar" os vértices para a esquerda.
 
 		\bigskip
 

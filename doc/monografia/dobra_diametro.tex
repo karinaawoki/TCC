@@ -487,7 +487,7 @@
 		\end{align}
 
 		Agora podemos usar o Lema~\ref{lema:approxCutForest}
-		na componente conexa~$T_z'$, usando~${m-|B_1|}$ 
+		na flotesta~$T_z'$, usando~${m-|B_1|}$ 
 		e~${2-\dfrac{1}{1-d}}$ como os valores de~$m$ e~$c$,
 		respectivamente.
 		Dessa forma, teremos um corte~$(B_2,W_2)$ tal 
@@ -643,6 +643,33 @@
 	
 	\subsubsection*{Caso (b) seja verdadeiro:}
 
+	Existe um vértice~$z\in F_{esp}$ 
+	tal que ${|T'_{z}|+|H_z^f|\le
+	\dfrac{1-d}{d}|P_z^f|}$, logo, temos
+	que~${|H^f_z|\le \Big(\dfrac{1}{d}-1\Big)|P^f_z|-|T'_z|}$.
+	Usando a equação~\ref{eq:6}, temos 
+	que
+	\begin{align}
+		|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|
+		\Rightarrow
+		|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z| \nonumber
+	\end{align}
+
+
+	Assumiremos que~${S = H^f_z \cup P^f_z}$ 
+	e~${B_1 = \{v\in V(T): z<v<z^f\}}$. 
+	Da mesma forma que no caso anterior, teremos 
+	que~${2d\le \diam^*(T[S])}$.
+
+	Obteremos o corte~$(B_2,W_2)$ usando o 
+	Lema~\ref{lema:approxCutForest} em~$T'_z$ 
+	com~${m-|B|}$ e~${2-\dfrac{1}{1-d}}$ sendo os valores
+	de~$m$ e~$c$, respectivamente. 
+	Temos também que~${B = B_1 \cup B_2}$ 
+	e~${W = V(T)\setminus (B\cup S)}$.
+	Dessa forma, a disposição dos 
+	vértices está ilustrada na imagem a seguir.
+
 	\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
@@ -711,6 +738,9 @@
 		(-16.3,1.4) -- (-17.3,3.9) -- (-18.3,1.4) -- cycle;
 
 	\end{tikzpicture} \end{center}
+	Assim como foi mostrado no caso 2.(a), temos 
+	que~${e_T(B,W,S)<\dfrac{2\cdot \Delta(T)}{d}}$.
+	Satisfazendo assim as propriedades do Teorema~\ref{teo:dobraDiametro} em todos os casos apresentados anteriormente.
 
 	
 
@@ -729,7 +759,70 @@
 		\SetKwInOut{Output}{output}
 
 		\caption{}
-		\Input{árvore $T$ com $n$ vértices e ${m\in[n]}$}
-		\Output{}
+		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$,
+		vetor~$rotulo$, vetor~$indice$ e raíz da árvore~$r$} 
+		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
+		Teorema~\ref{teo:dobraDiametro} e um vértice~$r\in S$}
+		\For{$i = 1 \to |V(P)|$}
+		{
+			\If{$rotulo(i)\in V(P)$}
+			{
+				\tcp{caso 1}
+				$B\gets indice(rotulo(i)+1)\cup\ldots\cup indice(rotulo(i)+m)$\;
+				$W\gets V(T)\setminus B$\;
+
+				\Return $[(B,W,\emptyset),$ $null]$\;
+			}
+		}
+		\tcp{caso 2}
+		$bvalor \gets$ infinito \;
+		$fvalor \gets$ infinito\;
+		\For{$z' \in B_{esp}$}
+		{
+			\If{$\frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|} < bvalor$}
+			{
+			 	$bvalor \gets \frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|}$\;
+			 	$z \gets z'$\; 
+			}
+		}
+		\For{$z' \in F_{esp}$}
+		{
+			\If{$\frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|} < fvalor$}
+			{
+			 	$fvalor \gets \frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|}$\;
+			 	$z \gets z'$\; 
+			}
+		}
+		\newpage
+		\If{$bvalor\le fvalor$}
+		{
+			\tcp{caso 2.a)}
+			$z^b_\ell \gets $ último vértice de~$P_z^b$\;
+			$B_1 \gets indice(rotulo(z^b_l)+1)\cup\cdots\cup indice(rotulo(z^b_l)+m)$\;
+			$B_2 \gets \mathbf {Algoritmo\ref{lema:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
+			$B \gets B_1\cup B_2$\;
+			$W \gets V\setminus (B\cup S)$\; 
+			$S = P_z^b\cup H^b_z $\;
+			\Return $[(B,W,S),$ $z^b_\ell]$\;
+		}
+
+	\end{algorithm}	
+
+	\LinesNumberedHidden
+	\begin{algorithm}[H]
+	\label{alg:dobraDiametro}
+	\Numberline
+		\Else
+		{
+			\tcp{caso 2.b)}
+			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
+			\Numberline$B_1 \gets indice(rotulo(z)+1)\cup\cdots\cup indice(rotulo(z^f)-1)$\;
+			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{lema:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
+			\Numberline$B \gets B_1\cup B_2$\;
+			\Numberline$W \gets V\setminus (B\cup S)$\; 
+			\Numberline$S = P_z^f\cup H^f_z $\;
+			\Numberline\Return $[(B,W,S),$ $z^f]$\;		
+
+		}
 
 	\end{algorithm}	

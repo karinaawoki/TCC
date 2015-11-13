@@ -12,6 +12,7 @@
 \usepackage{colortbl}
 \usepackage{multirow}
 \usepackage{enumitem}
+\usepackage{etoolbox}
 %\usepackage[hmargin=3.5cm,vmargin=3.7cm,bmargin=2cm]{geometry}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
@@ -46,6 +47,11 @@
 \SetCommentSty{mycommfont}
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\newcounter{algoline}
+\newcommand\Numberline{\refstepcounter{algoline}\nlset{\thealgoline}}
+\AtBeginEnvironment{algorithm}{\setcounter{algoline}{5}}
+
 
 \sloppy
 

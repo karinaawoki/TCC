@@ -3,16 +3,20 @@
 	\subsection{Teorema do corte exato}
 	\begin{lem}
 	\label{lem:grauMaximo}
+		% Para toda árvore~$T$ com~${n>2}$ vértices
+		% e toda aresta~${e=\{v_1,v_2\}}$ em~$T$, 
+		% tal que~${v_1,v_2\in V}$ e~${\grau_T(v_1)=\grau_T(v_2)=1}$,
+		% temos que~${\Delta(T) = \Delta(T\cup e)}$.
 		Para toda árvore~$T$ com~${n>2}$ vértices
-		e toda aresta~${e=\{v_1,v_2\}}$ em~$T$, 
-		tal que~${v_1,v_2\in V}$ e~${\grau_T(v_1)=\grau_T(v_2)=1}$,
-		temos que~${\Delta(T) = \Delta(T\cup e)}$.
+		e todo par de vértices~$v_1$ e~$v_2$ em~$T$ 
+		com~${\grau_T(v_1)=\grau_T(v_2)=1}$,
+		temos que~${\Delta(T) = \Delta(T\cup \{v_1,v_2\})}$.
 	\end{lem}
 	
 	
 	\begin{proof}
 		Como~${n>2}$, então temos que~${\Delta(T)\ge 2}$.
-		Sabemos que ao adicionar~$e$ em~$T$, o grau de~$v_1$
+		Sabemos que ao adicionar~$e = \{v_1,v_2\}$ em~$T$, o grau de~$v_1$
 		e~$v_2$ passará a ser 2, e os demais vértices da árvore
 		irão manter os seus respectivos graus.
 		Portanto,~${\grau_{T\cup e}(v_1)=\grau_{T\cup e}(v_2)=2}$
@@ -24,16 +28,14 @@
 		dado que~${\grau_T(v_1)=\grau_T(v_2)=1}$
 		sabe-se que~${v\ne v_1}$ e~${v\ne v_2}$, o que nos leva 
 		a~${\grau_{T\cup e}(v)=\grau_T(v)=\Delta(T)}$.
-
-		
 		Dessa forma, temos que
 		\begin{align}
 			\Delta(T\cup e) &= \max\{\grau_{T\cup e}(v_1), 
-			\grau_{T\cup e}(v)\}\nonumber\\
-         		&= \max\{2, \grau_{T\cup e}(v)\} \nonumber\\
-				&= \grau_{T\cup e}(v) \nonumber\\
-         		&= \grau_T(v) \nonumber\\
-         		&= \Delta(T) \nonumber
+			\grau_{T\cup e}(v)\}
+         		= \max\{2, \Delta(T)\}
+%				&= \grau_{T\cup e}(v) \nonumber\\
+%         		&= \grau_T(v) \nonumber\\
+         		= \Delta(T). \nonumber
 		\end{align}		
 
 	\end{proof}
@@ -57,64 +59,65 @@
 	\medskip
 
 	\begin{proof}
-		Utilizaremos indução para provar o 
-		Teorema~\ref{teo:corteExato} 
-		(sem levar em conta o tempo de execução por enquanto).
+		Utilizaremos indução para provar a primeira parte do
+		Teorema~\ref{teo:corteExato}.
+		%(sem levar em conta o tempo de execução por enquanto).
 		
-		Primeiramente, temos que~${\diam^*(T)\le1}$, como o mostrado 
+		Primeiramente, temos que~${\diam^*(T)\le1}$, como mostrado 
 		na seção~\ref{subsec:diametro}. 
 		Sendo assim, sabe-se que~${i\ge1}$, logo~${i=1}$ será a base 
 		utilizada na indução.
 		
 		\textbf{Caso base,~${\mathbf {i=1}}$.}
-		Para todo~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$ e, nesse
+		Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$ e, nesse
 		caso,~${e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot 
 		\Delta(T)}$.
-		Para~$n>2$ temos que~${\diam^*(T)>\dfrac{1}{2}}$, logo, 
+		Temos que~${\diam^*(T)>\dfrac{1}{2}}$, logo, para~$n>2$, 
 		podemos utilizar o Lema~\ref{lema:caminhoLongo} para obter 
 		um corte~$(B,W)$ 
 		com~${e_T(B,W)\le 2 < 4\cdot 2^i\cdot \Delta(T)}$.
-		Portanto, esse teorema é válido para~${i=1}$.
+		Portanto, a primeira parte do teorema é válida para~${i=1}$.
 
 
-		\textbf{Caso~${\mathbf{i\ge 2}}$.} Provaremos que esse teorema 
-		vale para~$i$, assumindo que ele é válido para~$i-1$.
+		\textbf{Caso~${\mathbf{i\ge 2}}$.} Provaremos que a 
+		primeira parte 
+		vale para~$i$, assumindo que ela é válida para~$i-1$.
 		De modo semelhante ao caso anterior, para~${n\le2}$, temos 
 		que~${e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot 
 		\Delta(T)}$.
 		Porém, se~${n>2}$, podemos utilizar o 
 		Algoritmo~\ref{alg:dobraDiametro}, que nos devolverá um 
-		corte~$(B',W'S')$ do tipo~1 ou~2.
-		\begin{itemize}
-			\item Se o corte~$(B',W',S')$ for do tipo 1, 
-			teremos~${|B'|=m}$,~${s'=\emptyset}$
+		corte~$(B',W',S')$ do tipo~1 ou~2.
+
+			Se o corte~$(B',W',S')$ for do tipo 1, 
+			teremos~${|B'|=m}$,~${S'=\emptyset}$
 			e~${e_T(B',W')\le2\le 2\cdot 2^i\cdot \Delta(T)}$.
 			Logo, temos que o corte~$(B',W')$ satisfaz as propriedades
-			do corte desse teorema.
+			do corte do teorema.
 
-			\item Caso contrário, o corte~$(B',W',S')$ será do tipo 2. 
-			Sendo assim, teremos~${|B'|=m}$ ou~${|B'|<m\le |B'|+|S'|}$, ambos
-			com~${e_T(B',W',S')\le \dfrac{2\cdot\Delta(T)}{\diam^*(T)}\le
+			Caso contrário, o corte~$(B',W',S')$ será do tipo 2, ou 
+			seja,~${|B'|=m}$ ou~${|B'|<m\le |B'|+|S'|}$, 
+			e~${e_T(B',W',S')\le \dfrac{2\cdot\Delta(T)}{\diam^*(T)}\le
 			2\cdot2^i\cdot\Delta(T)}$.
 			
-			Se~${|B'|=m}$, temos então que o corte~$(B,V\setminus B)$ satisfaz
+			Se~${|B'|=m}$, temos então que o corte~$(B',V\setminus B')$ satisfaz
 			as propriedades do corte desse
 			teorema.
-
-			Caso contrário,~${|B'|<m\le |B'|+|S'|}$, que implica
-			em~${0<m-|B'|\le|S'|}$. 
+			Senão,~${|B'|<m\le |B'|+|S'|}$, que implica
+			que~${0<m-|B'|\le|S'|}$. 
 			Pelas propriedades do Teorema~\ref{teo:dobraDiametro}, 
 			sabemos que~${\diam^*(T[S'])\ge 2\cdot \diam^*(T)>
 			\dfrac{1}{2^{i-1}}}$.
 			Como~${0<m-|B'|\le|S'|}$ 
 			e~${\diam^*(T[S'])>\dfrac{1}{2^{i-1}}}$, podemos aplicar o 
 			Teorema~\ref{teo:corteExato} em~$T[S']$ 
-			usando~${m-|B'|}$ como~$m$ e,~$i-1$ como~$i$.
+			usando~${m-|B'|}$ como~$m$ e~$i-1$ como~$i$.
 			
 			Porém, existem casos onde o conjunto~$S'$ retornado 
-			pelo Teorema~\ref{teo:dobraDiametro} não é conexo, 
+			pelo Teorema~\ref{teo:dobraDiametro} é tal que~$T[S']$ 
+			não é conexo, 
 			pois, de acordo com o 
-			Algoritmo~\ref{alg:dobraDiametro},~$S'$ pode se 
+			Algoritmo~\ref{alg:dobraDiametro},~$T[S']$ pode se 
 			dividir em duas componentes, uma no começo e outra
 			no fim do caminho máximo. 
 
@@ -171,9 +174,9 @@
 
 			\end{tikzpicture} \end{center}
 
-			Como o Teorema~\ref{teo:corteExato} se trata de 
+			Como o Teorema~\ref{teo:corteExato} se aplica a 
 			árvores, precisamos tornar~$S'$ conexo de forma a não 
-			alterar o~$\Delta(T)$.
+			alterar o seu grau máximo.
 			Sabemos que se adicionarmos uma aresta~$e$ em~$T$, que 
 			liga o primeiro ao último vértice do caminho máximo,
 			então~$S'$ será conexo. 
@@ -218,7 +221,7 @@
 			Teorema~\ref{teo:corteExato} é válido para 
 			todo~${i\in \mathbb{N^+_*}}$.
 			
-		\end{itemize}
+		%\end{itemize}
 	\end{proof}
 
 	\bigskip

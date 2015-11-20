@@ -16,7 +16,8 @@
 	
 	\begin{proof}
 		Como~${n>2}$, então temos que~${\Delta(T)\ge 2}$.
-		Sabemos que ao adicionar~$e = \{v_1,v_2\}$ em~$T$, o grau de~$v_1$
+		Sabemos que ao adicionar~${e = \{v_1,v_2\}}$ em~$T$, 
+		o grau de~$v_1$
 		e~$v_2$ passará a ser 2, e os demais vértices da árvore
 		irão manter os seus respectivos graus.
 		Portanto,~${\grau_{T\cup e}(v_1)=\grau_{T\cup e}(v_2)=2}$
@@ -51,16 +52,16 @@
 		vértices e~${\diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
 		existe um corte~$(B,W)$ em~$T$ com~$|B|=m$ 
 		e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
-		Um corte que satisfaz esses requisitos pode ser computado
-		em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
+		%Um corte que satisfaz esses requisitos pode ser computado
+		%em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
 	\end{teo}
 
 	\medskip
 	\medskip
 
 	\begin{proof}
-		Utilizaremos indução para provar a primeira parte do
-		Teorema~\ref{teo:corteExato}.
+		Utilizaremos indução para provar o Teorema~\ref{teo:corteExato}.
+		%a primeira parte do Teorema~\ref{teo:corteExato}.
 		%(sem levar em conta o tempo de execução por enquanto).
 		
 		Primeiramente, temos que~${\diam^*(T)\le1}$, como mostrado 
@@ -73,15 +74,16 @@
 		caso,~${e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot 
 		\Delta(T)}$.
 		Temos que~${\diam^*(T)>\dfrac{1}{2}}$, logo, para~$n>2$, 
-		podemos utilizar o Lema~\ref{lema:caminhoLongo} para obter 
+		podemos utilizar o Lema~\ref{lema:caminhoLongo} e obter 
 		um corte~$(B,W)$ 
 		com~${e_T(B,W)\le 2 < 4\cdot 2^i\cdot \Delta(T)}$.
-		Portanto, a primeira parte do teorema é válida para~${i=1}$.
+		Portanto, o teorema é válido para~${i=1}$.
 
 
-		\textbf{Caso~${\mathbf{i\ge 2}}$.} Provaremos que a 
-		primeira parte 
-		vale para~$i$, assumindo que ela é válida para~$i-1$.
+		\textbf{Caso~${\mathbf{i\ge 2}}$.} Provaremos que 
+		%a primeira parte 
+		o teorema
+		vale para~$i$, assumindo que ele é válido para~$i-1$.
 		De modo semelhante ao caso anterior, para~${n\le2}$, temos 
 		que~${e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot 
 		\Delta(T)}$.
@@ -101,7 +103,7 @@
 			2\cdot2^i\cdot\Delta(T)}$.
 			
 			Se~${|B'|=m}$, temos então que o corte~$(B',V\setminus B')$ satisfaz
-			as propriedades do corte desse
+			as propriedades do corte do
 			teorema.
 			Senão,~${|B'|<m\le |B'|+|S'|}$, que implica
 			que~${0<m-|B'|\le|S'|}$. 
@@ -185,20 +187,23 @@
 			Note também que em ambas as componentes de~$T[S']$, 
 			temos que o caminho máximo de cada uma possui em um dos
 			seus extremos o vértice~$v_0$ ou o vértice~$v_p$.
-			Logo, se adicionarmos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
-			então~$T[S']$ será uma componente conexa e
+			Logo,~$T'[S']$ será conexo e 
+			%se adicionarmos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
+			%então~$T[S']$ será uma componente conexa e
 			teremos um caminho máximo 
-			em~$T[S']$ com o maior número de vértices possíveis.
+			em~$T'[S']$ com o maior número de vértices possíveis.
 			Além disso, de acordo com o Lema~\ref{lem:grauMaximo}, 
-			teremos que~${\Delta(T) = \Delta(T')}$, já que~$e$ 
-			conectará dois vértices extremos do caminho máximo
-			que possuem grau um.
+			temos que~${\Delta(T) = \Delta(T')}$, já que a aresta~$e$ 
+			conecta os dois vértices extremos do caminho máximo
+			e estes possuem grau um.
 			Podemos, então, passar a árvore~$T'[S']$ para o 
-			Teorema~\ref{teo:corteExato}, sem nos preocupar com a 
-			modificação do grau máximo.
+			Teorema~\ref{teo:corteExato}, 
+			sabendo que não há aumento
+			%sem nos preocupar com a modificação 
+			do grau máximo.
 			
 			Como assumimos na indução que o Teorema~\ref{teo:corteExato} vale
-			para~${i-1}$, então existe um corte~$(B'',W'')$
+			para~${i-1}$, então existe um corte~$(B'',W'')$ em~$T'[S']$
 			tal que~${|B''|=m-|B'|}$ 
 			e~${e_{T[S]}(B'',W'')\le 4\cdot 2^{i-1}\cdot
 			\Delta(T'[S'])\le 4\cdot 2^{i-1}\cdot\Delta(T')}$.
@@ -211,9 +216,9 @@
 				\nonumber\\
 				&\le 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
 				\Delta(T')\nonumber\\
-				&\le 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
+				&= 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
 				\Delta(T)\nonumber\\
-				&\le 4\cdot 2^{i}\cdot\Delta(T) \nonumber
+				&= 4\cdot 2^{i}\cdot\Delta(T), \nonumber
 			\end{align}
 			provando assim que o Teorema~\ref{teo:corteExato} é
 			válido para~$i$ partindo do pressuposto de que ele vale
@@ -232,23 +237,23 @@
 		Para toda árvore~$T$ com~$n$ vértices e todo~${m\in[n]}$, existe
 		um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
 		e~${e_G(B,W)\le \dfrac{8}{\diam^*(G)}\Delta(G)}$.
-		Um corte que satisfaz esses requisitos pode ser computado em 
-		tempo~$O\Big(\dfrac{n}{\diam^*(G)}\Big)$.
+		%Um corte que satisfaz esses requisitos pode ser computado em 
+		%tempo~$O\Big(\dfrac{n}{\diam^*(G)}\Big)$.
 	\end{coro}
 
 	\begin{proof}
-		De acordo com o Teorema~\ref{teo:corteExato}, para toda árvore~$T$
-		existe um~$i$ tal que~$\diam^*(T)>\dfrac{1}{2^i}$. 
-		Como~$\dfrac{1}{2^i}$ é decrescente, então existe um~$j$ tal
-		que~$\dfrac{1}{2^{j-1}}\ge\diam^*(T)>\dfrac{1}{2^j}$,
-		o que implica em~$2^j\le\dfrac{2}{\diam^*(T)}$.
+		De acordo com o Teorema~\ref{teo:corteExato}, para toda árvore~$T$,
+		existe um~$i$ tal que~${\diam^*(T)>\dfrac{1}{2^i}}$. 
+		Como~${\dfrac{1}{2^i}}$ é decrescente, então existe um~$j$ tal
+		que~${\dfrac{1}{2^{j-1}}\ge\diam^*(T)>\dfrac{1}{2^j}}$,
+		o que implica que~${2^j\le\dfrac{2}{\diam^*(T)}}$.
 
-		Dado que o Teorema~\ref{teo:corteExato} afirma a existência de um 
-		corte~$(B,W)$ com~${|B|=m}$ 
+		O Teorema~\ref{teo:corteExato} garante a existência de um 
+		corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
 		e~$e_T(B,W)\le 4\cdot 2^j\Delta(G)\le \dfrac{8}{\diam^*(T)}$,
 		e esse corte satisfaz as propriedades do 
-		Corolário~\ref{coro:corteExato}, então podemos afirmar a existência 
-		de cortes desse tipo.
+		Corolário~\ref{coro:corteExato}. 
+		%então podemos afirmar a existência de cortes desse tipo.
 	\end{proof}
 
 	\bigskip
@@ -266,27 +271,36 @@
 
 		Assumimos que a função {\sc caminho\_máximo}$(T)$ 
 		devolve um vetor contendo os vértices do caminho 
-		máximo, de acordo com a ordem apresentada no caminho, 
-		isso pode ser feito em tempo~$O(n)$, como o descrito na 
+		máximo em~$T$, de acordo com a ordem apresentada no caminho.
+		Isso pode ser feito em tempo~$O(n)$, como descrito na 
 		seção~\ref{sec:caminhoMaximo}.
 
-		A função {\sc rotula}$(c$, $T)$ recebe um vetor~$c$
-		contendo os vértices de um caminho e uma árvore~$T$
-		e, retorna dois vetores, o primeiro mapeia um vértice até 
-		a sua rotulação e o segundo a rotulação até o seu respectivo
-		vértice. 
-		Essa função pode ser executada em tempo~$O(n)$, sendo~$n$
-		o número de vértices de~$T$, como o mostrado na 
+		A função {\sc rotula}$(T$, $c)$ recebe uma árvore~$T$ e um vetor~$c$
+		contendo os vértices de um caminho em~$T$ e,
+		retorna dois vetores: o primeiro contém a rotulação de cada vértice 
+		de~$T$ e o segundo, o inverso. 
+		Essa função consome tempo~$O(n)$, como mostrado na 
 		seção~\ref{sec:rotulacao}.
 
-		A função {\sc recalcula\_caminho}$(c$, $V)$
-		recebe como parâmetros um vetor~$c$, referente a um 
-		caminho, e um conjunto de vértices~$V$. Essa função devolve
-		um vetor, ordenado de acordo com~$c$, contendo os 
-		vértices em~$c$ que estão no conjunto~$V$. 
-		Isso pode ser feito em tempo~$O(|c|)$ se mantivermos um 
-		vetor binário indicando presença ou ausência dos vértices 
-		em~$V$.
+		A função {\sc recalcula\_caminho}$(S$, $c)$
+		recebe como parâmetros um conjunto de vértices~$S$ de uma árvore~$T[S]$ 
+		e um vetor~$c$, que representa um caminho na árvore~$T$.
+		Essa função retorna um vetor que contém os vértices de~$S\cap c$, na mesma 
+		ordem que aparecem em~$c$. 
+		Isso pode ser feito em tempo~$O(|c|)$ se 
+		o conjunto~$S$ é dado por um vetor binário.
+		%mantivermos um 
+		%vetor binário indicando presença ou ausência dos vértices 
+		%em~$V$.
+
+		% A função {\sc recalcula\_caminho}$(V$, $c)$
+		% recebe como parâmetros um vetor~$c$, que representa um 
+		% caminho na árvore, e um conjunto de vértices~$V$. Essa função devolve
+		% um vetor, ordenado de acordo com~$c$, contendo os 
+		% vértices em~$c$ que estão no conjunto~$V$. 
+		% Isso pode ser feito em tempo~$O(|c|)$ se mantivermos um 
+		% vetor binário indicando presença ou ausência dos vértices 
+		% em~$V$.
 
 		% Também temos a função {\sc recalcula\_rotulação}$(V$, $r$, $v$, $c)$,
 		% um conjunto de vértices~$V$ e três vetores, o primeiro 
@@ -305,7 +319,7 @@
 		propriedades do Teorema~\ref{teo:corteExato}.
 		
 		\bigskip
-		\bigskip
+
 		\begin{algorithm}[H]
 		\label{alg:corteExato}
 			\SetKwInOut{Input}{input}
@@ -317,17 +331,21 @@
 			e~$e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)$}
 			$B\gets \emptyset$\;
 			$S'\gets V$\;
-			$raiz\gets$ um vértice arbitrário de~$T$\;
+			$r\gets$ um vértice arbitrário de~$T$\;
 			$P\gets$ {\sc caminho\_máximo}$(T)$\;
-			$[rotulo$, $indice]\gets$ {\sc rotula}$(P$, $T)$
+			$[rot$, $ind]\gets$ {\sc rotula}$(T$, $P)$\;
+			$[(B',W',S')$, $T'[S']$, $r]\gets
+				\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T$,
+				$|V|$, $m$, $P$, $rot$, $ind$,~$r)$\;
 			\While{$|B|<m$}
 			{
-				$[(B',W',S')$, $raiz]\gets
-				\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T[S']$,
-				$|S'|$, $m-|B|$, $P$, $rotulo$, $indice$, $raiz)$\;
+				\tcp{$r$ receberá um vértice que pertence ao novo conjunto~$S'$}
+				$[(B',W',S')$, $T'[S']$, $r]\gets
+					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T'[S']$,
+					$|S'|$, $m-|B|$, $P$, $rot$, $ind$,~$r)$\;
 				$B\gets B\cup B'$\;
-				$P\gets$ {\sc recalcula\_caminho}$(P$, $S')$\;
-				$[rotulo$, $indice]\gets$ {\sc rotula}$(P$, $T[S'])$
+				$P\gets$ {\sc recalcula\_caminho}$(S'$, $P)$\;
+				$[rot$, $ind]\gets$ {\sc rotula}$(T'[S']$, $P)$
 				% \If{$T[S']$ não é conexo}
 				% {
 				% 	INSERE\_ARESTA$(T[S']$, PRIMEIRO$(P)$, 
@@ -338,8 +356,6 @@
 
 		\end{algorithm}	
 
-		\bigskip
-		\bigskip
 		\bigskip
 
 		\subsection*{Análise do Algoritmo}
@@ -353,24 +369,26 @@
 		% portanto, encontrar um caminho máximo fará parte do 
 		% Algoritmo~\ref{alg:corteExato}.
 
-		No algoritmo, temos que retirar arestas de~$G$ para desconectar
-		os vértices de~$S'$ dos vértices de~$V(T)\setminus S'$.
-		Poderíamos fazer isso verificando todas as arestas que 
-		ligam dois vértices de~$S'$ e colocar no grafo, mas podemos
+		No algoritmo, temos que 
+		retirar arestas de~$G$ para 
+		desconectar os vértices de~$S'$ do resto da árvore
+		e acrescentar a aresta~$e$, como descrito no teorema.
+		Poderíamos desconectar os vértices verificando todas as arestas que 
+		ligam dois vértices de~$S'$ e colocar em~$T[S']$, mas podemos
 		fazer isso no Algoritmo~\ref{alg:dobraDiametro} de forma 
 		mais eficiente. 
-		Sabemos que no Algoritmo~\ref{alg:dobraDiametro},
+		Sabemos que, no Algoritmo~\ref{alg:dobraDiametro},
 		analisamos os vértices de~$S'$ que se ligam a vértices 
-		de~$V(T)\setminus S'$. 
+		de~$V\setminus S'$. 
 		Portanto, podemos usar uma marcação para indicar que as 
-		arestas que ligam~$S'$ e~${V(T)\setminus S}$ estão inativas, 
+		arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
 		tornando $S'$ uma componente conexa isolada. 
-		Isso pode ser feito em tempo~$O(1)$.
-
-		Acrescentar a aresta~$e$, como o descrito no
-		Teorema~\ref{teo:corteExato} também pode ser feito de 
+		Acrescentar a aresta~$e$, como descrito no
+		Teorema~\ref{teo:corteExato}, também pode ser feito de 
 		forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
 		da mesma forma que foi feito o procedimento citado acima.
+		Desta forma, o Algoritmo~\ref{alg:dobraDiametro} retornará
+		a árvore~$T'[S']$.
 
 		O Algoritmo~\ref{alg:dobraDiametro} também devolverá 
 		algum vértice de~$S'$ que será usado como raiz na 
@@ -378,7 +396,7 @@
 
 		Temos uma outra modificação no Algoritmo~\ref{alg:corteExato}   
 		em relação ao Teorema~\ref{teo:corteExato}.
-		Ao invés de calcularmos novamente o caminho máximo da nova
+		Em vez de calcularmos novamente o caminho máximo da nova
 		árvore, podemos reutilizar o caminho calculado anteriormente,
 		aproveitando somente a parte do caminho que está contida 
 		em~$S'$. 
@@ -393,16 +411,19 @@
 
 		Agora vamos analisar o consumo de tempo do algoritmo.
 		Sabemos que o Algoritmo~\ref{alg:corteExato} irá executar
-		o Algoritmo~\ref{alg:dobraDiametro}(em 
-		tempo ~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ ), a função
-		{\sc recalcula\_caminho}(em tempo~$O(n)$) e a função
-		{\sc rotula}(em tempo~$O(n)$) no máximo~$i$ vezes.
+		o Algoritmo~\ref{alg:dobraDiametro} que consome 
+		tempo ~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$, a função
+		{\sc recalcula\_caminho} que consome tempo~$O(n)$, e a função
+		{\sc rotula} que consome tempo~$O(n)$.
+		Sendo~$i$ um inteiro tal que~$\diam^*(T)>\dfrac{1}{2^i}$, 
+		temos que cada uma das operações citadas anteriormente
+		irá ser executada no máximo~$i$ vezes.
 
-		Levaremos em consideração que~$\ell$ representa a interação,
+		Considere que~$\ell$ representa a interação,
 		começando do~$i$ e indo até~1, e~$T_\ell$ e~$n_\ell$ 
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
-		Dado que usamos o conjunto~$S'$ como a nova árvore
+		Dado que usamos o~$T'[S']$ como a nova árvore
 		e sabendo que~$|S'|\le \dfrac{n}{2}$,
 		temos que o número de vértices de~$T_{\ell}$
 		é maior ou igual ao 
@@ -411,10 +432,10 @@
 			 & n_{\ell} \ge 2\cdot n_{\ell-1} \ge 4\cdot n_{\ell-2} \nonumber\\
 			\Rightarrow & n = 2^0\cdot n_i\ge 2^1\cdot n_{i-1} \ge\cdots\ge
 			2^{i-j}n_j\ge\cdots\ge
-			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1 \nonumber 
+			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1. \nonumber 
 		\end{align}
-		Logo, para todo~$\ell\in[1,i]$ temos que~$n_\ell \le\dfrac{n} {2^{i-\ell}}$
-		Portanto temos que o tempo e execução é
+		Logo, para todo~$\ell\in[i]$, temos que~$n_\ell \le\dfrac{n} {2^{i-\ell}}$.
+		Portanto temos que o tempo de execução é
 		\begin{align}
 			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big)
 			+ O(n_\ell) + O(n_\ell)\Big)

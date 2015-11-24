@@ -17,8 +17,8 @@
 				\Delta(T)}{\diam^*(T)}}$, 
 				e~${\diam^*(T[S])\ge 2\diam^*(T)}$.
 			\end{enumerate}
-			Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
-			computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
+			%Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
+			%computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
 		\end{teo}
 
 	\bigskip
@@ -399,9 +399,6 @@
 			\displaystyle\sum_{z\in F_{esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)\nonumber
 	\end{align}
-
-	\newpage
-
 	Isso nos leva a dois casos
 	\begin{enumerate}[label=(\alph*)]
 		\item $\displaystyle\sum_{z\in B_{esp}}
@@ -639,7 +636,6 @@
 
 	\bigskip
 	\bigskip
-	\newpage
 	
 	\subsubsection*{Caso (b) seja verdadeiro:}
 
@@ -753,6 +749,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\subsection{Algoritmo da dobra do diâmetro}
+
+		Assumimos que a função {\sc separa\_conjunto}$(T,$ $S)$
+		separa o conjunto~$S$ do restante da árvore.
+		Isso é feito apagando as arestas que estão no 
+		corte~$(S,V(T)\setminus S)$.
+		Sejam~$v_i$ e~$v_j$ primeiro e último vértices em~$S$, respectivamente.
+		Sabemos que todos os vértices de~$S$ possuem
+		rótulos consecutivos (considerando que o vértices de maior rótulo e 
+		de menor rótulo são consecutivos) e que~$v_i$ e~$v_j$ possuem~${(\grau(v_i)-1)}$
+		e~$1$ arestas que os conectam a~$V(T)\setminus S$, respectivamente.
+		Portanto, o que essa função faz é apagar de~$T$ as arestas que 
+		conectam~$v_i$ e~$v_j$ a~$V(T)\setminus S$ e, caso~$S$ não seja
+		conexo, inserir uma aresta que liga os vértices de menor e maior rótulos em~$T$.
+		Essa função devolverá um grafo~$T$ modificado, onde~$S$ será uma componente
+		isolada do restante da árvore. 
+		%Chamaremos esse novo grafo de~$T'[S]$.
+		Essa função consome tempo~$O(\grau(v_i))$.
+
 	\begin{algorithm}[H]
 	\label{alg:dobraDiametro}
 		\SetKwInOut{Input}{input}
@@ -762,7 +776,7 @@
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$,
 		vetor~$rotulo$, vetor~$indice$ e raíz da árvore~$r$} 
 		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
-		Teorema~\ref{teo:dobraDiametro} e um vértice~$r\in S$}
+		Teorema~\ref{teo:dobraDiametro}, a árvore~$T'[S]$ e um vértice~$r\in S$}
 		\For{$i = 1 \to |V(P)|$}
 		{
 			\If{$rotulo(i)\in V(P)$}
@@ -771,7 +785,7 @@
 				$B\gets indice(rotulo(i)+1)\cup\ldots\cup indice(rotulo(i)+m)$\;
 				$W\gets V(T)\setminus B$\;
 
-				\Return $[(B,W,\emptyset),$ $null]$\;
+				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
 			}
 		}
 		\tcp{caso 2}
@@ -793,7 +807,11 @@
 			 	$z \gets z'$\; 
 			}
 		}
-		\newpage
+	\end{algorithm}	
+
+	\LinesNumberedHidden
+	\begin{algorithm}[H]
+	\Numberline
 		\If{$bvalor\le fvalor$}
 		{
 			\tcp{caso 2.a)}
@@ -805,12 +823,6 @@
 			$S = P_z^b\cup H^b_z $\;
 			\Return $[(B,W,S),$ $z^b_\ell]$\;
 		}
-
-	\end{algorithm}	
-
-	\LinesNumberedHidden
-	\begin{algorithm}[H]
-	\Numberline
 		\Else
 		{
 			\tcp{caso 2.b)}

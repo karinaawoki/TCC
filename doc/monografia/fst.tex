@@ -264,7 +264,7 @@
 
 	\subsection{Algoritmo do corte exato}
 
-		Seja~${T=(V,E)}$ uma árvore e~${v_1,v_2\in V}$.
+		Seja~${T=(V,E)}$ uma árvore com~$n$ vértices.
 		% Assumimos que a função INSERE\_ARESTA$(T,v_1,v_2)$ irá 
 		% inserir uma aresta em~$T$, ligando os 
 		% vértices~$v_1$ e~$v_2$ em tempo constante. 
@@ -383,16 +383,27 @@
 		Portanto, podemos usar uma marcação para indicar que as 
 		arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
 		tornando $S'$ uma componente conexa isolada. 
-		Acrescentar a aresta~$e$, como descrito no
+		Obter a árvore~$T'$ acrescentando a aresta~$e$ em~$T$, como descrito no
 		Teorema~\ref{teo:corteExato}, também pode ser feito de 
 		forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
 		da mesma forma que foi feito o procedimento citado acima.
 		Desta forma, o Algoritmo~\ref{alg:dobraDiametro} retornará
-		a árvore~$T'[S']$.
+		a componente~$T'[S']$, que, nesse caso, é a árvore~$T'$ com
+		os vértices de~$S'$ isolados do resto de~$T'$.
 
-		O Algoritmo~\ref{alg:dobraDiametro} também devolverá 
-		algum vértice de~$S'$ que será usado como raiz na 
-		próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
+		Como usaremos apenas a árvore de~$S'$ e~$T'[S']$ possui outros 
+		vértices além dos vértices de~$S'$,
+		então, precisamos mandar um vértice de~$S'$ para
+		o Algoritmo~\ref{alg:dobraDiametro},
+		para que ele saiba que a árvore tratada em questão é
+		somente a componente conexa que possui o vértice recebido.
+		Assim, o Algoritmo~\ref{alg:dobraDiametro} irá considerar
+		apenas a componente conexa de~$S'$ e ainda
+		poderá usar o vértice recebido como raiz.
+
+		%também devolverá 
+		%algum vértice de~$S'$ que será usado como raiz na 
+		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
 		Temos uma outra modificação no Algoritmo~\ref{alg:corteExato}   
 		em relação ao Teorema~\ref{teo:corteExato}.

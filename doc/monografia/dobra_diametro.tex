@@ -797,16 +797,16 @@
 
 		\caption{}
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$,
-		vetor~$rotulo$, vetor~$indice$ e raíz da árvore~$r$} 
+		vetor~$rot$, vetor~$ind$ e raiz da árvore~$r$} 
 		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
 		Teorema~\ref{teo:dobraDiametro}, a árvore~$T^*[S]$ que representa
 		a árvore~$T$ onde~$S$ é conexo e está isolado dos demais vértices de~$T$, e um vértice~$r\in S$}
 		\For{$i = 1 \to |V(P)|$}
 		{
-			\If{$rotulo(i)\in V(P)$}
+			\If{$rot(i)\in V(P)$}
 			{
 				\tcp{caso 1}
-				$B\gets indice(rotulo(i)+1)\cup\ldots\cup indice(rotulo(i)+m)$\;
+				$B\gets ind(rot(i)+1)\cup\ldots\cup ind(rot(i)+m)$\;
 				$W\gets V(T)\setminus B$\;
 
 				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
@@ -840,7 +840,7 @@
 		{
 			\tcp{caso 2.a)}
 			\Numberline$z^b_\ell \gets $ último vértice de~$P_z^b$\;
-			\Numberline$B_1 \gets indice(rotulo(z^b_l)+1)\cup\cdots\cup indice(rotulo(z^b_l)+m)$\;
+			\Numberline$B_1 \gets ind(rot(z^b_l)+1)\cup\cdots\cup ind(rot(z^b_l)+m)$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
@@ -853,7 +853,7 @@
 		{
 			\tcp{caso 2.b)}
 			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
-			\Numberline$B_1 \gets indice(rotulo(z)+1)\cup\cdots\cup indice(rotulo(z^f)-1)$\;
+			\Numberline$B_1 \gets ind(rot(z)+1)\cup\cdots\cup ind(rot(z^f)-1)$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
@@ -864,14 +864,15 @@
 	\end{algorithm}	
 	\LinesNumbered
 	\bigskip
+	\bigskip
 	\subsection*{Análise do Algoritmo}
 	Dado que já recebemos o caminho máximo e a rotulação dos vértices
 	da árvore, precisamos apenas verificar a qual dos casos essa árvore
-	pertence e aplicar.
+	pertence e encontrar o corte~$(B,W,S)$.
 
 	Primeiramente, verificamos se essa árvore se encaixa no caso~1.
 	Para isso é necessário percorrer todos os vértices do caminho máximo
-	e verificar se algum deles mapeia outro vértice do caminho máximo.
+	e verificar se algum deles mapeia um outro vértice do caminho máximo.
 	Isso leva tempo linear no número de vértices no caminho máximo, que
 	é~$O(n)$.
 
@@ -896,5 +897,29 @@
 	Isso leva tempo linear no número de vértices b-especiais e f-especiais,
 	que é~$O(2n)$.
 
-	
+	Depois disso, tanto no caso a) quanto no b), realizamos uma chamada ao 
+	algoritmo~\ref{alg:approxCutForest}, que leva 
+	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
+	Como o valor passado como~$c$ é~$2-\dfrac{1}{1-d}$, então
+	temos que
+	$$ \ceil[\Big]{\dfrac{2c}{1-c}} n+1 
+	= \Big(\ceil[\Big]{\dfrac{2}{d}}-4 \Big)n+1 
+	\le \ceil[\Big]{\dfrac{2}{d}}n.$$ 
+	Logo, o
+	Algoritmo~\ref{alg:approxCutForest} leva tempo~$O\Big(\dfrac{n}{d}\Big)$.
 
+	Temos também a chamada a {\sc separa\_conjunto}$(T,$ $S)$, que 
+	leva tempo~$O(\grau(v_i))$, como o mostrado nesta seção.
+	
+	Sendo assim, se a árvore pertence ao caso~1, executamos duas 
+	operações~$O(n)$,
+	logo seu tempo é~$O(n)$.
+	Caso contrário, executamos duas operações~$O(n)$, uma~$O(2n)$
+	e uma~$O\Big(\dfrac{n}{d}\Big)$, como o dito anteriormente. 
+	Logo, podemos dizer que o
+	tempo do segundo caso é~$O\Big(\dfrac{n}{d}\Big)$, que 
+	equivale a~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
+
+	Portando, é possível encontrar um corte~$(B,W,S)$
+	que satisfaça as condições do Teorema em 
+	tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.

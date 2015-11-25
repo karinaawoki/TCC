@@ -70,10 +70,10 @@
 		utilizada na indução.
 		
 		\textbf{Caso base,~${\mathbf {i=1}}$.}
-		Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$ e, nesse
-		caso,~${e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot 
-		\Delta(T)}$.
-		Temos que~${\diam^*(T)>\dfrac{1}{2}}$, logo, para~$n>2$, 
+		%Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$ e, nesse
+		%caso,~${e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot 
+		%\Delta(T)}$.
+		Como~${\diam^*(T)>\dfrac{1}{2}}$, logo, 
 		podemos utilizar o Lema~\ref{lema:caminhoLongo} e obter 
 		um corte~$(B,W)$ 
 		com~${e_T(B,W)\le 2 < 4\cdot 2^i\cdot \Delta(T)}$.
@@ -84,7 +84,8 @@
 		%a primeira parte 
 		o teorema
 		vale para~$i$, assumindo que ele é válido para~$i-1$.
-		De modo semelhante ao caso anterior, para~${n\le2}$, temos 
+		Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$. Portanto, 
+		para~${n\le 2}$, temos 
 		que~${e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot 
 		\Delta(T)}$.
 		Porém, se~${n>2}$, podemos utilizar o 
@@ -175,38 +176,37 @@
 
 
 			\end{tikzpicture} \end{center}
-
 			Como o Teorema~\ref{teo:corteExato} se aplica a 
 			árvores, precisamos tornar~$S'$ conexo de forma a não 
 			alterar o seu grau máximo.
 			Sabemos que se adicionarmos uma aresta~$e$ em~$T$, que 
 			liga o primeiro ao último vértice do caminho máximo,
 			então~$S'$ será conexo. 
-			Diremos que~${T' = T\cup e}$.
+			Diremos que~${T^* = T\cup e}$.
 
 			Note também que em ambas as componentes de~$T[S']$, 
 			temos que o caminho máximo de cada uma possui em um dos
 			seus extremos o vértice~$v_0$ ou o vértice~$v_p$.
-			Logo,~$T'[S']$ será conexo e 
+			Logo,~$T^*[S']$ será conexo e 
 			%se adicionarmos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
 			%então~$T[S']$ será uma componente conexa e
 			teremos um caminho máximo 
-			em~$T'[S']$ com o maior número de vértices possíveis.
+			em~$T^*[S']$ com o maior número de vértices possíveis.
 			Além disso, de acordo com o Lema~\ref{lem:grauMaximo}, 
-			temos que~${\Delta(T) = \Delta(T')}$, já que a aresta~$e$ 
+			temos que~${\Delta(T) = \Delta(T^*)}$, já que a aresta~$e$ 
 			conecta os dois vértices extremos do caminho máximo
 			e estes possuem grau um.
-			Podemos, então, passar a árvore~$T'[S']$ para o 
+			Podemos, então, passar a árvore~$T^*[S']$ para o 
 			Teorema~\ref{teo:corteExato}, 
 			sabendo que não há aumento
 			%sem nos preocupar com a modificação 
 			do grau máximo.
 			
 			Como assumimos na indução que o Teorema~\ref{teo:corteExato} vale
-			para~${i-1}$, então existe um corte~$(B'',W'')$ em~$T'[S']$
+			para~${i-1}$, então existe um corte~$(B'',W'')$ em~$T^*[S']$
 			tal que~${|B''|=m-|B'|}$ 
 			e~${e_{T[S]}(B'',W'')\le 4\cdot 2^{i-1}\cdot
-			\Delta(T'[S'])\le 4\cdot 2^{i-1}\cdot\Delta(T')}$.
+			\Delta(T^*[S'])\le 4\cdot 2^{i-1}\cdot\Delta(T^*)}$.
 
 			Dessa forma, sabemos que existe um corte~$(B,W)$ tal
 			que~${B=B'\cup B''}$ e~${W=V(T)\setminus B}$, sendo 
@@ -215,7 +215,7 @@
 				e_T(B,W)&\le e_T(B',W',S') + e_{T[S]}(B'',W'') 
 				\nonumber\\
 				&\le 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
-				\Delta(T')\nonumber\\
+				\Delta(T^*)\nonumber\\
 				&= 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
 				\Delta(T)\nonumber\\
 				&= 4\cdot 2^{i}\cdot\Delta(T), \nonumber
@@ -334,18 +334,18 @@
 			$r\gets$ um vértice arbitrário de~$T$\;
 			$P\gets$ {\sc caminho\_máximo}$(T)$\;
 			$[rot$, $ind]\gets$ {\sc rotula}$(T$, $P)$\;
-			$[(B',W',S')$, $T'[S']$, $r]\gets
+			$[(B',W',S')$, $T^*[S']$, $r]\gets
 				\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T$,
 				$|V|$, $m$, $P$, $rot$, $ind$,~$r)$\;
 			\While{$|B|<m$}
 			{
 				\tcp{$r$ receberá um vértice que pertence ao novo conjunto~$S'$}
-				$[(B',W',S')$, $T'[S']$, $r]\gets
-					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T'[S']$,
+				$[(B',W',S')$, $T^*[S']$, $r]\gets
+					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T^*[S']$,
 					$|S'|$, $m-|B|$, $P$, $rot$, $ind$,~$r)$\;
 				$B\gets B\cup B'$\;
 				$P\gets$ {\sc recalcula\_caminho}$(S'$, $P)$\;
-				$[rot$, $ind]\gets$ {\sc rotula}$(T'[S']$, $P)$
+				$[rot$, $ind]\gets$ {\sc rotula}$(T^*[S']$, $P)$
 				% \If{$T[S']$ não é conexo}
 				% {
 				% 	INSERE\_ARESTA$(T[S']$, PRIMEIRO$(P)$, 
@@ -383,15 +383,15 @@
 		Portanto, podemos usar uma marcação para indicar que as 
 		arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
 		tornando $S'$ uma componente conexa isolada. 
-		Obter a árvore~$T'$ acrescentando a aresta~$e$ em~$T$, como descrito no
+		Obter a árvore~$T^*$ acrescentando a aresta~$e$ em~$T$, como descrito no
 		Teorema~\ref{teo:corteExato}, também pode ser feito de 
 		forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
 		da mesma forma que foi feito o procedimento citado acima.
 		Desta forma, o Algoritmo~\ref{alg:dobraDiametro} retornará
-		a componente~$T'[S']$, que, nesse caso, é a árvore~$T'$ com
-		os vértices de~$S'$ isolados do resto de~$T'$.
+		a componente~$T^*[S']$, que, nesse caso, é a árvore~$T^*$ com
+		os vértices de~$S'$ isolados do resto de~$T^*$.
 
-		Como usaremos apenas a árvore de~$S'$ e~$T'[S']$ possui outros 
+		Como usaremos apenas a árvore de~$S'$ e~$T^*[S']$ possui outros 
 		vértices além dos vértices de~$S'$,
 		então, precisamos mandar um vértice de~$S'$ para
 		o Algoritmo~\ref{alg:dobraDiametro},
@@ -434,7 +434,7 @@
 		começando do~$i$ e indo até~1, e~$T_\ell$ e~$n_\ell$ 
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
-		Dado que usamos o~$T'[S']$ como a nova árvore
+		Dado que usamos o~$T^*[S']$ como a nova árvore
 		e sabendo que~$|S'|\le \dfrac{n}{2}$,
 		temos que o número de vértices de~$T_{\ell}$
 		é maior ou igual ao 

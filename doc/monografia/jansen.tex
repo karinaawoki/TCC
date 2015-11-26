@@ -1,0 +1,55 @@
+\section {Algoritmo de Jansen}
+
+O algoritmo de Jansen é um algoritmo de 
+programação dinâmica que sempre encontra
+a solução ótima para o problema da bissecção
+mínima aplicado a grafos planares.
+Seu consumo de tempo é~$O(n^3)$.
+
+Como o foco deste trabalho é o problema da 
+bissecção mínima aplicado a árvores, e dado
+que árvores são um tipo específico de grafos
+planares, então, nesta seção, analisaremos a 
+fórmula de recorrência específica para encontrar
+a solução desse problema em árvores. 
+
+\bigskip
+
+\subsection*{Fórmula de recorrência}
+
+Seja~$T$ uma árvore com~$n$ vértices. 
+Para todo~${v\in V(T)}$, todo~${m\in[n]}$
+e sendo~$T_v$ a sub-árvore enraizada em~$v$,
+temos que a função~$b(v,w)$ representa o valor
+de~$e_{T_v}(B,W)$, onde~${w=|B|}$,~${v\in B}$
+e~$(B,W)$ é o corte de largura mínima em~$T_v$.
+O mesmo vale para~$w(v,m)$, mudando somente
+o fato de que, neste caso,~$v\in W$.
+
+Sendo assim, para todo vértice~$v$, temos que:
+
+\begin{itemize}
+\item Se~$v$ é uma folha de~$T$, então
+
+\bigskip
+
+$ b(v,m)~ = 
+\begin{cases}
+	0, &m=1 \\
+	\infty, &m\ne 1
+\end{cases}$
+
+\medskip
+
+$w(v,m) = 
+\begin{cases}
+	0, &m=0 \\
+	\infty, &m\ne 0,
+\end{cases}$
+
+dado que, como~$v$ é uma folha, então
+
+\item Caso contrário, sendo~$u_1,u_2,\cdots,u_k$
+filhos de~$v$, teremos que
+
+\end{itemize}

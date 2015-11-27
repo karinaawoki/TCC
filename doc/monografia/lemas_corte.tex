@@ -80,8 +80,6 @@ descritas no lema.
 \end{algorithm}	
 
 \bigskip
-\bigskip
-\bigskip
 
 \subsection*{Análise do Algoritmo}
 
@@ -194,8 +192,6 @@ para florestas em vez de árvores.
 \end{algorithm}	
 
 \bigskip
-\bigskip
-\bigskip
 
 \subsection*{Análise do Algoritmo}
 
@@ -245,8 +241,9 @@ para florestas em vez de árvores.
 	tempo~${O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)}$.
 \end{lem}
 
-\medskip
-\medskip
+
+Segue o algoritmo que encontra um corte~$(B,W)$ seguindo
+as propriedades do Lema~\ref{lema:approxCutForest}.
 
 \begin{algorithm}[H]
 \label{alg:approxCutForest}
@@ -254,8 +251,8 @@ para florestas em vez de árvores.
 	\SetKwInOut{Output}{output}
 
 	\caption{Computa corte aproximado em uma floresta}
-	\Input{floresta~${G =(V,E)}$ com~$n$ vértices,~${m \in [n]}$, 
-	${c\in (\dfrac{1}{2}, 1)}$}
+	\Input{floresta~${G =(V,E)}$ com~$n$ vértices,~${m \in [n]}$ e
+	${c\in [0, 1)}$}
 	\Output{corte~${(B,W)}$ tal que~${cm\le|B|\le m}$
 	e~$e_G(B,W) \le \ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)$}
 	\If{$c=0$}{
@@ -263,7 +260,7 @@ para florestas em vez de árvores.
 	}
 	\ElseIf{${c\le \dfrac{1}{2}}$}{
 		$(B,W) \gets \mathbf{Algoritmo\ref{alg:simpleApproxCutForest}}(
-		G, n, m)$ \;
+		G, n, m)$\;
 	}
 	\Else{
 		$B \gets \emptyset$\;
@@ -275,14 +272,9 @@ para florestas em vez de árvores.
 			$B \gets B\cup B'$\;		
 		}
 	}
-	\Return $(B,V\setminus B)$
+	\Return $(B,V\setminus B)$\;
 
 \end{algorithm}	
-
-\bigskip
-\bigskip
-\bigskip
-
 \subsection*{Análise do Algoritmo}
 
 	Se~$c=0$, o Algoritmo~\ref{alg:approxCutForest} devolverá
@@ -315,13 +307,12 @@ para florestas em vez de árvores.
 	máximo~${m-|B|}$ vértices em~$B$.
 	
 	\bigskip
-	\bigskip
 	
 	Verificaremos agora se o consumo de tempo e a largura do corte
 	devolvido pelo Algoritmo~\ref{alg:approxCutForest} satisfazem
 	o que foi proposto no Lema~\ref{lema:approxCutForest}.
 	
-	Caso~$c>0$, a largura do corte devolvido será igual a zero,
+	Caso~${c>0}$, a largura do corte devolvido será igual a zero,
 	dado que todos os vértices de~$G$ estarão todos em~$W$,
 	portanto,~${e_G(B,W)=0=\ceil[\Big]{\dfrac{2c}{1-c}} \Delta(G)}$.
 	Já em relação ao tempo, o Algoritmo~\ref{alg:approxCutForest}

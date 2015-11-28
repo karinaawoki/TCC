@@ -193,17 +193,63 @@ como mostrado na figura abaixo.
 	\end{align*}
 	pois o corte devolvido será o referente a árvore~$T_{v^1}$.
 
-	As fórmulas gerais das funções irão verificar todas as 
-	combinações possíveis de valores de~$m$ para as sub-árvores 
-	contidas em~$\{ T_{v^1},T_{v^2},\cdots,T_{v^i} \}$, de forma
-	que a soma desses valores seja igual a~$m$. ???
+	Sendo~$m_i = |B|$ em~$T_{v^i}$,
+	temos que as fórmulas gerais dessas funções irão verificar todas as 
+	combinações possíveis de valores de~$m_1,m_2,\ldots,m_i$,
+	%para cada uma das sub-árvores 
+	%contidas em, 
+	de forma
+	que a união dos sub-conjuntos~$B$ de cada uma das 
+	sub-árvores~$ T_{v^1},T_{v^2},\ldots,T_{v^i} $
+	seja igual a~$m$.
+	%que a soma desses valores seja igual a~$m$. ???
 	
-	Por exemplo, temos que~$m = 2$ e~$i=2$, logo, 
-	verificaremos todas as possíveis combinações usando
-	as árvores~$T_{v^1}$ e~$T_{v^2}$.
-	Testaremos~$m=0$ em~$T_{v^1}$ com~$m=2$ em~$T_{v^2}$,~$m=1$ 
-	em~$T_{v^1}$ com~$m=1$ em~$T_{v^2}$ 
-	e~$m=2$ em~$T_{v^1}$ com~$m=0$ em~$T_{v^2}$.
+	Por exemplo, para calcular o valor 
+	de~$\tilde{\tilde{w}}_i(v,m)$ com~${m = 2}$ e~${i=3}$,
+	verificaremos todas as possíveis combinações de~$m_1,m_2$ e~$m_3$
+	%para cada uma das sub-árvores~$T_{v^1}$,~$T_{v^2}$ e~$T_{v^3}$
+	de forma que a união dos sub-conjuntos~$B$ referentes as
+	árvores~$T_{v^1}$,~$T_{v^2}$ e~$T_{v^3}$
+	tenha exatamente~$m=2$ vértices.
+	Segue abaixo uma tabela com as possíveis combinações
+	de~~$m_1,m_2$ e~$m_3$ referentes a este exemplo.
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{| c | c | c | c | c|}
+		%\begin{tabular}{c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
+			\specialrule{1.7pt}{1pt}{1pt}
+%			& $T_{v^1}$ & $T_{v^2}$ & $T_{v^1}$ & $T_{v^1}\cup T_{v^2}\cup T_{v^3}$  \\[3pt]
+			& $m_1$ & $m_2$ & $m_3$ & $m$  \\[3pt]
+
+			\specialrule{1.7pt}{1pt}{1pt}
+			  	  & 0  & 0  & 2  & 2 \\ [3pt]
+				  & 0  & 2  & 0  & 2 \\ [3pt]
+			 $m$  & 2  & 0  & 0  & 2 \\ [3pt]
+				  & 1  & 1  & 0  & 2 \\ [3pt]
+				  & 1  & 0  & 1  & 2 \\ [3pt]
+				  & 0  & 1  & 1  & 2 \\ [3pt]
+			\specialrule{1.7pt}{1pt}{1pt}
+		 
+		\end{tabular}
+	\end{table}
+
+	Sendo assim, será devolvida a combinação de valores de~$m_1,m_2,\ldots,m_i$ 
+	de forma que o corte~$(B,W)$ em~$T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^i}$  
+	possua o menor número de arestas no corte.
+
+	Como temos que, para cada valor 
+	de~$m$,~$\tilde{\tilde{b}}_{i-1}(v,m)$
+	e~$\tilde{\tilde{w}}_{i-1}(v,m)$ representam
+	o corte mínimo na 
+	árvore~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^{i-1}}}$,
+	logo, sabemos que esse corte mínimo foi
+	a melhor combinação de valores de~$m$.
+	Com isso, ao invés de testar todas as combinações
+	para cada sub-árvore em~$\{ T_{v^1}, T_{v^2},\ldots, T_{v^i} \}$,
+	testaremos 
+	%Testaremos~$m=0$ em~$T_{v^1}$ com~$m=2$ em~$T_{v^2}$,~$m=1$ 
+	%em~$T_{v^1}$ com~$m=1$ em~$T_{v^2}$ 
+	%e~$m=2$ em~$T_{v^1}$ com~$m=0$ em~$T_{v^2}$.
 	\begin{align*}
 		\tilde{\tilde{b}}_{i}(v,m) &= 
 			\min_{0\le\ell\le m} \{ \tilde{\tilde{b}}_{i-1}(v,\ell) + 

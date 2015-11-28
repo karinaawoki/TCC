@@ -23,53 +23,51 @@ Para todo~${v\in V(T)}$, todo~${m\in[n]}$
 e sendo~$T_v$ a sub-árvore que contém~$v$
 e todos os seus descendentes,
 temos que a função~$b(v,w)$ representa o valor
-de~$e_{T_v}(B,W)$, onde~${w=|B|}$,~${v\in B}$
+de~$e_{T_v}(B,W)$, onde~${m=|B|}$,~${v\in B}$
 e~$(B,W)$ é o corte de largura mínima em~$T_v$.
 O mesmo vale para a função~$w(v,m)$, mudando somente
-o fato de que, neste caso,~$v\in W$.
+o fato de que, neste caso,~${v\in W}$.
 Ou seja,~$w(v,w)$ representa o valor
 de~$e_{T_v}(B,W)$, onde~${w=|B|}$,~${v\in W}$
 e~$(B,W)$ é o corte de largura mínima em~$T_v$.
 Temos também que as soluções inviáveis recebem~$\infty$
-como valor de corte.
+como valor da largura do corte.
 
 Sendo assim, para todo vértice~$v$, é válido que:
-
 \begin{itemize}
-\item Se~$v$ é uma folha de~$T$, então
+	\item Se~$v$ é uma folha de~$T$, então
+	
+	\medskip
 
-\bigskip
+	$ b(v,m)~ = 
+	\begin{cases}
+		0, &m=1 \\
+		\infty, &m\ne 1
+	\end{cases}$
 
-$ b(v,m)~ = 
-\begin{cases}
-	0, &m=1 \\
-	\infty, &m\ne 1
-\end{cases}$
+	\medskip
 
-\medskip
-
-$w(v,m) = 
-\begin{cases}
-	0, &m=0 \\
-	\infty, &m\ne 0,
-\end{cases}$
+	$w(v,m) = 
+	\begin{cases}
+		0, &m=0 \\
+		\infty, &m\ne 0,
+	\end{cases}$
 
 dado que, como~$v$ é uma folha,
 então os únicos
 cortes possíveis em~$T_v$ são~${(B,W) = (\{v\},\emptyset)}$ 
 e~${(B,W) = (\emptyset, \{v\})}$.
 
-Temos que a função~$b(v,m)$ será factível somente 
-quando~$v\in B$,
-então só teremos soluções válidas quando~${m=1}$.
-Já a função~$w(v,m)$ só será factível quando~$v\in W$,
+A função~$b(v,m)$ possui a propriedade~${v\in B}$,
+então, só temos soluções válidas quando~${m=1}$.
+Já a função~$w(v,m)$ tem como propriedade~${v\in W}$,
 logo, o único valor viável para~$m$ é~$0$.
-Ambass as soluções não possuem arestas no corte, dado que
-a árvores~$T_v$
+Ambas as soluções não possuem arestas no corte, dado que
+a árvore~$T_v$
 possui um único vértice.
 
 \item Caso contrário, o vértice~$v$ não é uma folha. 
-Sendo assim, temos que~$u_1,u_2,\ldots,u_k$ são
+Portanto, temos que~$u_1,u_2,\ldots,u_k$ são
 os vértices filhos de~$v$ e 
 que~$T_{u_i}$ é a sub-árvore que contém~$u_i$ e 
 todos os seus descendentes.
@@ -139,6 +137,8 @@ como mostrado na figura abaixo.
 	e~$w(v,m)$, vamos quebrá-las usando mais dois pares 
 	de fórmulas.
 
+	\medskip
+
 	O primeiro par é~$\tilde{b}_i(v,w)$ 
 	e~$\tilde{w}_i(v,w)$. 
 	Essas funções recebem um 
@@ -155,62 +155,70 @@ como mostrado na figura abaixo.
 	\end{align*}
 	A função~$\tilde{b}_i(v,m)$ assume que~${v\in B}$, 
 	logo, para obter um conjunto~$B$ com~$m$ vértices
-	é necessário que o corte~$(B,W)$ em~$T_{v^i}$ 
-	seja tal que~$B$ tenha~${m-1}$ vértices. 
-	Caso~${v_i\in W}$,
+	é necessário que o corte~$(B',W')$ em~$T_{u_i}$ 
+	seja tal que~${|B'|=m-1}$,
+	desta forma, teremos que~$B = B'\cup \{v\}$ e~$W = W'$,
+	implicando em~$|B| = m$. 
+	Caso~${u_i\in W}$,
 	sabemos que a aresta~${\{ v,u_i \}}$ estará
-	no corte~$(B,W)$ (dado que~$v\in B$), e é por isso que 
+	no corte~$(B,W)$ (dado que~${v\in B}$), e por isso 
 	acrescentamos~$1$ ao valor de~${w(u_i, m-1)}$.
 	Caso contrário,~$v$ e~$u_i$ pertencerão ao
-	sub-conjunto~$B$ e nenhuma nova aresta
+	subconjunto~$B$ e nenhuma nova aresta
 	será adiciona ao corte.
-	Se~${u_i\in B}$, sabemos que a aresta~$\{ v,u_i \}$
-	será adicionada ao corte~$(B,W)$ e, caso contrário,
-	os dois vértices estarão em~$W$ e nenhuma aresta será
-	adicionada.
 
 	Já na função~$\tilde{w}_i(v,m)$, temos que~${v\in W}$.
-	Portanto, precisamos encontrar 
-	um corte~$(B,W)$ em~$T_{v^i}$ 
-	tal que~$B$ tenha exatamente~$m$ vértices.
-	Adicionaremos uma aresta ao corte~$(B,W)$ somente
-	se~$u_i\in B$.
-
+	Para que tenhamos um subconjunto~$B$ com~$m$ vértices,
+	precisamos encontrar 
+	um corte~$(B',W')$ em~$T_{u_i}$ 
+	tal que~${|B'|=m}$.
+	Sendo assim, temos que~${B = B'}$ e~${W = W'\cup \{v\}}$.
+	Se~${u_i\in B}$, sabemos que a aresta~$\{ v,u_i \}$
+	estará no corte~$(B,W)$ e, caso contrário,
+	os dois vértices estarão em~$W$ e nenhuma aresta será
+	adicionada.
+	
 	\bigskip
 
 	O segundo par de funções é~$\tilde{\tilde{b}}_i(v,m)$
 	e~$\tilde{\tilde{w}}_i(v,m)$.
-	Essas funções recebem um vértice~$v$ e um~$m\in [n]$ e
-	devolvem um corte mínimo na 
+	Essas funções recebem um vértice~$v$ e um~${m\in [n]}$ e
+	devolvem a largura de um corte mínimo na 
 	árvore~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^i}}$
 	de forma que~${v\in B}$ na primeira função
 	e~${v\in W}$ na segunda.
-	A condição inicial de ambas é quando~$i=1$, e nesse caso
+	A condição inicial de ambas é quando~${i=1}$, e nesse caso
 	temos que 
 	\begin{align*}
 		\tilde{\tilde{b}}_1(v,m) =  \tilde{b}_1(v,m)\ \ \text{ e }\ \
 		\tilde{\tilde{w}}_1(v,m) =  \tilde{w}_1(v,m), \nonumber
 	\end{align*}
-	pois o corte devolvido será o referente a árvore~$T_{v^1}$.
+	pois a largura do corte devolvido será a referente 
+	somente a árvore~$T_{v^1}$.
 
-	Sendo~$m_i = |B|$ em~$T_{v^i}$,
+	Seja~$(B_i,W_i)$ um corte de largura máxima em~$T_{v^i}$ 
+	com~${|B_i| = m_i}$,
+	%Sendo~$m_i = |B_i|$ em~$T_{v^i}$,
 	temos que as fórmulas gerais dessas funções irão verificar todas as 
 	combinações possíveis de valores de~$m_1,m_2,\ldots,m_i$,
 	%para cada uma das sub-árvores 
 	%contidas em, 
 	de forma
-	que a união dos sub-conjuntos~$B$ de cada uma das 
-	sub-árvores~$ T_{v^1},T_{v^2},\ldots,T_{v^i} $
-	seja igual a~$m$.
+	%a união dos subconjuntos~$B$ de cada uma das 
+	%sub-árvores~$ T_{v^1},T_{v^2},\ldots,T_{v^i} $
+	que~${|B_1\cup B_2\cup\cdots\cup B_i| = m}$.
+	%seja igual a~$m$.
 	%que a soma desses valores seja igual a~$m$. ???
 	
 	Por exemplo, para calcular o valor 
 	de~$\tilde{\tilde{w}}_i(v,m)$ com~${m = 2}$ e~${i=3}$,
 	verificaremos todas as possíveis combinações de~$m_1,m_2$ e~$m_3$
 	%para cada uma das sub-árvores~$T_{v^1}$,~$T_{v^2}$ e~$T_{v^3}$
-	de forma que a união dos sub-conjuntos~$B$ referentes as
-	árvores~$T_{v^1}$,~$T_{v^2}$ e~$T_{v^3}$
-	tenha exatamente~$m=2$ vértices.
+	de forma 
+	%que a união dos subconjuntos~$B$ referentes as
+	%árvores~$T_{v^1}$,~$T_{v^2}$ e~$T_{v^3}$
+	%tenha exatamente~$m=2$ vértices.
+	que~${|B_1\cup B_2\cup B_3| = m = 2}$.
 	Segue abaixo uma tabela com as possíveis combinações
 	de~~$m_1,m_2$ e~$m_3$ referentes a este exemplo.
 	\begin{table}[h]
@@ -219,34 +227,52 @@ como mostrado na figura abaixo.
 		%\begin{tabular}{c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
 			\specialrule{1.7pt}{1pt}{1pt}
 %			& $T_{v^1}$ & $T_{v^2}$ & $T_{v^1}$ & $T_{v^1}\cup T_{v^2}\cup T_{v^3}$  \\[3pt]
-			& $m_1$ & $m_2$ & $m_3$ & $m$  \\[3pt]
+			Combinação& $|B_1|$ & $|B_2|$ & $|B_3|$ & $|B_1\cup B_2\cup B_3|$  \\[3pt]
 
 			\specialrule{1.7pt}{1pt}{1pt}
-			  	  & 0  & 0  & 2  & 2 \\ [3pt]
-				  & 0  & 2  & 0  & 2 \\ [3pt]
-			 $m$  & 2  & 0  & 0  & 2 \\ [3pt]
-				  & 1  & 1  & 0  & 2 \\ [3pt]
-				  & 1  & 0  & 1  & 2 \\ [3pt]
-				  & 0  & 1  & 1  & 2 \\ [3pt]
+			  	1ª  & 0  & 0  & 2  & 2 \\ [3pt]
+				2ª  & 0  & 2  & 0  & 2 \\ [3pt]
+			 	3ª  & 2  & 0  & 0  & 2 \\ [3pt]
+				4ª  & 1  & 1  & 0  & 2 \\ [3pt]
+				5ª  & 1  & 0  & 1  & 2 \\ [3pt]
+				6ª  & 0  & 1  & 1  & 2 \\ [3pt]
 			\specialrule{1.7pt}{1pt}{1pt}
 		 
 		\end{tabular}
 	\end{table}
 
-	Sendo assim, será devolvida a combinação de valores de~$m_1,m_2,\ldots,m_i$ 
-	de forma que o corte~$(B,W)$ em~$T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^i}$  
-	possua o menor número de arestas no corte.
+	Portanto, será devolvido o número de arestas no 
+	corte~$(B,W)$ em~${T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^i}}$  
+	de forma que~${B=B_1\cup B_2\cup \cdots\cup B_i}$ 
+	e que a combinação de valores 
+	de~$m_1,m_2,\ldots,m_i$ 
+	leve ao número mínimo de arestas no corte.
 
+	Seja~$(B_{i-1}^*,W_{i-1}^*)$ o corte de lárgura mínima
+	em~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^{i-1}}}$
+	com~${|B|_{i-1}^* = m_{i-1}^*}$.
 	Como temos que, para cada valor 
-	de~$m$,~$\tilde{\tilde{b}}_{i-1}(v,m)$
+	de~$m$, as funções~$\tilde{\tilde{b}}_{i-1}(v,m)$
 	e~$\tilde{\tilde{w}}_{i-1}(v,m)$ representam
-	o corte mínimo na 
-	árvore~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^{i-1}}}$,
-	logo, sabemos que esse corte mínimo foi
-	a melhor combinação de valores de~$m$.
+	a largura do corte~$(B_{i-1}^*,W_{i-1}^*)$ 
+	com~${v\in B_{i-1}^*}$
+	e~${v\in W_{i-1}^*}$, respectivamente, 
+	%mínimo na árvore~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^{i-1}}}$,
+	logo, sabemos que esse corte de largura mínima possui
+	a melhor combinação dos valores de~$m_1,m_2,\ldots,m_{i-1}$.
 	Com isso, ao invés de testar todas as combinações
+	de~$m_1,m_2,\ldots,m_{i-1}$
 	para cada sub-árvore em~$\{ T_{v^1}, T_{v^2},\ldots, T_{v^i} \}$,
-	testaremos 
+	testaremos apenas combinações de valores de~$m_i$ e~$m_{i-1}^*$
+	referentes a~$T_{v^i}$ e 
+	a~$ {T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^{i-1}}}$, respectivamente.
+	Isso irá gerar um corte~$(B,W)$ 
+	em~${T_{v^1}\cup T_{v^2}\cup\ldots\cup T_{v^i}}$
+	tal que~${B = B_{i-1}^* \cup B_i}$ 
+	e~${W = W_{i-1}^* \cup W_i}$,
+	onde~$m_i$ e~$m_{i-1}^*$ possuem a melhor combinação de valores.
+	Sendo assim, as fórmulas gerais de~$\tilde{\tilde{b}}_{i}(v,m)$
+	e~$\tilde{\tilde{w}}_{i}(v,m)$ são
 	%Testaremos~$m=0$ em~$T_{v^1}$ com~$m=2$ em~$T_{v^2}$,~$m=1$ 
 	%em~$T_{v^1}$ com~$m=1$ em~$T_{v^2}$ 
 	%e~$m=2$ em~$T_{v^1}$ com~$m=0$ em~$T_{v^2}$.
@@ -256,14 +282,30 @@ como mostrado na figura abaixo.
 			\tilde{b}_i(v, m-\ell +1) \} \nonumber \\
 		\tilde{\tilde{w}}_{i}(v,m) &= 
 			\min_{0\le\ell\le m} \{ \tilde{\tilde{w}}_{i-1}(v,\ell) + 
-			\tilde{w}_i(v, m-\ell) \} \nonumber \\
+			\tilde{w}_i(v, m-\ell) \}. \nonumber
 	\end{align*}
-	Neste caso, as funções~$b(v,m)$ e~$w(v,m)$ são da forma
+	Pode-se ver que em~$\tilde{\tilde{b}}_{i}(v,m)$
+	temos que~${m_i = m-\ell+1}$ 
+	e que~${m_{i-1}^* = \ell}$
+	e, como~${B = B_{i-1}^* \cup B_i}$ e~${v\in B}$, 
+	então,~${|B| = m_i + m_{i-1}^* -1 = m}$.
+
+
+	Na função~$\tilde{\tilde{w}}_{i}(v,m)$, 
+	temos que~${m_i = m-\ell}$ e que~${m_{i-1}^* = \ell}$
+	e, como~${B = B_{i-1}^* \cup B_i}$ e~${v\in W}$, 
+	então,~${|B| = m_i + m_{i-1}^*= m}$.
+
+	\bigskip
+
+	Logo, sendo~$k$ o número de filhos de~$v$,
+	as funções~$b(v,m)$ e~$w(v,m)$ são da forma
 	\begin{align*}
 		b(v,m) = \tilde{\tilde{b}}_k(v,m)\ \ \text{ e }\ \
-		w(v,m) = \tilde{\tilde{w}}_k(v,m) \nonumber
+		w(v,m) = \tilde{\tilde{w}}_k(v,m). \nonumber
 	\end{align*}
-	e, sendo~$r$ a raíz de~$T$, temos que
-	 o corte mínimo~$(B,W)$ em~$T$, onde~${|B|=m}$, 
+	
+	Seja~$r$ a raíz de~$T$, temos que
+	a largura do corte mínimo~$(B,W)$ em~$T$, onde~${|B|=m}$, 
 	é~$\min\{b(r,m), w(r,m)\}$.
 \end{itemize}

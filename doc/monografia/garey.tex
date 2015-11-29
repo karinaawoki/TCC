@@ -1,30 +1,33 @@
 \section {Complexidade do problema da bissecção}
 	Nesta seção veremos duas reduções que provam que o problema 
-	da bissecção mínima é NP-Completo, assumindo
-	que o problema Max Sat2 é NP-completo.
+	da bissecção mínima é NP-Completo,
+	usando o fato de
+	que a versão de decisão do
+	problema {\sc max2sat} é NP-completa.
 
 	Primeiramente, vamos definir alguns problemas para facilitar
 	a compreensão das reduções.
 
 	\medskip
 
-	\begin{prob}[Max Sat2 - Satisfatibilidade máxima com no máximo 
-	duas literais por cláusula{~\cite{GareyJS76}}]
-		Dadas~$p$ cláusulas na forma disjuntiva distintas, com no máximo
-		duas literais cada, e um inteiro~$k\le p$,
-		encontrar valores para cada uma das literais, de forma
-		que~$k$ ou mais variáveis sejam verdadeiras.
+	\begin{prob}[{\sc max2sat}($C,k$) -- Satisfatibilidade máxima com no máximo 
+	dois literais por cláusula{~\cite{GareyJS76}}]
+		Dado um conjunto~$C$ com~$p$ cláusulas distintas na forma 
+		disjuntiva, com no máximo
+		dois literais cada, e um inteiro~$k\le p$,
+		decidir se existem valores para cada uma das variáveis, de forma
+		que~$k$ ou mais cláusulas sejam verdadeiras.
 
 		%~$C_i=(x_1 x_2)$,
 	\end{prob}
 
 	\medskip
 
-	\begin{prob}[Simple Max Cut - Corte Máximo Simples 
-]
-		Dado um grafo~${G=(V,E)}$, onde cada uma das arestas tem 
-		peso 1, e um inteiro positivo~${W\le|E|}$, encontrar um
-		corte~$(T,F)$ em $T$ tal 
+	\begin{prob}[MaxCut($G,W$) -- Corte Máximo]
+		Dado um grafo~${G}$
+		%onde cada uma das arestas tem peso 1, 
+		e um inteiro positivo~${W}$, decidir se existe um
+		corte~$(T,F)$ em $G$ tal 
 		que~${e_G(T,F)\ge W}$.
 		
 	\end{prob}
@@ -44,12 +47,18 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Redução Max Sat2 para SimpleMaxCut}
+	\subsection{Redução do \textbf{\textsc {max2sat}} para MaxCut}
 
-		Temos um problema Max Sat2 e precisamos transformar
-		a sua solução na solução do problema Simple Max Cut.
+	\begin{teo}
+		A instância~$(G,W)$ de MaxCut tem solução sse
+		a instância~$(C,k)$ de {\sc max2sat} tem solução.
+	\end{teo}
+
+		Dada uma instância~$(C,k)$ do problema {\sc max2sat}, 
+		precisamos construir uma instância~$(G,W)$
+		do problema MaxCut.
 		Para isso vamos definir alguns conceitos referentes
-		ao problema Max Sat2:
+		ao problema {\sc max2sat}:
 		\begin{itemize}
 			\item $p = $ número de cláusulas
 			\item $n = $ número de variáveis
@@ -58,28 +67,27 @@
 		Primeiramente, vamos definir essa redução para depois
 		explicar o porquê ela funciona.
 		A redução consiste em criar um grafo~$G=(V,E)$, de 
-		acordo com uma entrada para o problema Max Sat2.
+		acordo com uma entrada para o problema {\sc max2sat}.
 		Segue o conjunto de vértices e arestas de~$G$, 
 		respectivamente.
 		
 		\begin{align}
-			V = &\{x_i: 1\le i\le n\} &\cup \nonumber\\
-				&\{\overline{x_i}: 1\le i\le n\} &\cup\nonumber\\ 
-				&\{T_j: 0\le j\le 3p\} &\cup \nonumber\\
-				&\{F_j: 0\le j\le 3p\} &\cup \nonumber\\
+			V =  &\{x_i: 1\le i\le n\} \ \cup \nonumber\\
+				&\{\overline{x_i}: 1\le i\le n\} \ \cup\nonumber\\ 
+				&\{T_j: 0\le j\le 3p\} \ \cup \nonumber\\
+				&\{F_j: 0\le j\le 3p\} \ \cup \nonumber\\
 				&\{t_{ij}: 1\le i\le n, 0\le j\le 3p\} 
-					&\cup \nonumber\\
-				&\{f_{ij}: 1\le i\le n, 0\le j\le 3p\} 
-					&\cup \nonumber
+					\ \cup \nonumber\\
+				&\{f_{ij}: 1\le i\le n, 0\le j\le 3p\}\nonumber
 		\end{align}
 
 		\begin{align}
-			E_1=&\{ \{T_i,F_j\}: 0\le i\le 3p, 0\le j\le 3p\} &\cup 
+			E_1=&\{ \{T_i,F_j\}: 0\le i\le 3p, 0\le j\le 3p\}\ \cup 
 					\nonumber\\
 				&\{\{t_{ij}, f_{ij}\}: 1\le i\le n, 
-					0\le j\le 3p\} &\cup \nonumber \\
+					0\le j\le 3p\}\ \cup \nonumber \\
 				&\{\{x_i, f_{ij}\}: 1\le i\le n, 
-					0\le j\le 3p\} &\cup \nonumber \\
+					0\le j\le 3p\} \ \cup \nonumber \\
 				&\{\{\overline{x_i}, t_{ij}\}: 1\le 
 					i\le n, 0\le j\le 3p\} \nonumber
 		\end{align}
@@ -99,9 +107,9 @@
 		temos também as arestas a seguir.
 
 		\begin{align}
-			E_2=&\{ \{a_i,b_i\}: 1\le i\le p, a_i\ne b_i \} &\cup 
+			E_2=&\{ \{a_i,b_i\}: 1\le i\le p, a_i\ne b_i \}\ \cup 
 					\nonumber\\
-				&\{\{a_i, F_{2\cdot i-1}\}: 1\le i\le p\} &\cup \nonumber \\
+				&\{\{a_i, F_{2\cdot i-1}\}: 1\le i\le p\}\ \cup \nonumber \\
 				&\{\{b_i, F_{2\cdot i}\}: 1\le i\le p\} \nonumber
 		\end{align}
 
@@ -207,10 +215,10 @@
 		\bigskip
 
 		Mostraremos agora que para todas as entradas do problema
-		Max Sat2, existe uma solução da sua redução para o problema
-		Simple Max Cut.
+		{\sc max2sat}, existe uma solução da sua redução para o problema
+		MaxCut.
 		Para isso, vamos supor que já temos um conjunto de valores
-		para as variáveis do problema Max Sat2 de forma que~$k$ ou mais
+		para as variáveis do problema {\sc max2sat} de forma que~$k$ ou mais
 		cláusulas sejam verdadeiras.
 
 		Sabemos que existem no máximo~$2p$ arestas do 
@@ -238,15 +246,15 @@
 		vértices nos subconjuntos~$T$ e~$F$.
 
 		Temos que, em uma cláusula~${C_i=(a_i,b_i)}$, ou
-		apenas uma das literais é satisfeita, ambas são ou nenhuma
-		delas é.
+		apenas um dos literais é satisfeito, ambos são ou nenhum
+		deles é.
 		\begin{enumerate}
-			\item Se apenas uma das literais é satisfeita, temos que,
+			\item Se apenas um dos literais é satisfeito, temos que,
 			das arestas formadas pela cláusula~$C_i$, duas
 			estão no corte~$(T,F)$ e uma está fora.
-			\item Se as duas literais são satisfeitas, também teremos
+			\item Se os dois literais são satisfeitos, também teremos
 			duas arestas no corte~$(T,F)$ e uma fora.
-			\item Já no caso de nenhuma literal ser satisfeita, nenhuma
+			\item Já no caso de nenhum literal ser satisfeito, nenhuma
 			dessas arestas da cláusula estará no corte~$(T,F)$.
 		\end{enumerate}
 
@@ -490,15 +498,15 @@
 
 		\bigskip
 
-		Mostramos que existe uma solução, em Simple Max Cut, 
+		Mostramos que existe uma solução, em MaxCut, 
 		para todas as entradas do
-		problema MaxSat2 reduzidas para Simple Max Cut, de forma que
-		a solução do Simple Max Cut leva a uma solução de Max Sat2.
+		problema {\sc max2sat} reduzidas para MaxCut, de forma que
+		a solução do MaxCut leva a uma solução de {\sc max2sat}.
 		Agora mostraremos que qualquer solução obtida em 
-		uma redução para Simple Max Cut levará a uma solução de Max Sat2.
+		uma redução para MaxCut levará a uma solução de {\sc max2sat}.
 
 
-\subsection{Redução SimpleMaxCut para Bissecção}
+\subsection{Redução MaxCut para Bissecção}
 
 % \begin{center} \begin{tikzpicture}
 % 	[scale=.7,auto=left,every node/.style={circle, 

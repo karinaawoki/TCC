@@ -105,6 +105,9 @@
 	com tipos específicos de árvores, e alguns dos
 	resultados estão presentes neste texto.
 
+	% Ao final, é provado que a versão de decisão 
+	% do problema da bissecção
+	% mínima é NP-completa.
 
 \end{abstract}
 
@@ -114,7 +117,7 @@
 
 \newpage
 
-
+\part{Parte Objetiva}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%  INTRODUÇÃO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -322,11 +325,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
-\section {Conclusões}
+\section {Resultados}
+Conforme os resultados dos experimentos computacionais
+ apresentados anteriormente, observa-se
+que o algoritmo de FST possui grande vantagem sobre o algoritmo
+de Jansen et al. em relação a complexidade de tempo e, em alguns 
+dos casos consegue se equiparar a ele no quesito optimalidade de
+solução.
 
+Vemos que ele consegue ser ótimo ou quase ótimo quando aplicado
+a árvores que possuem um caminho máximo longo. 
+Isso se deve pelo
+fato de que árvores de caminho longo possuem grandes chances
+de terem mais vértices no caminho máximo do que fora dele, e
+árvores desse tipo acabam caindo no primeiro caso do Algortimo da 
+dobra do diâmetro, que irá cortar no máximo duas arestas da árvore.
 
+Infelizmente, existem casos onde o algoritmo de FST não se dá
+tão bem em relação a optimalidade.
+Como pode ser visto nos resultados em árvores ternárias mostrados 
+anteriormente,
+o algoritmo de FST devolve cortes cujas larguras são relativamente
+grandes comparadas as larguras devolvidas pelo algoritmo de Jansen
+et al.. 
+Isso ocorre devido a pequena quantidade de vértices presentes 
+no caminho máximo em uma árvore ternária, 
+implicando numa grande chance de uma árvore desse tipo cair 
+no segundo caso
+do Algortimo da dobra do diâmetro, que irá gerar um corte
+limitado superiormente por um valor alto.
+%com um alto valor de limite superior.
 
 \newpage
 \bibliographystyle{plain}
 \bibliography{refs}
+
+\newpage
+
+\part{Parte Subjetiva}
+
 \end{document}

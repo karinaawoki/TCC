@@ -1,13 +1,13 @@
-\section {Dobra do diâmetro}
+\section {Dobra do diâmetro relativo}
 \label{sec:dobraDiametro}
-	\subsection{Teorema da dobra do diâmetro}
+	\subsection{Teorema da dobra do diâmetro relativo}
 	
 		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
 		\label{teo:dobraDiametro}
 			Para toda árvore~$T$ com~$n$ vértices e 
 			todo~$m\in [n]$,
 			o conjunto de vértices de~$T$ pode ser particionado em 
-			três partes~$B$,~$W$ e~$S$ tal que vale um dos 
+			três partes~$B$,~$W$ e~$S$ tais que vale um dos 
 			seguintes itens:
 			\begin{enumerate}
 				\item ${|B|=m}$, ${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
@@ -15,7 +15,7 @@
 				com~${0<|S|\le\dfrac{n}{2}}$,
 				${e_T(B,W,S)\le \dfrac{2\cdot 
 				\Delta(T)}{\diam^*(T)}}$, 
-				e~${\diam^*(T[S])\ge 2\diam^*(T)}$.
+				e~${\diam^*(T[S])\ge 2\ \diam^*(T)}$.
 			\end{enumerate}
 			%Uma partição~$(B,W,S)$ que satisfaz 1 ou 2 pode ser
 			%computada em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$ 
@@ -32,34 +32,34 @@
 		% para encontrármos um caminho máximo. 
 		% Depois, usaremos 
 
+		\begin{proof}
 		Primeiramente, temos uma árvore~$T$ com~${n}$ vértices e um 
 		inteiro~${m\in[n]}$.
-		Seja~$P$ um caminho máximo de~$T$ e sabendo que os vértices
-		estão rotulados como o descrito na seção~\ref{sec:rotulacao},
+		Seja~$P$ um caminho máximo em~$T$ e, sabendo que os vértices
+		estão rotulados como o descrito na Seção~\ref{sec:rotulacao},
 		teremos um corte~$(B,W,S)$ da seguinte forma:
 		%\begin{itemize}
 		\bigskip
 		\bigskip
-	
-	\subsubsection*{Caso 1:}
-			Se existe um vértice ~${v\in V(P)}$ tal 
-			que~${\map_m^+(v)\in V(P)}$, então o 
+
+		\textbf{Caso 1:}
+			Existe um vértice ~${v\in V(P)}$ tal 
+			que~${\map_m^+(v)\in V(P)}$. O 
 			corte~$(B,W,S)$ 
 			com~${S=\emptyset}$,~${B =\{v+1, v+2,\ldots,~v+m\}}$
 			e~${W=V(T)\setminus B}$ satisfaz as propriedades do
 			primeiro caso do Teorema~\ref{teo:dobraDiametro},
-			como o explicado na seção~\ref{sec:map}.
+			como o explicado na Seção~\ref{sec:map}.
 
 	\bigskip
 	\bigskip
 
-		\subsubsection*{Caso 2:}
+		\textbf{Caso 2:}
 			% Caso contrário, sabemos que para todo vértice~${v\in V(P)}$
 			% teremos que~${\map_m^+(v)\not\in V(P)}$.
 			% dado que cada vértice de~$P$ mapeia vértices distintos que estão
 			% fora de~$P$.
-			Caso contrário, sabemos que~${\map_m^+(v)\not\in V(P)}$ 
-			para todo vértice~${v\in V(P)}$.
+			Para todo vértice~${v\in V(P)}$,~${\map_m^+(v)\not\in V(P)}$.
 			Como o mapeamento é uma função bijetora, 
 			então existem~$|V(P)|$ ou mais vértices fora de~$P$.
 			Isso implica que~$\diam^*(T)\le\dfrac{n}{2}$, pois no 
@@ -84,22 +84,22 @@
 			% 	%H_z^f = &\map^+_m(V(T_z))\cap V(P) \nonumber
 			% \end{align}
 
-			Seja um vértice~${z\in V(P)}$ tal que~$z$ é b-especial 
-			e~$x$ o menor vértice de~$T_z$ tal 
-			que~${\map^-_m(x)\in V(P)}$, temos 
+			Seja~${z\in V(P)}$ um vértice tal que~$z$ é b-especial 
+			e seja~$x$ o menor vértice de~$T_z$ tal 
+			que~${\map^-_m(x)\in V(P)}$. Temos 
 			que~${z^b = \map^-_m(x)}$.
 			Temos também
 			que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
 			e~${H_z^f =T_u}$ para todo 
 			vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
-
-			Segue uma imagem com a representação da disposição dos 
+			Segue a figura com a representação da disposição dos 
 			conjuntos de vértices.
 
-	\begin{center} \begin{tikzpicture}
+	\begin{center} \begin{tikzpicture} 
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
-
+	\scalebox{.9}
+	{
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=brown, line width=1.5pt] 
 		(8,5.7) -- (2,5.7);
@@ -113,15 +113,6 @@
 
 		\node [text=blue!65,draw=none, fill=none] at 
 		(17.7,6.8) {$T_z$};
-
-
-		% \node [scale=1.3,subtree,fill=Green](y1) at (2.5,5) {};
-		% \node [subtree, fill=Cyan]      (y2) at (5,5)   {};
-		% \node [subtree, fill=Cyan]      (y3) at (7.5,5) {};
-		% \node [scale=1.3,subtree,fill=Green](y4) at (10,5)  {};
-		% \node [subtree, fill=Blue]        (y5) at (12.5,5){};
-		% \node [subtree, fill=Blue]        (y6) at (15,5)  {};
-		% \node [scale=1.9, subtree,fill=Gray] (y7) at (18.1,5)  {};
 
 
 		\node [scale=1.3,subtree,fill=red!50](y1) at (2.5,5) {};
@@ -172,7 +163,7 @@
 		(z) edge[right=45] (zt);
 		\path[->, line width=1pt]
 		(nz) edge[right=45] (nzt);
-
+	}
 	\end{tikzpicture} \end{center}
 		\bigskip
 			De forma análoga, para um vértice~${z\in V(P)}$ tal 
@@ -185,13 +176,13 @@
 			e~${H_z^f =T_u}$ para todo 
 			vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
 
-			Segue abaixo outra imagem com a representação da disposição 
+			Segue abaixo outra figura com a representação da disposição 
 			dos conjuntos de vértices.
-
-	\begin{center} \begin{tikzpicture}
+	\begin{center} \begin{tikzpicture} 
 		[scale=.6,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
-
+	% \scalebox{.9}
+	% {
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=brown, line width=1.5pt] 
 		(-4.5,5.9) -- (-10.5,5.9);
@@ -260,16 +251,17 @@
 		\path[->, line width=1pt]
 		(nz) edge[right=45] (nzt);
 
+	% }
 	\end{tikzpicture} \end{center}
 	Note que os vértices~$\map^-_m(v)$,~$\map^-_m(z)$,~$\map^+_m(v)$ 
-	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no caso 2, onde
+	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no Caso 2, onde
 	nenhum vértice de~$P$ é mapeado em outro vértice de~$P$.
 
 	Considerando que existe uma aresta ligando o primeiro ao último 
-	vértices de~$P$, vemos que os elementos de~$P_z^b$ aparecem 
-	como um caminho conexo e que para valores diferentes de~$z$,
-	temos que~$P_z^b$ é disjunto.
-	O mesmo vale para~$P_z^f$.
+	vértice de~$P$, vemos que os elementos de~$P_z^b$ formam 
+	um caminho e que, para valores diferentes de~$z$,
+	temos que os caminhos~$P_z^b$ são disjuntos.
+	O mesmo vale para os caminhos~$P_z^f$.
 
 	Usaremos futuramente as seguintes propriedades:
 	\begin{enumerate}
@@ -280,7 +272,7 @@
 		de~$z$ em~$P$, temos que~${\map^-_m(v)\not\in V(P)}$, 
 		logo,~$\map^-_m(v)$ está em~$T_{z^b}$.
 		Sabemos que~$\map^-_m(v)$ não está na árvore a esquerda
-		de~$T{z^f}$, pois se estivesse, o~$z^f$ seria um outro
+		de~$T_{z^b}$, pois se estivesse, o~$z^b$ seria um outro
 		vértice.
 
 		\item Para todo vértice~$z$ tal que~$z$ é f-especial, 
@@ -344,12 +336,13 @@
 		|T_w'| \ge |P^f_w| + |H^f_w| \label{eq:6}.
 	\end{align}
 
-	Como~$P^b_z$ é disjunto e~$P^b_z\cup H^b_z\cup T'_{z^b}$
+	Como os caminhos~$P^b_z$ são disjuntos e~$P^b_z\cup H^b_z\cup T'_{z^b}$
 	nada mais é do que o conjunto de sub-árvores enraizadas
-	nos vértices de~$P^b_z$, então temos 
-	que~${P^b_z\cup H^b_z\cup T'_{z^b}}$ também é disjunto.
+	nos vértices de~$P^b_z$, temos 
+	que os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ também são disjuntos.
 	Como todos os vértices de~$P$ são mapeados em alguma sub-árvore,
-	então todo vértice de~$V(P)$ pertence a algum~$P^b_z$, logo,
+	então todo vértice de~$V(P)$ pertence a algum~$P^b_z$.
+	Logo,
 	todo vértice de~$V(T)$ pertence a 
 	algum~${P^b_z\cup H^b_z\cup T'_{z^b}}$.
 	O mesmo é válido para~${P^f_z\cup H^f_z\cup T'_{z^f}}$.
@@ -369,8 +362,8 @@
 		\label{eq:10}.
 	\end{align}
 
-	Usando as equações~\ref{eq:7},~\ref{eq:9},~\ref{eq:8} e~\ref{eq:10}
-	e, as equações~\ref{eq:4} e~\ref{eq:3} depois, temos que
+	Usando as equações~(\ref{eq:7}),~(\ref{eq:9}),~(\ref{eq:8}) e~(\ref{eq:10})
+	e, as equações~(\ref{eq:4}) e~(\ref{eq:3}) depois, temos que
 	\begin{align}
 		\dfrac{1-d}{d} &= 
 		\dfrac{
@@ -387,17 +380,20 @@
 			\displaystyle\sum_{z\in F_{esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)}
 			{\displaystyle\sum_{z\in B_{esp}}|P_z^b| +
-			\displaystyle\sum_{z\in F_{esp}}|P_z^f|}
-			\nonumber \\
-			\Rightarrow	
+			\displaystyle\sum_{z\in F_{esp}}|P_z^f|}.
+			\nonumber
+	\end{align}
+			
+			Logo
+	\begin{align}
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b| &+ 
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|
 			= \displaystyle\sum_{z\in B_{esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big) + 
 			\displaystyle\sum_{z\in F_{esp}}
-			\Big(|T'_{z}|+|H_z^f|\Big)\nonumber
+			\Big(|T'_{z}|+|H_z^f|\Big),\nonumber
 	\end{align}
-	Isso nos leva a dois casos
+	o que nos nos leva a dois casos:
 	\begin{enumerate}[label=(\alph*)]
 		\item $\displaystyle\sum_{z\in B_{esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big)\le
@@ -481,9 +477,9 @@
 			\nonumber.
 		\end{align}
 
-		Agora podemos usar o Lema~\ref{lema:approxCutForest}
-		na flotesta~$T_z'$, usando~${m-|B_1|}$ 
-		e~${2-\dfrac{1}{1-d}}$ como os valores de~$m$ e~$c$,
+		Agora podemos aplicar o Lema~\ref{lema:approxCutForest}
+		à floresta~$T_z'$, usando~${m-|B_1|}$ 
+		e~${2-\dfrac{1}{1-d}}$ como os valores dos parâmetros~$m$ e~$c$,
 		respectivamente.
 		Dessa forma, teremos um corte~$(B_2,W_2)$ tal 
 		que~${cm\le|B_2|\le m}$ e
@@ -496,12 +492,11 @@
 		&\le \Big( \dfrac{2}{d}-3 \Big) \Delta(T).
 		\label{eq:corte}
 		\end{align}
-		Como temos que~${\map^+_m(z^b_l)\in T_z}$ e que todos
+		Como temos que~${\map^+_m(z^b_l)\in T_z}$ e todos
 		os vértices entre~$z^b_l+1$ e~$j$ estão em~$B_1$,
-		então~${m-|B_1|<|T_z|}$. Logo,~${1\le m-|B_1|\le |T'_z|}$.
-		Como~$d\in (0,\frac{1}{2}]$, então, temos 
-		que~${c\in [0,1)}$.
-		Portanto, os valores passados como~$m$ e~$c$ são 
+		vale que~${m-|B_1|<|T_z|}$. Logo,~${1\le m-|B_1|\le |T'_z|}$.
+		Como~$d\in (0,\frac{1}{2}]$, temos que~${c\in [0,1)}$.
+		Portanto, os valores usados como~$m$ e~$c$ são 
 		compatíveis com o que é pedido no 
 		Lema~\ref{lema:approxCutForest}.
 		A disposição dos vértices ficará como o representado a
@@ -578,13 +573,13 @@
 		Dado que~${\map^+_m(z^b_l)\in T_z}$, temos 
 		que~${m<|B_1|}$ e, como obtemos~$B_2$ através do 
 		Lema~\ref{lema:approxCutForest} usando~$m-|B_1|$ 
-		como~$m$, então teremos que~${B_2\le m-|B_1|}$, implicando
+		como~$m$, teremos que~${B_2\le m-|B_1|}$, implicando
 		em~${m\ge|B|}$.
 		De acordo com o Lema~\ref{lema:approxCutForest} também temos 
-		que~${|B_2|\ge c\cdot(m-|B_1|)}$ e, como estamos no caso~2, 
-		então~$d\le \dfrac{1}{2}$ e~$|P^b_z|\le |S|$, dado que
-		cada vértice de~$P^b_z$ irá mapear em um vértice diferente 
-		de~$S$.
+		que~${|B_2|\ge c\cdot(m-|B_1|)}$ e, como estamos no Caso~2, 
+		então~${d\le \dfrac{1}{2}}$ e~${|P^b_z|\le |S|}$, dado 
+		que~$P^b_z\subseteq S$.
+		%cada vértice de~$P^b_z$ irá mapear em um vértice diferente de~$S$.
 		Portanto
 		\begin{align}
 			m-|B| &= m-|B_1|-|B_2| \nonumber\\
@@ -592,9 +587,8 @@
 			\nonumber \\
 			&\le|T_z'|(1-c) = |T_z'|\dfrac{d}{1-d} \le
 			|T_z'|\dfrac{\frac{1}{2}}{1-\frac{1}{2}} = |T_z'|
-			\nonumber \\
-			&\le |P^b_z| \le |S| \nonumber \\ 
-			\nonumber\\
+			\nonumber 
+			\le |P^b_z| \le |S|, \nonumber
 			\Rightarrow m\le |&B|+|S| \Rightarrow |B|\le 
 			m\le |B|+|S|. \nonumber
 		\end{align}
@@ -665,7 +659,6 @@
 	\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
-
 		\draw [draw=red!50, line width=2pt, fill=red!17]
 		(-8.83,2.5) -- (-8.83,4.57) -- (-10.93,4.57) -- (-10.93,6) -- 
 		(-16,6) -- (-16,2.5) -- cycle;
@@ -730,10 +723,11 @@
 		(-16.3,1.4) -- (-17.3,3.9) -- (-18.3,1.4) -- cycle;
 
 	\end{tikzpicture} \end{center}
-	Assim como foi mostrado no caso 2.(a), temos 
+	Assim como foi mostrado no Caso 2.(a), temos 
 	que~${e_T(B,W,S)<\dfrac{2\cdot \Delta(T)}{d}}$.
 	Satisfazendo assim as propriedades do Teorema~\ref{teo:dobraDiametro} em todos os casos apresentados anteriormente.
 
+\end{proof}
 	
 
 
@@ -805,14 +799,14 @@
 		{
 			\If{$rot(i)\in V(P)$}
 			{
-				\tcp{caso 1}
+				\tcp{Caso 1}
 				$B\gets ind(rot(i)+1)\cup\ldots\cup ind(rot(i)+m)$\;
 				$W\gets V(T)\setminus B$\;
 
 				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
 			}
 		}
-		\tcp{caso 2}
+		\tcp{Caso 2}
 		$bvalor \gets$ infinito \;
 		$fvalor \gets$ infinito\;
 		\For{$z' \in B_{esp}$}
@@ -838,7 +832,7 @@
 	\Numberline
 		\If{$bvalor\le fvalor$}
 		{
-			\tcp{caso 2.a)}
+			\tcp{Caso 2.a)}
 			\Numberline$z^b_\ell \gets $ último vértice de~$P_z^b$\;
 			\Numberline$B_1 \gets ind(rot(z^b_l)+1)\cup\cdots\cup ind(rot(z^b_l)+m)$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
@@ -851,7 +845,7 @@
 		\Numberline
 		\Else
 		{
-			\tcp{caso 2.b)}
+			\tcp{Caso 2.b)}
 			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
 			\Numberline$B_1 \gets ind(rot(z)+1)\cup\cdots\cup ind(rot(z^f)-1)$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
@@ -870,7 +864,7 @@
 	da árvore, precisamos apenas verificar a qual dos casos essa árvore
 	pertence e encontrar o corte~$(B,W,S)$.
 
-	Primeiramente, verificamos se essa árvore se encaixa no caso~1.
+	Primeiramente, verificamos se essa árvore se encaixa no Caso~1.
 	Para isso é necessário percorrer todos os vértices do caminho máximo
 	e verificar se algum deles mapeia um outro vértice do caminho máximo.
 	Isso leva tempo linear no número de vértices no caminho máximo, que
@@ -911,7 +905,7 @@
 	Temos também a chamada a {\sc separa\_conjunto}$(T,$ $S)$, que 
 	leva tempo~$O(\grau(v_i))$, como o mostrado nesta seção.
 	
-	Sendo assim, se a árvore pertence ao caso~1, executamos duas 
+	Sendo assim, se a árvore pertence ao Caso~1, executamos duas 
 	operações~$O(n)$,
 	logo seu tempo é~$O(n)$.
 	Caso contrário, executamos duas operações~$O(n)$, uma~$O(2n)$

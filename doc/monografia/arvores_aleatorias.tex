@@ -22,9 +22,6 @@ enraizada no vértice~$r$.
 
 Segue abaixo o algoritmo do gerador.
 
-\bigskip
-\bigskip
-
 \begin{algorithm}[H]
 \label{alg:ABAgenerator}
 	\SetKwInOut{Input}{input}
@@ -33,7 +30,6 @@ Segue abaixo o algoritmo do gerador.
 	\caption{Gerador de árvores binárias aleatórias}
 	\Input{inteiro $n$}
 	\Output{raiz de uma árvore binária gerada aleatoriamente}
-	\bigskip
 	\tcp{Gera permutação aleatória}
 	\For {$i = 0 \to n-1$}
 	{
@@ -46,7 +42,6 @@ Segue abaixo o algoritmo do gerador.
 		aleatório em~$\{0,\ldots,i\}$}
 		$v[indice] \leftrightarrow v[i]$\;
 	}
-	\bigskip
 	\tcp{Inserção dos elementos do vetor na árvore binária de
 	busca}
 	$raiz\gets$ {\sc null}\;

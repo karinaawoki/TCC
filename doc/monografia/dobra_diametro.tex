@@ -320,17 +320,17 @@
 		\displaystyle\sum_{z\in F_{esp}}|T_{z}'| \label{eq:3}.
 	\end{align}
 
-	Note que para todo vértice b-especial~$z$ todos os vértices 
+	Note que, para cada vértice b-especial~$z$, todos os vértices 
 	de~$H^b_z$ e de~$P^b_z$ mapeiam um vértice 
 	de~$T_z$ e que nem todos os vértices de~$T_z$ são mapeados por
 	vértices~$H^b_z\cup P_z^b$, 
 	dado que~$\map^-_m(z)\not\in H^b_z\cup P_z^b$.
-	O mesmo ocorre com os vértices f-especiais~$w$.
+	O mesmo ocorre com cada vértice f-especial~$w$.
 	Portanto temos que
 	\begin{align}
-		|T_z| > |P^b_z| + |H^b_z| 
+		|T_w| > |P^b_w| + |H^b_w| 
 		&\Rightarrow
-		|T_z'| \ge |P^b_z| + |H^b_z| \label{eq:5}\\
+		|T_w'| \ge |P^b_w| + |H^b_w| \label{eq:5}\\
 		|T_w| > |P^f_w| + |H^f_w|
 		&\Rightarrow
 		|T_w'| \ge |P^f_w| + |H^f_w| \label{eq:6}.
@@ -394,7 +394,7 @@
 			\Big(|T'_{z}|+|H_z^f|\Big),\nonumber
 	\end{align}
 	o que nos nos leva a dois casos:
-	\begin{enumerate}[label=(\alph*)]
+	\begin{enumerate}[label=(\Roman*)]   %(\alph*)] 
 		\item $\displaystyle\sum_{z\in B_{esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big)\le
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|$
@@ -412,12 +412,12 @@
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|$.
 	\end{enumerate}
 
-	Sabemos que se o caso (a) for verdadeiro, teremos um 
-	vértice~$z\in B_{esp}$ tal que~${|T'_z|+|H^b_z|\le |P^b_z|}$,
+	Sabemos que se (I) ocorrer, teremos um 
+	vértice~${z\in B_{esp}}$ tal que~${|T'_z|+|H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$,
 	pois se todos os vértices em~$B_{esp}$ 
-	satisfizerem~${|T'_z|+|H^b_z| > |P^b_z|}$, então o caso (a)
-	não será verdadeiro.
-	O mesmo ocorre com o caso (b). 
+	satisfizerem~${|T'_z|+|H^b_z| > \dfrac{1-d}{d}|P^b_z|}$, então (I)
+	não teria ocorrido.
+	O mesmo ocorre com (II). 
 	Portanto temos um dos casos
 	a seguir sempre será válido.
 
@@ -507,7 +507,8 @@
 		\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
-
+\scalebox{.9}
+	{
 		\draw [draw=red!50, line width=2pt, fill=red!17](9,2.5) rectangle (16,6);
 
 		\draw [draw=Emerald, line width=2pt, fill=Emerald!20]
@@ -552,10 +553,10 @@
 		\node [text=Brown,draw=none, fill=none] at (5,7){$P^b_z$};
 		\node [text=Emerald,draw=none, fill=none] at (6.25,1.8){$H^b_z$};
 
-		\node [text=Emerald,draw=none, fill=none] at (6.2,0.8){$\mathbf{S}$};
-		\node [text=red!50,draw=none, fill=none] at (12.5,1.9){$\mathbf{B_1}$};
+		\node [text=Emerald,draw=none, fill=none] at (6.2,0.8){${S}$};
+		\node [text=red!50,draw=none, fill=none] at (12.5,1.9){${B_1}$};
 		\node [text=CornflowerBlue,draw=none,fill=none] at 
-		(17.3,0.8){$\mathbf{B_2}$};
+		(17.3,0.8){${B_2}$};
 
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8}
 		\draw (\from) -- (\to);
@@ -566,7 +567,7 @@
 
 		\draw [draw=CornflowerBlue, line width=2pt]
 		(16.3,1.4) -- (17.3,3.9) -- (18.3,1.4) -- cycle;
-
+}
 	\end{tikzpicture} \end{center}
 		Temos, então, o corte~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
 		e~${W = V(T)\setminus (B\cup S)}$.
@@ -589,9 +590,10 @@
 			|T_z'|\dfrac{\frac{1}{2}}{1-\frac{1}{2}} = |T_z'|
 			\nonumber 
 			\le |P^b_z| \le |S|, \nonumber
-			\Rightarrow m\le |&B|+|S| \Rightarrow |B|\le 
-			m\le |B|+|S|. \nonumber
 		\end{align}
+		o que implica que
+		$m\le |B|+|S|$ e, portanto,
+		$|B|\le m\le |B|+|S|$. 
 
 		Agora mostraremos 
 		que~${e_T(B,W,S)\le \dfrac{2\cdot \Delta(T)}{\diam^*(T)}}$.
@@ -703,10 +705,10 @@
 		\node [text=Brown,draw=none, fill=none] at (-7.5,7){$P^f_z$};
 		\node [text=Emerald,draw=none, fill=none] at (-6.25,1.8){$H^f_z$};
 
-		\node [text=Emerald,draw=none, fill=none] at (-6.2,0.8){$\mathbf{S}$};
-		\node [text=red!50,draw=none, fill=none] at (-12.5,1.9){$\mathbf{B_1}$};
+		\node [text=Emerald,draw=none, fill=none] at (-6.2,0.8){${S}$};
+		\node [text=red!50,draw=none, fill=none] at (-12.5,1.9){${B_1}$};
 		\node [text=CornflowerBlue,draw=none,fill=none] at 
-		(-17.3,0.8){$\mathbf{B_2}$};
+		(-17.3,0.8){${B_2}$};
 
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8}
 		\draw (\from) -- (\to);

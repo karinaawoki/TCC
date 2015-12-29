@@ -36,20 +36,20 @@
 		Primeiramente, temos uma árvore~$T$ com~${n}$ vértices e um 
 		inteiro~${m\in[n]}$.
 		Seja~$P$ um caminho máximo em~$T$ e, sabendo que os vértices
-		estão rotulados como o descrito na Seção~\ref{sec:rotulacao},
+		estão rotulados como descrito na Seção~\ref{sec:rotulacao},
 		teremos um corte~$(B,W,S)$ da seguinte forma:
 		%\begin{itemize}
 		\bigskip
 		\bigskip
 
 		\textbf{Caso 1:}
-			Existe um vértice ~${v\in V(P)}$ tal 
+			Existe um vértice~${v\in V(P)}$ tal 
 			que~${\map_m^+(v)\in V(P)}$. O 
 			corte~$(B,W,S)$ 
 			com~${S=\emptyset}$,~${B =\{v+1, v+2,\ldots,~v+m\}}$
 			e~${W=V(T)\setminus B}$ satisfaz as propriedades do
 			primeiro caso do Teorema~\ref{teo:dobraDiametro},
-			como o explicado na Seção~\ref{sec:map}.
+			como explicado na Seção~\ref{sec:map}.
 
 	\bigskip
 	\bigskip
@@ -98,8 +98,7 @@
 	\begin{center} \begin{tikzpicture} 
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
-	\scalebox{.9}
-	{
+	\scalebox{.9}{
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=brown, line width=1.5pt] 
 		(8,5.7) -- (2,5.7);
@@ -181,64 +180,63 @@
 	\begin{center} \begin{tikzpicture} 
 		[scale=.6,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
-	% \scalebox{.9}
-	% {
+ 	\scalebox{.94}{
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=brown, line width=1.5pt] 
-		(-4.5,5.9) -- (-10.5,5.9);
+		(23.1+-4.5,5.9) -- (23.1+-10.5,5.9);
 
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=Emerald, line width=1.5pt] 
-		(-8.5,2.7) -- (-4,2.7);
+		(23.1+-8.5,2.7) -- (23.1+-4,2.7);
 
-		\draw [draw=yellow, fill=yellow!35, line width=2pt] (-18.1,3.) 
+		\draw [draw=yellow, fill=yellow!35, line width=2pt] (23.1+-18.1,3.) 
 		ellipse (2.1cm and 4.5cm); 
 
 		\node [text=blue!65,draw=none, fill=none] at 
-		(-18.5,6.8) {$T_z$};
+		(23.1+-18.5,6.8) {$T_z$};
 
 
 		
 
-		\node [scale=1.3,subtree,fill=red!50](y1) at (-2.5,5) {};
-		\node [subtree, fill=Emerald]      (y2) at (-5,5)   {};
-		\node [subtree, fill=Emerald]      (y3) at (-7.5,5) {};
-		\node [scale=1.3,subtree,fill=red!50](y4) at (-10,5)  {};
-		\node [subtree, fill=yellow]        (y5) at (-12.5,5){};
-		\node [subtree, fill=yellow]        (y6) at (-15,5)  {};
-		\node [scale=1.9, subtree,fill=CornflowerBlue] (y7) at (-18.1,5)  {};
+		\node [scale=1.3,subtree,fill=red!50](y1) at (23.1+-2.5,5) {};
+		\node [subtree, fill=Emerald]      (y2) at (23.1+-5,5)   {};
+		\node [subtree, fill=Emerald]      (y3) at (23.1+-7.5,5) {};
+		\node [scale=1.3,subtree,fill=red!50](y4) at (23.1+-10,5)  {};
+		\node [subtree, fill=yellow]        (y5) at (23.1+-12.5,5){};
+		\node [subtree, fill=yellow]        (y6) at (23.1+-15,5)  {};
+		\node [scale=1.9, subtree,fill=CornflowerBlue] (y7) at (23.1+-18.1,5)  {};
 
-		\node (x0) at (0,5)  {...};
-		\node (x1) at (-2.5,5)    {};
-		\node [fill=brown](x2) at (-5,5)  {};
-		\node [fill=brown](x3) at (-7.5,5)    {};
-		\node [fill=brown](x4) at (-10,5) {};
-		\node (x5) at (-12.5,5)   {};
-		\node (x6) at (-15,5) {};
-		\node (x7) at (-18.1,5) {};
-		\node (x8) at (-20.6,5) {};
-		\node (x9) at (-23.1,5) {...};
-
-		\node [draw=none, fill=none] at 
-		(-2,1) {\footnotesize{$\map^+_m(z)$}};
-		\node [draw=none, fill=none](nv) at (-2,1){};
-		\node [draw=none, fill=none](nvt) at (-2.5,3.6){};
+		\node (x0) at (23.1+0,5)  {...};
+		\node (x1) at (23.1+-2.5,5)    {};
+		\node [fill=brown](x2) at (23.1+-5,5)  {};
+		\node [fill=brown](x3) at (23.1+-7.5,5)    {};
+		\node [fill=brown](x4) at (23.1+-10,5) {};
+		\node (x5) at (23.1+-12.5,5)   {};
+		\node (x6) at (23.1+-15,5) {};
+		\node (x7) at (23.1+-18.1,5) {};
+		\node (x8) at (23.1+-20.6,5) {};
+		\node (x9) at (23.1+-23.1,5) {...};
 
 		\node [draw=none, fill=none] at 
-		(-9.5,1) {\footnotesize{$\map^+_m(v)$}};
-		\node [draw=none, fill=none](nz) at (-9.5,1){};
-		\node [draw=none, fill=none](nzt) at (-10,3.6){};
+		(23.1+-2,1) {\footnotesize{$\map^+_m(z)$}};
+		\node [draw=none, fill=none](nv) at (23.1+-2,1){};
+		\node [draw=none, fill=none](nvt) at (23.1+-2.5,3.6){};
 
 		\node [draw=none, fill=none] at 
-		(-15.5,2) {\footnotesize{$x$}};
-		\node [draw=none, fill=none](z) at (-15.5,2){};
-		\node [draw=none, fill=none](zt) at (-18,2){};
+		(23.1+-9.5,1) {\footnotesize{$\map^+_m(v)$}};
+		\node [draw=none, fill=none](nz) at (23.1+-9.5,1){};
+		\node [draw=none, fill=none](nzt) at (23.1+-10,3.6){};
 
-		\node [draw=none, fill=none] at (-9.8,5.8){$z^f$};
-		\node [draw=none, fill=none] at (-18.1,5.6){$z$};
-		\node [draw=none, fill=none] at (-20.6,5.6){$v$};
-		\node [text=Brown,draw=none, fill=none] at (-7.5,7.3){$P^f_z$};
-		\node [text=Emerald,draw=none, fill=none] at (-6.35,1.1){$H^f_z$};
+		\node [draw=none, fill=none] at 
+		(23.1+-15.5,2) {\footnotesize{$x$}};
+		\node [draw=none, fill=none](z) at (23.1+-15.5,2){};
+		\node [draw=none, fill=none](zt) at (23.1+-18,2){};
+
+		\node [draw=none, fill=none] at (23.1+-9.8,5.8){$z^f$};
+		\node [draw=none, fill=none] at (23.1+-18.1,5.6){$z$};
+		\node [draw=none, fill=none] at (23.1+-20.6,5.6){$v$};
+		\node [text=Brown,draw=none, fill=none] at (23.1+-7.5,7.3){$P^f_z$};
+		\node [text=Emerald,draw=none, fill=none] at (23.1+-6.35,1.1){$H^f_z$};
 
 
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8,x8/x9}
@@ -250,9 +248,8 @@
 		(z) edge[right=45] (zt);
 		\path[->, line width=1pt]
 		(nz) edge[right=45] (nzt);
-
-	% }
-	\end{tikzpicture} \end{center}
+	}
+	\end{tikzpicture}\end{center}
 	Note que os vértices~$\map^-_m(v)$,~$\map^-_m(z)$,~$\map^+_m(v)$ 
 	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no Caso 2, onde
 	nenhum vértice de~$P$ é mapeado em outro vértice de~$P$.
@@ -282,7 +279,8 @@
 		para o vértice~$v$, que vem antes de~$z$ em~$P$, temos
 		que~${\map^+_m(v)\in T_{z^f}}$.
 
-		\item Um vértice~${z\in V(P)}$ é b-especial sse existe um
+		\item Um vértice~${z\in V(P)}$ é b-especial se e somente 
+		se existe um
 		vértice~${u\in V(P)}$ tal que~$u$ é f-especial e~${z=u^f}$.
 
 		Sabemos que a volta é verdadeira usando a propriedade 2.
@@ -295,7 +293,8 @@
 		Temos então que~${\map^-_m(z)\in T_u}$ e que alguns vértices
 		de~$T_z$ mapeiam em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
 
-		\item Um vértice~${z\in V(P)}$ é f-especial sse existe um
+		\item Um vértice~${z\in V(P)}$ é f-especial se e somente se 
+		existe um
 		vértice~${u\in V(P)}$ tal que~$u$ é b-especial e~${z=u^b}$.
 
 		Podemos verificar que essa propriedade é verdadeira de forma
@@ -427,51 +426,51 @@
 			\dfrac{1-d}{d}|P_z^b|$ ou
 		\item existe um vértice~$z\in F_{esp}$ 
 			tal que $|T'_{z}|+|H_z^f|\le
-			\dfrac{1-d}{d}|P_z^f|$
+			\dfrac{1-d}{d}|P_z^f|.$
 	\end{enumerate}
 
 	\bigskip
 	\bigskip
 	
-	\subsubsection*{Caso (a) seja verdadeiro:}
+	\textbf{Caso (a):}
 		Existe um vértice~$z\in B_{esp}$ 
 		tal que ${|T'_{z}|+|H_z^b|\le
-		\dfrac{1-d}{d}|P_z^b|}$, logo, temos
+		\dfrac{1-d}{d}|P_z^b|}$. 
+		Temos
 		que~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
-		Usando a equação~\ref{eq:5}, temos 
+		Usando a equação~(\ref{eq:5}), deduzimos
 		que
 		\begin{align}
 			|H^b_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^b_z|
 			\Rightarrow
-			|H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z| \nonumber
+			|H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z|. \nonumber
 		\end{align}
 
-		Construiremos o corte~$(B,W,S)$ de forma 
-		que~$S = |H^b_z|+|P^b_z|$.
+		Construiremos o corte~${(B,W,S)}$ de forma 
+		que~$S = H^b_z\cup P^b_z$.
 		Sabemos que~$S\ne \emptyset$, pois~$z$ é b-especial,
 		o que implica em~$P^b_z\ne \emptyset$. 
 		Dessa forma, temos que
-
 		\begin{align}
 			|S| = |H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z|
 			&\Rightarrow
-			|S| \le\dfrac{1}{2d}|P^b_z| \nonumber \\
-			&\Rightarrow
-			|S| \le\dfrac{1}{2d}|P^b_z|\le \dfrac{n}{2} 
-			\label{eq:metade} \\
+			|S| \le\dfrac{1}{2d}|P^b_z| \le \dfrac{n}{2} \nonumber \\
+			%&\Rightarrow
+			%|S| \le\dfrac{1}{2d}|P^b_z|\le \dfrac{n}{2} 
+			%\label{eq:metade} \\
 			&\Rightarrow
 			2d\le \dfrac{1}{|S|}|P^b_z|  
 			\label{eq:reaproveitaCaminho}\\
 			&\Rightarrow
-			2d\le \dfrac{1}{|S|}|P^b_z|\le \diam^*(T[S]) 
+			2d\le \dfrac{1}{|S|}|P^b_z|\le \diam^*(T[S]).
 			\nonumber
 		\end{align}
 
 
-		Seja o vértice~${z^b_l\in P^b_z}$ tal 
+		Seja~${z^b_l\in P^b_z}$ um vértice tal 
 		que~$\map^+_m(z^b_l)$ é o vértice de~$T_z$ com 
-		maior rótulo possível, e~$j$ é o vértice que vem
-		antes de~$z$ em~$P$. Assumiremos que
+		maior rótulo possível, e~$j$ o vértice que vem
+		antes de~$z$ em~$P$. Seja
 		\begin{align}
 			B_1 = \Big\{ v\in V(T):z^b_l<v\le j \Big\}
 			\nonumber.
@@ -495,20 +494,16 @@
 		Como temos que~${\map^+_m(z^b_l)\in T_z}$ e todos
 		os vértices entre~$z^b_l+1$ e~$j$ estão em~$B_1$,
 		vale que~${m-|B_1|<|T_z|}$. Logo,~${1\le m-|B_1|\le |T'_z|}$.
-		Como~$d\in (0,\frac{1}{2}]$, temos que~${c\in [0,1)}$.
+		Como~${d\in (0,\frac{1}{2}]}$, temos que~${c\in [0,1)}$.
 		Portanto, os valores usados como~$m$ e~$c$ são 
 		compatíveis com o que é pedido no 
 		Lema~\ref{lema:approxCutForest}.
-		A disposição dos vértices ficará como o representado a
+		A disposição dos vértices ficará como representado a
 		seguir.
-
-
-
-		\begin{center} \begin{tikzpicture}
-		[scale=.7,auto=left,every node/.style={circle, draw=black,
-				fill=white!70}]
-\scalebox{.9}
-	{
+	\begin{center} \begin{tikzpicture}[scale=.7,auto=left,
+			every node/.style={circle, draw=black,
+			fill=white!70}]
+	\scalebox{.9}{
 		\draw [draw=red!50, line width=2pt, fill=red!17](9,2.5) rectangle (16,6);
 
 		\draw [draw=Emerald, line width=2pt, fill=Emerald!20]
@@ -622,26 +617,24 @@
 			&< \dfrac{2\cdot \Delta(T)}{d}. \nonumber
 		\end{align}
 
-		Portanto, se as condições do caso~(a) forem satisfeitas, então 
+		Portanto, se as condições do Caso~(a) forem satisfeitas, então 
 		existe um corte~$(B,W,S)$ que satisfaz as propriedades do
 		Teorema~\ref{teo:dobraDiametro}.
 
 	\bigskip
 	\bigskip
 	
-	\subsubsection*{Caso (b) seja verdadeiro:}
-
+	\textbf{Caso (b):}
 	Existe um vértice~$z\in F_{esp}$ 
 	tal que ${|T'_{z}|+|H_z^f|\le
-	\dfrac{1-d}{d}|P_z^f|}$, logo, temos
+	\dfrac{1-d}{d}|P_z^f|}$. 
+	Temos
 	que~${|H^f_z|\le \Big(\dfrac{1}{d}-1\Big)|P^f_z|-|T'_z|}$.
-	Usando a equação~\ref{eq:6}, temos 
+	Usando a inequação~\ref{eq:6}, temos 
 	que
-	\begin{align}
-		|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|
-		\Rightarrow
-		|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z| \nonumber
-	\end{align}
+		$|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|$, 
+		o que implica que
+		$|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z| \nonumber$.
 
 
 	Assumiremos que~${S = H^f_z \cup P^f_z}$ 
@@ -649,85 +642,86 @@
 	Da mesma forma que no caso anterior, teremos 
 	que~${2d\le \diam^*(T[S])}$.
 
-	Obteremos o corte~$(B_2,W_2)$ usando o 
-	Lema~\ref{lema:approxCutForest} em~$T'_z$ 
+	Obteremos o corte~$(B_2,W_2)$ do 
+	Lema~\ref{lema:approxCutForest} aplicado a~$T'_z$ 
 	com~${m-|B|}$ e~${2-\dfrac{1}{1-d}}$ sendo os valores
 	de~$m$ e~$c$, respectivamente. 
 	Temos também que~${B = B_1 \cup B_2}$ 
 	e~${W = V(T)\setminus (B\cup S)}$.
 	Dessa forma, a disposição dos 
 	vértices está ilustrada na imagem a seguir.
-
 	\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
+	\scalebox{0.9}{
 		\draw [draw=red!50, line width=2pt, fill=red!17]
-		(-8.83,2.5) -- (-8.83,4.57) -- (-10.93,4.57) -- (-10.93,6) -- 
-		(-16,6) -- (-16,2.5) -- cycle;
+		(20.6+-8.83,2.5) -- (20.6+-8.83,4.57) -- (20.6+-10.93,4.57) -- 
+		(20.6+-10.93,6) -- (20.6+-16,6) -- (20.6+-16,2.5) -- cycle;
 
 		\draw [draw=Emerald, line width=2pt, fill=Emerald!20]
-		(-8.7,1.4) -- (-8.7,4.7) -- (-10.8,4.7) -- (-10.8,7.4) -- 
-		(-3.7,7.4) -- (-3.7,1.4) -- cycle;
+		(20.6+-8.7,1.4) -- (20.6+-8.7,4.7) -- (20.6+-10.8,4.7) -- 
+		(20.6+-10.8,7.4) -- (20.6+-3.7,7.4) -- (20.6+-3.7,1.4) -- cycle;
 
 		\draw [draw=CornflowerBlue, line width=2pt, fill=CornflowerBlue!30]
-		(-16.3,1.4) -- (-17.3,3.9) -- (-18.3,1.4) -- cycle;
+		(20.6+-16.3,1.4) -- (20.6+-17.3,3.9) -- (20.6+-18.3,1.4) -- cycle;
 
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=brown, line width=1.5pt] 
-		(-4.5,5.7) -- (-10.5,5.7);
+		(20.6+-4.5,5.7) -- (20.6+-10.5,5.7);
 
 		\draw [decorate,decoration={brace,amplitude=10pt,mirror,
 		raise=4pt}, draw=Emerald, line width=1.5pt] 
-		(-8.5,3.2) -- (-4,3.2);
+		(20.6+-8.5,3.2) -- (20.6+-4,3.2);
 		
 
 
-		\node [scale=1.3,subtree,fill=white](y1) at (-2.5,5) {};
-		\node [subtree, fill=Emerald]      (y2) at (-5,5)   {};
-		\node [subtree, fill=Emerald]      (y3) at (-7.5,5) {};
-		\node [subtree,fill=red!50]        (y4) at (-10,5)  {};
-		\node [subtree,fill=red!50]        (y5) at (-12.5,5){};
-		\node [subtree,fill=red!50]        (y6) at (-15,5)  {};
-		\node [scale=1.9, subtree,fill=CornflowerBlue!70] (y7) at (-18.1,5)  {};
+		\node [scale=1.3,subtree,fill=white](y1) at (20.6+-2.5,5) {};
+		\node [subtree, fill=Emerald]      (y2) at  (20.6+-5,5)   {};
+		\node [subtree, fill=Emerald]      (y3) at  (20.6+-7.5,5) {};
+		\node [subtree,fill=red!50]        (y4) at  (20.6+-10,5)  {};
+		\node [subtree,fill=red!50]        (y5) at  (20.6+-12.5,5){};
+		\node [subtree,fill=red!50]        (y6) at  (20.6+-15,5)  {};
+		\node [scale=1.9, subtree,fill=CornflowerBlue!70] (y7) at (20.6+-18.1,5)  {};
 
-		\node (x0) at (0,5)  {...};
-		\node (x1) at (-2.5,5)    {};
-		\node [fill=brown](x2) at (-5,5)  {};
-		\node [fill=brown](x3) at (-7.5,5)    {};
-		\node [fill=brown](x4) at (-10,5) {};
-		\node (x5) at (-12.5,5)   {};
-		\node (x6) at (-15,5) {};
-		\node (x7) at (-18.1,5) {};
-		\node (x8) at (-20.6,5) {...};
+		\node (x0) at (20.6+0,5)  {...};
+		\node (x1) at (20.6+-2.5,5)    {};
+		\node [fill=brown](x2) at (20.6+-5,5)  {};
+		\node [fill=brown](x3) at (20.6+-7.5,5)    {};
+		\node [fill=brown](x4) at (20.6+-10,5) {};
+		\node (x5) at (20.6+-12.5,5)   {};
+		\node (x6) at (20.6+-15,5) {};
+		\node (x7) at (20.6+-18.1,5) {};
+		\node (x8) at (20.6+-20.6,5) {...};
 
-		\node [draw=none, fill=none] at (-10,5.7){$z^f$};
-		\node [draw=none, fill=none] at (-18.1,5.6){$z$};
-		\node [text=Brown,draw=none, fill=none] at (-7.5,7){$P^f_z$};
-		\node [text=Emerald,draw=none, fill=none] at (-6.25,1.8){$H^f_z$};
+		\node [draw=none, fill=none] at (20.6+-10,5.7){$z^f$};
+		\node [draw=none, fill=none] at (20.6+-18.1,5.6){$z$};
+		\node [text=Brown,draw=none, fill=none] at   (20.6+-7.5,7){$P^f_z$};
+		\node [text=Emerald,draw=none, fill=none] at (20.6+-6.25,1.8){$H^f_z$};
 
-		\node [text=Emerald,draw=none, fill=none] at (-6.2,0.8){${S}$};
-		\node [text=red!50,draw=none, fill=none] at (-12.5,1.9){${B_1}$};
+		\node [text=Emerald,draw=none, fill=none] at(20.6+-6.2,0.8){${S}$};
+		\node [text=red!50,draw=none, fill=none] at (20.6+-12.5,1.9){${B_1}$};
 		\node [text=CornflowerBlue,draw=none,fill=none] at 
-		(-17.3,0.8){${B_2}$};
+		(20.6+-17.3,0.8){${B_2}$};
 
 		\foreach \from/\to in {x0/x1,x1/x2,x2/x3,x3/x4,x4/x5,x5/x6,x6/x7,x7/x8}
 		\draw (\from) -- (\to);
 
 		\draw [draw=red!50, line width=2pt]
-		(-8.83,2.5) -- (-8.83,4.57) -- (-10.93,4.57) -- (-10.93,6) -- 
-		(-16,6) -- (-16,2.5) -- cycle;
+		(20.6+-8.83,2.5) -- (20.6+-8.83,4.57) -- (20.6+-10.93,4.57) -- 
+		(20.6+-10.93,6) -- (20.6+-16,6) -- (20.6+-16,2.5) -- cycle;
 
 		\draw [draw=Emerald, line width=2pt]
-		(-8.7,1.4) -- (-8.7,4.7) -- (-10.8,4.7) -- (-10.8,7.4) -- 
-		(-3.7,7.4) -- (-3.7,1.4) -- cycle;
+		(20.6+-8.7,1.4) -- (20.6+-8.7,4.7) -- (20.6+-10.8,4.7) -- 
+		(20.6+-10.8,7.4) -- (20.6+-3.7,7.4) -- (20.6+-3.7,1.4) -- cycle;
 
 		\draw [draw=CornflowerBlue, line width=2pt]
-		(-16.3,1.4) -- (-17.3,3.9) -- (-18.3,1.4) -- cycle;
-
+		(20.6+-16.3,1.4) -- (20.6+-17.3,3.9) -- (20.6+-18.3,1.4) -- cycle;
+	}
 	\end{tikzpicture} \end{center}
-	Assim como foi mostrado no Caso 2.(a), temos 
+	Assim como foi mostrado no Caso 2(a), temos 
 	que~${e_T(B,W,S)<\dfrac{2\cdot \Delta(T)}{d}}$.
-	Satisfazendo assim as propriedades do Teorema~\ref{teo:dobraDiametro} em todos os casos apresentados anteriormente.
+	Satisfazendo assim as propriedades do Teorema~\ref{teo:dobraDiametro} 
+	em todos os casos apresentados anteriormente.
 
 \end{proof}
 	
@@ -744,7 +738,7 @@
 
 		Assumimos que a função {\sc separa\_conjunto}$(T,$ $S)$
 		separa o conjunto~$S$ do restante da árvore.
-		Isso é feito apagando as arestas que estão no 
+		Isso é feito removendo as arestas que estão no 
 		corte~$(S,V(T)\setminus S)$.
 		Sejam~$v_i$ e~$v_j$ primeiro e último vértices em~$S$, respectivamente.
 		Sabemos que todos os vértices de~$S$ possuem
@@ -795,22 +789,20 @@
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$,
 		vetor~$rot$, vetor~$ind$ e raiz da árvore~$r$} 
 		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
-		Teorema~\ref{teo:dobraDiametro}, a árvore~$T^*[S]$ que representa
-		a árvore~$T$ onde~$S$ é conexo e está isolado dos demais vértices de~$T$, e um vértice~$r\in S$}
+		Teorema~\ref{teo:dobraDiametro}, a componente~$T^*$ e um vértice~$r\in S$}
 		\For{$i = 1 \to |V(P)|$}
 		{
 			\If{$rot(i)\in V(P)$}
 			{
 				\tcp{Caso 1}
-				$B\gets ind(rot(i)+1)\cup\ldots\cup ind(rot(i)+m)$\;
+				$B\gets \{ind(rot(i)+1),\ldots, ind(rot(i)+m)\}$\;
 				$W\gets V(T)\setminus B$\;
 
 				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
 			}
 		}
 		\tcp{Caso 2}
-		$bvalor \gets$ infinito \;
-		$fvalor \gets$ infinito\;
+		$bvalor \gets \infty$\;
 		\For{$z' \in B_{esp}$}
 		{
 			\If{$\frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|} < bvalor$}
@@ -819,6 +811,7 @@
 			 	$z \gets z'$\; 
 			}
 		}
+		$fvalor \gets \infty$\;
 		\For{$z' \in F_{esp}$}
 		{
 			\If{$\frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|} < fvalor$}
@@ -834,28 +827,28 @@
 	\Numberline
 		\If{$bvalor\le fvalor$}
 		{
-			\tcp{Caso 2.a)}
+			\tcp{Caso 2(a)}
 			\Numberline$z^b_\ell \gets $ último vértice de~$P_z^b$\;
-			\Numberline$B_1 \gets ind(rot(z^b_l)+1)\cup\cdots\cup ind(rot(z^b_l)+m)$\;
+			\Numberline$B_1 \gets \{ind(rot(z^b_l)+1),\cdots, ind(rot(z^b_l)+m)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
-			\Numberline$S = P_z^b\cup H^b_z $\;
-			\Numberline$T^*[S]\gets $ {\sc separa\_conjunto}$(T$, $S)$\;
-			\Numberline\Return $[(B,W,S)$, $T^*[S]$, $z^b_\ell]$\;
+			\Numberline$S \gets P_z^b\cup H^b_z $\;
+			\Numberline$T^*\gets $ {\sc separa\_conjunto}$(T$, $S)$\;
+			\Numberline\Return $[(B,W,S)$, $T^*$, $z^b_\ell]$\;
 		}
 		\Numberline
 		\Else
 		{
-			\tcp{Caso 2.b)}
+			\tcp{Caso 2(b)}
 			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
-			\Numberline$B_1 \gets ind(rot(z)+1)\cup\cdots\cup ind(rot(z^f)-1)$\;
+			\Numberline$B_1 \gets \{ind(rot(z)+1),\cdots, ind(rot(z^f)-1)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
-			\Numberline$S = P_z^f\cup H^f_z $\;
-			\Numberline$T^*[S]\gets $ {\sc separa\_conjunto}$(T$, $S)$\;
-			\Numberline\Return $[(B,W,S)$, $T^*[S]$, $z^f]$\;		
+			\Numberline$S \gets P_z^f\cup H^f_z $\;
+			\Numberline$T^*\gets $ {\sc separa\_conjunto}$(T$, $S)$\;
+			\Numberline\Return $[(B,W,S)$, $T^*$, $z^f]$\;		
 		}
 	\end{algorithm}	
 	\LinesNumbered
@@ -878,7 +871,7 @@
 	Caso contrário, precisamos encontrar os vértices pertencentes aos 
 	conjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$
 	para cada valor de~$z$,
-	e isso é feito em tempo linear em~$n$, como o mostrado anteriormente.
+	e isso é feito em tempo linear em~$n$, como mostrado anteriormente.
 
 	% Feito isso,
 	% para cada vértice~$z$ b-especial,
@@ -893,8 +886,8 @@
 	Isso leva tempo linear no número de vértices b-especiais e f-especiais,
 	que é~$O(2n)$.
 
-	Depois disso, tanto no caso a) quanto no b), realizamos uma chamada ao 
-	algoritmo~\ref{alg:approxCutForest}, que leva 
+	Depois disso, tanto no Caso a) quanto no b), realizamos uma chamada ao 
+	Algoritmo~\ref{alg:approxCutForest}, que leva 
 	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
 	Como o valor passado como~$c$ é~$2-\dfrac{1}{1-d}$, então
 	temos que
@@ -905,17 +898,17 @@
 	Algoritmo~\ref{alg:approxCutForest} leva tempo~$O\Big(\dfrac{n}{d}\Big)$.
 
 	Temos também a chamada a {\sc separa\_conjunto}$(T,$ $S)$, que 
-	leva tempo~$O(\grau(v_i))$, como o mostrado nesta seção.
+	leva tempo~$O(\grau(v_i))$, como mostrado nesta seção.
 	
 	Sendo assim, se a árvore pertence ao Caso~1, executamos duas 
 	operações~$O(n)$,
 	logo seu tempo é~$O(n)$.
 	Caso contrário, executamos duas operações~$O(n)$, uma~$O(2n)$
-	e uma~$O\Big(\dfrac{n}{d}\Big)$, como o dito anteriormente. 
+	e uma~$O\Big(\dfrac{n}{d}\Big)$, como dito anteriormente. 
 	Logo, podemos dizer que o
 	tempo do segundo caso é~$O\Big(\dfrac{n}{d}\Big)$, que 
 	equivale a~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
 
 	Portando, é possível encontrar um corte~$(B,W,S)$
-	que satisfaça as condições do Teorema em 
+	que satisfaça as condições do teorema em 
 	tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.

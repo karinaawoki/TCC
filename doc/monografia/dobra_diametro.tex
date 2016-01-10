@@ -251,7 +251,7 @@
 	}
 	\end{tikzpicture}\end{center}
 	Note que os vértices~$\map^-_m(v)$,~$\map^-_m(z)$,~$\map^+_m(v)$ 
-	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no Caso 2, onde
+	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no Caso~2, onde
 	nenhum vértice de~$P$ é mapeado em outro vértice de~$P$.
 
 	Considerando que existe uma aresta ligando o primeiro ao último 
@@ -262,36 +262,54 @@
 
 	Usaremos futuramente as seguintes propriedades:
 	\begin{enumerate}
-		\item Para todo vértice~$z$ tal que~$z$ é b-especial, 
-		temos que o vértice~$z^b$ é f-especial.
+		% \item Para todo vértice~$z$ tal que~$z$ é b-especial, 
+		% temos que o vértice~$z^b$ é f-especial.
 
-		Isso ocorre porque para o vértice~$v$, que vem antes 
-		de~$z$ em~$P$, temos que~${\map^-_m(v)\not\in V(P)}$, 
-		logo,~$\map^-_m(v)$ está em~$T_{z^b}$.
-		Sabemos que~$\map^-_m(v)$ não está na árvore a esquerda
-		de~$T_{z^b}$, pois se estivesse, o~$z^b$ seria um outro
-		vértice.
+		% Isso ocorre porque para o vértice~$v$, que vem antes 
+		% de~$z$ em~$P$, temos que~${\map^-_m(v)\not\in V(P)}$, 
+		% logo,~$\map^-_m(v)$ está em~$T_{z^b}$.
+		% Sabemos que~$\map^-_m(v)$ não está na árvore a esquerda
+		% de~$T_{z^b}$, pois se estivesse, o~$z^b$ seria um outro
+		% vértice.
 
-		\item Para todo vértice~$z$ tal que~$z$ é f-especial, 
-		temos que o vértice~$z^f$ é b-especial.
+		% \item Para todo vértice~$z$ tal que~$z$ é f-especial, 
+		% temos que o vértice~$z^f$ é b-especial.
 
-		Isso ocorre de forma análoga a anterior, dado que
-		para o vértice~$v$, que vem antes de~$z$ em~$P$, temos
-		que~${\map^+_m(v)\in T_{z^f}}$.
+		% Isso ocorre de forma análoga a anterior, dado que
+		% para o vértice~$v$, que vem antes de~$z$ em~$P$, temos
+		% que~${\map^+_m(v)\in T_{z^f}}$.
 
 		\item Um vértice~${z\in V(P)}$ é b-especial se e somente 
 		se existe um
 		vértice~${u\in V(P)}$ tal que~$u$ é f-especial e~${z=u^f}$.
+		%Sabemos que a volta é verdadeira usando a propriedade 2.
+		\begin{proof}
 
-		Sabemos que a volta é verdadeira usando a propriedade 2.
-		
-		A ida é verdadeira pois, dado que~$z$ é b-especial,
+		Sejam~$u$ um vértice f-especial 
+		e~$v$ o vértice que vem antes 
+		de~$u$ em~$P$, temos que~${\map^+_m(v)\not\in V(P)}$. 
+		Logo,~$\map^+_m(v)$ está em~$T_{u^f}$.
+		Isso se deve ao fato de que~$\map^+_m(v)$ não está na 
+		árvore à esquerda
+		de~$T_{u^f}$, pois, se estivesse,~$u^f$ seria um outro
+		vértice.
+		Logo, é correto afirmar que um vértice~${z\in V(P)}$ é b-especial
+		se existe um vértice~${u\in V(P)}$ tal que~$u$		
+		é f-especial e~${z=u^f}$. 
+
+		%A ida é verdadeira pois, 
+		Dado que~$z$ é b-especial,
 		temos que existe um ou mais vértices~${v_i\in V(P)}$ tal
 		que~${\map^+_m(v_i)\in T_{z}}$.
 		Seja~$v_k$ o vértice com o maior rótulo e~$u$ o vértice 
 		que vem depois de~$v_k$ em~$P$. 
-		Temos então que~${\map^-_m(z)\in T_u}$ e que alguns vértices
-		de~$T_z$ mapeiam em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
+		Temos então que~${\map^-_m(z)\in T_u}$ e que o vértice a esquerda
+		de~$z$ em~$P$
+		mapeia em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
+		Portanto, é correto afirmar que existe um 
+		vértice~${u\in V(P)}$ tal que~$u$ é f-especial e~${z=u^f}$
+		se o vértice~$z$ é b-especial.
+		\end{proof}
 
 		\item Um vértice~${z\in V(P)}$ é f-especial se e somente se 
 		existe um
@@ -301,38 +319,39 @@
 		semelhante a verificação da propriedade anterior.
 	\end{enumerate}
 
-	Seja~$T'_z$ o conjunto de 
-	vértices~${V(T_z)\setminus \{z\}}$,~$B_{esp}$ 
-	um conjunto de todos os vértices b-especiais e~$F_{esp}$ o
-	conjunto de todos os vértices f-especiais, usando as propriedades 
-	3 e 4 respectivamente, temos que
+	Seja~$B_{\esp}$ 
+	o conjunto de todos os vértices b-especiais,~$F_{\esp}$ o
+	conjunto de todos os vértices f-especiais e~$T'_z$ o conjunto de 
+	vértices~${V(T_z)\setminus \{z\}}$. 
+	Usando as propriedades 
+	1 e 2 respectivamente, temos que
 	\begin{align}
-		\displaystyle\sum_{u\in F_{esp}}|T_{u^f}| = 
-		\displaystyle\sum_{z\in B_{esp}}|T_{z}| %\nonumber \\
+		\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}| = 
+		\displaystyle\sum_{z\in B_{\esp}}|T_{z}| %\nonumber \\
 		&\Rightarrow
-		\displaystyle\sum_{u\in F_{esp}}|T_{u^f}'| = 
-		\displaystyle\sum_{z\in B_{esp}}|T_{z}'| \label{eq:4}\\
-		\displaystyle\sum_{u\in B_{esp}}|T_{u^b}| = 
-		\displaystyle\sum_{z\in F_{esp}}|T_{z}| %\nonumber
+		\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}'| = 
+		\displaystyle\sum_{z\in B_{\esp}}|T_{z}'| \label{eq:4}\\
+		\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}| = 
+		\displaystyle\sum_{z\in F_{\esp}}|T_{z}| %\nonumber
 		&\Rightarrow
-		\displaystyle\sum_{u\in B_{esp}}|T_{u^b}'| = 
-		\displaystyle\sum_{z\in F_{esp}}|T_{z}'| \label{eq:3}.
+		\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}'| = 
+		\displaystyle\sum_{z\in F_{\esp}}|T_{z}'| \label{eq:3}.
 	\end{align}
 
 	Note que, para cada vértice b-especial~$z$, todos os vértices 
-	de~$H^b_z$ e de~$P^b_z$ mapeiam um vértice 
-	de~$T_z$ e que nem todos os vértices de~$T_z$ são mapeados por
+	de~$H^b_z$ e de~$P^b_z$ são mapeados por um vértice 
+	de~$T_z$ e que nem todos os vértices de~$T_z$ mapeiam um
 	vértices~$H^b_z\cup P_z^b$, 
 	dado que~$\map^-_m(z)\not\in H^b_z\cup P_z^b$.
-	O mesmo ocorre com cada vértice f-especial~$w$.
+	O mesmo ocorre com cada vértice f-especial.
 	Portanto temos que
 	\begin{align}
-		|T_w| > |P^b_w| + |H^b_w| 
+		|T_z| > |P^b_z| + |H^b_z| 
 		&\Rightarrow
-		|T_w'| \ge |P^b_w| + |H^b_w| \label{eq:5}\\
-		|T_w| > |P^f_w| + |H^f_w|
+		|T_z'| \ge |P^b_z| + |H^b_z| \label{eq:5}\\
+		|T_z| > |P^f_z| + |H^f_z|
 		&\Rightarrow
-		|T_w'| \ge |P^f_w| + |H^f_w| \label{eq:6}.
+		|T_z'| \ge |P^f_z| + |H^f_z| \label{eq:6}.
 	\end{align}
 
 	Como os caminhos~$P^b_z$ são disjuntos e~$P^b_z\cup H^b_z\cup T'_{z^b}$
@@ -348,16 +367,16 @@
 	Portanto
 	\begin{align}
 		(1-d)n = |V\setminus V(P)| &= 
-		\displaystyle\sum_{z\in B_{esp}}\Big(|T_{z^b}'|+|H_z^b|\Big)
+		\displaystyle\sum_{z\in B_{\esp}}\Big(|T_{z^b}'|+|H_z^b|\Big)
 		\label{eq:7}\\
 		(1-d)n = |V\setminus V(P)| &= 
-		\displaystyle\sum_{z\in F_{esp}}\Big(|T_{z^f}'|+|H_z^f|\Big)
+		\displaystyle\sum_{z\in F_{\esp}}\Big(|T_{z^f}'|+|H_z^f|\Big)
 		\label{eq:9}\\
 		dn = |V(P)| &= 
-		\displaystyle\sum_{z\in B_{esp}}|P_z^b|
+		\displaystyle\sum_{z\in B_{\esp}}|P_z^b|
 		\label{eq:8}\\
 		dn = |V(P)| &= 
-		\displaystyle\sum_{z\in F_{esp}}|P_z^f| 
+		\displaystyle\sum_{z\in F_{\esp}}|P_z^f| 
 		\label{eq:10}.
 	\end{align}
 
@@ -366,54 +385,54 @@
 	\begin{align}
 		\dfrac{1-d}{d} &= 
 		\dfrac{
-			\displaystyle\sum_{z\in B_{esp}}
+			\displaystyle\sum_{z\in B_{\esp}}
 			\Big(|T'_{z^b}|+|H_z^b|\Big) + 
-			\displaystyle\sum_{z\in F_{esp}}
+			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z^f}|+|H_z^f|\Big)}
-			{\displaystyle\sum_{z\in B_{esp}}|P_z^b| +
-			\displaystyle\sum_{z\in F_{esp}}|P_z^f|}
+			{\displaystyle\sum_{z\in B_{\esp}}|P_z^b| +
+			\displaystyle\sum_{z\in F_{\esp}}|P_z^f|}
 			\nonumber\\
 		&= \dfrac{
-			\displaystyle\sum_{z\in B_{esp}}
+			\displaystyle\sum_{z\in B_{\esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big) + 
-			\displaystyle\sum_{z\in F_{esp}}
+			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)}
-			{\displaystyle\sum_{z\in B_{esp}}|P_z^b| +
-			\displaystyle\sum_{z\in F_{esp}}|P_z^f|}.
+			{\displaystyle\sum_{z\in B_{\esp}}|P_z^b| +
+			\displaystyle\sum_{z\in F_{\esp}}|P_z^f|}.
 			\nonumber
 	\end{align}
 			
 			Logo
 	\begin{align}
-			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b| &+ 
-			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|
-			= \displaystyle\sum_{z\in B_{esp}}
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{\esp}}|P_z^b| &+ 
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{\esp}}|P_z^f|
+			= \displaystyle\sum_{z\in B_{\esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big) + 
-			\displaystyle\sum_{z\in F_{esp}}
+			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big),\nonumber
 	\end{align}
 	o que nos nos leva a dois casos:
 	\begin{enumerate}[label=(\Roman*)]   %(\alph*)] 
-		\item $\displaystyle\sum_{z\in B_{esp}}
+		\item $\displaystyle\sum_{z\in B_{\esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big)\le
-			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|$
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{\esp}}|P_z^b|$
 			ou
-		\item $\displaystyle\sum_{z\in B_{esp}}
+		\item $\displaystyle\sum_{z\in B_{\esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big)>
-			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{esp}}|P_z^b|
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{\esp}}|P_z^b|
 			\Rightarrow \\
-			\displaystyle\sum_{z\in F_{esp}}
+			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)<
-			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{\esp}}|P_z^f|
 			\Rightarrow \\
-			\displaystyle\sum_{z\in F_{esp}}
+			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)\le
-			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{esp}}|P_z^f|$.
+			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{\esp}}|P_z^f|$.
 	\end{enumerate}
 
 	Sabemos que se (I) ocorrer, teremos um 
-	vértice~${z\in B_{esp}}$ tal que~${|T'_z|+|H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$,
-	pois se todos os vértices em~$B_{esp}$ 
+	vértice~${z\in B_{\esp}}$ tal que~${|T'_z|+|H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$,
+	pois se todos os vértices em~$B_{\esp}$ 
 	satisfizerem~${|T'_z|+|H^b_z| > \dfrac{1-d}{d}|P^b_z|}$, então (I)
 	não teria ocorrido.
 	O mesmo ocorre com (II). 
@@ -421,10 +440,10 @@
 	a seguir sempre será válido.
 
 	\begin{enumerate}[label=(\alph*)]
-		\item existe um vértice~$z\in B_{esp}$ 
+		\item existe um vértice~$z\in B_{\esp}$ 
 			tal que $|T'_{z}|+|H_z^b|\le
 			\dfrac{1-d}{d}|P_z^b|$ ou
-		\item existe um vértice~$z\in F_{esp}$ 
+		\item existe um vértice~$z\in F_{\esp}$ 
 			tal que $|T'_{z}|+|H_z^f|\le
 			\dfrac{1-d}{d}|P_z^f|.$
 	\end{enumerate}
@@ -433,7 +452,7 @@
 	\bigskip
 	
 	\textbf{Caso (a):}
-		Existe um vértice~$z\in B_{esp}$ 
+		Existe um vértice~$z\in B_{\esp}$ 
 		tal que ${|T'_{z}|+|H_z^b|\le
 		\dfrac{1-d}{d}|P_z^b|}$. 
 		Temos
@@ -562,27 +581,30 @@
 
 		\draw [draw=CornflowerBlue, line width=2pt]
 		(16.3,1.4) -- (17.3,3.9) -- (18.3,1.4) -- cycle;
-}
+	
+	}
 	\end{tikzpicture} \end{center}
 		Temos, então, o corte~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
 		e~${W = V(T)\setminus (B\cup S)}$.
 		Dado que~${\map^+_m(z^b_l)\in T_z}$, temos 
 		que~${m<|B_1|}$ e, como obtemos~$B_2$ através do 
-		Lema~\ref{lema:approxCutForest} usando~$m-|B_1|$ 
-		como~$m$, teremos que~${B_2\le m-|B_1|}$, implicando
+		Lema~\ref{lema:approxCutForest} usando~${m-|B_1|}$ 
+		como~$m$, teremos que~${|B_2|\le m-|B_1|}$, implicando
 		em~${m\ge|B|}$.
 		De acordo com o Lema~\ref{lema:approxCutForest} também temos 
 		que~${|B_2|\ge c\cdot(m-|B_1|)}$ e, como estamos no Caso~2, 
 		então~${d\le \dfrac{1}{2}}$ e~${|P^b_z|\le |S|}$, dado 
 		que~$P^b_z\subseteq S$.
+		Note que a 
+		desigualdade~${|T'_z| + |H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$
+		implica que~$|T'|\dfrac{d}{1-d}\le |P^b_z|$.
 		%cada vértice de~$P^b_z$ irá mapear em um vértice diferente de~$S$.
 		Portanto
 		\begin{align}
 			m-|B| &= m-|B_1|-|B_2| \nonumber\\
 			&\le(m-|B_1|)-c\cdot (m-|B_1|) = (m-|B_1|)(1-c)
 			\nonumber \\
-			&\le|T_z'|(1-c) = |T_z'|\dfrac{d}{1-d} \le
-			|T_z'|\dfrac{\frac{1}{2}}{1-\frac{1}{2}} = |T_z'|
+			&\le|T_z'|(1-c) = |T_z'|\dfrac{d}{1-d}
 			\nonumber 
 			\le |P^b_z| \le |S|, \nonumber
 		\end{align}
@@ -599,13 +621,13 @@
 		Temos que o número de arestas no corte~$(B,W,S)$ é, no 
 		máximo,~${(\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 		(\Delta(T)-2)}$.
-		Essa soma representa a quantidade total de arestas, sendo elas
+		Essa soma representa a quantidade total máxima de arestas, sendo elas
 		as que conectam~$z^b$
 		a~$W$, a que liga~$z^b_l$ a~$B_1$, a
 		que conecta~$f$ e~$z$, as presentes no corte~$(B_2,W_2)$ e, 
 		por fim, as arestas que ligam~$z$ a~$T_z'$ (talvez
 		existam arestas ligando~$B_2$ a~$z$).
-		Logo, usando a equação~\ref{eq:corte}, temos que
+		Logo, usando a inequação~(\ref{eq:corte}), temos que
 		\begin{align}
 			e_T(B,W,S) &= (\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 			(\Delta(T)-2) \nonumber\\
@@ -625,7 +647,7 @@
 	\bigskip
 	
 	\textbf{Caso (b):}
-	Existe um vértice~$z\in F_{esp}$ 
+	Existe um vértice~$z\in F_{\esp}$ 
 	tal que ${|T'_{z}|+|H_z^f|\le
 	\dfrac{1-d}{d}|P_z^f|}$. 
 	Temos
@@ -740,33 +762,34 @@
 		separa o conjunto~$S$ do restante da árvore.
 		Isso é feito removendo as arestas que estão no 
 		corte~$(S,V(T)\setminus S)$.
-		Sejam~$v_i$ e~$v_j$ primeiro e último vértices em~$S$, respectivamente.
+		Sejam~$v_i$ e~$v_j$ o primeiro e o último vértices em~$S$, respectivamente
+		considerando-se os rótulos.
 		Sabemos que todos os vértices de~$S$ possuem
-		rótulos consecutivos 
+		rótulos consecutivos,
 		%(considerando que o vértices de maior rótulo e 
 		%de menor rótulo são consecutivos) 
-		(considerando que os vértices estão dispostos de forma circular)
-		e que~$v_i$ e~$v_j$ possuem~${(\grau(v_i)-1)}$
+		considerando que os vértices estão dispostos de forma circular.
+		Sabemos também que~$v_i$ e~$v_j$ possuem~${(\grau(v_i)-1)}$
 		e~$1$ arestas que os conectam a~$V(T)\setminus S$, respectivamente.
-		Portanto, o que essa função faz é apagar de~$T$ as arestas que 
+		Portanto, o que essa função faz é remover de~$T$ as arestas que 
 		conectam~$v_i$ e~$v_j$ a~$V(T)\setminus S$ e, caso~$S$ não seja
-		conexo, inserir uma aresta que liga os vértices de menor e maior rótulos em~$T$.
+		conexo, inserir uma aresta em~$T$ que liga os vértices de menor e maior 
+		rótulos em~$T$.
 		Essa função devolverá um grafo~$T^*$, que é a árvore~$T$ modificada,
 		onde~$S$ será uma componente
 		isolada do restante da árvore. 
 		%Chamaremos esse novo grafo de~$T'[S]$.
 		Essa função consome tempo~$O(\grau(v_i))$.
 
-		Ao longo do Algoritmo~\ref{alg:dobraDiametro} chamaremos diretamente
+		Ao longo do Algoritmo~\ref{alg:dobraDiametro}, usaremos
 		os subconjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$.
 		Para calcular cada um deles, basta fazer operações de soma ou subtração
 		nos rótulos de cada valor de~$z$.
-		Como~${P^b_z\cup H^b_z\cup T'_{z^b}}$ é disjunto para todos os 
-		valores de~$z$ e~${P^f_z\cup H^f_z\cup T'_{z^f}}$ também é disjunto
-		para todos os valores de~$z$,
+		Como os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ são disjuntos
+		e os conjuntos~${P^f_z\cup H^f_z\cup T'_{z^f}}$ também são disjuntos,
 		então cada vértice da árvore será analisado no máximo duas vezes.
 		Com isso, sabemos que a operação que calcula os vértices de cada um desses 
-		subconjuntos para todos os valores de~$z$ consome tempo~$O(2n)$.
+		conjuntos para todos os valores de~$z$ consome tempo~$O(n)$.
 
 		% Sabemos que a operação que calcula os vértices de cada um desses 
 		% subconjuntos para todos os valores de~$z$ consome tempo~$O(2n)$,
@@ -786,38 +809,38 @@
 		\SetKwInOut{Output}{output}
 
 		\caption{}
-		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$,
-		vetor~$rot$, vetor~$ind$ e raiz da árvore~$r$} 
+		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$ em~$T$,
+		vetor~$\rot$, vetor~$ind$ e raiz da árvore~$r$} 
 		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
 		Teorema~\ref{teo:dobraDiametro}, a componente~$T^*$ e um vértice~$r\in S$}
 		\For{$i = 1 \to |V(P)|$}
 		{
-			\If{$rot(i)\in V(P)$}
+			\If{$\rot(i)\in V(P)$}
 			{
 				\tcp{Caso 1}
-				$B\gets \{ind(rot(i)+1),\ldots, ind(rot(i)+m)\}$\;
+				$B\gets \{ind(\rot(i)+1),\ldots, ind(\rot(i)+m)\}$\;
 				$W\gets V(T)\setminus B$\;
 
 				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
 			}
 		}
 		\tcp{Caso 2}
-		$bvalor \gets \infty$\;
-		\For{$z' \in B_{esp}$}
+		$valor_B \gets \infty$\;
+		\For{$z' \in B_{\esp}$}
 		{
-			\If{$\frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|} < bvalor$}
+			\If{$\frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|} < valor_B$}
 			{
-			 	$bvalor \gets \frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|}$\;
-			 	$z \gets z'$\; 
+			 	$valor_B \gets \frac{|T'_{z'}|+|H_{z'}^b|}{|P^b_{z'}|}$\;
+			 	$z_B \gets z'$\; 
 			}
 		}
-		$fvalor \gets \infty$\;
-		\For{$z' \in F_{esp}$}
+		$valor_F \gets \infty$\;
+		\For{$z' \in F_{\esp}$}
 		{
-			\If{$\frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|} < fvalor$}
+			\If{$\frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|} < valor_F$}
 			{
-			 	$fvalor \gets \frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|}$\;
-			 	$z \gets z'$\; 
+			 	$valor_F \gets \frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|}$\;
+			 	$z_F \gets z'$\; 
 			}
 		}
 	\end{algorithm}	
@@ -825,11 +848,12 @@
 	\LinesNumberedHidden
 	\begin{algorithm}[H]
 	\Numberline
-		\If{$bvalor\le fvalor$}
+		\If{$valor_B\le valor_F$}
 		{
 			\tcp{Caso 2(a)}
+			\Numberline$z\gets z_B$\;
 			\Numberline$z^b_\ell \gets $ último vértice de~$P_z^b$\;
-			\Numberline$B_1 \gets \{ind(rot(z^b_l)+1),\cdots, ind(rot(z^b_l)+m)\}$\;
+			\Numberline$B_1 \gets \{ind(\rot(z^b_l)+1),\cdots, ind(\rot(z^b_l)+m)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
@@ -841,8 +865,9 @@
 		\Else
 		{
 			\tcp{Caso 2(b)}
+			\Numberline$z\gets z_F$\;
 			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
-			\Numberline$B_1 \gets \{ind(rot(z)+1),\cdots, ind(rot(z^f)-1)\}$\;
+			\Numberline$B_1 \gets \{ind(\rot(z)+1),\cdots, ind(\rot(z^f)-1)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
@@ -855,7 +880,9 @@
 	\bigskip
 	\bigskip
 	\subsection*{Análise do Algoritmo}
-	Dado que já recebemos o caminho máximo e a rotulação dos vértices
+	Dado que esse algoritmo recebe como entrada
+	%Dado que já recebemos 
+	o caminho máximo e a rotulação dos vértices
 	da árvore, precisamos apenas verificar a qual dos casos essa árvore
 	pertence e encontrar o corte~$(B,W,S)$.
 
@@ -884,7 +911,7 @@
 	e~${\dfrac{|T'_{z}|+|H_{z}^b|}{|P^b_{z}|}}$
 	para todos os vértices b-especiais e f-especiais, respectivamente.
 	Isso leva tempo linear no número de vértices b-especiais e f-especiais,
-	que é~$O(2n)$.
+	que é~$O(n)$.
 
 	Depois disso, tanto no Caso a) quanto no b), realizamos uma chamada ao 
 	Algoritmo~\ref{alg:approxCutForest}, que leva 
@@ -900,14 +927,15 @@
 	Temos também a chamada a {\sc separa\_conjunto}$(T,$ $S)$, que 
 	leva tempo~$O(\grau(v_i))$, como mostrado nesta seção.
 	
-	Sendo assim, se a árvore pertence ao Caso~1, executamos duas 
-	operações~$O(n)$,
-	logo seu tempo é~$O(n)$.
-	Caso contrário, executamos duas operações~$O(n)$, uma~$O(2n)$
-	e uma~$O\Big(\dfrac{n}{d}\Big)$, como dito anteriormente. 
-	Logo, podemos dizer que o
-	tempo do segundo caso é~$O\Big(\dfrac{n}{d}\Big)$, que 
-	equivale a~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
+	Sendo assim, se a árvore se encaixa no Caso~1,
+	o consumo de tempo do Algoritmo~4 é~$O(n)$.
+	Caso contrário, serão executadas três operações de custo~$O(n)$
+	e uma de custo~$O\Big(\dfrac{n}{d}\Big)$, como mostrado anteriormente. 
+	%Então, podemos dizer que o
+	
+	Como~$d\le1$, temos que~$\dfrac{n}{d}\ge n$, o que implica que o
+	consumo de tempo do segundo caso é~$O\Big(\dfrac{n}{d}\Big)$, que 
+	é o mesmo que~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
 
 	Portando, é possível encontrar um corte~$(B,W,S)$
 	que satisfaça as condições do teorema em 

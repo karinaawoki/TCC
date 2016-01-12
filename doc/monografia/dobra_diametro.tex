@@ -759,11 +759,14 @@
 	\subsection{Algoritmo da dobra do diâmetro}
 
 		Assumimos que a função {\sc separa\_conjunto}$(T,$ $S)$
-		separa o conjunto~$S$ do restante da árvore.
+		%recebe uma árvore~$T$ e um conjunto~$S$ de vértices que
+		%seja como o conjunto~$S$ especificado na seção 6.1.
+		separa o conjunto~$S$ (conjunto especificado na seção 6.1) 
+		do restante da árvore.
 		Isso é feito removendo as arestas que estão no 
 		corte~$(S,V(T)\setminus S)$.
-		Sejam~$v_i$ e~$v_j$ o primeiro e o último vértices em~$S$, respectivamente
-		considerando-se os rótulos.
+		Sejam~$v_i$ e~$v_j$ os vértices em~$S$ de menor e maior rótulos, 
+		respectivamente.
 		Sabemos que todos os vértices de~$S$ possuem
 		rótulos consecutivos,
 		%(considerando que o vértices de maior rótulo e 

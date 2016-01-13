@@ -1,6 +1,7 @@
 \section {Complexidade do problema da bissecção}
 	Nesta seção veremos duas reduções que provam que o problema 
-	da bissecção mínima é NP-Completo,
+	da bissecção mínima é NP-Completo~(NP-Difícil 
+	por não ser um problema de decisão),
 	usando o fato de
 	que a versão de decisão do
 	problema {\sc max2sat} é NP-completa.
@@ -49,30 +50,23 @@
 
 	\subsection{Redução do \textbf{\textsc {max2sat}} para MaxCut}
 
-	\begin{teo}
-		A instância~$(G,W)$ de MaxCut tem solução sse
-		a instância~$(C,k)$ de {\sc max2sat} tem solução.
-	\end{teo}
-
 		Dada uma instância~$(C,k)$ do problema {\sc max2sat}, 
 		precisamos construir uma instância~$(G,W)$
-		do problema MaxCut.
+		do problema MaxCut usando a resução que será descrita abaixo.
 		Para isso vamos definir alguns conceitos referentes
 		ao problema {\sc max2sat}:
 		\begin{itemize}
-			\item $p = $ número de cláusulas
-			\item $n = $ número de variáveis
+			\item $p = $ número de cláusulas em~$C$
+			\item $n = $ número de variáveis distintas em~$C$
 		\end{itemize}
 
-		Primeiramente, vamos definir essa redução para depois
-		explicar o porquê ela funciona.
-		A redução consiste em criar um grafo~$G=(V,E)$, de 
-		acordo com uma entrada para o problema {\sc max2sat}.
-		Segue o conjunto de vértices e arestas de~$G$, 
-		respectivamente.
+		% A redução consiste em criar um grafo~${G=(V,E)}$, de 
+		% acordo com uma entrada para o problema {\sc max2sat}.
+		% Segue o conjunto de vértices e arestas de~$G$, 
+		% respectivamente.
 		
 		\begin{align}
-			V =  &\{x_i: 1\le i\le n\} \ \cup \nonumber\\
+			V = \ &\{x_i: 1\le i\le n\} \ \cup \nonumber\\
 				&\{\overline{x_i}: 1\le i\le n\} \ \cup\nonumber\\ 
 				&\{T_j: 0\le j\le 3p\} \ \cup \nonumber\\
 				&\{F_j: 0\le j\le 3p\} \ \cup \nonumber\\
@@ -82,7 +76,7 @@
 		\end{align}
 
 		\begin{align}
-			E_1=&\{ \{T_i,F_j\}: 0\le i\le 3p, 0\le j\le 3p\}\ \cup 
+			E_1= \ &\{ \{T_i,F_j\}: 0\le i\le 3p, 0\le j\le 3p\}\ \cup 
 					\nonumber\\
 				&\{\{t_{ij}, f_{ij}\}: 1\le i\le n, 
 					0\le j\le 3p\}\ \cup \nonumber \\
@@ -107,7 +101,7 @@
 		temos também as arestas a seguir.
 
 		\begin{align}
-			E_2=&\{ \{a_i,b_i\}: 1\le i\le p, a_i\ne b_i \}\ \cup 
+			E_2= \ &\{ \{a_i,b_i\}: 1\le i\le p, a_i\ne b_i \}\ \cup 
 					\nonumber\\
 				&\{\{a_i, F_{2\cdot i-1}\}: 1\le i\le p\}\ \cup \nonumber \\
 				&\{\{b_i, F_{2\cdot i}\}: 1\le i\le p\} \nonumber
@@ -126,7 +120,7 @@
 			[scale=.7,auto=left,every node/.style={circle, 
 			draw=black,
 			fill=blue!20}]
-			
+		\scalebox{0.8}{
 			\node (t0) at (4, 13)  {$T_0$};
 			\node (t1) at (7, 13)  {$T_1$};
 			\node (t2) at (10,13)  {$T_2$};
@@ -190,6 +184,7 @@
 
 			\foreach \from/\to in {x1/x2n,x1/f1,x2n/f2}
 			\draw[draw=red!60, line width=2.5pt] (\from) -- (\to);
+		}
 		\end{tikzpicture} \end{center}
 
 		\bigskip
@@ -210,10 +205,12 @@
 		\bigskip
 		\bigskip
 
-		\textbf{Explicação:}
+		\begin{teo}
+			A instância~$(G,W)$ de MaxCut tem solução se e somente se
+			a instância~$(C,k)$ de {\sc max2sat} tem solução.
+		\end{teo}
 
-		\bigskip
-
+		\begin{proof}
 		Mostraremos agora que para todas as entradas do problema
 		{\sc max2sat}, existe uma solução da sua redução para o problema
 		MaxCut.
@@ -504,7 +501,7 @@
 		a solução do MaxCut leva a uma solução de {\sc max2sat}.
 		Agora mostraremos que qualquer solução obtida em 
 		uma redução para MaxCut levará a uma solução de {\sc max2sat}.
-
+	\end{proof}
 
 \subsection{Redução MaxCut para Bissecção}
 

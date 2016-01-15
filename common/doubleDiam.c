@@ -46,7 +46,7 @@ int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *index)
 
 	rLabel = indexRbyLabel(G, r, label);
 
-	for(i = 0; maxPath[i]!=-1; i++)
+	for (i = 0; i<maxPathLength; i++)
 	{
 		plusM = (label[maxPath[i]] + m)%countLabel;
 		if(DEBUG==1)
@@ -107,22 +107,22 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	roF = roNumber(G, label, maxPath, pf, numPf);
 	if(DEBUG)
 	{
-		for (i = 0; maxPath[i]!=-1; ++i)
+		for (i = 0; i<maxPathLength; ++i)
 			printf("%d -->  rob: %f\n", maxPath[i], roB[label[maxPath[i]]]);
 		printf("\n");
-		for (i = 0; maxPath[i]!=-1; ++i)
+		for (i = 0; i<maxPathLength; ++i)
 			printf("%d -->  rof: %f\n", maxPath[i], roF[label[maxPath[i]]]);
 		printf("\n");
-		for (i = 0; maxPath[i]!=-1; ++i)
+		for (i = 0; i<maxPathLength; ++i)
 			printf("%d -->  Pb: %d\n", maxPath[i], index[pb[label[maxPath[i]]]]);
 		printf("\n");
-		for (i = 0; maxPath[i]!=-1; ++i)
+		for (i = 0; i<maxPathLength; ++i)
 			printf("%d -->  Pf: %d\n", maxPath[i], index[pf[label[maxPath[i]]]]);
 		printf("\n");
-		for (i = 0; maxPath[i]!=-1; ++i)
+		for (i = 0; i<maxPathLength; ++i)
 			printf("%d -->  numPb: %d\n", maxPath[i], numPb[label[maxPath[i]]]);
 		printf("\n");
-		for (i = 0; maxPath[i]!=-1; ++i)
+		for (i = 0; i<maxPathLength; ++i)
 			printf("%d -->  numPf: %d\n", maxPath[i], numPf[label[maxPath[i]]]);
 		printf("\n\n\n");
 	}
@@ -130,7 +130,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	free(numPb);
 	free(numPf);
 
-	for (i = 0; maxPath[i]!=-1; ++i)
+	for (i = 0; i<maxPathLength; ++i)
 	{
 		/* takes the minimum rô */
 		if (roB[label[maxPath[i]]]!=-1 && 
@@ -292,7 +292,7 @@ int *Pb(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 	for(i = 0; i<countLabel; i++)
 		p[i] = -1;
 
-	for(i = 0; maxPath[i]!=-1; i++)
+	for (i = 0; i<maxPathLength; i++)
 	{
 		rootLabel = rLabel[(label[maxPath[i]] + m)%countLabel];
 		p[label[maxPath[i]]] = rootLabel;
@@ -312,7 +312,7 @@ int *Pf(Graph *G, int *maxPath, int m, int *label, int *rLabel, int *index, int 
 		p[i] = -1;
 
 	/* For each vertex in C: take its label and map to back.. and take the root */
-	for(i = 0; maxPath[i]!=-1; i++)
+	for (i = 0; i<maxPathLength; i++)
 	{
 		rootLabel = rLabel[(label[maxPath[i]] - m + countLabel)%countLabel];
 		p[label[maxPath[i]]] = rootLabel;
@@ -457,14 +457,14 @@ float *roNumber(Graph *G, int *label, int*maxPath, int*p, int *numP)
 		h[i] = 0;
 	}
 
-	for (i = 0; maxPath[i]!=-1; ++i)
+	for (i = 0; i<maxPathLength; ++i)
 		if(p[label[maxPath[i]]] == p[label[maxPath[previousMaxPath(i)]]])
 			h[p[label[maxPath[i]]]] += treeLength(G, maxPath[i], 
 				maxPath[previousMaxPath(i)], maxPath[nextMaxPath(i)])-1;
 
 	/* Calculate rô of each vertex at C  */
 
-	for (i = 0; maxPath[i]!=-1; ++i)
+	for (i = 0; i<maxPathLength; ++i)
 	{
 		if(numP[label[maxPath[i]]]>0)
 		{

@@ -50,7 +50,7 @@ int changeOrderAtAdj(Graph *G, int *maxPath, int *r)
 		r[i] = -1;
 
 	/* Starts with 1 because each MaxPath vertex looks to its previous */
-	for(i = 1; maxPath[i] != -1; i++)
+	for(i = 1; i<maxPathLength; i++)
 	{
 		r[maxPath[i]] = maxPath[i];
 		for (v = G->adj[maxPath[i]]; v->next != NULL; v = v->next)

@@ -36,9 +36,7 @@ int simpleApproxCut(Graph *G, int m, int root, int NumVert, int leftNeighbor, in
 int mEqualsN(Graph *G, int m, int root)
 {
 	/* Returns the number of edges in the cut */
-	
 	save(G, root, root);
-	
 	return 0;
 }
 
@@ -53,7 +51,7 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 	{
 		descendant[i] = -1;
 	}
-	childNumber(G, root, descendant, leftNeighbor, rightNeighbor);
+	descendantsNumber(G, root, descendant, leftNeighbor, rightNeighbor);
 	numEdgesCut = 0;
 
 
@@ -95,24 +93,24 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
 		/* ??????????? */
 	{
 
-		if (descendant[v->vertex] > m/2.0 
+/*		if (descendant[v->vertex] > m/2.0 
 		 	&& v->vertex!=parent 
 			&& v->edge == 1)
-			/* m/2.0  -->  m/2 */
-		{
+*/			/* m/2.0  -->  m/2 */
+/*		{
 			int removeDescendant = descendant[v->vertex];
 			if(DEBUG == 1)
 				printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
 			printChildTree(G, root, v->vertex);
 			save(G, root, v->vertex);
-
+*/
 			/* separate B and W */
-			eraseEdge(G, root, v->vertex);
+/*			eraseEdge(G, root, v->vertex);
 
 			descendant[root] -= removeDescendant;
 			return removeDescendant;
 		}
-	}
+*/	}
 	/* when (if) it finish, v will be the root of the tree with more than m vertices */
 			
 	/* Comes down in the tree */
@@ -184,16 +182,16 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
   -----------------------------------------------------------------------
   -----------------------------------------------------------------------*/
 
-int childNumber(Graph *G, int root, int *descendant, int leftNeighbor, int rightNeighbor)
+int descendantsNumber(Graph *G, int root, int *descendant, int leftNeighbor, int rightNeighbor)
 {
-	/* This recursive function return rhe number of descendant
+	/* This recursive function returns rhe number of descendant of the vertex root
 	it is used to construct the descendant vector
-	-- descendant number includes the own root */
+	-- the number of descendant includes the own root */
 	Vertex *i;
 	int sum = 0;
 	for (i = G->adj[root]->next; i!= NULL; i = i->next)
 		if (i->vertex != leftNeighbor && i->vertex!=rightNeighbor && i->edge == 1)
-			sum += childNumber(G, i->vertex, descendant, root, -1);
+			sum += descendantsNumber(G, i->vertex, descendant, root, -1);
 	descendant[root] = ++sum;
 	return sum;
 }
@@ -210,7 +208,7 @@ void printChildTree(Graph *G, int parent, int vertex)
 
 void save(Graph *G, int parent, int vertex)
 {
-	/* save vertex and all of its descendants */
+	/* save vertex and all of its descendants at setB */
 	Vertex *v;
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
 		if(v->vertex != parent && v->edge==1)

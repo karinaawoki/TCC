@@ -109,7 +109,7 @@
 
 		Dessa forma, temos o grafo~${G = (V,E)}$, com~${E=E_1\cup E_2}$.
 		Segue abaixo um exemplo de como ficaria~$G$ sendo gerado por
-		uma cláusula do tipo~${(x_1\lor \overline{x_2})}$.
+		uma única cláusula do tipo~${(x_1\lor\ \overline{x_2})}$.
 		As arestas de~$E_2$ estão representadas pela cor 
 		\textcolor{red}{\textbf {vermelha}}.
 
@@ -117,10 +117,10 @@
 		\bigskip
 
 		\begin{center} \begin{tikzpicture}
-			[scale=.7,auto=left,every node/.style={circle, 
+			[scale=.6,auto=left,every node/.style={circle, 
 			draw=black,
 			fill=blue!20}]
-		\scalebox{0.8}{
+		\scalebox{0.9}{
 			\node (t0) at (4, 13)  {$T_0$};
 			\node (t1) at (7, 13)  {$T_1$};
 			\node (t2) at (10,13)  {$T_2$};
@@ -193,9 +193,10 @@
 		Se encontrarmos um corte~$(T,F)$ em~$G$ tal 
 		que~${e_G(T, F)\ge |A_1| + 2\cdot k}$, 
 		então teremos que, para todo vértice do tipo~$x_i$,
-		se~${x_i\in T}$, a variável que ele representa será
-		verdadeira, já se~${x_i\in F}$, a variável que ele representa
-		será falsa. Tendo que as variáveis possuem os valores conforme
+		se~${x_i\in T}$, a variável que ele representa terá valor
+		verdadeiro. Caso contrário,~${x_i\in F}$ e a variável que ele 
+		representa terá valor falso. 
+		Tendo que as variáveis possuem os valores conforme
 		o que foi dito anteriormente, $k$ ou mais cláusulas serão 
 		verdadeiras.
 
@@ -211,11 +212,14 @@
 		\end{teo}
 
 		\begin{proof}
-		Mostraremos agora que para todas as entradas do problema
-		{\sc max2sat}, existe uma solução da sua redução para o problema
-		MaxCut.
-		Para isso, vamos supor que já temos um conjunto de valores
-		para as variáveis do problema {\sc max2sat} de forma que~$k$ ou mais
+		Provaremos agora que a instância~$(G,W)$ de MaxCut tem solução se
+		a instância~$(C,k)$ de {\sc max2sat} tem solução.
+		%para todas as entradas do problema
+		%{\sc max2sat}, existe uma solução da sua redução para o problema
+		%MaxCut.
+		
+		Sabe-se que temos um conjunto de cláusulas~$C$
+		de forma que~$k$ ou mais
 		cláusulas sejam verdadeiras.
 
 		Sabemos que existem no máximo~$2p$ arestas do 

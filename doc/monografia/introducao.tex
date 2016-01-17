@@ -1,13 +1,15 @@
 \section{Introdução}
 
-O assunto abordado no Trabalho de Conclusão de Curso se
+O assunto abordado neste trabalho de conclusão de curso (TCC) se
 enquadra na área de Otimização Combinatória e diz respeito ao 
 \emph{Problema da Bissecção Mínima}. Para definir o problema 
 precisamente, seguem primeiro algumas definições. 
 
 Seja~${G=(V,E)}$ um grafo e~$B$ e~$W$ conjuntos de vértices de~$G$.
 Dizemos que~$(B,W)$ é um \textbf{corte}
-de~$G$ se~${B \cup W =V(G)}$ e~${B\cap W =\emptyset}$.
+de~$G$ se~${B \cup W =V}$ e~${B\cap W =\emptyset}$.
+Dizemos também que uma aresta~$e$ de~$G$ está no corte~$(B,W)$
+se~$e$ tem uma ponta em~$B$ e outra em~$W$. 
 Denotamos o número de arestas no corte~$(B,W)$ por \textbf{largura}
 do corte ou por~$e_G(B,W)$.
 O corte~$(B,W)$ é uma \textbf{bissecção} se~${|B| =|W|}$
@@ -16,28 +18,30 @@ quando~$|V|$ é par, ou se~${||B|-|W|| =1}$ quando~$|V|$ é ímpar.
 O \emph{Problema da Bissecção Mínima} consiste em, dado um grafo, 
 encontrar uma bissecção no grafo de largura mínima.
 
-Sabe-se que o problema da bissecção é NP-difícil~\cite{GareyJS76} 
+Sabe-se que o Problema da Bissecção Mínima é NP-difícil~\cite{GareyJS76} 
 e a melhor aproximação conhecida para o caso geral do problema tem 
 razão~$\Oh(\lg n)$~\cite{Racke08}, onde~$n$ é o número de vértices 
 do grafo. 
-Por outro lado, sabe-se que, para árvores e grafos que de uma 
-certa maneira se assemelham a árvores, há um algoritmo polinomial 
-de programação dinâmica para encontrar uma bissecção mínima, 
+Por outro lado, sabe-se que, para árvores e para grafos que  
+se assemelham a árvores, há um algoritmo polinomial 
+para encontrar uma bissecção mínima, 
 proposto por Jansen, Karpinski, Lingas e 
 Seidel~\cite{JansenKLS01}. 
 
-Fernandes, Schmidt e Taraz têm interesse em entender a estrutura 
-dos grafos cuja bissecção mínima tem largura grande, de modo a 
-desenvolver bons algoritmos de aproximação para o problema ou 
-identificar melhor as classes de grafos onde o problema torna-se 
+Um melhor entendimento da estrutura 
+dos grafos cuja bissecção mínima tem largura grande
+pode ajudar no 
+desenvolvimento de bons algoritmos de aproximação para
+o problema ou ajudar na 
+identificação de classes de grafos onde o problema torna-se 
 especialmente difícil. 
-Para tanto, eles têm feito estudos de certas questões em árvores, 
+Para tanto, certas questões têm sido estudadas em árvores, 
 em grafos que têm uma estrutura semelhante às árvores, e também em 
 grafos planares~\cite{FernandesST13,FernandesST15}, para os quais 
 a complexidade do problema encontra-se em aberto. 
 
 Vários outros resultados são conhecidos para o Problema da 
-Bissecção Mínima, porém este trabalho de conclusão de curso se 
+Bissecção Mínima, porém este TCC se 
 concentrou no estudo do problema em árvores.
 
 \newpage

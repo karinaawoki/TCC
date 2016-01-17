@@ -63,12 +63,14 @@
 \begin{document}
  
 \begin{center}
-   {\large \textbf{UNIVERSIDADE DE SÃO PAULO}} \\[1.4cm]
+   {\large \textbf{UNIVERSIDADE DE SÃO PAULO}} \\[.7cm]
    
    {\large \textbf{INSTITUTO DE MATEMÁTICA E ESTATÍSTICA}}\\[4.2cm]
    
    {\Huge TRABALHO DE CONCLUSÃO }\\[0.3cm]
-   {\Huge DE CURSO }\\[9cm]
+   {\Huge DE CURSO }\\[4cm]
+   
+   {\Huge Estudo do problema da bissecção mínima em árvores}\\[5cm]
    
    {\large { Aluna: Karina Suemi Awoki}}\\[0.3cm]
    
@@ -82,37 +84,52 @@
 
 \begin{abstract}
 	Este trabalho de conclusão de curso 
-	consistiu no estudo e na implementação
-	do algoritmo de FTS, que 
-	é um algoritmo de aproximação para
-	o problema da bissecção mínima aplicado
-	a árvores.
-	Este algoritmo 
-	faz parte da tese
-	de doutorado, ainda em preparação, de 
-	Tina Janne Schmidt.
+	consistiu no estudo e implementação
+	de um algoritmo linear que,
+	dado uma árvore, produz uma bissecção
+	de largura controlada.
+	Em especial, para árvores de grau limitado
+	por uma contante, o algoritmo é uma aproximação
+	para o problema da bissecção mínima.
+	Este algoritmo faz parte da tese de doutorado
+	de Tina Janne Schmidt, da Technische Universität
+	München.
 
-	Aqui encontram-se as provas dos lemas e teoremas que 
-	serviram como bases para a criação do
-	algoritmo de FST, 
-	além de pseudocódigos, juntamente com a
-	análise de complexidade de cada uma das 
-	partes desse algoritmo.
+	O trabalho inclui a análise da correção e de 
+	consumo de tempo do algoritmo, que envolve uma
+	série de resultados, bem como um estudo experimental
+	do algoritmo.
+	Para esse estudo, foi implementado também o algoritmo
+	de Jansen, Karpinski, Lingas e Seidel, que produz
+	uma bissecção mínima, especializado para árvores.
 
-	Além disso, foi estudado e implementado
-	o algoritmo de Jansen~et~al., que
-	é um algoritmo que encontra a solução ótima
-	para o problema da bissecção mínima em árvores, 
-	com a 
-	finalidade de comparar soluções e 
-	desempenho de tempo entre os dois algoritmos.
-	Essa comparação foi feita através de testes 
-	com tipos específicos de árvores, e alguns dos
-	resultados estão presentes neste texto.
 
-	% Ao final, é provado que a versão de decisão 
-	% do problema da bissecção
-	% mínima é NP-completa.
+	% é um algoritmo de aproximação para
+	% o problema da bissecção mínima aplicado
+	% a árvores.
+	% Este algoritmo 
+	% faz parte da tese
+	% de doutorado, ainda em preparação, de 
+	% Tina Janne Schmidt.
+
+	% Aqui encontram-se as provas dos lemas e teoremas que 
+	% serviram como bases para a criação do
+	% algoritmo de FST, 
+	% além de pseudocódigos, juntamente com a
+	% análise de complexidade de cada uma das 
+	% partes desse algoritmo.
+
+	% Além disso, foi estudado e implementado
+	% o algoritmo de Jansen~et~al., que
+	% é um algoritmo que encontra a solução ótima
+	% para o problema da bissecção mínima em árvores, 
+	% com a 
+	% finalidade de comparar soluções e 
+	% desempenho de tempo entre os dois algoritmos.
+	% Essa comparação foi feita através de testes 
+	% com tipos específicos de árvores, e alguns dos
+	% resultados estão presentes neste texto.
+
 
 \end{abstract}
 

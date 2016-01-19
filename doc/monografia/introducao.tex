@@ -44,8 +44,6 @@ Vários outros resultados são conhecidos para o Problema da
 Bissecção Mínima, porém este TCC se 
 concentrou no estudo do problema em árvores.
 
-\newpage
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%   OBJETIVOS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -53,12 +51,13 @@ concentrou no estudo do problema em árvores.
 
 \subsection{Objetivos} 
 
-O principal objetivo deste trabalho foi o estudo, implementação e 
+O principal objetivo deste trabalho é o estudo, implementação e 
 análise de um algoritmo recente, proposto por Fernandes, Schmidt e 
 Taraz~\cite{FernandesST13}, para encontrar uma bissecção 
 aproximadamente mínima em árvores de grau limitado. Denotaremos
 esse algoritmo por FST. 
-A vantagem deste algoritmo sobre o algoritmo de Jansen et 
+
+A vantagem do algoritmo FST sobre o algoritmo de Jansen et 
 al.~\cite{JansenKLS01}, que encontra uma bissecção de largura 
 mínima, é que este tem um consumo de tempo linear, enquanto que o 
 segundo tem um consumo de tempo cúbico no número de vértices da 
@@ -67,21 +66,22 @@ Implementamos também o algoritmo de Jansen et al., para fins de
 comparação da largura das bissecções produzidas pelo algoritmo
 FST. 
 
-Como já mencionado, o algoritmo de Jansen et al.\ baseia-se em 
+O algoritmo de Jansen et al.\ baseia-se em 
 programação dinâmica. 
-Já o algoritmo de Fernandes et al., para atingir um consumo 
-linear, utiliza técnicas bem conhecidas de percursos de árvore, 
+Já o algoritmo FST é mais refinado. 
+Para atingir um consumo de tempo 
+linear, ele utiliza técnicas bem conhecidas em percursos de árvore, 
 como busca em profundidade, bem como um rastreamento de 
 informações mais cuidadoso que permite que o processamento todo 
 seja executado em tempo linear. 
-É um algoritmo mais refinado, dividido na implementação de uma 
-série de etapas menores. 
 
-Uma vez implementados os dois algoritmos, foi feita uma análise 
-da sua performance em árvores binárias geradas aleatoriamente, e 
-em árvores ternárias.
-Obtivemos instâncias reais de um problema relacionado e as 
-utilizamos também no estudo experimental do algoritmo implementado.
+Foi feita uma análise 
+da performance do algoritmo FST em árvores binárias geradas 
+aleatoriamente, e 
+em árvores ternárias completas.
+Também obtivemos instâncias reais de um problema relacionado e as
+adaptamos para 
+utilizá-las no nosso estudo experimental.
  
 
 \bigskip
@@ -93,8 +93,8 @@ utilizamos também no estudo experimental do algoritmo implementado.
 
 \subsection{Método}
 
-O estudo do algoritmo de Fernandes et al.\ seguiu um roteiro de
-como a implementação foi feita, conforme a proposta do TCC. 
+O estudo do algoritmo de FST seguiu um roteiro de
+como a implementação foi feita, conforme a proposta deste TCC. 
 A linguagem escolhida para a implementação foi \texttt{C} e os 
 algoritmos implementados foram colocados na página do gitHub. 
 O roteiro consistiu em uma divisão da implementação do algoritmo 
@@ -104,26 +104,27 @@ O algoritmo encontra-se descrito em um documento
 longo~\cite{Schmidt15} juntamente com a sua análise teórica. 
 Este documento serviu como base para o entendimento de cada 
 etapa, e de como a implementação de cada etapa deveria ser feita 
-para que a implementação obtida fosse de fato linear. 
+para que o consumo de tempo fosse de fato linear. 
 
 Reuniões frequentes foram feitas junto à supervisora para 
 apresentar as etapas já implementadas, bem como para tirar dúvidas 
 sobre as próximas etapas ou detalhes da implementação. 
 Em maio e junho, Tina Schmidt, uma das autoras do algoritmo que 
-foi implementado, visitou o IME, e a parte da 
+foi implementado, visitou o IME-USP, e a parte da 
 implementação que estava pronta foi apresentada a ela, e 
-algumas discussões foram feitas e em especial, a Tina conseguiu
+algumas discussões foram feitas. 
+Em especial, a Tina conseguiu
 um conjunto de instâncias reais com Steffen Borgwardt, feitas por 
 Kampeier~\cite{Kampmeier}, para usarmos 
 em nossos experimentos.   
 
 Em paralelo ao estudo e desenvolvimento da implementação, foram 
-estudados também dois artigos da literatura. São eles o artigo 
+estudados também dois artigos da literatura: o artigo 
 de Garey, 
 Johnson e Stockmeyer~\cite{GareyJS76}, que contém a prova de que o 
-problema é NP-difícil, e o artigo de Jansen et al.~\cite{JansenKLS01}, 
-que apresenta 
-o algoritmo de programação dinâmica para o problema em árvores. 
-Após a implementação do algoritmo de Fernandes et~al., foi feita 
-a implementação do algoritmo de Jansen et al. e a comparação dos 
-dois. 
+Problema da Bissecção Mínima é NP-difícil, e o artigo de 
+Jansen et al.~\cite{JansenKLS01}, que apresenta 
+o algoritmo que resolve o problema em árvores. 
+Após a implementação do algoritmo FST, foi feita 
+a implementação do algoritmo de Jansen et al.\ e o estudo
+experimental do algoritmo FST. 

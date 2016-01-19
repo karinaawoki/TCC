@@ -1,18 +1,19 @@
 \section {Lemas de cortes aproximados}
 
-Em \cite{Schmidt15}, são apresentados três lemas e seus
-respectivos algoritmos, que, dada uma floresta~$G$ e um 
+Em \cite{Schmidt15}, são apresentados 
+algoritmos, que, dados uma floresta~$G$ e um 
 inteiro~$0<m\le n$, onde~$n$ é o número de vértices de~$G$, 
 produzem cortes com algumas propriedades.
+Os algoritmos em questão são usados como subrotinas no algoritmo
+FST.
 
 Abaixo reproduzimos os três resultados de \cite{Schmidt15} que 
 atestam as propriedades dos cortes produzidos por estes algoritmos.
+O primeiro deles é o mais simples e o algoritmo vinculado a ele
+é usado no segundo.
 
 \bigskip
-\bigskip
-\bigskip
 
-\subsection{Lema do corte aproximado simples para árvores}
 \begin{lem}[]
 \label{lema:simpleApproxCutTree}
 	Para toda árvore~$T$ com~$n$ vértices e todo~$m \in [n]$,
@@ -24,7 +25,7 @@ atestam as propriedades dos cortes produzidos por estes algoritmos.
 
 \bigskip
 
-Seja~$T$ uma árvore e~$r$ um vértice de~$T$. 
+Seja~$T$ uma árvore com~$n$ vértices e~$r$ um vértice de~$T$. 
 Assumiremos que
 a função {\sc número\_de\_descedentes}$(T$, $r)$ devolve um vetor
 que associa cada vértice de~$T$ ao número de descendentes desse 
@@ -40,27 +41,26 @@ descritas no lema.
 
 \begin{algorithm}[H]
 \label{alg:simpleApproxCutTree}
-	\SetKwInOut{Input}{input}
-	\SetKwInOut{Output}{output}
+	\SetKwInOut{Input}{entrada}
+	\SetKwInOut{Output}{saída}
 
-	\caption{Computa corte aproximado em uma árvore}
-	\Input{árvore~${T =(V,E)}$ com~$n$ vértices, ~$m \in [n]$ e 
-	uma raíz $r$}
-	\Output{Um corte~$(B,W)$ em~$T$ tal que~$\dfrac{m}{2}<|B|\le m$ 
+	\caption{Oi (Computa corte aproximado em uma árvore)}
+	\Input{árvore~${T =(V,E)}$ com~$n$ vértices, ~$m \in [n]$ 
+	e~$r\in V$}
+	\Output{corte~$(B,W)$ em~$T$ com~$\dfrac{m}{2}<|B|\le m$ 
 	e~$e_T(B,W)\le \Delta(T)$}
 	$B \gets \emptyset$\;
-	\eIf{$m =n$}{
-		$B \gets V$\;
+	\lIf{$m =n$}{
+		\Return $(V,\emptyset)$
 	}
-	{
 		$d \gets~$ {\sc número\_de\_descendentes}$(T$, $r)$\;
 		$v \gets r$\;
-		\While{existe filho~$u$ de~$v$ com~$d[u]\ge m$ }{
+		\While{existe filho~$u$ de~$v$ com~$d[u] > m$ }{
 			$v \gets u$ \;
 		}
 		\eIf{existe filho~$u$ de~$v$ com~$d[u]>\dfrac{m}{2}$}
 		{
-			$B\gets V(T_u)$\;  
+			$B\gets V(T_u)$; \quad
 			\tcp{$T_u$ é a sub-árvore de~$T$ enraizada em~$u$}
 		}
 		{
@@ -74,7 +74,6 @@ descritas no lema.
 			}
 		}
 		}
-	}
 	\Return $(B,V\setminus B)$
 
 \end{algorithm}	
@@ -165,8 +164,8 @@ para florestas em vez de árvores.
 
 \begin{algorithm}[H]
 \label{alg:simpleApproxCutForest}
-	\SetKwInOut{Input}{input}
-	\SetKwInOut{Output}{output}
+	\SetKwInOut{Input}{entrada}
+	\SetKwInOut{Output}{saída}
 
 	\caption{Computa corte aproximado simples em uma floresta}
 	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~$m \in [n]$}
@@ -247,8 +246,8 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 
 \begin{algorithm}[H]
 \label{alg:approxCutForest}
-	\SetKwInOut{Input}{input}
-	\SetKwInOut{Output}{output}
+	\SetKwInOut{Input}{entrada}
+	\SetKwInOut{Output}{saída}
 
 	\caption{Computa corte aproximado em uma floresta}
 	\Input{floresta~${G =(V,E)}$ com~$n$ vértices,~${m \in [n]}$ e

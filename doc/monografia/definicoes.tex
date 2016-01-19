@@ -1,36 +1,64 @@
 \section{Definições}
 	
-	\subsection*{Conjunto~$[n]$}
-	Denotemos por~$\{1,2,\ldots~n\}$
-	o conjunto~$[n]$ .
-
-	\subsection*{Conjunto de vértices e arestas}
+\begin{enumerate}
+	\item
 	Para um grafo~$G$, denotamos seu
 	conjunto de vértices por~$V(G)$ e seu
 	conjunto de arestas por~$E(G)$.
 
-	\subsection*{Grau dos vértices}
-	Em um grafo~$G$, o número de arestas que incidem em um 
+	\item
+	O número de arestas que incidem em um 
 	determinado vértice~$v$ é chamado de 
 	\textbf{grau} de~$v$ e será representado
 	por~$\grau_G(v)$. O 
 	\textbf{grau máximo}, que é o grau de um vértice de
 	maior grau em~$G$, será representado por~$\Delta(G)$.
 
-	\subsection*{Caminhos em árvores}
-	Um \textbf{caminho} em uma árvore~$T$ é uma sequência de 
+	\item
+	Um \textbf{caminho} em~$G$ é uma sequência de 
 	vértices~$v_0, v_1, \ldots,v_{p-1}, v_p$ 
-	onde~$v_{k-1}, v_k$ é uma aresta para 
+	onde~$v_{k-1}, v_k$ é uma aresta de~$G$ para 
 	todo~${k =1,2, \ldots, p}$. 
 	O número~$p$ é o \textbf{comprimento} do caminho.
-	Como existe um único caminho que conecta quaisquer dois 
-	vértices~$v_0$ e~$v_p$ em~$T$, chamaremos tal caminho em~$T$ 
-	de~$v_0,v_p\caminho$.
 
-	Um \textbf{caminho máximo} em uma árvore~$T$ é um caminho 
-	em~$T$ de comprimento máximo.
+	\item
+	Um \textbf{caminho máximo} em~$G$ é um caminho 
+	em~$G$ de comprimento máximo.
+	O comprimento de um caminho máximo em~$G$
+	é o \textbf{diâmetro} de~$G$, e é denotado por~$\diam(G)$.
 
-	\subsection*{Distâncias entre vértices}
-	A \textbf{distância} entre dois vértices~$a$ e~$b$ de~$T$ é 
-	representada por~$\dist(a,b)$, e é igual ao comprimento 
-	do~$a,b\caminho$ em~$T$.
+	% O \textbf{diâmetro} de um grafo conexo~$G$ é o
+	% comprimento de um caminho máximo em~$G$. 
+	% Em outras palavras, o diâmetro pode ser definido como:
+	% $$ \diam(G)=\max\{\dist(x,y):x,y\in V(G)\}.$$
+
+	% \bigskip
+
+	Seja~$G$ um grafo não necessariamente conexo.
+	O \textbf{diâmetro relativo} de~$G$
+	 é a razão entre o número
+	de vértices de um caminho máximo e o número total de vértices
+	de~$G$. Este pode também ser representado por
+	$$ \diam^*(G) =\dfrac{\displaystyle\sum_{
+	G'~componente~conexa~de~G}^{}(\diam(G')+1)}{|V(G)|}.$$
+
+	Note que~${0<\diam^*(G)\le 1}$ para todo grafo~$G$ 
+	com~${V(G)\ne \emptyset}$, pois há pelo menos um vértice 
+	de~$G$ em qualquer caminho máximo de~$G$, e no máximo 
+	todos os vértices de~$G$.
+
+	\item
+	Em uma árvore~$T$, existe um único caminho que conecta 
+	quaisquer dois vértices~$x$ e~$y$. 
+	Chamaremos tal caminho em~$T$ de~$x,y$--\textbf{caminho}.
+
+	\item
+	A \textbf{distância} entre dois vértices~$x$ e~$y$ de~$T$ é 
+	representada por~$\dist(x,y)$, e é igual ao comprimento 
+	do~$x,y\caminho$ em~$T$.
+
+	\item
+	Denotemos por~$[n]$
+	o conjunto~$\{1,2,\ldots~n\}$.
+
+\end{enumerate}

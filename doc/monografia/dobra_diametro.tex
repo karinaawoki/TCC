@@ -1,11 +1,11 @@
 \section {Dobra do diâmetro relativo}
 \label{sec:dobraDiametro}
-	\subsection{Teorema da dobra do diâmetro relativo}
-	
+	O teorema a seguir é o coração do algoritmo FST.
+	Ele é chamado de \textit{teorema da dobra do diâmetro relativo}.	
 		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
 		\label{teo:dobraDiametro}
 			Para toda árvore~$T$ com~$n$ vértices e 
-			todo~$m\in [n]$,
+			todo~${m\in [n]}$,
 			o conjunto de vértices de~$T$ pode ser particionado em 
 			três partes~$B$,~$W$ e~$S$ tais que vale um dos 
 			seguintes itens:
@@ -35,20 +35,21 @@
 		\begin{proof}
 		Primeiramente, temos uma árvore~$T$ com~${n}$ vértices e um 
 		inteiro~${m\in[n]}$.
-		Seja~$P$ um caminho máximo em~$T$ e, sabendo que os vértices
-		estão rotulados como descrito na Seção~\ref{sec:rotulacao},
-		teremos um corte~$(B,W,S)$ da seguinte forma:
+		Seja~$P$ um caminho máximo em~$T$ e, considere os vértices
+		rotulados como descrito na Seção~\ref{sec:rotulacao}.
+		Obteremos um corte~$(B,W,S)$ da seguinte forma:
 		%\begin{itemize}
 		\bigskip
 		\bigskip
 
 		\textbf{Caso 1:}
 			Existe um vértice~${v\in V(P)}$ tal 
-			que~${\map_m^+(v)\in V(P)}$. O 
-			corte~$(B,W,S)$ 
+			que~${\map_m^+(v)\in V(P)}$. 
+			
+			O corte~$(B,W,S)$ 
 			com~${S=\emptyset}$,~${B =\{v+1, v+2,\ldots,~v+m\}}$
 			e~${W=V(T)\setminus B}$ satisfaz as propriedades do
-			primeiro caso do Teorema~\ref{teo:dobraDiametro},
+			primeiro caso do teorema,
 			como explicado na Seção~\ref{sec:map}.
 
 	\bigskip
@@ -60,13 +61,13 @@
 			% dado que cada vértice de~$P$ mapeia vértices distintos que estão
 			% fora de~$P$.
 			Para todo vértice~${v\in V(P)}$,~${\map_m^+(v)\not\in V(P)}$.
-			Como o mapeamento é uma função bijetora, 
-			então existem~$|V(P)|$ ou mais vértices fora de~$P$.
+
+			Como~$\map_m^+(\ )$ e~$\map_m^-(\ )$ são funções bijetoras, 
+			existem~$|V(P)|$ ou mais vértices fora de~$P$.
 			Isso implica que~$\diam^*(T)\le\dfrac{n}{2}$, pois no 
 			máximo~$\dfrac{n}{2}$ vértices estarão em~$P$.
-
 			Nesse caso, teremos um corte~$(B,W,S)$ que satisfaz as
-			propriedades do segundo caso do Teorema~\ref{teo:dobraDiametro}.
+			propriedades do segundo caso do teorema.
 			Isso será detalhado melhor a seguir.
 
 			\bigskip
@@ -84,15 +85,14 @@
 			% 	%H_z^f = &\map^+_m(V(T_z))\cap V(P) \nonumber
 			% \end{align}
 
-			Seja~${z\in V(P)}$ um vértice tal que~$z$ é b-especial 
-			e seja~$x$ o menor vértice de~$T_z$ tal 
-			que~${\map^-_m(x)\in V(P)}$. Temos 
-			que~${z^b = \map^-_m(x)}$.
-			Temos também
-			que~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
-			e~${H_z^f =T_u}$ para todo 
-			vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
-			Segue a figura com a representação da disposição dos 
+			Sejam~${z\in V(P)}$ um vértice tal que~$z$ é b-especial 
+			e~$x$ o menor vértice de~$T_z$ tal 
+			que~${\map^-_m(x)\in V(P)}$. 
+			Sejam~${z^b = \map^-_m(x)}$,~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
+			e~$H_z^f:= \cup\{T_u: u\in P^b_z,\ u\ne z^b \}$.
+			%${H_z^f =T_u}$ para todo 
+			%vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
+			Veja a figura abaixo com a representação da disposição destes 
 			conjuntos de vértices.
 
 	\begin{center} \begin{tikzpicture} 
@@ -166,17 +166,18 @@
 	\end{tikzpicture} \end{center}
 		\bigskip
 			De forma análoga, para um vértice~${z\in V(P)}$ tal 
-			que~$z$ é f-especial,
-			temos que~${z^f = \map^+_m(x)}$,
-			sendo~$x$ o menor vértice de~$T_z$ tal 
+			que~$z$ é f-especial,~${z^f = \map^+_m(x)}$,
+			onde~$x$ é o menor vértice de~$T_z$ tal 
 			que~${\map^+_m(x)\in V(P)}$.
 			Também temos
 			que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
-			e~${H_z^f =T_u}$ para todo 
-			vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
+			e~$H_z^f:= \cup\{T_u: u\in P^b_z,\ u\ne z^b \}$.
+			
+			%${H_z^f =T_u}$ para todo 
+			%vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
 
-			Segue abaixo outra figura com a representação da disposição 
-			dos conjuntos de vértices.
+			Veja a figura abaixo com a representação da disposição 
+			destes conjuntos de vértices.
 	\begin{center} \begin{tikzpicture} 
 		[scale=.6,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]
@@ -250,14 +251,16 @@
 		(nz) edge[right=45] (nzt);
 	}
 	\end{tikzpicture}\end{center}
-	Note que os vértices~$\map^-_m(v)$,~$\map^-_m(z)$,~$\map^+_m(v)$ 
-	e~$\map^+_m(z)$ não estão em~$V(P)$, pois estamos no Caso~2, onde
+	Note que, no Caso 2, os vértices~$\map^-_m(v)$,~$\map^-_m(z)$,~$\map^+_m(v)$ 
+	e~$\map^+_m(z)$ não estão em~$V(P)$, pois
 	nenhum vértice de~$P$ é mapeado em outro vértice de~$P$.
 
-	Considerando que existe uma aresta ligando o primeiro ao último 
-	vértice de~$P$, vemos que os elementos de~$P_z^b$ formam 
+	Para facilitar a descrição, adicionamos uma aresta ligando o
+	primeiro ao último 
+	vértice de~$P$. 
+	Assim vemos que os elementos de~$P_z^b$ formam 
 	um caminho e que, para valores diferentes de~$z$,
-	temos que os caminhos~$P_z^b$ são disjuntos.
+	os caminhos~$P_z^b$ são disjuntos.
 	O mesmo vale para os caminhos~$P_z^f$.
 
 	Usaremos futuramente as seguintes propriedades:
@@ -280,8 +283,9 @@
 		% que~${\map^+_m(v)\in T_{z^f}}$.
 
 		\item Um vértice~${z\in V(P)}$ é b-especial se e somente 
-		se existe um
-		vértice~${u\in V(P)}$ tal que~$u$ é f-especial e~${z=u^f}$.
+		se~${z=u^f}$ para um vértice
+		f-especial~${u\in V(P)}$.
+		% tal que~$u$ é f-especial e~${z=u^f}$.
 		%Sabemos que a volta é verdadeira usando a propriedade 2.
 		\begin{proof}
 
@@ -294,8 +298,8 @@
 		de~$T_{u^f}$, pois, se estivesse,~$u^f$ seria um outro
 		vértice.
 		Logo, é correto afirmar que um vértice~${z\in V(P)}$ é b-especial
-		se existe um vértice~${u\in V(P)}$ tal que~$u$		
-		é f-especial e~${z=u^f}$. 
+		se~${z=u^f}$ para um vértice f-especial~${u\in V(P)}$.
+		% tal que~$u$ é f-especial e. 
 
 		%A ida é verdadeira pois, 
 		Dado que~$z$ é b-especial,
@@ -303,17 +307,18 @@
 		que~${\map^+_m(v_i)\in T_{z}}$.
 		Seja~$v_k$ o vértice com o maior rótulo e~$u$ o vértice 
 		que vem depois de~$v_k$ em~$P$. 
-		Temos então que~${\map^-_m(z)\in T_u}$ e que o vértice a esquerda
-		de~$z$ em~$P$
-		mapeia em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
-		Portanto, é correto afirmar que existe um 
-		vértice~${u\in V(P)}$ tal que~$u$ é f-especial e~${z=u^f}$
+		Então,~${\map^-_m(z)\in T_u}$ e o vértice a esquerda
+		de~$z$ em~$P$ é
+		mapeado em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
+		Portanto, é correto afirmar que~${z=u^f}$ para um 
+		vértice f-especial~${u\in V(P)}$ 
+		%tal que~$u$ é f-especial e~${z=u^f}$
 		se o vértice~$z$ é b-especial.
 		\end{proof}
 
-		\item Um vértice~${z\in V(P)}$ é f-especial se e somente se 
-		existe um
-		vértice~${u\in V(P)}$ tal que~$u$ é b-especial e~${z=u^b}$.
+		\item Um vértice~${z\in V(P)}$ é f-especial se e somente 
+		se~${z=u^b}$ para um vértice b-especial~${u\in V(P)}$. 
+		%tal que~$u$ é b-especial e~${z=u^b}$.
 
 		Podemos verificar que essa propriedade é verdadeira de forma
 		semelhante a verificação da propriedade anterior.
@@ -328,38 +333,40 @@
 	\begin{align}
 		\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}| = 
 		\displaystyle\sum_{z\in B_{\esp}}|T_{z}| %\nonumber \\
-		&\Rightarrow
+		\ \ &\Rightarrow \
 		\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}'| = 
 		\displaystyle\sum_{z\in B_{\esp}}|T_{z}'| \label{eq:4}\\
 		\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}| = 
 		\displaystyle\sum_{z\in F_{\esp}}|T_{z}| %\nonumber
-		&\Rightarrow
+		\ \ &\Rightarrow \
 		\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}'| = 
 		\displaystyle\sum_{z\in F_{\esp}}|T_{z}'| \label{eq:3}.
 	\end{align}
 
 	Note que, para cada vértice b-especial~$z$, todos os vértices 
-	de~$H^b_z$ e de~$P^b_z$ são mapeados por um vértice 
-	de~$T_z$ e que nem todos os vértices de~$T_z$ mapeiam um
+	de~$H^b_z$ e de~$P^b_z$ são mapeados em um vértice 
+	de~$T_z$ e que nem todos os vértices de~$T_z$ são mapeados por um
 	vértices~$H^b_z\cup P_z^b$, 
 	dado que~$\map^-_m(z)\not\in H^b_z\cup P_z^b$.
 	O mesmo ocorre com cada vértice f-especial.
 	Portanto temos que
 	\begin{align}
 		|T_z| > |P^b_z| + |H^b_z| 
-		&\Rightarrow
+		\ &\Rightarrow \
 		|T_z'| \ge |P^b_z| + |H^b_z| \label{eq:5}\\
 		|T_z| > |P^f_z| + |H^f_z|
-		&\Rightarrow
+		\ &\Rightarrow \
 		|T_z'| \ge |P^f_z| + |H^f_z| \label{eq:6}.
 	\end{align}
 
-	Como os caminhos~$P^b_z$ são disjuntos e~$P^b_z\cup H^b_z\cup T'_{z^b}$
+	Como os caminhos~$P^b_z$ são dois a dois disjuntos 
+	e~$P^b_z\cup H^b_z\cup T'_{z^b}$
 	nada mais é do que o conjunto de sub-árvores enraizadas
 	nos vértices de~$P^b_z$, temos 
-	que os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ também são disjuntos.
+	que os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ também são 
+	dois a dois disjuntos.
 	Como todos os vértices de~$P$ são mapeados em alguma sub-árvore,
-	então todo vértice de~$V(P)$ pertence a algum~$P^b_z$.
+	todo vértice de~$V(P)$ pertence a algum~$P^b_z$.
 	Logo,
 	todo vértice de~$V(T)$ pertence a 
 	algum~${P^b_z\cup H^b_z\cup T'_{z^b}}$.
@@ -420,24 +427,23 @@
 		\item $\displaystyle\sum_{z\in B_{\esp}}
 			\Big(|T'_{z}|+|H_z^b|\Big)>
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in B_{\esp}}|P_z^b|
-			\Rightarrow \\
+			\ \Rightarrow \\
 			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)<
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{\esp}}|P_z^f|
-			\Rightarrow \\
+			\ \Rightarrow \\
 			\displaystyle\sum_{z\in F_{\esp}}
 			\Big(|T'_{z}|+|H_z^f|\Big)\le
 			\dfrac{1-d}{d}\displaystyle\sum_{z\in F_{\esp}}|P_z^f|$.
 	\end{enumerate}
 
-	Sabemos que se (I) ocorrer, teremos um 
+	Sabemos que, se (I) ocorrer, há um 
 	vértice~${z\in B_{\esp}}$ tal que~${|T'_z|+|H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$,
 	pois se todos os vértices em~$B_{\esp}$ 
 	satisfizerem~${|T'_z|+|H^b_z| > \dfrac{1-d}{d}|P^b_z|}$, então (I)
 	não teria ocorrido.
 	O mesmo ocorre com (II). 
-	Portanto temos um dos casos
-	a seguir sempre será válido.
+	Portanto, um dos casos a seguir sempre será válido:
 
 	\begin{enumerate}[label=(\alph*)]
 		\item existe um vértice~$z\in B_{\esp}$ 
@@ -455,9 +461,8 @@
 		Existe um vértice~$z\in B_{\esp}$ 
 		tal que ${|T'_{z}|+|H_z^b|\le
 		\dfrac{1-d}{d}|P_z^b|}$. 
-		Temos
-		que~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
-		Usando a equação~(\ref{eq:5}), deduzimos
+		Logo,~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
+		Usando a inequação~(\ref{eq:5}), deduzimos
 		que
 		\begin{align}
 			|H^b_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^b_z|
@@ -500,7 +505,7 @@
 		e~${2-\dfrac{1}{1-d}}$ como os valores dos parâmetros~$m$ e~$c$,
 		respectivamente.
 		Dessa forma, teremos um corte~$(B_2,W_2)$ tal 
-		que~${cm\le|B_2|\le m}$ e
+		que~${c\cdot(m-|B_1|)\le|B_2|\le m-|B_1|}$ e
 		\begin{align}
 		e_{T_z'}(B_2,W_2)&\le \ceil[\Big]{ \dfrac{2c}{1-c}} 
 		\Delta(T_z') = \ceil[\Big]{ \dfrac{2}{d}-4} \Delta(T_z') 
@@ -761,7 +766,7 @@
 		Assumimos que a função {\sc separa\_conjunto}$(T,$ $S)$
 		%recebe uma árvore~$T$ e um conjunto~$S$ de vértices que
 		%seja como o conjunto~$S$ especificado na seção 6.1.
-		separa o conjunto~$S$ (conjunto especificado na seção 6.1) 
+		separa o conjunto~$S$ (conjunto especificado na Seção 6.1) 
 		do restante da árvore.
 		Isso é feito removendo as arestas que estão no 
 		corte~$(S,V(T)\setminus S)$.

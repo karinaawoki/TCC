@@ -515,9 +515,17 @@
 		&\le \Big( \dfrac{2}{d}-3 \Big) \Delta(T).
 		\label{eq:corte}
 		\end{align}
-		Como temos que~${\map^+_m(z^b_l)\in T_z}$ e todos
-		os vértices entre~$z^b_l+1$ e~$j$ estão em~$B_1$,
-		vale que~${m-|B_1|<|T_z|}$. Logo,~${1\le m-|B_1|\le |T'_z|}$.
+
+		%~${\map^+_m(z^b_l)\in T'_z}$, sabemos que~$m\le|B_1| + |T'_z|$,
+		%o que implica
+		Como~${\map^+_m(z^b_l)\in T'_z}$ e todos
+		os vértices entre~${\map^+_1(z^b_l)}$
+		%$z^b_l+1$ 
+		e~$j$ 
+		estão em~$B_1$, 
+		sabemos que~${m\le|B_1| + |T'_z|}$, que implica
+		que~${m-|B_1|<|T_z|}$.  
+		Logo,~${1\le m-|B_1|\le |T'_z|}$.
 		Como~${d\in (0,\frac{1}{2}]}$, temos que~${c\in [0,1)}$.
 		Portanto, os valores usados como~$m$ e~$c$ são 
 		compatíveis com o que é pedido no 
@@ -568,7 +576,7 @@
 		\node [draw=none, fill=none] at (7.6,5.7){$z^b_l$};
 		\node [draw=none, fill=none] at (2.6,5.7){$z^b$};
 		\node [draw=none, fill=none] at (18.1,5.6){$z$};
-		\node [draw=none, fill=none] at (15,5.6){$f$};
+		\node [draw=none, fill=none] at (15,5.6){$j$};
 		\node [text=Brown,draw=none, fill=none] at (5,7){$P^b_z$};
 		\node [text=Emerald,draw=none, fill=none] at (6.25,1.8){$H^b_z$};
 
@@ -592,17 +600,17 @@
 		Temos, então, o corte~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
 		e~${W = V(T)\setminus (B\cup S)}$.
 		Dado que~${\map^+_m(z^b_l)\in T_z}$, temos 
-		que~${m<|B_1|}$ e, como obtemos~$B_2$ através do 
+		que~${m>|B_1|}$ e, como obtemos~$B_2$ através do 
 		Lema~\ref{lema:approxCutForest} usando~${m-|B_1|}$ 
-		como~$m$, teremos que~${|B_2|\le m-|B_1|}$, implicando
-		em~${m\ge|B|}$.
+		como~$m$, temos que~${|B_2|\le m-|B_1|}$, implicando
+		em~${|B|\le m}$.
 		De acordo com o Lema~\ref{lema:approxCutForest} também temos 
 		que~${|B_2|\ge c\cdot(m-|B_1|)}$ e, como estamos no Caso~2, 
 		então~${d\le \dfrac{1}{2}}$ e~${|P^b_z|\le |S|}$, dado 
 		que~$P^b_z\subseteq S$.
 		Note que a 
 		desigualdade~${|T'_z| + |H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$
-		implica que~$|T'|\dfrac{d}{1-d}\le |P^b_z|$.
+		implica que~$|T'_z|\dfrac{d}{1-d}\le |P^b_z|$.
 		%cada vértice de~$P^b_z$ irá mapear em um vértice diferente de~$S$.
 		Portanto
 		\begin{align}
@@ -626,7 +634,8 @@
 		Temos que o número de arestas no corte~$(B,W,S)$ é, no 
 		máximo,~${(\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 		(\Delta(T)-2)}$.
-		Essa soma representa a quantidade total máxima de arestas, sendo elas
+		Essa soma representa a quantidade total máxima de arestas no corte,
+		considerando
 		as que conectam~$z^b$
 		a~$W$, a que liga~$z^b_l$ a~$B_1$, a
 		que conecta~$f$ e~$z$, as presentes no corte~$(B_2,W_2)$ e, 
@@ -644,7 +653,7 @@
 			&< \dfrac{2\cdot \Delta(T)}{d}. \nonumber
 		\end{align}
 
-		Portanto, se as condições do Caso~(a) forem satisfeitas, então 
+		Portanto, se a condição do Caso~(a) for satisfeita, então 
 		existe um corte~$(B,W,S)$ que satisfaz as propriedades do
 		Teorema~\ref{teo:dobraDiametro}.
 
@@ -657,21 +666,21 @@
 	\dfrac{1-d}{d}|P_z^f|}$. 
 	Temos
 	que~${|H^f_z|\le \Big(\dfrac{1}{d}-1\Big)|P^f_z|-|T'_z|}$.
-	Usando a inequação~\ref{eq:6}, temos 
+	Usando a inequação~(\ref{eq:6}), temos 
 	que
 		$|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|$, 
 		o que implica que
 		$|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z| \nonumber$.
 
 
-	Assumiremos que~${S = H^f_z \cup P^f_z}$ 
+	Tomaremos~${S = H^f_z \cup P^f_z}$ 
 	e~${B_1 = \{v\in V(T): z<v<z^f\}}$. 
-	Da mesma forma que no caso anterior, teremos 
+	Da mesma forma que no caso anterior, temos 
 	que~${2d\le \diam^*(T[S])}$.
 
-	Obteremos o corte~$(B_2,W_2)$ do 
+	Obtemos o corte~$(B_2,W_2)$ do 
 	Lema~\ref{lema:approxCutForest} aplicado a~$T'_z$ 
-	com~${m-|B|}$ e~${2-\dfrac{1}{1-d}}$ sendo os valores
+	com~${m-|B_1|}$ e~${2-\dfrac{1}{1-d}}$ sendo os valores
 	de~$m$ e~$c$, respectivamente. 
 	Temos também que~${B = B_1 \cup B_2}$ 
 	e~${W = V(T)\setminus (B\cup S)}$.
@@ -745,9 +754,9 @@
 		(20.6+-16.3,1.4) -- (20.6+-17.3,3.9) -- (20.6+-18.3,1.4) -- cycle;
 	}
 	\end{tikzpicture} \end{center}
-	Assim como foi mostrado no Caso 2(a), temos 
-	que~${e_T(B,W,S)<\dfrac{2\cdot \Delta(T)}{d}}$.
-	Satisfazendo assim as propriedades do Teorema~\ref{teo:dobraDiametro} 
+	Assim como foi mostrado no Caso (a), temos 
+	que~${e_T(B,W,S)<\dfrac{2\cdot \Delta(T)}{d}}$,
+	satisfazendo assim as propriedades do Teorema~\ref{teo:dobraDiametro} 
 	em todos os casos apresentados anteriormente.
 
 \end{proof}
@@ -763,22 +772,30 @@
 
 	\subsection{Algoritmo da dobra do diâmetro}
 
-		Assumimos que a função {\sc separa\_conjunto}$(T,$ $S)$
+		A função {\sc separa\_conjunto}$(T,$ $S)$,
 		%recebe uma árvore~$T$ e um conjunto~$S$ de vértices que
-		%seja como o conjunto~$S$ especificado na seção 6.1.
-		separa o conjunto~$S$ (conjunto especificado na Seção 6.1) 
-		do restante da árvore.
-		Isso é feito removendo as arestas que estão no 
-		corte~$(S,V(T)\setminus S)$.
-		Sejam~$v_i$ e~$v_j$ os vértices em~$S$ de menor e maior rótulos, 
-		respectivamente.
+		%seja como o conjunto~$S$ especificado na seção 6.1 e
+		%separa o conjunto~$S$ 
+		%do restante da árvore.
+		%Isso é feito removendo as arestas que estão no 
+		%corte~$(S,V(T)\setminus S)$.
+		que remove de~$T$ as arestas que estão no 
+		corte~$(S, V(T)\setminus S)$, separando~$S$ do restante
+		da árvore~$T$.
+		Caso~$S$ seja conexo,~$v_i$ e~$v_j$ são os vértices em~$S$ 
+		%que estãolocalizados nos extremos.  
+		de menor e maior rótulos, respectivamente.
+		Caso contrário,~$v_i$ é o vértice de menor rótulo
+		da componente de~$S$ que contém o final do caminho máximo~$P$,
+		e~$v_j$ é o vértice de maior rótulo da componente de~$S$ que
+		contém o início de~$P$.
 		Sabemos que todos os vértices de~$S$ possuem
 		rótulos consecutivos,
 		%(considerando que o vértices de maior rótulo e 
 		%de menor rótulo são consecutivos) 
 		considerando que os vértices estão dispostos de forma circular.
-		Sabemos também que~$v_i$ e~$v_j$ possuem~${(\grau(v_i)-1)}$
-		e~$1$ arestas que os conectam a~$V(T)\setminus S$, respectivamente.
+		Sabemos também que~$v_i$ e~$v_j$ possuem ao todo~${\grau(v_i)}$
+		arestas que os conectam a~$V(T)\setminus S$.
 		Portanto, o que essa função faz é remover de~$T$ as arestas que 
 		conectam~$v_i$ e~$v_j$ a~$V(T)\setminus S$ e, caso~$S$ não seja
 		conexo, inserir uma aresta em~$T$ que liga os vértices de menor e maior 
@@ -787,17 +804,24 @@
 		onde~$S$ será uma componente
 		isolada do restante da árvore. 
 		%Chamaremos esse novo grafo de~$T'[S]$.
-		Essa função consome tempo~$O(\grau(v_i))$.
+		Essa função consome tempo~$O(\Delta(T))$.
 
 		Ao longo do Algoritmo~\ref{alg:dobraDiametro}, usaremos
-		os subconjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$.
-		Para calcular cada um deles, basta fazer operações de soma ou subtração
-		nos rótulos de cada valor de~$z$.
-		Como os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ são disjuntos
-		e os conjuntos~${P^f_z\cup H^f_z\cup T'_{z^f}}$ também são disjuntos,
+		os subconjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$
+		para diferentes vértices~$z$.
+		Para calcular cada um destes conjuntos, basta fazer operações
+		de soma ou subtração
+		nos rótulos para cada~$z$.
+		Como os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ são dois a dois disjuntos
+		e os conjuntos~${P^f_z\cup H^f_z\cup T'_{z^f}}$ também são dois a dois disjuntos,
 		então cada vértice da árvore será analisado no máximo duas vezes.
 		Com isso, sabemos que a operação que calcula os vértices de cada um desses 
 		conjuntos para todos os valores de~$z$ consome tempo~$O(n)$.
+
+		Serão passados como parâmetros dois vetores,~$\rot$ e~$\ind$,
+		que devolvem o rótulo de um vértice de acordo com o seu índice
+		e o índice de um vértice de 
+		acordo com o seu rótulo, respectivamente.
 
 		% Sabemos que a operação que calcula os vértices de cada um desses 
 		% subconjuntos para todos os valores de~$z$ consome tempo~$O(2n)$,
@@ -818,15 +842,15 @@
 
 		\caption{}
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$ em~$T$,
-		vetor~$\rot$, vetor~$ind$ e raiz da árvore~$r$} 
+		vetor~$\rot$, vetor~$\ind$ e raiz da árvore~$r$} 
 		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
-		Teorema~\ref{teo:dobraDiametro}, a componente~$T^*$ e um vértice~$r\in S$}
+		Teorema~\ref{teo:dobraDiametro}, a componente~$T^*$ e um vértice~$s\in S$}
 		\For{$i = 1 \to |V(P)|$}
 		{
 			\If{$\rot(i)\in V(P)$}
 			{
 				\tcp{Caso 1}
-				$B\gets \{ind(\rot(i)+1),\ldots, ind(\rot(i)+m)\}$\;
+				$B\gets \{\ind(\rot(i)+1),\ldots, \ind(\rot(i)+m)\}$\;
 				$W\gets V(T)\setminus B$\;
 
 				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
@@ -861,7 +885,7 @@
 			\tcp{Caso 2(a)}
 			\Numberline$z\gets z_B$\;
 			\Numberline$z^b_\ell \gets $ último vértice de~$P_z^b$\;
-			\Numberline$B_1 \gets \{ind(\rot(z^b_l)+1),\cdots, ind(\rot(z^b_l)+m)\}$\;
+			\Numberline$B_1 \gets \{\ind(\rot(z^b_l)+1),\cdots, \ind(\rot(z^b_l)+m)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
@@ -875,7 +899,7 @@
 			\tcp{Caso 2(b)}
 			\Numberline$z\gets z_F$\;
 			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
-			\Numberline$B_1 \gets \{ind(\rot(z)+1),\cdots, ind(\rot(z^f)-1)\}$\;
+			\Numberline$B_1 \gets \{\ind(\rot(z)+1),\cdots, \ind(\rot(z^f)-1)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
@@ -887,16 +911,17 @@
 	\LinesNumbered
 	\bigskip
 	\bigskip
-	\subsection*{Análise do Algoritmo}
-	Dado que esse algoritmo recebe como entrada
+	\subsection*{Análise do algoritmo}
+	Dado que o algoritmo recebe como entrada
 	%Dado que já recebemos 
 	o caminho máximo e a rotulação dos vértices
-	da árvore, precisamos apenas verificar a qual dos casos essa árvore
-	pertence e encontrar o corte~$(B,W,S)$.
+	da árvore induzida por esse caminho, precisamos apenas verificar em 
+	qual dos casos a árvore~$T$ se encaixa
+	e encontrar o corte~$(B,W,S)$.
 
 	Primeiramente, verificamos se essa árvore se encaixa no Caso~1.
 	Para isso é necessário percorrer todos os vértices do caminho máximo
-	e verificar se algum deles mapeia um outro vértice do caminho máximo.
+	e verificar se algum deles é mapeado em um outro vértice do caminho máximo.
 	Isso leva tempo linear no número de vértices no caminho máximo, que
 	é~$O(n)$.
 

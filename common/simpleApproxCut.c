@@ -1,7 +1,7 @@
 #include "simpleApproxCut.h"
 
 
-int mEqualsN(Graph *G, int m, int root);
+int mEqualsN(Graph *G, int m, int root, int parent);
 int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int parent);
 void printChildTree(Graph *G, int parent, int vertex);
 void save(Graph *G, int parent, int vertex);
@@ -36,13 +36,15 @@ int Algorithm2(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rig
 
 	for(v = G->adj[root]->next; v!=NULL; v = v->next)
 	{
-		if(v->vertex != rightNeighbor && v->vertex != leftNeighbor)
+		if(v->vertex != rightNeighbor && v->vertex != leftNeighbor && v->edge!=0)
 		{
 			if(DEBUG) printf("vertex (sub-tree): %d\n", v->vertex);
 			if(descendant[v->vertex] <= mPrime)
 			{
 				save(G, root, v->vertex);
+
 				mPrime -= descendant[v->vertex];
+				eraseEdge(G, root, v->vertex);
 			}
 			else
 				break;
@@ -72,12 +74,10 @@ int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int pare
 	int adequadeChild = -1;
 
 	if(NumVert == m)
-		return mEqualsN(G, m, root);
+		return mEqualsN(G, m, root, parent);
 
 	
-
 	for(v = G->adj[root]->next; v!= NULL; v = v->next)
-		/*&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)*/
 	{
 		/* Comes down in the tree */
 		if(descendant[v->vertex] > m && v->edge!=0 && v->vertex != parent)
@@ -91,12 +91,10 @@ int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int pare
 		}
 		else if(descendant[v->vertex] > m/2.0 && v->edge!=0 && v->vertex != parent)
 		{
+			/* finds, if exist, a subtree that satifies the lemma condition  */
 			adequadeChild = v->vertex;
 		}
 	}
-	/* when (if) it finish, v will be the root of the tree with more than m vertices */
-			
-	/*if (v != NULL)*/
 	
 	if(adequadeChild != -1)
 	{
@@ -112,22 +110,20 @@ int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int pare
 	}
 	
 
-	/* Add trees (more than one) at B
-	   If the answer is only one tree, it will be detected at the fist "for"*/
 	else
 	{
+	/* Add trees (more than one) at B
+	   If the answer is only one tree, it will be detected at above condition */
 		int numVerticesB = 0;
 		if(DEBUG == 1)
 			printf("filhos com menos de m vertices.. raiz: %d\n", root);
-		for(v = G->adj[root]; v->next!=NULL; v = v->next)
+		for(v = G->adj[root]; v->next!=NULL;v = v->next)
 		{
 
-			while (v->next!=NULL && (numVerticesB + descendant[v->next->vertex] <= m 
-				|| v->next->vertex == parent 
-				|| v->next->edge != 1))
+			/* Sum each set (roots childs) */ 
+			if(v->next->edge == 1 && v->next->vertex!= parent)
 			{
-				/* Sum each set (roots childs) */ 
-				if(v->next->edge == 1 && v->next->vertex!= parent)
+				if(numVerticesB + descendant[v->next->vertex] <= m)
 				{
 					if(DEBUG == 1)
 						printf("  arvore filha sendo acrescentada raiz: %d\n", v->next->vertex);
@@ -136,23 +132,12 @@ int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int pare
 					save(G, root, v->next->vertex);
 					/* Separate B and W */
 					eraseEdge(G, root, v->next->vertex);
-					v = v->next;
 					numEdgesCut ++;
 				}
 				else
-					v=v->next;
-				if(v->next == NULL)
+				{
 					break;
-			}
-			if( v->next==NULL )
-				break;
-			else if(v->next->vertex != parent)
-			{
-				if(DEBUG == 1)
-					printf("saiu \n");
-				descendant[root] -= numVerticesB;
-
-				return numVerticesB;
+				}
 			}
 		}
 		descendant[root] -= numVerticesB;
@@ -163,10 +148,13 @@ int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int pare
 
 
 
-int mEqualsN(Graph *G, int m, int root)
+int mEqualsN(Graph *G, int m, int root, int parent)
 {
 	/* Returns the number of edges in the cut */
-	save(G, root, root);
+	save(G, parent, root);
+	
+	eraseEdge(G, parent, root);
+
 	return 0;
 }
 
@@ -200,7 +188,7 @@ void printChildTree(Graph *G, int parent, int vertex)
 	for(v = G->adj[vertex]->next; v!= NULL; v = v->next)
 		if(v->vertex != parent && v->edge==1)
 			printChildTree(G, vertex, v->vertex);	
-	if (DEBUG) printf("printChildTree: %d ", vertex);
+	if (DEBUG) printf("printChildTree: %d \n", vertex);
 }
 
 void save(Graph *G, int parent, int vertex)

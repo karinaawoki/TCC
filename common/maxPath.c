@@ -33,9 +33,9 @@ int *maximumPath(Graph *G)
         /* If all vertices was visited, r will be G->V (BREAK)*/
     }
   
-    for (i=1; i<tree; i++) includeBridgeEdges(G, y[i-1], x[i]);
-  
+    free(visited);
     free(parents); 
+    for (i=1; i<tree; i++) includeBridgeEdges(G, y[i-1], x[i]);
     free(x); 
     free(y);
     if(DEBUG_2||STEP) printf("length: %d\n", maxPathLength);

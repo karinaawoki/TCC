@@ -2,9 +2,8 @@
 
 
 int mEqualsN(Graph *G, int m, int root);
-int searchByNode(Graph *G, int m, int root, int *descendant, int parent);
+int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int parent);
 void printChildTree(Graph *G, int parent, int vertex);
-int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor);
 void save(Graph *G, int parent, int vertex);
 
 
@@ -14,38 +13,18 @@ int numEdgesCut = 0; /* Updates the vector of descendants */
     simpleApproxCut - lemma2) and returns the number of edges at the cut.   */ 
 
 
-int simpleApproxCut(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
+int Algorithm2(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
 {
 	/* Returns the number of edges in the cut */
+	int *descendant, i, mPrime = m;
+	Vertex *v;
 
 	if(STEP) printf("      Simple approximate cut (Lemma 2)\n");
 	if(DEBUG || STEP) {
 		printf("        root: %d\n", root);
 		printf("        m: %d\n", m);
 	}
-	if(NumVert == m)
-		return mEqualsN(G, m, root);
-	else if(m == 0)
-		return 0;
-	else
-		return mLessThanN(G, m, root, leftNeighbor, rightNeighbor);
-}
-
-
-
-int mEqualsN(Graph *G, int m, int root)
-{
-	/* Returns the number of edges in the cut */
-	save(G, root, root);
-	return 0;
-}
-
-int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
-{
-	/* Returns the number of edges in the cut */
-
-	int *descendant, i, mPrime = m;
-	Vertex *v;
+	
 	descendant = malloc(G->V*sizeof(int));
 	for (i = 0; i < G->V; i++)
 	{
@@ -74,7 +53,7 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 	if(mPrime > 0)
 	{
 		if(v == NULL) printf("ERROR: m = |Tz| \n");
-		searchByNode(G, mPrime, v->vertex, descendant, root);
+		Algorithm1(G, NumVert, mPrime, v->vertex, descendant, root);
 	}
 
 	free(descendant);
@@ -82,47 +61,56 @@ int mLessThanN(Graph *G, int m, int root, int leftNeighbor, int rightNeighbor)
 }
 
 
-int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
+
+
+
+
+int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int parent)
 {
 	/* Return the number of vertices at B */
 	Vertex *v;
-	for(v = G->adj[root]->next; v!= NULL 
-		&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)
-		/* If the tree satisfies the condition of the lemma, the tree is a answer 
-		 We don't need to comes down in the tree*/
-		/* ??????????? */
+	int adequadeChild = -1;
+
+	if(NumVert == m)
+		return mEqualsN(G, m, root);
+
+	
+
+	for(v = G->adj[root]->next; v!= NULL; v = v->next)
+		/*&& (descendant[v->vertex] <= m || v->edge==0 || v->vertex == parent) ; v = v->next)*/
 	{
-
-/*		if (descendant[v->vertex] > m/2.0 
-		 	&& v->vertex!=parent 
-			&& v->edge == 1)
-*/			/* m/2.0  -->  m/2 */
-/*		{
-			int removeDescendant = descendant[v->vertex];
+		/* Comes down in the tree */
+		if(descendant[v->vertex] > m && v->edge!=0 && v->vertex != parent)
+		{
+			int aux;
 			if(DEBUG == 1)
-				printf("encontrou filho certinho -- raiz: %d\n", v->vertex);
-			printChildTree(G, root, v->vertex);
-			save(G, root, v->vertex);
-*/
-			/* separate B and W */
-/*			eraseEdge(G, root, v->vertex);
-
-			descendant[root] -= removeDescendant;
-			return removeDescendant;
+				printf("Desceu para: %d \n", v->vertex);
+			aux = Algorithm1(G, NumVert, m, v->vertex, descendant, root);
+			descendant[root] -= aux;
+			return aux;
 		}
-*/	}
+		else if(descendant[v->vertex] > m/2.0 && v->edge!=0 && v->vertex != parent)
+		{
+			adequadeChild = v->vertex;
+		}
+	}
 	/* when (if) it finish, v will be the root of the tree with more than m vertices */
 			
-	/* Comes down in the tree */
-	if (v != NULL)
+	/*if (v != NULL)*/
+	
+	if(adequadeChild != -1)
 	{
-		int aux;
-		if(DEBUG == 1)
-			printf("Desceu para: %d \n", v->vertex);
-		aux = searchByNode(G, m, v->vertex, descendant, root);
-		descendant[root] -= aux;
-		return aux;
+		int removeDescendant = descendant[adequadeChild];
+		printChildTree(G, root, adequadeChild);
+		save(G, root, adequadeChild);
+
+		/* separate B and W */
+		eraseEdge(G, root, adequadeChild);
+
+		descendant[root] -= removeDescendant;
+		return removeDescendant;
 	}
+	
 
 	/* Add trees (more than one) at B
 	   If the answer is only one tree, it will be detected at the fist "for"*/
@@ -172,6 +160,15 @@ int searchByNode(Graph *G, int m, int root, int *descendant, int parent)
 	}
 }
 
+
+
+
+int mEqualsN(Graph *G, int m, int root)
+{
+	/* Returns the number of edges in the cut */
+	save(G, root, root);
+	return 0;
+}
 
 
 

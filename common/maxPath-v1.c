@@ -12,7 +12,7 @@ int *maximumPath(Graph *G, int r)
 	the maximum path - the number -1 indicate 
 	the end of the path */
 	int x0, y0, *parents, *maxPath, i;
-	printf("%d -- r \n", r); 
+	/*printf("%d -- r \n", r); */
 	parents = malloc(G->V*sizeof(int));
 	maxPath = malloc((1+G->V)*sizeof(int));
 

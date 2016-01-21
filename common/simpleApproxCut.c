@@ -20,10 +20,10 @@ int Algorithm2(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rig
 	Vertex *v;
 
 	if(STEP) printf("      Simple approximate cut (Lemma 2)\n");
-	if(DEBUG || STEP) {
+	/*if(DEBUG || STEP) {
 		printf("        root: %d\n", root);
 		printf("        m: %d\n", m);
-	}
+	}*/
 	
 	descendant = malloc(G->V*sizeof(int));
 	for (i = 0; i < G->V; i++)

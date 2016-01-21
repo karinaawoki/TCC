@@ -22,7 +22,7 @@ void approxCut(Graph *G, int m, float c, int root, int leftNeighbor, int rightNe
 	if(STEP) printf("    size of the tree rooted at r: %d\n\n", NumVert);
 	
 
-	if(STEP) printf("    Algorithm 3 - root: %d\n", root);
+	/*if(STEP) printf("    Algorithm 3 - root: %d\n", root);*/
 	if(STEP) printf("      Initial size of B: %d\n", Blength);
 
 	if(m == 0);

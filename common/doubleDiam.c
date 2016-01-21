@@ -202,17 +202,10 @@ int bSpecialTree(Graph *G, int m, int *maxPath, int z, int *rLabel, int *label)
 		printf("c %f \n", cPrime);
 		printf("m %d \n", mPrime);
 	}
-
-	/* Separate B */
-	/*eraseEdge(G, maxPath[z], maxPath[nextMaxPath(z)]);
-	eraseEdge(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
 	
-	/* We will pass the neighbors instead delete the edges */
+	/* We will pass the neighbors of z in P instead of deleting the edges */
 
 	approxCut(G, mPrime, cPrime, maxPath[z], maxPath[nextMaxPath(z)], maxPath[previousMaxPath(z)]);
-
-	/*includeEdges(G, maxPath[z], maxPath[nextMaxPath(z)]);
-	includeEdges(G, maxPath[z], maxPath[previousMaxPath(z)]);*/
 
 	elementOfS = separateSBSpecial(G, z, label, rLabel, maxPath, m);
 	return elementOfS;

@@ -35,6 +35,7 @@ int Algorithm2(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rig
 
 
 	for(v = G->adj[root]->next; v!=NULL; v = v->next)
+	/* Components V_1,...,V_n */
 	{
 		if(v->vertex != rightNeighbor && v->vertex != leftNeighbor && v->edge!=0)
 		{
@@ -68,8 +69,13 @@ int Algorithm2(Graph *G, int m, int root, int NumVert, int leftNeighbor, int rig
 
 
 int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int parent)
+/* Adaptation of Algorithm 1. 
+   Input: tree T with adjacent vertices root and parent, m, descendant. 
+   Corresponding input of Algorithm 2: a tree T' consisting of the component of T-parent containing root
+   T'has at least m vertices, and descendant is the number of descendants of each vertex in T' with root. 
+   Computes a cut (B,W) in T' where m/2 < |B| <= m with e(B,W) <= Delta(G). */
+
 {
-	/* Return the number of vertices at B */
 	Vertex *v;
 	int adequadeChild = -1;
 
@@ -83,8 +89,7 @@ int Algorithm1(Graph *G, int NumVert, int m, int root, int *descendant, int pare
 		if(descendant[v->vertex] > m && v->edge!=0 && v->vertex != parent)
 		{
 			int aux;
-			if(DEBUG == 1)
-				printf("Desceu para: %d \n", v->vertex);
+			if(DEBUG == 1) printf("Desceu para: %d \n", v->vertex);
 			aux = Algorithm1(G, NumVert, m, v->vertex, descendant, root);
 			descendant[root] -= aux;
 			return aux;

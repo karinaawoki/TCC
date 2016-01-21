@@ -1,10 +1,12 @@
 #include "approxCut.h"
 
-void Algorithm3(Graph *G, float c, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor);
-
-
 void approxCut(Graph *G, int m, float c, int root, int leftNeighbor, int rightNeighbor)
+/* Adaptation of Algorithm 3. 
+   Input: subtree of G rooted at root, ignoring leftNeighbor and rightNeighbor
+   Corresponding input of Algorithm 3: forest consisting of the subtrees of root.
+ */
 {
+	int edgesCut = 0, oldBLength = Blength;
 	int NumVert, *childs;
 	childs = malloc(G->V*sizeof(int));
 
@@ -15,20 +17,12 @@ void approxCut(Graph *G, int m, float c, int root, int leftNeighbor, int rightNe
 
 	descendantsNumber(G, root, childs, leftNeighbor, rightNeighbor);
 	NumVert = childs[root];
+	free(childs);
 
 	if(STEP) printf("    size of the tree rooted at r: %d\n\n", NumVert);
 	
-	Algorithm3(G, c, m, root, NumVert, leftNeighbor, rightNeighbor);
-	
-	free(childs);
-}
 
-
-void Algorithm3(Graph *G, float c, int m, int root, int NumVert, int leftNeighbor, int rightNeighbor)
-{
-	int edgesCut = 0, oldBLength = Blength;
-
-	if(STEP) printf("    Algorithm 1 - root: %d\n", root);
+	if(STEP) printf("    Algorithm 3 - root: %d\n", root);
 	if(STEP) printf("      Initial size of B: %d\n", Blength);
 
 	if(m == 0);
@@ -43,12 +37,11 @@ void Algorithm3(Graph *G, float c, int m, int root, int NumVert, int leftNeighbo
 		int sizeB = 0;
 		while(sizeB < c*m)
 		{
-			if (DEBUG||STEP) printf("      Inside the loop of Algorithm 1.\n");
+			if (DEBUG||STEP) printf("      Inside the loop of Algorithm 3.\n");
 			edgesCut += Algorithm2(G, m - sizeB, root, NumVert, leftNeighbor, rightNeighbor);
-			
 			sizeB = Blength - oldBLength;
 		}
 	}
 	if(STEP) printf("      Final size of B: %d\n", Blength);
-	if(STEP) printf("    Algorithm 1 - number of edges cut: %d\n", edgesCut);
+	if(STEP) printf("    Algorithm 3 - number of edges cut: %d\n", edgesCut);
 }

@@ -631,7 +631,7 @@
 		% Sabemos que os vértices do corte~$(B,W,S)$ são as arestas
 		% que ligam~$z^b_l$ e~$f$ aos vértices que vêm depois deles 
 		% em~$P$
-		Temos que o número de arestas no corte~$(B,W,S)$ é, no 
+		O número de arestas no corte~$(B,W,S)$ é, no 
 		máximo,~${(\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 		(\Delta(T)-2)}$.
 		Essa soma representa a quantidade total máxima de arestas no corte,
@@ -973,3 +973,29 @@
 	Portando, é possível encontrar um corte~$(B,W,S)$
 	que satisfaça as condições do teorema em 
 	tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
+
+
+
+
+% Caso contrário, observe que o algoritmo termina 
+% de executar o laço das linhas 7-8(?), pois a árvore
+% é finita e o faz com tempo~$O(n)$ já que cada 
+% vértice é percorrido no máximo uma vez.
+
+% Seja~$v$ o vértice em que o laço das linhas 7-8(?)
+% termina.
+% Se o algoritmo executa a linha 11(?), o consumo de 
+% tempo~$O(n)$ e o corte devolvido é tal 
+% que~$\dfrac{m}{2}<|B|\le m$ e~$e_G(B,W) = 1$ 
+% pois _____.
+% Senão é porque todos os filhos~$u$ do vértice~$v$
+% são tais que~$d[u]\le \dfrac{m}{2}$. 
+% Claro que~$|B|\le m$ nesse caso.
+% No início de cada iteração do laço das linhas 13-19(?)
+% exceto a última, vale que~$|B|\le \dfrac{m}{2}$.
+% Assim, após a execução da linha 15(?), vale
+% que~$|B|\le m$, pois aumentamos~$|B|$ 
+% de~$d[u]\le \dfrac{m}{2}$.
+% Como~$d[v]\ge m$, eventualmente~$|B|\ge \dfrac{m}{2}$
+% (de fato, note que como~$m\in[n]$ e~$m\neq n$,...)
+

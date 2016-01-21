@@ -51,12 +51,12 @@ descritas no lema.
 	e~$e_T(B,W)\le \Delta(T)$}
 	$B \gets \emptyset$\;
 	\lIf{$m =n$}{
-		\Return $(V,\emptyset)$
+		\Return $(V,\ \emptyset)$
 	}
 		$d \gets~$ {\sc número\_de\_descendentes}$(T$, $r)$\;
 		$v \gets r$\;
-		\While{existe filho~$u$ de~$v$ com~$d[u] > m$ }{
-			$v \gets u$ \;
+		\lWhile{existe filho~$u$ de~$v$ com~$d[u] > m$ }{
+			$v \gets u$
 		}
 		\eIf{existe filho~$u$ de~$v$ com~$d[u]>\dfrac{m}{2}$}
 		{
@@ -80,13 +80,17 @@ descritas no lema.
 
 \bigskip
 
-\subsection*{Análise do Algoritmo}
+%\subsection*{Análise do Algoritmo}
 
 	Suponha que~$T=(V,E)$ e $n=|V|$.
-	É fácil ver que se~$m=n$, então os valores~$B =V$ 
-	e~$W =\emptyset$ satisfazem as condições do lema, dado 
-	que~$e_G(B,W)$ será~$0$. 
-	Isso pode ser computado em tempo~$O(n)$.
+	Se o algoritmo termina na linha 2, então o corte 
+	devolvido satisfaz 
+	%É fácil ver que se~$m=n$, então os valores~$B =V$ 
+	%e~$W =\emptyset$ satisfazem 
+	as condições do lema, dado 
+	que~$e_G(V,\ \emptyset) = 0$,
+	e o consumo de tempo é claramente~$O(n)$. 
+	%Isso pode ser computado em tempo~$O(n)$.
 
 	Caso contrário, o algoritmo escolhe uma raiz arbitrária~$r$ 
 	para~$T$ e calcula o número de vértices das sub-árvores 
@@ -170,11 +174,11 @@ para florestas em vez de árvores.
 	\caption{Computa corte aproximado simples em uma floresta}
 	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~$m \in [n]$}
 	\Output{corte~$(B,W)$ tal que~${\dfrac{m}{2}\le|B|\le m}$}
-	$B \gets \emptyset$\;
 	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
 	componentes conexas de~$G$\;
+	$B \gets \emptyset$\;
 	\For{${i=1 \to k}$}{
-		\If{$|V_i| + |B|\le m$}{
+		\If{$|B| + |V_i|\le m$}{
 			$B \gets B\cup V_i$\;
 		}	
 		\ElseIf{$|B|<m$}{

@@ -92,9 +92,9 @@ int main(int argc, char *argv[])
     tempoFinal = clock();
 
   	
-	printf(" MaxDegree: %d\n", maxDegree);
+	/*printf(" MaxDegree: %d\n", maxDegree);*/
   	bound = maxDegree*8.0*G->V/maxPathLength;
-    printf("Bound: %f\n", bound);
+    /*printf("Bound: %f\n", bound);*/
 
  
   	freeGraph(G);
@@ -142,7 +142,7 @@ void exactCut(Graph *G, int m)
 	if(DEBUG == 1) printGraph(G);
 		
 	countEdgesAtCut(G, 0, 0);
-	printf("**** Cut **** : %d\n", numCut);
+	/*printf("**** Cut **** : %d\n", numCut);*/
     printf("Cut-weight: %f \n", numCutWeight);
     
 	free(maxPath);
@@ -163,7 +163,7 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
         {
         	if(setB[ver]!=setB[v->vertex] && v->bridge==0)
         	{
-        		if(DEBUG_2) printf("%d -- %d\n", ver, v->vertex);
+        		/*if(DEBUG_2) printf("%d -- %d\n", ver, v->vertex);*/
             	numCut++;
             	numCutWeight+= v->weight;
         	}

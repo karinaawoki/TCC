@@ -243,25 +243,40 @@
 
 		\begin{table}[h]
 		\centering
-		\begin{tabular}{| c | >{\columncolor{blue!14}}P{1.8cm} | >{\columncolor{red!14}}P{2.6cm} | P{2.6cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{red!14}}P{2.6cm} |}
+		\scalebox{0.7}{
+		\begin{tabular}{| c | >{\columncolor{blue!14}}P{1.8cm} | >{\columncolor{red!14}}P{2.6cm} | P{2.6cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{red!14}}P{2.6cm} | >{\columncolor{red!14}}P{2.5cm} |}
 		%\begin{tabular}{c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
 			\specialrule{1.7pt}{1pt}{1pt}
-			$|V(T)|$ & $e_T(B,W)$ \textbf{FST} (pior~caso) & $e_T(B,W)$ \textbf{Jansen~et~al.} (pior~caso) & nº de vezes que encontrou o ótimo & Tempo médio \textbf{FST} (segundos) & Tempo médio \textbf{Jansen~et~al.}   (segundos) \\[10pt]
+			$|V(T)|$ & $e_T(B,W)$ \textbf{FST} (pior~caso) & $e_T(B,W)$ \textbf{Jansen~et~al.} (pior~caso) & nº de vezes que encontrou o ótimo & Tempo médio \textbf{FST} (segundos) & Desvio padrão do tempo \textbf{FST} & Tempo médio \textbf{Jansen~et~al.}   (segundos) & Desvio padrão do tempo \textbf{Jansen~et~al.}  \\[10pt]
 
 			\specialrule{1.7pt}{1pt}{1pt}
 
-			  	100  & 5  & 2  & 7/10  & 0.000162  &   0.001458 \\ [3pt]
-				200  & 7  & 2  & 9/10  & 0.000200  &   0.007780 \\ [3pt]
-				400  & 8  & 3  & 6/10  & 0.000395  &   0.051422 \\ [3pt]
-				800  & 9  & 3  & 3/10  & 0.000816  &   0.400407 \\ [3pt]
-				1600 & 8  & 3  & 2/10  & 0.001218  &   3.136476 \\ [3pt]
-				3200 & 9  & 3  & 4/10  & 0.002107  &  25.733941 \\ [3pt]
-				6400 & 11 & 3  & 0/10  & 0.004222  & 202.527711 \\ [3pt]
-			   12800 & 11 & 3  & 0/10  & 0.009259  &1343.374207 \\ [3pt]
+			  	100  & 5  & 2  & 7/10  & 0.000136  & 0.000050 &   0.001794 & 0.000818  \\ [3pt]
+				200  & 7  & 2  & 9/10  & 0.000186  & 0.000089 &   0.008120 & 0.001961  \\ [3pt]
+				400  & 8  & 3  & 6/10  & 0.000196  & 0.000061 &   0.046444 & 0.003297  \\ [3pt]
+				800  & 8  & 3  & 3/10  & 0.000469  & 0.000091 &   0.350070 & 0.011072  \\ [3pt]
+				1600 & 8  & 3  & 2/10  & 0.001014  & 0.000182 &   2.730767 & 0.054196  \\ [3pt]
+				3200 & 10 & 3  & 4/10  & 0.001943  & 0.000681 &  22.178777 & 0.512264  \\ [3pt]
+				6400 & 11 & 3  & 0/10  & 0.004158  & 0.000781 & 176.240114 & 2.011271  \\ [3pt]
+			   12800 & 10 & 3  & 0/10  & 0.008592  & 0.001632 &1343.374207  \\ [3pt]
+
+			   25600    & 12 & --  & --  & 0.024976  & 0.001446 & -- & -- \\ [3pt]
+			   51200    & 12 & --  & --  & 0.060082  & 0.003555 & -- & -- \\ [3pt]
+			   102400   & 13 & --  & --  & 0.152887  & 0.007932 & -- & -- \\ [3pt]
+			   204800   & 12 & --  & --  & 0.284941  & 0.016206 & -- & -- \\ [3pt]
+			   409600   & 13 & --  & --  & 0.619568  & 0.084594 & -- & -- \\ [3pt]
+			   819200   & 13 & --  & --  & 1.478659  & 0.093567 & -- & -- \\ [3pt]
+			   1638400  & 13 & --  & --  & 2.832498  & 0.147750 & -- & -- \\ [3pt]
+			   3276800  & 14 & --  & --  & 5.971384  & 0.199216 & -- & -- \\ [3pt]
+			   6553600  & 16 & --  & --  & 13.298427 & 0.831551 & -- & -- \\ [3pt]
+			   13107200 & 17 & --  & --  & 27.177690 & 1.280472 & -- & -- \\ [3pt]
+			   26214400 & 15 & --  & --  & 58.552827 & 4.089392 & -- & -- \\ [3pt]
+
 
 			\specialrule{1.7pt}{1pt}{1pt}
 		 
 		\end{tabular}
+	}
 	\end{table}
 
 		\subsection{Árvores Ternárias}

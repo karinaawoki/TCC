@@ -78,7 +78,7 @@ void case1(Graph *G, int firstVertexB, int m, int *index)
 	setB[index[i]] = 1;
 	Blength++;
 
-	printB(G);
+	/*printB(G);*/
 }
 
 int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
@@ -165,7 +165,7 @@ int case2(Graph *G, int m, int *index, int *maxPath, int *rLabel, int *label)
 	else
 		elementOfS = fSpecialTree(G, m, maxPath, z, rLabel, label);
 
-	printB(G);
+	/*printB(G);*/
 	free(pf);
 	free(pb);
 	return elementOfS;

@@ -19,7 +19,7 @@ int *maximumPath(Graph *G)
     for(i = 0; i<G->V; i++) maxPath[i] = -1;
     
     while (r < G->V) {
-        if(DEBUG_2)printf("root: %d \n", r); 
+        /*if(DEBUG_2)printf("root: %d \n", r); */
         /* defining the start and the end of the 
            maximumPath of the analized tree */
         x[tree] = fartherVertex(G, r, parents, visited);
@@ -38,7 +38,7 @@ int *maximumPath(Graph *G)
     for (i=1; i<tree; i++) includeBridgeEdges(G, y[i-1], x[i]);
     free(x); 
     free(y);
-    if(DEBUG_2||STEP) printf("length: %d\n", maxPathLength);
+    /*if(DEBUG_2||STEP) printf("length: %d\n", maxPathLength);*/
     return maxPath;
 }
 
@@ -46,25 +46,25 @@ void printPath(int *parents, int init, int end, int *maxPath, int *i)
 {
     int vertex;
     
-    if(DEBUG_2||STEP) printf("TASK 1 - The longest path in the tree is: \n");
-    if(DEBUG_2||STEP) printf("%d  ", end);
+    /*if(DEBUG_2||STEP) printf("TASK 1 - The longest path in the tree is: \n");
+    if(DEBUG_2||STEP) printf("%d  ", end);*/
     maxPath[*i] = end; 
     (*i)++;
     vertex = parents[end];
     while(vertex != init) 
     {
-        if(DEBUG_2||STEP) printf("%d  ", vertex);
+        /*if(DEBUG_2||STEP) printf("%d  ", vertex);*/
         maxPath[*i] = vertex;
         vertex = parents[vertex];
         (*i)++;
     }
     if(init!=end)
     {
-        if(DEBUG_2||STEP) printf("%d\n", init);
+        /*if(DEBUG_2||STEP) printf("%d\n", init);*/
         maxPath[*i] = init;
         (*i)++;
     }
-    else if(DEBUG_2||STEP) printf("\n");
+    /*else if(DEBUG_2||STEP) printf("\n");*/
     
     maxPathLength = (*i);
 

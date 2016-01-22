@@ -1,11 +1,13 @@
 #!/bin/bash
 
-max=10
-metade=$(($1/2))
+num=100
+max=20
 
-echo "num_vertices: $1   SEED: $seed   metade:$metade"
 for seed in `seq 1 $max`
 do
-    ./_gen $1 $seed   > comp/t$1s$seed
-    ./_t5 comp/t$1s$seed $metade
+echo "num_vertices: $1   SEED: $seed   metade:$metade"
+	metade=$(($num/2));
+    #./_gen $1 $seed   > comp/t$1s$seed
+     ./_t5 ../src/testeCaminhoLongo/oi$num $metade
+	num=$(( $num*2 ));
 done

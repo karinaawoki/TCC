@@ -146,7 +146,12 @@ descritas no lema.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% LEMA 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Lema do corte aproximado simples para florestas}
+%\subsection{Lema do corte aproximado simples para florestas}
+
+O lema abaixo representa uma adaptação do algoritmo anterior
+para florestas em vez de árvores.
+Note que a adaptação não recebe uma raiz como parâmetro, mas 
+apenas~$G$ e~$m$.
 
 \begin{lem}[{\cite[Lema 2]{Schmidt15}}]
 \label{lema:simpleApproxCutForest}
@@ -232,7 +237,10 @@ para florestas em vez de árvores.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% LEMA 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Lema do corte aproximado}
+%\subsection{Lema do corte aproximado}
+Finalmente apresentamos o algoritmo que é usado repetidas 
+vezes no algoritmo FST.
+Ele utiliza o algoritmo anterior como subrotina.
 
 \begin{lem}[{\cite[Lema 3]{Schmidt15}}]
 \label{lema:approxCutForest}
@@ -258,41 +266,39 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	${c\in [0, 1)}$}
 	\Output{corte~${(B,W)}$ tal que~${cm\le|B|\le m}$
 	e~$e_G(B,W) \le \ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)$}
-	\If{$c=0$}{
-		$(B,W)\gets (\emptyset, V)$\;
-	}
-	\ElseIf{${c\le \dfrac{1}{2}}$}{
-		$(B,W) \gets \mathbf{Algoritmo\ref{alg:simpleApproxCutForest}}(
-		G, n, m)$\;
-	}
-	\Else{
+	\lIf{$c=0$}{
+		$\Return\ (\emptyset, V)$}
+	\lIf{${c\le \dfrac{1}{2}}$}{
+		$\Return\ \mathbf{Algoritmo\ref{alg:simpleApproxCutForest}}(
+		G, m)$}
 		$B \gets \emptyset$\;
 		\While{$|B|<cm$}{
 			$(B',W') \gets 
 			\mathbf{Algoritmo\ref{alg:simpleApproxCutForest}}(
-			G[V\setminus B], n-|B|, m-|B|)$ \;
+			G[V\setminus B], m-|B|)$ \;
 
 			$B \gets B\cup B'$\;		
-		}
 	}
 	\Return $(B,V\setminus B)$\;
 
 \end{algorithm}	
-\subsection*{Análise do Algoritmo}
+%\subsection*{Análise do Algoritmo}
 
 	Se~$c=0$, o Algoritmo~\ref{alg:approxCutForest} devolverá
-	um corte onde~$B=\emptyset$. Isso irá satisfazer as 
+	um corte onde~$B=\emptyset$ e~$e_G(B,W) = 0$. 
+	Isso irá satisfazer as 
 	propriedades do Lema~\ref{lema:approxCutForest}, dado 
 	que~$cm=0=|B|$.
 
-	Caso contrário, se~$c \le \dfrac{1}{2}$, o algoritmo aplica o 
-	Algoritmo~\ref{alg:simpleApproxCutForest}, dado que esse 
-	nos dará um corte~$(B',W')$ tal 
+	Caso contrário, se~$c \le \dfrac{1}{2}$, o algoritmo 
+	devolve o corte produzido pelo 
+	Algoritmo~\ref{alg:simpleApproxCutForest}, ou seja,
+	um corte~$(B',W')$ tal 
 	que~$|B'|>\dfrac{m}{2}\ge cm$ e~${e_G(B',W')\le \Delta(G)}$.
 
-	Caso contrário, temos que~$B$ é inicializado com $\emptyset$.
-	O Algoritmo~\ref{alg:simpleApproxCutForest}, 
-	referente ao Lema~\ref{lema:simpleApproxCutForest}, é
+	Por outro lado, se~$c>\dfrac{1}{2}$, 
+	o conjunto~$B$ é inicializado com $\emptyset$.
+	O Algoritmo~\ref{alg:simpleApproxCutForest} é
 	executado diversas vezes para encontrar a cada vez
 	um corte~$(B',W')$ em~${G[V\setminus B]}$ 
 	tal que~${\dfrac{m-|B|}{2}<|B'|\le m-|B|}$ 
@@ -304,8 +310,10 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	Note que em algum momento~$|B|\ge cm$, pois a 
 	cada vez que executamos o 
 	Algoritmo~\ref{alg:simpleApproxCutForest}, acrescentamos pelo 
-	menos um vértice em~$B$, e~${|B|>m}$ nunca irá ocorrer, pois o 
-	conjunto~$B'$ obtido no Lema~\ref{lema:simpleApproxCutForest} 
+	menos um vértice em~$B$, 
+	e~${|B|\le m}$ durante todo o processo, já que o
+	conjunto~$B'$ obtido 
+	pelo Algoritmo~\ref{alg:simpleApproxCutForest} 
 	é tal que~$|B'|\le m-|B|$. Logo, serão adicionados no 
 	máximo~${m-|B|}$ vértices em~$B$.
 	
@@ -315,13 +323,13 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	devolvido pelo Algoritmo~\ref{alg:approxCutForest} satisfazem
 	o que foi proposto no Lema~\ref{lema:approxCutForest}.
 	
-	Caso~${c>0}$, a largura do corte devolvido será igual a zero,
-	dado que todos os vértices de~$G$ estarão todos em~$W$,
-	portanto,~${e_G(B,W)=0=\ceil[\Big]{\dfrac{2c}{1-c}} \Delta(G)}$.
-	Já em relação ao tempo, o Algoritmo~\ref{alg:approxCutForest}
-	executa apenas operações que levam tempo constante, logo, ele
+	Caso~${c=0}$, a largura do corte devolvido será zero,
+	dado que todos os vértices de~$G$ estarão em~$W$.
+	Portanto~${e_G(B,W)=0=\ceil[\Big]{\dfrac{2c}{1-c}} \Delta(G)}$.
+	Já em relação ao tempo, neste caso o Algoritmo~\ref{alg:approxCutForest}
+	executa apenas operações que levam tempo constante, logo ele
 	leva tempo~$O(1)$. 
-	Como~$\ceil[\Big]{\dfrac{2c}{1-c}} n+1 = 1$, então,
+	Como~$\ceil[\Big]{\dfrac{2c}{1-c}} n+1 = 1$,
 	as propriedades do Lema~\ref{lema:approxCutForest} são
 	satisfeitas.
 
@@ -329,7 +337,7 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	Algoritmo~\ref{alg:simpleApproxCutForest} uma única vez, 
 	portanto o tempo é~$O(n)$, que equivale 
 	a~${O\Big(\ceil[\Big]{\dfrac{2c}{1-c}} n+1\Big)}$.
-	Em relação à largura do corte, será devolvido o corte do 
+	Em relação à largura do corte, será devolvido o corte~$(B,W)$ do 
 	Algoritmo~\ref{alg:simpleApproxCutForest} sem nenhuma 
 	modificação, então, sabe-se que~${e_G(B,W)\le \Delta(G)}$.
 	Como~${0<c\le\dfrac{1}{2}}$, temos que~${\dfrac{2c}{1-c}>0}$, 
@@ -340,22 +348,23 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	Lema~\ref{lema:approxCutForest}.
 
 	Caso contrário,~${c>\dfrac{1}{2}}$. Como em todas as vezes que
-	executamos a linha~7 do Algoritmo~\ref{alg:approxCutForest}, 
+	executamos a linha~4 do Algoritmo~\ref{alg:approxCutForest}, 
 	vale que~${|B|<cm}$, então também é válido que~${m-|B|>(1-c)m}$.
-	Como~${m-|B|}$ é o valor do~$m$ que passaremos para o 
+	Como~${m-|B|}$ é o valor do~$m$ que passamos para o 
 	Algoritmo~\ref{alg:simpleApproxCutForest}, sabemos que o 
-	conjunto $B$ do corte devolvido terá mais 
+	conjunto $B'$ do corte devolvido terá mais 
 	que~$\dfrac{m-|B|}{2}$ vértices.
 	Portanto, executaremos o 
 	Algoritmo~\ref{alg:simpleApproxCutForest} no 
 	máximo~${\ceil[\bigg]{\dfrac{cm}{\frac{(1-c)m}{2}}} 
-	=\ceil[\Big]{\dfrac{2c}{1-c}}}$ vezes, consumindo, no total, um
-	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n\Big)$,
-	que equivale a~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
+	=\ceil[\Big]{\dfrac{2c}{1-c}}}$ vezes, consumindo, no total,
+	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n\Big) = O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
 	Usaremos essa mesma linha de pensamento para calcular a largura
-	máxima do corte devolvido. Sabemos que o 
+	máxima do corte devolvido na linha~8. 
+	Sabemos que o 
 	Algoritmo~\ref{alg:simpleApproxCutForest} será 
-	chamado~$\ceil[\Big]{\dfrac{2c}{1-c}}$ vezes, e para cada uma 
-	das vezes este devolve um corte cuja largura 
+	chamado no máximo~$\ceil[\Big]{\dfrac{2c}{1-c}}$ 
+	vezes e, para cada uma 
+	das vezes, este devolve um corte cuja largura 
 	máxima é~$\Delta(G)$, portanto a largura máxima do corte 
 	devolvido é~$\ceil[\Big]{\dfrac{2c}{1-c}}\Delta(G)$.

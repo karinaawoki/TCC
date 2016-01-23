@@ -925,13 +925,12 @@
 	Isso leva tempo linear no número de vértices no caminho máximo, que
 	é~$O(n)$.
 
-	Se essa árvore pertence ao primeiro caso, percorremos os vértices que
+	Se a árvore~$T$ se encaixa no Caso~1, percorremos os vértices que
 	serão devolvidos em tempo~$O(n)$.
-
 	Caso contrário, precisamos encontrar os vértices pertencentes aos 
 	conjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$
-	para cada valor de~$z$,
-	e isso é feito em tempo linear em~$n$, como mostrado anteriormente.
+	para cada~$z$,
+	e isso é feito em tempo~$O(n)$, como mostrado anteriormente.
 
 	% Feito isso,
 	% para cada vértice~$z$ b-especial,
@@ -946,7 +945,7 @@
 	Isso leva tempo linear no número de vértices b-especiais e f-especiais,
 	que é~$O(n)$.
 
-	Depois disso, tanto no Caso a) quanto no b), realizamos uma chamada ao 
+	Depois disso, tanto no Caso (a) quanto no (b), realizamos uma chamada ao 
 	Algoritmo~\ref{alg:approxCutForest}, que leva 
 	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
 	Como o valor passado como~$c$ é~$2-\dfrac{1}{1-d}$, então
@@ -958,7 +957,7 @@
 	Algoritmo~\ref{alg:approxCutForest} leva tempo~$O\Big(\dfrac{n}{d}\Big)$.
 
 	Temos também a chamada a {\sc separa\_conjunto}$(T,$ $S)$, que 
-	leva tempo~$O(\grau(v_i))$, como mostrado nesta seção.
+	leva tempo~$O(\Delta(T))$, como mostrado nesta seção.
 	
 	Sendo assim, se a árvore se encaixa no Caso~1,
 	o consumo de tempo do Algoritmo~4 é~$O(n)$.
@@ -967,7 +966,7 @@
 	%Então, podemos dizer que o
 	
 	Como~$d\le1$, temos que~$\dfrac{n}{d}\ge n$, o que implica que o
-	consumo de tempo do segundo caso é~$O\Big(\dfrac{n}{d}\Big)$, que 
+	consumo de tempo do Caso~2 é~$O\Big(\dfrac{n}{d}\Big)$, que 
 	é o mesmo que~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
 
 	Portando, é possível encontrar um corte~$(B,W,S)$

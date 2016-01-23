@@ -1,6 +1,11 @@
 \section {Algoritmo FST para bissecção}
 
-	\subsection{Teorema do corte exato}
+	%\subsection{Teorema do corte exato}
+	Nesta seção, finalmente apresentamos o algoritmo FST.
+	Ele utiliza o Algoritmo~\ref{alg:dobraDiametro} 
+	repetidas vezes além de manter informações derivadas
+	do caminho mais longo e da rotulação inicial.
+
 	\begin{lem}
 	\label{lem:grauMaximo}
 		% Para toda árvore~$T$ com~${n>2}$ vértices
@@ -15,35 +20,34 @@
 	
 	
 	\begin{proof}
-		Como~${n>2}$, então temos que~${\Delta(T)\ge 2}$.
+		Como~${n>2}$, temos que~${\Delta(T)\ge 2}$.
 		Sabemos que ao adicionar~${e = \{v_1,v_2\}}$ em~$T$, 
 		o grau de~$v_1$
 		e~$v_2$ passará a ser 2, e os demais vértices da árvore
 		irão manter os seus respectivos graus.
-		Portanto,~${\grau_{T\cup e}(v_1)=\grau_{T\cup e}(v_2)=2}$
+		Portanto,~${\grau_{T+e}(v_1)=\grau_{T+ e}(v_2)=2}$
 		e, para todo vértice~$v$ tal que~$v\ne v_1$ e~$v\ne v_2$,
-		temos que~${\grau_{T\cup e}(v)=\grau_T(v)}$.
-		
-		Seja~$v$ um vértice de~$T$ tal 
-		que~${\grau_T(v) = \Delta(T)\ge 2}$,
-		dado que~${\grau_T(v_1)=\grau_T(v_2)=1}$
-		sabe-se que~${v\ne v_1}$ e~${v\ne v_2}$, o que nos leva 
-		a~${\grau_{T\cup e}(v)=\grau_T(v)=\Delta(T)}$.
-		Dessa forma, temos que
-		\begin{align}
-			\Delta(T\cup e) &= \max\{\grau_{T\cup e}(v_1), 
-			\grau_{T\cup e}(v)\}
-         		= \max\{2, \Delta(T)\}
-%				&= \grau_{T\cup e}(v) \nonumber\\
-%         		&= \grau_T(v) \nonumber\\
-         		= \Delta(T). \nonumber
-		\end{align}		
-
+		temos que~${\grau_{T+ e}(v)=\grau_T(v)}$.
+		Logo~$\Delta(T+e) = \Delta(T)$.
+% 		Seja~$v$ um vértice de~$T$ tal 
+% 		que~${\grau_T(v) = \Delta(T)\ge 2}$,
+% 		dado que~${\grau_T(v_1)=\grau_T(v_2)=1}$
+% 		sabe-se que~${v\ne v_1}$ e~${v\ne v_2}$, o que nos leva 
+% 		a~${\grau_{T\cup e}(v)=\grau_T(v)=\Delta(T)}$.
+% 		Dessa forma, temos que
+% 		\begin{align}
+% 			\Delta(T\cup e) &= \max\{\grau_{T\cup e}(v_1), 
+% 			\grau_{T\cup e}(v)\}
+%          		= \max\{2, \Delta(T)\}
+% %				&= \grau_{T\cup e}(v) \nonumber\\
+% %         		&= \grau_T(v) \nonumber\\
+%          		= \Delta(T). \nonumber
+% 		\end{align}		
 	\end{proof}
 
 	\bigskip
-	\bigskip
-	\bigskip
+
+	Segue o teorema principal.
 
 	\begin{teo}[Teorema do corte exato
 	{\cite[Teorema 6]{Schmidt15}}]
@@ -60,7 +64,7 @@
 	\medskip
 
 	\begin{proof}
-		Utilizaremos indução para provar o Teorema~\ref{teo:corteExato}.
+		Utilizaremos indução em~$i$ para provar o Teorema~\ref{teo:corteExato}.
 		%a primeira parte do Teorema~\ref{teo:corteExato}.
 		%(sem levar em conta o tempo de execução por enquanto).
 		

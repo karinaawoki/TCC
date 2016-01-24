@@ -15,7 +15,8 @@
 		Para toda árvore~$T$ com~${n>2}$ vértices
 		e todo par de vértices~$v_1$ e~$v_2$ em~$T$ 
 		com~${\grau_T(v_1)=\grau_T(v_2)=1}$,
-		temos que~${\Delta(T) = \Delta(T\cup \{v_1,v_2\})}$.
+		temos que~${\Delta(T) = \Delta(T+ e)}$,
+		onde~$e=\{v_1, v_2\}$.
 	\end{lem}
 	
 	
@@ -195,24 +196,25 @@
 			%se adicionarmos uma aresta~$e=\{v_0,v_p\}$ em~$T$,
 			%então~$T[S']$ será uma componente conexa e
 			teremos um caminho máximo 
-			em~$T^*[S']$ com o maior número de vértices possíveis.
+			em~$T^*[S']$ com o maior número possível de vértices.
 			Além disso, de acordo com o Lema~\ref{lem:grauMaximo}, 
 			temos que~${\Delta(T) = \Delta(T^*)}$, já que a aresta~$e$ 
 			conecta os dois vértices extremos do caminho máximo
 			e estes possuem grau um.
-			Podemos, então, passar a árvore~$T^*[S']$ para o 
-			Teorema~\ref{teo:corteExato}, 
+			Podemos, então, aplicar a indução à árvore~$T^*[S']$ 
+			%para o Teorema~\ref{teo:corteExato}, 
 			sabendo que não há aumento
 			%sem nos preocupar com a modificação 
-			do grau máximo.
-			
-			Como assumimos na indução que o Teorema~\ref{teo:corteExato} vale
-			para~${i-1}$, então existe um corte~$(B'',W'')$ em~$T^*[S']$
+			do grau máximo e do diâmetro relativo.
+			Ou seja,
+			%Como assumimos na indução que o Teorema~\ref{teo:corteExato} vale
+			%para~${i-1}$, então 
+			existe um corte~$(B'',W'')$ em~$T^*[S']$
 			tal que~${|B''|=m-|B'|}$ 
 			e~${e_{T[S]}(B'',W'')\le 4\cdot 2^{i-1}\cdot
 			\Delta(T^*[S'])\le 4\cdot 2^{i-1}\cdot\Delta(T^*)}$.
 
-			Dessa forma, sabemos que existe um corte~$(B,W)$ tal
+			Dessa forma, sabemos que existe um corte~$(B,W)$ em~$T$ tal
 			que~${B=B'\cup B''}$ e~${W=V(T)\setminus B}$, sendo 
 			que~${|B|=|B'| + m-|B'| = m}$ e
 			\begin{align}
@@ -224,12 +226,12 @@
 				\Delta(T)\nonumber\\
 				&= 4\cdot 2^{i}\cdot\Delta(T), \nonumber
 			\end{align}
-			provando assim que o Teorema~\ref{teo:corteExato} é
-			válido para~$i$ partindo do pressuposto de que ele vale
-			para~${i-1}$. Logo, temos que o 
-			Teorema~\ref{teo:corteExato} é válido para 
-			todo~${i\in \mathbb{N^+_*}}$.
-			
+			%provando assim que o Teorema~\ref{teo:corteExato} é
+			%válido para~$i$ partindo do pressuposto de que ele vale
+			%para~${i-1}$. Logo, temos que o 
+			%Teorema~\ref{teo:corteExato} é válido para 
+			%todo~${i\in \mathbb{N^+_*}}$.
+			completando a prova por indução do teorema.
 		%\end{itemize}
 	\end{proof}
 
@@ -240,21 +242,24 @@
 	\label{coro:corteExato}
 		Para toda árvore~$T$ com~$n$ vértices e todo~${m\in[n]}$, existe
 		um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
-		e~${e_G(B,W)\le \dfrac{8}{\diam^*(G)}\Delta(G)}$.
+		e~${e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)}$.
 		%Um corte que satisfaz esses requisitos pode ser computado em 
 		%tempo~$O\Big(\dfrac{n}{\diam^*(G)}\Big)$.
 	\end{coro}
 
 	\begin{proof}
-		De acordo com o Teorema~\ref{teo:corteExato}, para toda árvore~$T$,
-		existe um~$i$ tal que~${\diam^*(T)>\dfrac{1}{2^i}}$. 
-		Como~${\dfrac{1}{2^i}}$ é decrescente, então existe um~$j$ tal
-		que~${\dfrac{1}{2^{j-1}}\ge\diam^*(T)>\dfrac{1}{2^j}}$,
+		%De acordo com o Teorema~\ref{teo:corteExato},
+		Para toda árvore~$T$,
+		como~$0<\diam^*(T)\le 1$,
+		%existe um~$i$ tal que~${\diam^*(T)>\dfrac{1}{2^i}}$. 
+		%Como~${\dfrac{1}{2^i}}$ é decrescente, então 
+		existe um~$j$ tal
+		que~${\dfrac{1}{2^j}}<\diam^*(T)\le \dfrac{1}{2^{j-1}}$,
 		o que implica que~${2^j\le\dfrac{2}{\diam^*(T)}}$.
 
-		O Teorema~\ref{teo:corteExato} garante a existência de um 
+		Assim, o Teorema~\ref{teo:corteExato} garante a existência de um 
 		corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
-		e~$e_T(B,W)\le 4\cdot 2^j\Delta(G)\le \dfrac{8}{\diam^*(T)}$,
+		e~$e_T(B,W)\le 4\cdot 2^j\cdot\Delta(T)\le \dfrac{8}{\diam^*(T)} \Delta(T)$,
 		e esse corte satisfaz as propriedades do 
 		Corolário~\ref{coro:corteExato}. 
 		%então podemos afirmar a existência de cortes desse tipo.
@@ -266,30 +271,34 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Algoritmo do corte exato}
+	\subsection{Algoritmo FST}
 
-		Seja~${T=(V,E)}$ uma árvore com~$n$ vértices.
+		%Seja~${T=(V,E)}$ uma árvore com~$n$ vértices.
 		% Assumimos que a função INSERE\_ARESTA$(T,v_1,v_2)$ irá 
 		% inserir uma aresta em~$T$, ligando os 
 		% vértices~$v_1$ e~$v_2$ em tempo constante. 
-
-		Assumimos que a função {\sc caminho\_máximo}$(T)$ 
-		devolve um vetor contendo os vértices do caminho 
+		O algoritmo FST faz uso das seguintes rotinas.
+		A função {\sc caminho\_máximo}$(T)$ 
+		recebe~$T$ com~$n$ vértices e
+		devolve um vetor contendo os vértices de um caminho 
 		máximo em~$T$, de acordo com a ordem apresentada no caminho.
 		Isso pode ser feito em tempo~$O(n)$, como descrito na 
 		Seção~\ref{sec:caminhoMaximo}.
 
-		A função {\sc rotula}$(T$, $c)$ recebe uma árvore~$T$ e um vetor~$c$
+		A função {\sc rotula}$(T$, $c)$ recebe uma árvore~$T$ com~$n$ vértices 
+		e um vetor~$c$
 		contendo os vértices de um caminho em~$T$ e,
-		retorna dois vetores: o primeiro contém a rotulação de cada vértice 
-		de~$T$ e o segundo, o inverso. 
+		devolve dois vetores: o primeiro contém a rotulação dos vértices 
+		de~$T$
+		descrita na Seção~\ref{sec:rotulacao}, e o segundo, o inverso
+		da rotulação. 
 		Essa função consome tempo~$O(n)$, como mostrado na 
 		Seção~\ref{sec:rotulacao}.
 
 		A função {\sc recalcula\_caminho}$(S$, $c)$
 		recebe como parâmetros um conjunto de vértices~$S$ de uma árvore~$T[S]$ 
-		e um vetor~$c$, que representa um caminho na árvore~$T$.
-		Essa função retorna um vetor que contém os vértices de~$S\cap c$, na mesma 
+		e um vetor~$c$, com os vértices de um caminho na árvore~$T$.
+		Essa função devolve um vetor que contém os vértices de~$S\cap c$, na mesma 
 		ordem que aparecem em~$c$. 
 		Isso pode ser feito em tempo~$O(|c|)$ se 
 		o conjunto~$S$ é dado por um vetor binário.
@@ -319,7 +328,7 @@
 		% e ULTIMO$(vet)$ devolvem o primeiro e o último elementos 
 		% do vetor, respectivamente em tempo constante.
 
-		Segue o algoritmo que encontra um corte que satisfaz as 
+		Segue o algoritmo FST que encontra um corte que satisfaz as 
 		propriedades do Teorema~\ref{teo:corteExato}.
 		
 		\bigskip

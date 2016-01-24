@@ -5,13 +5,13 @@ aleatórias. Tais tipos de árvores foram utilizadas nos
 testes do algoritmo FST.
 
 Árvores binárias aleatórias são árvores com um número 
-pré-definido de vértices, que são construídas aleatoriamente e 
+pré-definido de vértices, construídas aleatoriamente e 
 onde cada vértice possui no máximo dois filhos.
 
 O gerador que utilizamos recebe um inteiro~$n$ e cria um vetor
 com uma permutação aleatória dos inteiros de~$0$ a~$n-1$.
 Depois, constrói uma árvore binária de busca, inserindo 
-os vértices de acordo com a ordem dada pelo vetor.
+os vértices na ordem dada pelo vetor.
 Isso leva tempo~$O(n^2)$, dado que a inserção na árvore 
 binária de busca pode levar tempo linear para cada um dos~$n$ 
 vértices.
@@ -37,8 +37,8 @@ Segue abaixo o algoritmo do gerador.
 	}
 
 	\For {$i = n-1 \to 1$}{
-		$indice \gets$ {\sc random}$(0,\ldots, i)$\;
-		\tcp{{\sc random}$(0,\ldots, i)$ devolve um inteiro
+		$indice \gets$ {\sc random}$(i)$\;
+		\tcp{{\sc random}$(i)$ devolve um inteiro
 		aleatório em~$\{0,\ldots,i\}$}
 		$v[indice] \leftrightarrow v[i]$\;
 	}

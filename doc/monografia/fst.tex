@@ -295,9 +295,10 @@
 		Essa função consome tempo~$O(n)$, como mostrado na 
 		Seção~\ref{sec:rotulacao}.
 
-		A função {\sc recalcula\_caminho}$(S$, $c)$
-		recebe como parâmetros um conjunto de vértices~$S$ de uma árvore~$T[S]$ 
-		e um vetor~$c$, com os vértices de um caminho na árvore~$T$.
+		A função {\sc recalcula\_caminho}$(T$, $S$, $c)$
+		recebe como parâmetros uma árvore~$T$, um conjunto de vértices~$S\subset T$ 
+		e um vetor~$c$, que contém os vértices de um caminho na árvore~$T$ ordenados
+		de acordo com a sua posição neste caminho.
 		Essa função devolve um vetor que contém os vértices de~$S\cap c$, na mesma 
 		ordem que aparecem em~$c$. 
 		Isso pode ser feito em tempo~$O(|c|)$ se 
@@ -338,28 +339,28 @@
 			\SetKwInOut{Input}{input}
 			\SetKwInOut{Output}{output}
 
-			\caption{Computa corte exato em uma árvore}
+			\caption{}
 			\Input{árvore $T=(V,E)$ com $n$ vértices e $m\in[n]$}
 			\Output{corte $(B,W)$ tal que $|B|=m$ 
 			e~$e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)$}
 			$B\gets \emptyset$\;
 			$S'\gets V$\;
-			$r\gets$ um vértice arbitrário de~$T$\;
+			$r\gets$ vértice arbitrário de~$T$\;
 			$P\gets$ {\sc caminho\_máximo}$(T)$\;
-			$[rot$, $ind]\gets$ {\sc rotula}$(T$, $P)$\;
-			$[(B',W',S')$, $T^*[S']$, $r]\gets
+			$[\rot$, $\ind]\gets$ {\sc rotula}$(T$, $P)$\;
+			$[(B',W',S')$, $T'[S']$, $r]\gets
 				\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T$,
 				$|V|$, $m$, $P$, $rot$, $ind$,~$r)$\;
 			\While{$|B|<m$}
 			{
 				\tcp{$r$ receberá um vértice que pertence ao novo conjunto~$S'$}
-				$[(B',W',S')$, $T^*[S']$, $r]\gets
-					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T^*[S']$,
-					$|S'|$, $m-|B|$, $P$, $rot$, $ind$,~$r)$\;
+				$[(B',W',S')$, $T'[S']$, $r]\gets
+					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T'[S']$,
+					$|S'|$, $m-|B|$, $P$, $\rot$, $\ind$,~$r)$\;
 				$B\gets B\cup B'$\;
-				$P\gets$ {\sc recalcula\_caminho}$(S'$, $P)$\;
-				$[rot$, $ind]\gets$ {\sc rotula}$(T^*[S']$, $P)$
-				% \If{$T[S']$ não é conexo}
+				$P\gets$ {\sc recalcula\_caminho}$(T'$, $S'$, $P)$\;
+				$[\rot$, $\ind]\gets$ {\sc rotula}$(T'[S']$, $P)$
+				% \If{$T^*[S']$ não é conexo}
 				% {
 				% 	INSERE\_ARESTA$(T[S']$, PRIMEIRO$(P)$, 
 				% 	ULTIMO$(P))$\;
@@ -383,17 +384,17 @@
 		% Algoritmo~\ref{alg:corteExato}.
 
 		No algoritmo, temos que 
-		retirar arestas de~$G$ para 
+		retirar arestas da árvore para 
 		desconectar os vértices de~$S'$ do resto da árvore
-		e acrescentar a aresta~$e$, como descrito no teorema.
+		e acrescentar a aresta~$e$, como descrito na prova do teorema.
 		Poderíamos desconectar os vértices verificando todas as arestas que 
 		ligam dois vértices de~$S'$ e colocar em~$T[S']$, mas podemos
 		fazer isso no Algoritmo~\ref{alg:dobraDiametro} de forma 
 		mais eficiente. 
-		Sabemos que, no Algoritmo~\ref{alg:dobraDiametro},
+		No Algoritmo~\ref{alg:dobraDiametro},
 		analisamos os vértices de~$S'$ que se ligam a vértices 
 		de~$V\setminus S'$. 
-		Portanto, podemos usar uma marcação para indicar que as 
+		Portanto podemos usar uma marcação para indicar que as 
 		arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
 		tornando $S'$ uma componente conexa isolada. 
 		Obter a árvore~$T^*$ acrescentando a aresta~$e$ em~$T$, como descrito no
@@ -401,8 +402,9 @@
 		forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
 		da mesma forma que foi feito o procedimento citado acima.
 		Desta forma, o Algoritmo~\ref{alg:dobraDiametro} retornará
-		a componente~$T^*[S']$, que, nesse caso, é a árvore~$T^*$ com
-		os vértices de~$S'$ isolados do resto de~$T^*$.
+		a árvore~$T^*[S']$ separada do resto de~$T$.
+		%, que, nesse caso, é a árvore~$T^*$ com
+		%os vértices de~$S'$ isolados do resto de~$T^*$.
 
 		Como usaremos apenas a árvore de~$S'$ e~$T^*[S']$ possui outros 
 		vértices além dos vértices de~$S'$,

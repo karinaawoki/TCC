@@ -85,22 +85,21 @@
 		Portanto, o teorema é válido para~${i=1}$.
 
 
-		\textbf{Caso~${\mathbf{i\ge 2}}$.} Provaremos que 
-		%a primeira parte 
-		o teorema
-		vale para~$i$, assumindo que ele é válido para~$i-1$.
-		Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$. Portanto, 
-		para~${n\le 2}$, temos 
+		\textbf{Passo:~${\mathbf{i\ge 2}}$.} 
+		%Provaremos que a primeira parte o teorema
+		%vale para~$i$, assumindo que ele é válido para~$i-1$.
+		Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$. 
+		Portanto, para~${n\le 2}$, temos 
 		que~${e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot 
 		\Delta(T)}$.
-		Porém, se~${n>2}$, podemos utilizar o 
-		Algoritmo~\ref{alg:dobraDiametro}, que nos devolverá um 
-		corte~$(B',W',S')$ do tipo~1 ou~2.
+		Porém, se~${n>2}$, podemos aplicar o
+		Teorema~\ref{teo:dobraDiametro}, que garante a existência 
+		de um corte~$(B',W',S')$ do tipo~1 ou~2.
 
-			Se o corte~$(B',W',S')$ for do tipo 1, 
+			Se existir um corte~$(B',W',S')$ do tipo 1, 
 			teremos~${|B'|=m}$,~${S'=\emptyset}$
 			e~${e_T(B',W')\le2\le 2\cdot 2^i\cdot \Delta(T)}$.
-			Logo, temos que o corte~$(B',W')$ satisfaz as propriedades
+			Logo, o corte~$(B',W')$ satisfaz as propriedades
 			do corte do teorema.
 
 			Caso contrário, o corte~$(B',W',S')$ será do tipo 2, ou 
@@ -108,26 +107,33 @@
 			e~${e_T(B',W',S')\le \dfrac{2\cdot\Delta(T)}{\diam^*(T)}\le
 			2\cdot2^i\cdot\Delta(T)}$.
 			
-			Se~${|B'|=m}$, temos então que o corte~$(B',V\setminus B')$ satisfaz
+			Se~${|B'|=m}$, então o corte~$(B',V\setminus B')$ satisfaz
 			as propriedades do corte do
 			teorema.
 			Senão,~${|B'|<m\le |B'|+|S'|}$, que implica
-			que~${0<m-|B'|\le|S'|}$. 
-			Pelas propriedades do Teorema~\ref{teo:dobraDiametro}, 
-			sabemos que~${\diam^*(T[S'])\ge 2\cdot \diam^*(T)>
+			que~${0<m-|B'|\le|S'|}$,
+			%Pelas propriedades do Teorema~\ref{teo:dobraDiametro}, 
+			%sabemos que
+			e~${\diam^*(T[S'])\ge 2\cdot \diam^*(T)>
 			\dfrac{1}{2^{i-1}}}$.
-			Como~${0<m-|B'|\le|S'|}$ 
-			e~${\diam^*(T[S'])>\dfrac{1}{2^{i-1}}}$, podemos aplicar o 
-			Teorema~\ref{teo:corteExato} em~$T[S']$ 
+			%Como~${0<m-|B'|\le|S'|}$ 
+			%e~${\diam^*(T[S'])>\dfrac{1}{2^{i-1}}}$, 
+			Assim, se~$T[S']$ for uma árvore,
+			podemos aplicar a
+			%Teorema~\ref{teo:corteExato} 
+			hipótese de indução à~$T[S']$ 
 			usando~${m-|B'|}$ como~$m$ e~$i-1$ como~$i$.
-			
-			Porém, existem casos onde o conjunto~$S'$ retornado 
-			pelo Teorema~\ref{teo:dobraDiametro} é tal que~$T[S']$ 
-			não é conexo, 
-			pois, de acordo com o 
-			Algoritmo~\ref{alg:dobraDiametro},~$T[S']$ pode se 
+			Porém, %existem casos onde o conjunto~$S'$ retornado 
+			%pelo Teorema~\ref{teo:dobraDiametro} é tal 
+			é possível que~$T[S']$ 
+			não seja conexo.
+			De fato, examinando-se a prova do 
+			Teorema~\ref{teo:dobraDiametro},~$T[S']$
+			%pois, de acordo com o 
+			%Algoritmo~\ref{alg:dobraDiametro},
+			pode se 
 			dividir em duas componentes, uma no começo e outra
-			no fim do caminho máximo. 
+			no fim do caminho máximo utilizado. 
 
 			Isso pode ser visto na figura abaixo. 
 
@@ -182,12 +188,12 @@
 
 			\end{tikzpicture} \end{center}
 			Como o Teorema~\ref{teo:corteExato} se aplica a 
-			árvores, precisamos tornar~$S'$ conexo de forma a não 
+			árvores, precisamos tornar~$T[S']$ conexo de forma a não 
 			alterar o seu grau máximo.
-			Sabemos que se adicionarmos uma aresta~$e$ em~$T$, que 
+			Sabemos que se adicionarmos uma aresta~$e$ em~$T$ que 
 			liga o primeiro ao último vértice do caminho máximo,
-			então~$S'$ será conexo. 
-			Diremos que~${T^* = T\cup e}$.
+			então~$T[S']$ será conexo. 
+			Diremos que~${T^* = T+ e}$.
 
 			Note também que em ambas as componentes de~$T[S']$, 
 			temos que o caminho máximo de cada uma possui em um dos
@@ -428,12 +434,12 @@
 		árvore, podemos reutilizar o caminho calculado anteriormente,
 		aproveitando somente a parte do caminho que está contida 
 		em~$S'$. 
-		Se usarmos essa parte como caminho máximo,
+		Se usarmos essa parte no lugar de um caminho máximo,
 		manteremos a propriedade da dobra do diâmetro como pode
-		ser visto na equação~\ref{eq:reaproveitaCaminho} da 
+		ser visto na equação~(\ref{eq:reaproveitaCaminho}) da 
 		Seção~\ref{sec:dobraDiametro}. 
 		Dessa forma, a rotulação continua basicamente a mesma,
-		basta apenas "deslocar" os vértices para a esquerda.
+		bastando apenas fazer um ajuste nos vértices para a esquerda.
 
 		\bigskip
 
@@ -447,9 +453,10 @@
 		{\sc rotula} que consome tempo~$O(n)$.
 		Sendo~$i$ um inteiro tal que~$\diam^*(T)>\dfrac{1}{2^i}$, 
 		temos que cada uma das operações citadas anteriormente
-		irá ser executada no máximo~$i$ vezes.
+		será executada no máximo~$i$ vezes.
 
-		Considere que~$\ell$ representa a interação,
+		Considere que~$\ell$ indica a interação do \textit{while}
+		da linha 7,
 		começando do~$i$ e indo até~1, e~$T_\ell$ e~$n_\ell$ 
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
@@ -465,14 +472,14 @@
 			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1. \nonumber 
 		\end{align}
 		Logo, para todo~$\ell\in[i]$, temos que~$n_\ell \le\dfrac{n} {2^{i-\ell}}$.
-		Portanto temos que o tempo de execução é
+		Portanto temos que o tempo de execução do Algoritmo~5 é
 		\begin{align}
 			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big)
 			+ O(n_\ell) + O(n_\ell)\Big)
 			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big) \nonumber\\
-			&\le \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{i-\ell}}
+			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{i-\ell}}
 			\cdot\dfrac{n}{\diam^*(T)}\Big) \nonumber\\
-			&\le O\Big(\dfrac{n}{\diam^*(T)}\Big). \nonumber
+			&= O\Big(\dfrac{n}{\diam^*(T)}\Big). \nonumber
 		\end{align}
 
 		Logo, o algoritmo leva tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.

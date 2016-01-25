@@ -1,23 +1,37 @@
 \section {Complexidade do problema da bissecção}
-	Nesta seção veremos duas reduções que provam que o problema 
-	da bissecção mínima é NP-Completo~(NP-Difícil 
-	por não ser um problema de decisão),
-	usando o fato de
-	que a versão de decisão do
-	problema {\sc max2sat} é NP-completa.
 
-	Primeiramente, vamos definir alguns problemas para facilitar
-	a compreensão das reduções.
+	Nesta seção apresentaremos a demonstração de que o problema 
+	da bissecção mínima é NP-difícil.
+	Esse resultado deve-se a Garey, Johnson e Stockmeyer~\cite{GareyJS76},
+	e foi obtido através de duas reduções.
+	Os autores demonstraram primeiro que o problema MaxCut,
+	definido abaixo, é NP-difícil, a partir de uma redução do
+	fundamental \textsc {max2sat}, também definido abaixo, e em seguida
+	demonstraram que o problema da bissecção mínima é NP-difícil
+	a partir de uma redução de MaxCut.
+
+	Optamos por representar essas duas reduções no TCC.
+	Começamos definindo os problemas usados.
+
+	% Nesta seção veremos duas reduções que provam que o problema 
+	% da bissecção mínima é NP-Completo~(NP-Difícil 
+	% por não ser um problema de decisão),
+	% usando o fato de
+	% que a versão de decisão do
+	% problema {\sc max2sat} é NP-completa.
+
+	% Primeiramente, vamos definir alguns problemas para facilitar
+	% a compreensão das reduções.
 
 	\medskip
 
 	\begin{prob}[{\sc max2sat}($C,k$) -- Satisfatibilidade máxima com no máximo 
-	dois literais por cláusula{~\cite{GareyJS76}}]
-		Dado um conjunto~$C$ com~$p$ cláusulas distintas na forma 
-		disjuntiva, com no máximo
+	dois literais por cláusula]
+		Dados um conjunto~$C$ com~$p$ cláusulas distintas na forma 
+		normal disjuntiva, com no máximo
 		dois literais cada, e um inteiro~$k\le p$,
-		decidir se existem valores para cada uma das variáveis, de forma
-		que~$k$ ou mais cláusulas sejam verdadeiras.
+		decidir se existem valores para cada uma das variáveis de forma
+		que~$k$ ou mais cláusulas de~$C$ sejam verdadeiras.
 
 		%~$C_i=(x_1 x_2)$,
 	\end{prob}

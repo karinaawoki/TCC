@@ -15,6 +15,7 @@
 \usepackage{setspace}
 \usepackage{etoolbox}
 \usepackage{graphicx}
+\usepackage{url}
 %\usepackage[hmargin=3.5cm,vmargin=3.7cm,bmargin=2cm]{geometry}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
@@ -214,6 +215,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 13    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Experimentos computacionais}
+	
+	\subsection{Condições de teste}
+	Os resultados mostrados a seguir foram extraídos de programas
+	desenvolvidos em linguagem C em uma máquina com sistema operacional
+	Linux Ubuntu versão**** com kernel ****, 
+	sistema de operação 64 bits, processador *** com ** threads,
+	8GB de memória RAM ****. 
+	Para compilar os programas, foi utilizado o gcc versão ****
+	As opções de compilação usadas foram -Wall -ansi, -pedantic, 
+	-Wno-unused-result e -g. 
 
 	\subsection{Árvores Binárias Aleatórias}
 	% \begin{table}[htbf]
@@ -318,12 +329,13 @@
 
 
 		\subsection{Árvores de Caminho Longo}
-		O caminho máximo dessas árvores possui mais que
-		a metade dos vértices da árvore. 
-		Portanto, temos que seu diâmetro relativo é maior que meio.
-
-		Como visto na Seção~\ref{sec:dobraDiametro}, todas as árvores desse tipo, caem
-		no caso~1, onde o corte da bissecção mínima é sempre igual ou menor que dois.
+		Geramos um conjunto de árvores com diâmetro relativo
+		alto, acima de meio.
+		%O caminho máximo dessas árvores possui mais que
+		%a metade dos vértices da árvore. 
+		%Portanto, temos que seu diâmetro relativo é maior que meio.
+		Como visto na Seção~\ref{sec:dobraDiametro}, todas as árvores desse tipo caem
+		no caso~1, onde o corte da bissecção mínima é sempre no máximo dois.
 
 		\begin{table}[h]
 		\centering
@@ -376,10 +388,10 @@ solução.
 
 Vemos que ele consegue ser ótimo ou quase ótimo quando aplicado
 a árvores que possuem um caminho máximo longo. 
-Isso se deve pelo
-fato de que árvores de caminho longo possuem grandes chances
-de terem mais vértices no caminho máximo do que fora dele, e
-árvores desse tipo acabam caindo no primeiro caso do Algoritmo da 
+Isso se deve ao
+fato de que árvores com diâmetro grande possuem 
+mais vértices no caminho máximo do que fora dele, e
+árvores desse tipo se enquadram no primeiro caso do algoritmo da 
 dobra do diâmetro, que irá cortar no máximo duas arestas da árvore.
 
 Infelizmente, existem casos onde o algoritmo de FST não se dá

@@ -2,6 +2,9 @@
 \label{sec:dobraDiametro}
 	O teorema a seguir é o coração do algoritmo FST.
 	Ele é chamado de \textit{teorema da dobra do diâmetro relativo}.	
+
+
+
 		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
 		\label{teo:dobraDiametro}
 			Para toda árvore~$T$ com~$n$ vértices e 
@@ -23,7 +26,27 @@
 
 	\bigskip
 	\bigskip
+	
+	A prova deste teorema usa os seguintes conceitos.
+	Para os vértices~${a,b,c\in V(T)}$, dizemos que~$b$
+	\textbf{está entre}~$a$ e~$c$ se~${a=b}$ ou~${b=c}$ 
+	ou se chegamos em~$b$ antes
+	de~$c$ quando aumentamos o valor de~$a$  
+	de um em um.
+	Dados vértices~${x,z\in V(P)}$, dizemos que 
+	se~${x+1\in T_z}$, então o
+	vértice~$z$ \textbf{vem depois de~$x$ em~$P$} 
+	e~$x$ \textbf{vem antes de~$z$ em~$P$}.
 
+
+	Um vértice~${z\in V(P)}$ é \textbf{b-especial}
+	se existe um vértice~${x\in T_z}$ tal 
+	que~${\map^{-}_m(x)\in V(P)}$, e~$z$ é
+	\textbf{f-especial} se existe um vértice~${x\in T_z}$
+	tal que~${\map^{+}_m(x)\in V(P)}$.
+
+	\bigskip
+	\bigskip
 		% Primeiramente, faremos uma série de definições para que
 		% depois possamos explicar melhor como o teorema e o algoritmo
 		% funcionam.

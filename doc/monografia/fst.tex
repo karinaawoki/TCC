@@ -122,7 +122,7 @@
 			podemos aplicar a
 			%Teorema~\ref{teo:corteExato} 
 			hipótese de indução à~$T[S']$ 
-			usando~${m-|B'|}$ como~$m$ e~$i-1$ como~$i$.
+			usando~${m-|B'|}$ como~$m$.
 			Porém, %existem casos onde o conjunto~$S'$ retornado 
 			%pelo Teorema~\ref{teo:dobraDiametro} é tal 
 			é possível que~$T[S']$ 
@@ -189,11 +189,35 @@
 			\end{tikzpicture} \end{center}
 			Como o Teorema~\ref{teo:corteExato} se aplica a 
 			árvores, precisamos tornar~$T[S']$ conexo de forma a não 
-			alterar o seu grau máximo.
+			alterar o seu grau máximo nem o seu diâmetro relativo.
 			Sabemos que se adicionarmos uma aresta~$e$ em~$T$ que 
-			liga o primeiro ao último vértice do caminho máximo,
+			liga o primeiro ao último vértice do caminho máximo~$P$
+			usado na prova do Teorema~\ref{teo:dobraDiametro},
 			então~$T[S']$ será conexo. 
 			Diremos que~${T^* = T+ e}$.
+
+			Observe que o Algoritmo~\ref{alg:dobraDiametro} já faz
+			esse acerto em~$T[S']$ antes de devolvê-lo.
+			No Algoritmo~\ref{alg:corteExato}, temos que 
+			retirar arestas da árvore para 
+			desconectar os vértices de~$S'$ do resto da árvore
+			e acrescentar a aresta~$e$, como descrito na prova do teorema.
+			Poderíamos desconectar os vértices verificando todas as arestas que 
+			ligam dois vértices de~$S'$ e colocar em~$T[S']$, mas podemos
+			fazer isso no Algoritmo~\ref{alg:dobraDiametro} de forma 
+			mais eficiente. 
+			No Algoritmo~\ref{alg:dobraDiametro},
+			analisamos os vértices de~$S'$ que se ligam a vértices 
+			de~$V\setminus S'$. 
+			Portanto podemos usar uma marcação para indicar que as 
+			arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
+			tornando $S'$ uma componente conexa isolada. 
+			Obter a árvore~$T^*$ acrescentando a aresta~$e$ em~$T$, como descrito no
+			Teorema~\ref{teo:corteExato}, também pode ser feito de 
+			forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
+			da mesma forma que foi feito o procedimento citado acima.
+			Desta forma, o Algoritmo~\ref{alg:dobraDiametro} retornará
+			a árvore~$T^*[S']$ separada do resto de~$T$.
 
 			Note também que em ambas as componentes de~$T[S']$, 
 			temos que o caminho máximo de cada uma possui em um dos
@@ -389,26 +413,7 @@
 		% portanto, encontrar um caminho máximo fará parte do 
 		% Algoritmo~\ref{alg:corteExato}.
 
-		No algoritmo, temos que 
-		retirar arestas da árvore para 
-		desconectar os vértices de~$S'$ do resto da árvore
-		e acrescentar a aresta~$e$, como descrito na prova do teorema.
-		Poderíamos desconectar os vértices verificando todas as arestas que 
-		ligam dois vértices de~$S'$ e colocar em~$T[S']$, mas podemos
-		fazer isso no Algoritmo~\ref{alg:dobraDiametro} de forma 
-		mais eficiente. 
-		No Algoritmo~\ref{alg:dobraDiametro},
-		analisamos os vértices de~$S'$ que se ligam a vértices 
-		de~$V\setminus S'$. 
-		Portanto podemos usar uma marcação para indicar que as 
-		arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
-		tornando $S'$ uma componente conexa isolada. 
-		Obter a árvore~$T^*$ acrescentando a aresta~$e$ em~$T$, como descrito no
-		Teorema~\ref{teo:corteExato}, também pode ser feito de 
-		forma mais simples no Algoritmo~\ref{alg:dobraDiametro},
-		da mesma forma que foi feito o procedimento citado acima.
-		Desta forma, o Algoritmo~\ref{alg:dobraDiametro} retornará
-		a árvore~$T^*[S']$ separada do resto de~$T$.
+		
 		%, que, nesse caso, é a árvore~$T^*$ com
 		%os vértices de~$S'$ isolados do resto de~$T^*$.
 

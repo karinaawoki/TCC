@@ -129,7 +129,8 @@
 			Agora consideremos o vértice~$v$ que foi escolhido 
 			arbitrariamente no início do algoritmo, e seja~$v'$
 			o vértice mais próximo de~$v$ no~$x_0,y_0\caminho$.
-			Se~$v'\ne b$, então, como~$y_0$ é um vértice mais 
+			%Se~$v'\ne b$, então, 
+			Como~$y_0$ é um vértice mais 
 			distante de~$v$,
 			\begin{align}
 				\dist(v',y_0) &\ge \dist(v',y) =\dist(v',b) + 
@@ -139,23 +140,22 @@
 			\end{align} 
 			o que implica que~${\dist(v',y_0)~=\dist(v',y)}$ 
 			e~${\dist(b,y)~=\dist(b,y_0)}$. 
-			Ou seja,~${\dist(x,y) =\dist(x_0,y_0)}$.
-			Resta analisar o caso em que~$v'=b$ (é um caso 
-			especial, dado que pode-se ter arestas em comum 
-			entre o~$v,v'\caminho$ e o~$y,b\caminho$).
-			Como~$y$ é um vértice mais distante de~$x$, temos 
-			que~$\dist(v',y_0) \le \dist(v',y)$.
-			Como~$x_0$ é um vértice mais distante de~$y_0$, temos
-			que~$\dist(x_0,v') \ge \dist(y,v')$.
-			Finalmente, como~$y_0$ é um vértice mais distante 
-			de~$v$, vale que~$\dist(y_0,v')\ge \dist(x_0,v')$.
-			Dessas três desigualdades, concluímos 
-			que~${\dist(y_0,v')=\dist(y,v')=\dist(x_0,v')=\dist(x,v')}$,
-			onde a última igualdade vale pois já mostramos 
-			que~${\dist(x_0,a) =\dist(x,a)}$.
-
-			Assim sendo,~${\dist(x_0,y_0) =\dist(x,y)}$, completando a 
-			prova.
+			Ou seja,~${\dist(x,y) =\dist(x_0,y_0)}$,
+			% Resta analisar o caso em que~$v'=b$ (é um caso 
+			% especial, dado que pode-se ter arestas em comum 
+			% entre o~$v,v'\caminho$ e o~$y,b\caminho$).
+			% Como~$y$ é um vértice mais distante de~$x$, temos 
+			% que~$\dist(v',y_0) \le \dist(v',y)$.
+			% Como~$x_0$ é um vértice mais distante de~$y_0$, temos
+			% que~$\dist(x_0,v') \ge \dist(y,v')$.
+			% Finalmente, como~$y_0$ é um vértice mais distante 
+			% de~$v$, vale que~$\dist(y_0,v')\ge \dist(x_0,v')$.
+			% Dessas três desigualdades, concluímos 
+			% que~${\dist(y_0,v')=\dist(y,v')=\dist(x_0,v')=\dist(x,v')}$,
+			% onde a última igualdade vale pois já mostramos 
+			% que~${\dist(x_0,a) =\dist(x,a)}$.
+			% Assim sendo,~${\dist(x_0,y_0) =\dist(x,y)}$, 
+			completando a prova.
 	\end{proof}
 
 	\bigskip

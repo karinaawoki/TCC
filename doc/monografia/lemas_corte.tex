@@ -81,7 +81,8 @@ descritas no lema.
 \bigskip
 
 %\subsection*{Análise do Algoritmo}
-
+	
+	\begin{proof}
 	Suponha que~$T=(V,E)$ e $n=|V|$.
 	Se o algoritmo termina na linha 2, então o corte 
 	devolvido satisfaz 
@@ -92,51 +93,83 @@ descritas no lema.
 	e o consumo de tempo é claramente~$O(n)$. 
 	%Isso pode ser computado em tempo~$O(n)$.
 
-	Caso contrário, o algoritmo escolhe uma raiz arbitrária~$r$ 
-	para~$T$ e calcula o número de vértices das sub-árvores 
-	enraizadas em cada um dos vértices, que é o número de 
-	descendentes do vértice.
-	Isso serve para que saibamos a quantidade de vértices das 
-	sub-árvores sem que precisemos percorrer todos os vértices das 
-	sub-árvores a cada consulta.
+	Caso contrário, observe que o algoritmo termina de executar o laço
+	da linha~5, pois a árvore é finita, e o faz em tempo~$O(n)$
+	já que cada vértice é percorrido no máximo uma vez.
 
-	Feito isso, seja~$v$ o vértice analisado no momento 
-	e~${V_1, V_2, \ldots, V_k}$ os conjuntos de vértices das
-	sub-árvores enraizadas 
-	nos~$k$ filhos de~$v$.
-	Se algum~$V_i$ satisfizer~${\dfrac{m}{2}<|V_i|\le m}$, podemos 
-	devolver a sub-árvore~$V_i$ como o conjunto~$B$, 
-	satisfazendo o Lema~\ref{lema:simpleApproxCutTree}, dado que o
-	corte determinado por~$V_i$ contém uma única aresta. 
-	Caso contrário, se~${|V_i|>m}$ para algum~$i$, 
-	e~$v$ passa a ser a raiz de~$V_i$.
-	Aplicamos novamente esse processo em~$v$.
+	Seja~$v$ o vértice em que o laço da linha~5 termina.
+	Se o algoritmo executa a linha~7, o consumo de tempo é~$O(n)$
+	e o corte devolvido é tal que~$e_T(B,W) = 1$
+	e~$\dfrac{m}{2}<|B|\le m$, pois o filho de~$v$ encontrado tem no 
+	máximo~$m$ descendentes.
+	Se isso não ocorrer, significa que o número de descendentes de 
+	todos os filhos de~$v$ é no máximo metade de~$m$.
+	Sabe-se que a união de dois conjuntos
+	com no máximo~$\dfrac{m}{2}$ vértices resulta em um conjunto
+	com no máximo~$m$ vértices.
+	Portanto, como~$v$ possui no mínimo~$m$ descendentes
+	e cada filho de~$v$ possui no máximo~$\dfrac{m}{2}$
+	descendentes, 
+	eventualmente~$\dfrac{m}{2} < |B| \le m$. 
+	%Se a linha~13 nunca for executada,~$B$
+	%será composto por todos descendentes de~$v$, exceto o próprio~$v$.
+	%Se a linha~13 for executada, 
+	No final do laço das linhas~9-15,~$|B|\le m$
+	de forma que~$B$ tenha o maior valor possível,
+	sendo assim, o algoritmo retorna um corte~$(B,W)$
+	com~$\dfrac{m}{2} < |B| \le m$.
 
-	Nota-se que esse procedimento irá parar em algum momento, dado 
-	que a árvore é finita, e ele parará quando encontrar uma 
-	sub-árvore que satisfaça o Lema~\ref{lema:simpleApproxCutTree}
-	(e essa sub-árvore definirá o conjunto~$B$) 
-	ou quando chegarmos numa situação em 
-	que~${|V_i|\le \dfrac{m}{2}}$ para todos os~$k$ filhos de~$v$.
-	Nesse último caso, sabemos 
-	que~${|V_1\cup V_2\cup \cdots \cup V_k|\ge m}$, pois
-	a sub-árvore enraizada em~$v$ possui mais que~$m$ vértices. 
-	Sabemos também que~${|V_i|\le \dfrac{m}{2}}$ para todos os~$k$ 
-	filhos de~$v$. 
-	Com isso, percorremos os~$V_i$ em ordem, e 
-	adicionamos~$V_i$ ao conjunto~$B$, parando antes 
-	que~${|B| >m}$. 
-	O conjunto~$B$ resultante é tal 
-	que~${e_T(B,V\setminus B)<\grau_T(v)\le \Delta(T)}$, 
-	o que satisfaz o lema.
-	Dado que~${|V_j|\le \dfrac{m}{2}}$ para todo~$j$, sabemos que 
-	existe um~$i$ tal 
-	que~${\dfrac{m}{2} <|V_1\cup V_2 \cup \cdots \cup V_i|\le m}$, 
-	pois a união das sub-árvores enraizadas em~$v$ possui pelo 
-	menos~$m$ vértices e, para todo~$\ell$ que 
-	satisfaça~${|V_1\cup V_2\cup \cdots\cup V_\ell|\le 
-	\dfrac{m}{2}}$, temos 
-	que~${|V_1\cup V_2\cup\cdots\cup V_\ell\cup V_{\ell+1}|\le m}$.
+	O tempo consumido no laço das linhas~9-15 é~$O(n)$, pois
+	os filhos de~$v$ e seus descendentes são percorridos no máximo
+	uma vez nas iterações do laço e na união de conjuntos da linha~11,
+	respectivamente.
+	\end{proof}
+
+	% Caso contrário, o algoritmo escolhe uma raiz arbitrária~$r$ 
+	% para~$T$ e calcula o número de vértices das sub-árvores 
+	% enraizadas em cada um dos vértices, que é o número de 
+	% descendentes do vértice.
+	% Isso serve para que saibamos a quantidade de vértices das 
+	% sub-árvores sem que precisemos percorrer todos os vértices das 
+	% sub-árvores a cada consulta.
+
+	% Feito isso, seja~$v$ o vértice analisado no momento 
+	% e~${V_1, V_2, \ldots, V_k}$ os conjuntos de vértices das
+	% sub-árvores enraizadas 
+	% nos~$k$ filhos de~$v$.
+	% Se algum~$V_i$ satisfizer~${\dfrac{m}{2}<|V_i|\le m}$, podemos 
+	% devolver a sub-árvore~$V_i$ como o conjunto~$B$, 
+	% satisfazendo o Lema~\ref{lema:simpleApproxCutTree}, dado que o
+	% corte determinado por~$V_i$ contém uma única aresta. 
+	% Caso contrário, se~${|V_i|>m}$ para algum~$i$, 
+	% e~$v$ passa a ser a raiz de~$V_i$.
+	% Aplicamos novamente esse processo em~$v$.
+
+	% Nota-se que esse procedimento irá parar em algum momento, dado 
+	% que a árvore é finita, e ele parará quando encontrar uma 
+	% sub-árvore que satisfaça o Lema~\ref{lema:simpleApproxCutTree}
+	% (e essa sub-árvore definirá o conjunto~$B$) 
+	% ou quando chegarmos numa situação em 
+	% que~${|V_i|\le \dfrac{m}{2}}$ para todos os~$k$ filhos de~$v$.
+	% Nesse último caso, sabemos 
+	% que~${|V_1\cup V_2\cup \cdots \cup V_k|\ge m}$, pois
+	% a sub-árvore enraizada em~$v$ possui mais que~$m$ vértices. 
+	% Sabemos também que~${|V_i|\le \dfrac{m}{2}}$ para todos os~$k$ 
+	% filhos de~$v$. 
+	% Com isso, percorremos os~$V_i$ em ordem, e 
+	% adicionamos~$V_i$ ao conjunto~$B$, parando antes 
+	% que~${|B| >m}$. 
+	% O conjunto~$B$ resultante é tal 
+	% que~${e_T(B,V\setminus B)<\grau_T(v)\le \Delta(T)}$, 
+	% o que satisfaz o lema.
+	% Dado que~${|V_j|\le \dfrac{m}{2}}$ para todo~$j$, sabemos que 
+	% existe um~$i$ tal 
+	% que~${\dfrac{m}{2} <|V_1\cup V_2 \cup \cdots \cup V_i|\le m}$, 
+	% pois a união das sub-árvores enraizadas em~$v$ possui pelo 
+	% menos~$m$ vértices e, para todo~$\ell$ que 
+	% satisfaça~${|V_1\cup V_2\cup \cdots\cup V_\ell|\le 
+	% \dfrac{m}{2}}$, temos 
+	% que~${|V_1\cup V_2\cup\cdots\cup V_\ell\cup V_{\ell+1}|\le m}$.
 
 
 \bigskip
@@ -164,9 +197,11 @@ apenas~$G$ e~$m$.
 
 \bigskip
 
-Agora examinaremos como determinar um corte descrito pelo lema.
-Nota-se que essa é uma adaptação do algoritmo anterior
-para florestas em vez de árvores.
+%Agora examinaremos como determinar um corte descrito pelo lema.
+%Nota-se que essa é uma adaptação do algoritmo anterior
+%para florestas em vez de árvores.
+
+O algoritmo abaixo determina um corte descrito pelo lema.
 
 \medskip
 \medskip
@@ -178,7 +213,8 @@ para florestas em vez de árvores.
 
 	\caption{Computa corte aproximado simples em uma floresta}
 	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~$m \in [n]$}
-	\Output{corte~$(B,W)$ tal que~${\dfrac{m}{2}\le|B|\le m}$}
+	\Output{corte~$(B,W)$ tal que~${\dfrac{m}{2}\le|B|\le m}$ 
+	e~$e_G(B,W)\le \Delta(G)$}
 	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
 	componentes conexas de~$G$\;
 	$B \gets \emptyset$\;
@@ -187,8 +223,9 @@ para florestas em vez de árvores.
 			$B \gets B\cup V_i$\;
 		}	
 		\ElseIf{$|B|<m$}{
+			$r\gets $ vértice arbitrário de~$V_i$\;
 			$(B',W')\gets \mathbf{Algoritmo\ref{alg:simpleApproxCutTree}}(
-			G[V_i], |V_i|, m-|B|)$\;
+			G[V_i], m-|B|, r)$\;
 
 			$B \gets B\cup B'$\;
 
@@ -201,33 +238,44 @@ para florestas em vez de árvores.
 
 \bigskip
 
-\subsection*{Análise do Algoritmo}
+%\subsection*{Análise do Algoritmo}
 
-	Sejam~${T_1, T_2, \ldots,T_k}$ as árvores que compõe~$G$. 
-	Primeiro o algoritmo percorre as árvores determinando
-	o maior inteiro~$\ell$ tal 
-	que~${s=\displaystyle\sum_{i=1}^{\ell}|V(T_i)| \le m}$.
-	Colocamos~${V(T_1),V(T_2), \ldots,V(T_\ell)}$ no conjunto~$B$.
-	Caso~${|B|=m}$, temos que~${e_G(B,V\setminus B)=0}$, o que 
-	satisfaz o lema.
-	Caso contrário, ao encontrar um corte~$(B',W')$ em~$T_{\ell+1}$
-	que satisfaça~${\dfrac{m-s}{2}<|B'|\le m-s}$ 
-	com~${e_{T_{\ell+1}}(B',W') \le \Delta(T_{\ell+1})}$, e 
-	acrescentar~$B'$ ao conjunto~$B$, 
-	teremos~${\dfrac{m+s}{2}<|B| \le m}$ 
-	com~${e_G(B,W)\le\Delta(T_{\ell+1}) \le \Delta(G)}$.
-	Logo, depois de acrescentar~$B'$ em~$B$, teremos o 
-	corte~${(B,V\setminus B)}$ que satisfaz o lema.
-	O corte~$(B,W)$ é encontrado por meio do 
-	Algoritmo~\ref{alg:simpleApproxCutTree}.
+	% Sejam~${T_1, T_2, \ldots,T_k}$ as árvores que compõe~$G$. 
+	% Primeiro o algoritmo percorre as árvores determinando
+	% o maior inteiro~$\ell$ tal 
+	% que~${s=\displaystyle\sum_{i=1}^{\ell}|V(T_i)| \le m}$.
+	% Colocamos~${V(T_1),V(T_2), \ldots,V(T_\ell)}$ no conjunto~$B$.
+	% Caso~${|B|=m}$, temos que~${e_G(B,V\setminus B)=0}$, o que 
+	% satisfaz o lema.
+	% Caso contrário, ao encontrar um corte~$(B',W')$ em~$T_{\ell+1}$
+	% que satisfaça~${\dfrac{m-s}{2}<|B'|\le m-s}$ 
+	% com~${e_{T_{\ell+1}}(B',W') \le \Delta(T_{\ell+1})}$, e 
+	% acrescentar~$B'$ ao conjunto~$B$, 
+	% teremos~${\dfrac{m+s}{2}<|B| \le m}$ 
+	% com~${e_G(B,W)\le\Delta(T_{\ell+1}) \le \Delta(G)}$.
+	% Logo, depois de acrescentar~$B'$ em~$B$, teremos o 
+	% corte~${(B,V\setminus B)}$ que satisfaz o lema.
+	% O corte~$(B,W)$ é encontrado por meio do 
+	% Algoritmo~\ref{alg:simpleApproxCutTree}.
 
-	
-	Nota-se que, como a linha~2 pode ser feita usando uma busca em 
+	\begin{proof}
+	De fato,~$|B|\le m$ após cada execução da linha~5.
+	Ademais, caso a linha~8 seja executada,~$B'$ é tal 
+	que~$\dfrac{m-|B|}{2}< |B'|\le m-|B| $.
+	Portanto~$|B|\le m$ após a linha~9 e, 
+	como~$|B| + \dfrac{m-|B|}{2} = \dfrac{m+|B|}{2}$, vale 
+	que~$|B|>\dfrac{m}{2}$ após a linha~9 também.
+	Ou seja, na linha~13, temos que~$\dfrac{m}{2} < |B| \le m$.
+	Além disso,~$e_G(B,W)\le \Delta(G)$ se a linha~8 é
+	executada e~$e_G(B,W)=0$ caso contrário.
+
+	Nota-se que, como a linha~1 pode ser feita usando uma busca em 
 	profundidade e as demais linhas envolvem verificar o tamanho 
-	das componentes (que já foi calculado na linha~2) e uma 
+	das componentes (que já foi calculado na linha~1) e uma 
 	chamada única ao Algoritmo~\ref{alg:simpleApproxCutTree}, então 
 	essa rotina consome tempo~$O(n)$, dado que cada uma 
 	das operações citadas são executadas em tempo~$O(n)$. 
+\end{proof}
 
 \bigskip
 \bigskip
@@ -370,3 +418,7 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	máxima é~$\Delta(G)$, portanto a largura máxima do corte 
 	devolvido é~$\ceil[\Big]{\dfrac{2c}{1-c}}\Delta(G)$.
 	\end{proof}
+
+
+
+

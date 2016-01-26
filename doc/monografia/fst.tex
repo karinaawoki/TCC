@@ -69,20 +69,23 @@
 		%a primeira parte do Teorema~\ref{teo:corteExato}.
 		%(sem levar em conta o tempo de execução por enquanto).
 		
-		Primeiramente, temos que~${\diam^*(T)\le1}$, como mostrado 
-		na Seção~\ref{subsec:diametro}. 
-		Sendo assim, sabe-se que~${i\ge1}$, logo~${i=1}$ será a base 
+		Primeiramente, temos que~${\diam^*(T)\le1}$, por definição. 
+		Sendo assim,~${i\ge1}$, logo~${i=1}$ será a base 
 		utilizada na indução.
 		
-		\textbf{Caso base,~${\mathbf {i=1}}$.}
+		\textbf{Base:~${\mathbf {i=1}}$.}
 		%Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$ e, nesse
 		%caso,~${e_T(B,W)\le |E(T)|=\Delta(T)\le 4\cdot 2^i\cdot 
 		%\Delta(T)}$.
-		Como~${\diam^*(T)>\dfrac{1}{2}}$, logo, 
-		podemos utilizar o Lema~\ref{lema:caminhoLongo} e obter 
+		Como~${\diam^*(T)>\dfrac{1}{2}}$,
+		podemos utilizar o Lema~\ref{lema:caminhoLongo} que
+		garante a existência de 
 		um corte~$(B,W)$ 
-		com~${e_T(B,W)\le 2 < 4\cdot 2^i\cdot \Delta(T)}$.
-		Portanto, o teorema é válido para~${i=1}$.
+		com~${e_T(B,W)\le 2}$.
+		Note que, como~${\diam^*(T)>\dfrac{1}{2}}$,~$T$
+		possui mais que um único vértice, logo~${\Delta(T)\ge 1}$
+		e~${e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)}$.
+		Portanto, a afirmação vale para~${i=1}$.
 
 
 		\textbf{Passo:~${\mathbf{i\ge 2}}$.} 

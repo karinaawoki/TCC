@@ -2,7 +2,7 @@
 
 Em \cite{Schmidt15}, são apresentados 
 algoritmos, que, dados uma floresta~$G$ e um 
-inteiro~$0<m\le n$, onde~$n$ é o número de vértices de~$G$, 
+inteiro~${0<m\le n}$, onde~$n$ é o número de vértices de~$G$, 
 produzem cortes com algumas propriedades.
 Os algoritmos em questão são usados como subrotinas no algoritmo
 FST.
@@ -16,7 +16,7 @@ O primeiro deles é o mais simples e o algoritmo vinculado a ele
 
 \begin{lem}[]
 \label{lema:simpleApproxCutTree}
-	Para toda árvore~$T$ com~$n$ vértices e todo~$m \in [n]$,
+	Para toda árvore~$T$ com~$n$ vértices e todo~${m \in [n]}$,
 	existe um corte~$(B,W)$ em~$T$ tal 
 	que~${\dfrac{m}{2} <|B| \le m}$ e~${e_T(B,W) \le \Delta(T)}$.
 	Um corte que satisfaz esses requisitos pode ser computado em
@@ -83,13 +83,13 @@ descritas no lema.
 %\subsection*{Análise do Algoritmo}
 	
 	\begin{proof}
-	Suponha que~$T=(V,E)$ e $n=|V|$.
+	Suponha que~${T=(V,E)}$ e ${n=|V|}$.
 	Se o algoritmo termina na linha 2, então o corte 
 	devolvido satisfaz 
 	%É fácil ver que se~$m=n$, então os valores~$B =V$ 
 	%e~$W =\emptyset$ satisfazem 
 	as condições do lema, dado 
-	que~$e_G(V,\ \emptyset) = 0$,
+	que~${e_G(V,\ \emptyset) = 0}$,
 	e o consumo de tempo é claramente~$O(n)$. 
 	%Isso pode ser computado em tempo~$O(n)$.
 
@@ -99,25 +99,25 @@ descritas no lema.
 
 	Seja~$v$ o vértice em que o laço da linha~5 termina.
 	Se o algoritmo executa a linha~7, o consumo de tempo é~$O(n)$
-	e o corte devolvido é tal que~$e_T(B,W) = 1$
-	e~$\dfrac{m}{2}<|B|\le m$, pois o filho de~$v$ encontrado tem no 
+	e o corte devolvido é tal que~${e_T(B,W) = 1}$
+	e~${\dfrac{m}{2}<|B|\le m}$, pois o filho de~$v$ encontrado tem no 
 	máximo~$m$ descendentes.
 	Se isso não ocorrer, significa que o número de descendentes de 
 	todos os filhos de~$v$ é no máximo metade de~$m$.
 	Sabe-se que a união de dois conjuntos
-	com no máximo~$\dfrac{m}{2}$ vértices resulta em um conjunto
+	com no máximo~${\dfrac{m}{2}}$ vértices resulta em um conjunto
 	com no máximo~$m$ vértices.
 	Portanto, como~$v$ possui no mínimo~$m$ descendentes
-	e cada filho de~$v$ possui no máximo~$\dfrac{m}{2}$
+	e cada filho de~$v$ possui no máximo~${\dfrac{m}{2}}$
 	descendentes, 
-	eventualmente~$\dfrac{m}{2} < |B| \le m$. 
+	eventualmente~${\dfrac{m}{2} < |B| \le m}$. 
 	%Se a linha~13 nunca for executada,~$B$
 	%será composto por todos descendentes de~$v$, exceto o próprio~$v$.
 	%Se a linha~13 for executada, 
-	No final do laço das linhas~9-15,~$|B|\le m$
+	No final do laço das linhas~9-15,~${|B|\le m}$
 	de forma que~$B$ tenha o maior valor possível,
-	sendo assim, o algoritmo retorna um corte~$(B,W)$
-	com~$\dfrac{m}{2} < |B| \le m$.
+	desta forma, o algoritmo retorna um corte~$(B,W)$
+	com~${\dfrac{m}{2} < |B| \le m}$.
 
 	O tempo consumido no laço das linhas~9-15 é~$O(n)$, pois
 	os filhos de~$v$ e seus descendentes são percorridos no máximo
@@ -212,9 +212,9 @@ O algoritmo abaixo determina um corte descrito pelo lema.
 	\SetKwInOut{Output}{saída}
 
 	\caption{Computa corte aproximado simples em uma floresta}
-	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~$m \in [n]$}
+	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~${m \in [n]}$}
 	\Output{corte~$(B,W)$ tal que~${\dfrac{m}{2}\le|B|\le m}$ 
-	e~$e_G(B,W)\le \Delta(G)$}
+	e~${e_G(B,W)\le \Delta(G)}$}
 	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
 	componentes conexas de~$G$\;
 	$B \gets \emptyset$\;
@@ -259,17 +259,17 @@ O algoritmo abaixo determina um corte descrito pelo lema.
 	% Algoritmo~\ref{alg:simpleApproxCutTree}.
 
 	\begin{proof}
-	De fato,~$|B|\le m$ após cada execução da linha~5.
+	De fato,~${|B|\le m}$ após cada execução da linha~5.
 	Ademais, caso a linha~8 seja executada,~$B'$ é tal 
-	que~$\dfrac{m-|B|}{2}< |B'|\le m-|B| $.
+	que~${\dfrac{m-|B|}{2}< |B'|\le m-|B|}$.
 	Portanto~$|B|\le m$ após a linha~9 e, 
-	como~$|B| + \dfrac{m-|B|}{2} = \dfrac{m+|B|}{2}$, vale 
-	que~$|B|>\dfrac{m}{2}$ após a linha~9 também.
-	Ou seja, na linha~13, temos que~$\dfrac{m}{2} < |B| \le m$.
-	Além disso,~$e_G(B,W)\le \Delta(G)$ se a linha~8 é
-	executada e~$e_G(B,W)=0$ caso contrário.
+	como~${|B| + \dfrac{m-|B|}{2} = \dfrac{m+|B|}{2}}$, vale 
+	que~${|B|>\dfrac{m}{2}}$ após a linha~9 também.
+	Ou seja, na linha~13, temos que~${\dfrac{m}{2} < |B| \le m}$.
+	Além disso,~${e_G(B,W)\le \Delta(G)}$ se a linha~8 é
+	executada e~${e_G(B,W)=0}$ caso contrário.
 
-	Nota-se que, como a linha~1 pode ser feita usando uma busca em 
+	Note que, como a linha~1 pode ser feita usando uma busca em 
 	profundidade e as demais linhas envolvem verificar o tamanho 
 	das componentes (que já foi calculado na linha~1) e uma 
 	chamada única ao Algoritmo~\ref{alg:simpleApproxCutTree}, então 
@@ -333,20 +333,20 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 %\subsection*{Análise do Algoritmo}
 
 \begin{proof}
-	Se~$c=0$, o Algoritmo~\ref{alg:approxCutForest} devolverá
-	um corte onde~$B=\emptyset$ e~$e_G(B,W) = 0$. 
+	Se~${c=0}$, o Algoritmo~\ref{alg:approxCutForest} devolverá
+	um corte onde~${B=\emptyset}$ e~${e_G(B,W) = 0}$. 
 	Isso irá satisfazer as 
 	propriedades do Lema~\ref{lema:approxCutForest}, dado 
-	que~$cm=0=|B|$.
+	que~${cm=0=|B|}$.
 
-	Caso contrário, se~$c \le \dfrac{1}{2}$, o algoritmo 
+	Caso contrário, se~${c \le \dfrac{1}{2}}$, o algoritmo 
 	devolve o corte produzido pelo 
 	Algoritmo~\ref{alg:simpleApproxCutForest}, ou seja,
 	um corte~$(B',W')$ tal 
-	que~$|B'|>\dfrac{m}{2}\ge cm$ e~${e_G(B',W')\le \Delta(G)}$.
+	que~${|B'|>\dfrac{m}{2}\ge cm}$ e~${e_G(B',W')\le \Delta(G)}$.
 
-	Por outro lado, se~$c>\dfrac{1}{2}$, 
-	o conjunto~$B$ é inicializado com $\emptyset$.
+	Por outro lado, se~${c>\dfrac{1}{2}}$, 
+	o conjunto~$B$ é inicializado com~$\emptyset$.
 	O Algoritmo~\ref{alg:simpleApproxCutForest} é
 	executado diversas vezes para encontrar a cada vez
 	um corte~$(B',W')$ em~${G[V\setminus B]}$ 
@@ -356,7 +356,7 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	conjunto~$B'$ a~$B$ em cada uma das chamadas ao 
 	Algoritmo~\ref{alg:simpleApproxCutForest}.
 	Isso é feito até que~${|B|\ge cm}$.
-	Note que em algum momento~$|B|\ge cm$, pois a 
+	Note que em algum momento~${|B|\ge cm}$, pois a 
 	cada vez que executamos o 
 	Algoritmo~\ref{alg:simpleApproxCutForest}, acrescentamos pelo 
 	menos um vértice em~$B$, 
@@ -378,11 +378,11 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	Já em relação ao tempo, neste caso o Algoritmo~\ref{alg:approxCutForest}
 	executa apenas operações que levam tempo constante, logo ele
 	leva tempo~$O(1)$. 
-	Como~$\ceil[\Big]{\dfrac{2c}{1-c}} n+1 = 1$,
+	Como~${\ceil[\Big]{\dfrac{2c}{1-c}} n+1 = 1}$,
 	as propriedades do Lema~\ref{lema:approxCutForest} são
 	satisfeitas.
 
-	Caso~$0<c\le \dfrac{1}{2}$, executamos o
+	Caso~${0<c\le \dfrac{1}{2}}$, executamos o
 	Algoritmo~\ref{alg:simpleApproxCutForest} uma única vez, 
 	portanto o tempo é~$O(n)$, que equivale 
 	a~${O\Big(\ceil[\Big]{\dfrac{2c}{1-c}} n+1\Big)}$.
@@ -402,7 +402,7 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	Como~${m-|B|}$ é o valor do~$m$ que passamos para o 
 	Algoritmo~\ref{alg:simpleApproxCutForest}, sabemos que o 
 	conjunto $B'$ do corte devolvido terá mais 
-	que~$\dfrac{m-|B|}{2}$ vértices.
+	que~${\dfrac{m-|B|}{2}}$ vértices.
 	Portanto, executaremos o 
 	Algoritmo~\ref{alg:simpleApproxCutForest} no 
 	máximo~${\ceil[\bigg]{\dfrac{cm}{\frac{(1-c)m}{2}}} 
@@ -412,11 +412,11 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	máxima do corte devolvido na linha~8. 
 	Sabemos que o 
 	Algoritmo~\ref{alg:simpleApproxCutForest} será 
-	chamado no máximo~$\ceil[\Big]{\dfrac{2c}{1-c}}$ 
+	chamado no máximo~${\ceil[\Big]{\dfrac{2c}{1-c}}}$ 
 	vezes e, para cada uma 
 	das vezes, este devolve um corte cuja largura 
 	máxima é~$\Delta(G)$, portanto a largura máxima do corte 
-	devolvido é~$\ceil[\Big]{\dfrac{2c}{1-c}}\Delta(G)$.
+	devolvido é~${\ceil[\Big]{\dfrac{2c}{1-c}}\Delta(G)}$.
 	\end{proof}
 
 

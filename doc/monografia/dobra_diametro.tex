@@ -13,7 +13,7 @@
 			três partes~$B$,~$W$ e~$S$ tais que vale um dos 
 			seguintes itens:
 			\begin{enumerate}
-				\item ${|B|=m}$, ${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
+				\item ${|B|=m}$,~${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
 				\item ${|B|\le m\le |B|+|S|}$, 
 				com~${0<|S|\le\dfrac{n}{2}}$,
 				${e_T(B,W,S)\le \dfrac{2\cdot 
@@ -470,10 +470,10 @@
 
 	\begin{enumerate}[label=(\alph*)]
 		\item existe um vértice~$z\in B_{\esp}$ 
-			tal que $|T'_{z}|+|H_z^b|\le
+			tal que~$|T'_{z}|+|H_z^b|\le
 			\dfrac{1-d}{d}|P_z^b|$ ou
 		\item existe um vértice~$z\in F_{\esp}$ 
-			tal que $|T'_{z}|+|H_z^f|\le
+			tal que~$|T'_{z}|+|H_z^f|\le
 			\dfrac{1-d}{d}|P_z^f|.$
 	\end{enumerate}
 
@@ -482,7 +482,7 @@
 	
 	\textbf{Caso (a):}
 		Existe um vértice~$z\in B_{\esp}$ 
-		tal que ${|T'_{z}|+|H_z^b|\le
+		tal que~${|T'_{z}|+|H_z^b|\le
 		\dfrac{1-d}{d}|P_z^b|}$. 
 		Logo,~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
 		Usando a inequação~(\ref{eq:5}), deduzimos
@@ -685,15 +685,14 @@
 	
 	\textbf{Caso (b):}
 	Existe um vértice~$z\in F_{\esp}$ 
-	tal que ${|T'_{z}|+|H_z^f|\le
+	tal que~${|T'_{z}|+|H_z^f|\le
 	\dfrac{1-d}{d}|P_z^f|}$. 
 	Temos
 	que~${|H^f_z|\le \Big(\dfrac{1}{d}-1\Big)|P^f_z|-|T'_z|}$.
 	Usando a inequação~(\ref{eq:6}), temos 
-	que
-		$|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|$, 
+	que~${|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|}$, 
 		o que implica que
-		$|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z| \nonumber$.
+		${|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z|}$.
 
 
 	Tomaremos~${S = H^f_z \cup P^f_z}$ 
@@ -860,8 +859,8 @@
 
 	\begin{algorithm}[H]
 	\label{alg:dobraDiametro}
-		\SetKwInOut{Input}{input}
-		\SetKwInOut{Output}{output}
+		\SetKwInOut{Input}{entrada}
+		\SetKwInOut{Output}{saída}
 
 		\caption{}
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$ em~$T$,
@@ -876,7 +875,7 @@
 				$B\gets \{\ind(\rot(i)+1),\ldots, \ind(\rot(i)+m)\}$\;
 				$W\gets V(T)\setminus B$\;
 
-				\Return $[(B,W,\emptyset),$ $\emptyset,$ $null]$\;
+				\Return $[(B,W,\emptyset)$, $\emptyset$, $null]$\;
 			}
 		}
 		\tcp{Caso 2}
@@ -907,12 +906,12 @@
 		{
 			\tcp{Caso 2(a)}
 			\Numberline$z\gets z_B$\;
-			\Numberline$z^b_\ell \gets $ último vértice de~$P_z^b$\;
+			\Numberline$z^b_\ell \gets$ último vértice de~$P_z^b$\;
 			\Numberline$B_1 \gets \{\ind(\rot(z^b_l)+1),\cdots, \ind(\rot(z^b_l)+m)\}$\;
 			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
-			\Numberline$S \gets P_z^b\cup H^b_z $\;
+			\Numberline$S \gets P_z^b\cup H^b_z$\;
 			\Numberline$T^*\gets $ {\sc separa\_conjunto}$(T$, $S)$\;
 			\Numberline\Return $[(B,W,S)$, $T^*$, $z^b_\ell]$\;
 		}
@@ -1021,3 +1020,5 @@
 % Como~$d[v]\ge m$, eventualmente~$|B|\ge \dfrac{m}{2}$
 % (de fato, note que como~$m\in[n]$ e~$m\neq n$,...)
 
+	\bigskip
+	\bigskip

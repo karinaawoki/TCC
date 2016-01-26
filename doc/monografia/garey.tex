@@ -4,11 +4,11 @@
 	da bissecção mínima é NP-difícil.
 	Esse resultado deve-se a Garey, Johnson e Stockmeyer~\cite{GareyJS76},
 	e foi obtido através de duas reduções.
-	Os autores demonstraram primeiro que o problema MaxCut,
+	Os autores demonstraram primeiro que o problema {\sc maxcut},
 	definido abaixo, é NP-difícil, a partir de uma redução do
 	fundamental \textsc {max2sat}, também definido abaixo, e em seguida
 	demonstraram que o problema da bissecção mínima é NP-difícil
-	a partir de uma redução de MaxCut.
+	a partir de uma redução de {\sc maxcut}.
 
 	Optamos por representar essas duas reduções no TCC.
 	Começamos definindo os problemas usados.
@@ -38,8 +38,8 @@
 
 	\medskip
 
-	\begin{prob}[MaxCut($G,W$) -- Corte Máximo]
-		Dado um grafo~${G}$
+	\begin{prob}[{\sc maxcut}($G,W$) -- Corte máximo]
+		Dados um grafo~${G}$
 		%onde cada uma das arestas tem peso 1, 
 		e um inteiro positivo~${W}$, decidir se existe um
 		corte~$(T,F)$ em $G$ tal 
@@ -47,7 +47,14 @@
 		
 	\end{prob}
 
-	
+
+	Richard Manning Karp~\cite{Kar72} demonstrou que o problema MAXSAT3 é NP-completo,
+	e isso foi utilizado por Garey, 
+	Johnson e Stockmeyer~\cite{GareyJS76} 
+	para provar que a versão de decisão
+	do problema MAXSAT2 é NP-completa.
+	Usaremos esse fato na demonstração do seguinte.
+
 
 	% \begin{prob}[Corte mínimo em subconjuntos de mesmo tamanho 
 	% {~\cite{GareyJS76}}]
@@ -62,11 +69,11 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Redução do \textbf{\textsc {max2sat}} para MaxCut}
+	\subsection{Redução do \textbf{\textsc {max2sat}} para {\sc maxcut}}
 
 		Dada uma instância~$(C,k)$ do problema {\sc max2sat}, 
 		precisamos construir uma instância~$(G,W)$
-		do problema MaxCut usando a resução que será descrita abaixo.
+		do problema {\sc maxcut} usando a resução que será descrita abaixo.
 		Para isso vamos definir alguns conceitos referentes
 		ao problema {\sc max2sat}:
 		\begin{itemize}
@@ -221,16 +228,16 @@
 		\bigskip
 
 		\begin{teo}
-			A instância~$(G,W)$ de MaxCut tem solução se e somente se
+			A instância~$(G,W)$ de {\sc maxcut} tem solução se e somente se
 			a instância~$(C,k)$ de {\sc max2sat} tem solução.
 		\end{teo}
 
 		\begin{proof}
-		Provaremos agora que a instância~$(G,W)$ de MaxCut tem solução se
+		Provaremos agora que a instância~$(G,W)$ de {\sc maxcut} tem solução se
 		a instância~$(C,k)$ de {\sc max2sat} tem solução.
 		%para todas as entradas do problema
 		%{\sc max2sat}, existe uma solução da sua redução para o problema
-		%MaxCut.
+		%{\sc maxcut}.
 		
 		Sabe-se que temos um conjunto de cláusulas~$C$
 		de forma que~$k$ ou mais
@@ -513,15 +520,15 @@
 
 		\bigskip
 
-		Mostramos que existe uma solução, em MaxCut, 
+		Mostramos que existe uma solução, em {\sc maxcut}, 
 		para todas as entradas do
-		problema {\sc max2sat} reduzidas para MaxCut, de forma que
-		a solução do MaxCut leva a uma solução de {\sc max2sat}.
+		problema {\sc max2sat} reduzidas para {\sc maxcut}, de forma que
+		a solução do {\sc maxcut} leva a uma solução de {\sc max2sat}.
 		Agora mostraremos que qualquer solução obtida em 
-		uma redução para MaxCut levará a uma solução de {\sc max2sat}.
+		uma redução para {\sc maxcut} levará a uma solução de {\sc max2sat}.
 	\end{proof}
 
-\subsection{Redução MaxCut para Bissecção}
+\subsection{Redução {\sc maxcut} para Bissecção}
 
 % \begin{center} \begin{tikzpicture}
 % 	[scale=.7,auto=left,every node/.style={circle, 

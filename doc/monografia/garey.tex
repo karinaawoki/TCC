@@ -49,11 +49,11 @@
 
 
 	Richard Manning Karp~\cite{Kar72} demonstrou que o problema 
-	{\sc max3sat} é NP-completo,
+	{\sc max3sat} é NP-difícil,
 	e isso foi utilizado por Garey, 
 	Johnson e Stockmeyer~\cite{GareyJS76} 
-	para provar que a versão de decisão
-	do problema {\sc max2sat} é NP-completa.
+	para provar que 
+	o problema {\sc max2sat} é NP-difícil.
 	Usaremos esse fato na demonstração do seguinte.
 
 
@@ -783,7 +783,41 @@
 		cycle;
 }
 \end{tikzpicture}\end{center}
-		Vemos que~$G'$ e~$W'$ podem ser obtidos de~$G$ e~$W$
+		Note que~$G'$ e~$W'$ podem ser obtidos de~$G$ e~$W$
 		em tempo polinomial em~$n$.	
-		
+
+		\bigskip
+
+		%Agora mostraremos que, para cada instância~$(G,W)$ 
+		%de {\sc maxcut}, existe uma instância~$(G',W')$ que
+		Agora vamos supor que temos um grafo~$G$ tal que exista um
+		corte~$(V_1,V_2)$ em~$G$, onde~$e_G(V_1,V_2)\ge W$.
+
+		%Sejam~$S_1\subset V'$ e~$S_2\subset V'$ tal que~$S_1\cup S_2 = V'$
+		Denotemos por~${U_1\subset U}$ e~${U_2\subset U}$ dois conjuntos de vértices
+		arbitrários, 
+		%escolhidos arbitrariamente,
+		onde~${|U_1| = |V_2|}$,~${|U_2| = |V_1|}$ e~$U_1\cap U_2 = \emptyset$.
+		Seja~$(S_1,S_2)$ um corte de~$G'$ tal que~${S_1=V_1\cup U_1}$
+		e~${S_2=V_2\cup U_2}$. 
+		Note que o corte~$(S_1,S_2)$ é uma bissecção, dado 
+		que~${|S_1| = |V_1| + |U_1| = |U_2|+|V_2| = |S_2|}$.
+
+		Se~$G'$ fosse um grafo completo,~$e_{G'}(S_1,S_2) = n^2$,
+		mas~$G'$ não é completo, dado que as arestas do corte~$(V_1,V_2)$
+		em~$G$ não estão presentes em~$G'$.
+		Portanto,~${e_{G'}(S_1,S_2) = n^2 - e_G(V_1,V_2)\le n^2-W}$.
+
+		Podemos concluir que existe um corte~$(S_1,S_2)$ em~$G'$ tal que~${|S_1|=|S_2|}$ 
+		e~${e_{G'}(S_1,S_2)\le W'}$.
+
+		\bigskip
+
+		Agora vamos supor que temos uma instância~$(G',W')$, com~${G'=(V',E')}$,
+		obtida através da redução de uma instância~$(G,W)$ de {\sc maxcut}, 
+		com~${G=(V,E)}$.
+		Seja~$(S_1,S_2)$ um corte em~$G'$, com~${e_{G'}(S_1,S_2)\le W'}$ 
+		e~${|S_1| = |S_2|}$.
+		Temos que provar que existe um corte~$(V_1,V_2)$ em~$G$ tal 
+		que~$e_G(V_1,V_2)\ge W$.
 	\end{proof}

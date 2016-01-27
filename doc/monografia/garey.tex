@@ -161,8 +161,8 @@
 
 		Segue abaixo um exemplo de grafo~$G$ obtido da
 		cláusula~${(x_1\lor\ \overline{x_2})}$.
-		As arestas de~$E_2$ estão representadas pela cor 
-		\textcolor{red}{\textbf {vermelha}}.
+		%As arestas de~$E_2$ estão representadas pela cor 
+		%\textcolor{red}{\textbf {vermelha}}.
 
 		\bigskip
 
@@ -214,10 +214,20 @@
 			\node (x2) at (17,3)  {$x_2$};
 
 
+			%%legenda
+			\node [draw=none, fill=none](a1) at (12.5,-3) {};
+			\node [draw=none, fill=none](a1_) at (14.3,-3) {};
+			\node [draw=none, fill=none](a2) at (12.5,-4) {};
+			\node [draw=none, fill=none](a2_) at (14.3,-4) {};
+			\node [draw=none, fill=none] at 
+				(16,-3) {\small{aresta $\in E_1$}};
+			\node [draw=none, fill=none] at 
+				(16,-4) {\small{aresta $\in E_2$}};
+
 			\foreach \from/\to in {t0/f0,t0/f1,t0/f2,t0/f3,
 			t1/f0,t1/f1,t1/f2,t1/f3,
 			t3/f0,t3/f1,t3/f2,t3/f3,
-			t2/f0,t2/f1,t2/f2,t2/f3}%%%%
+			t2/f0,t2/f1,t2/f2,t2/f3,a1/a1_}%%%%
 			\draw[] (\from) -- (\to);
 
 			\foreach \from/\to in {t10/f10,t11/f11,t12/f12,t13/f13,
@@ -232,7 +242,7 @@
 			x2/f20,x2/f21,x2/f22,x2/f23}
 			\draw[] (\from) -- (\to);
 
-			\foreach \from/\to in {x1/x2n,x1/f1,x2n/f2}
+			\foreach \from/\to in {x1/x2n,x1/f1,x2n/f2,a2/a2_}
 			\draw[draw=red!60, line width=2.5pt] (\from) -- (\to);
 		}
 		\end{tikzpicture} \end{center}
@@ -751,9 +761,9 @@
 	\node [draw=none, fill=none](a2_) at (0.4+15.8,-2.5) {};
 
 	\node [draw=none, fill=none] at 
-		(3.5+15.8,-1.5) {\small{aresta $\in A$}};
+		(3.5+15.8,-1.5) {\small{aresta $\in E$}};
 	\node [draw=none, fill=none] at 
-		(3.5+15.8,-2.5) {\small{aresta $\not\in A'$}};
+		(3.5+15.8,-2.5) {\small{aresta $\in E'$}};
 	
 
 	\foreach \from/\to in {v1/v4,v1/v2,v1/v3,v2/v4,v2/v5,
@@ -797,7 +807,8 @@
 		Denotemos por~${U_1\subset U}$ e~${U_2\subset U}$ dois conjuntos de vértices
 		arbitrários, 
 		%escolhidos arbitrariamente,
-		onde~${|U_1| = |V_2|}$,~${|U_2| = |V_1|}$ e~$U_1\cap U_2 = \emptyset$.
+		tais que~${|U_1| = |V_2|}$,~${|U_2| = |V_1|}$ e~$U_1\cap U_2 = \emptyset$,
+		como o ilustrado na figura acima.
 		Seja~$(S_1,S_2)$ um corte de~$G'$ tal que~${S_1=V_1\cup U_1}$
 		e~${S_2=V_2\cup U_2}$. 
 		Note que o corte~$(S_1,S_2)$ é uma bissecção, dado 
@@ -820,4 +831,25 @@
 		e~${|S_1| = |S_2|}$.
 		Temos que provar que existe um corte~$(V_1,V_2)$ em~$G$ tal 
 		que~$e_G(V_1,V_2)\ge W$.
+
+		Seja~${V_1 = S_1\cap V}$,~${V_2 = S_2\cap V}$
+		%~${U_1 = S_1\setminus V_1}$ e~${U_2 = S_2\setminus V_2}$.
+		e~$k$ um inteiro positivo tal que~${e_G(V_1,V_2) = k}$. 
+		Se o grafo~$G'$ fosse completo,~${e_{G'}(S_1,S_2) = n^2}$,
+		mas como as arestas de~$E$ não estão presentes em~$E'$,
+		então~${e_{G'}(S_1, S_2) = n^2 - k}$.
+
+		Dado que~$e_{G'}(S_1,S_2)\le W'$ e que~$W'= n^2-W$, 
+		temos que~$n^2-k \le n^2 -W$,
+		o que implica que~$W\le k$.
+		Note que~$e_G(V_1,V_2) = k \ge W$.
+
+		Desta forma, sabemos que existe um corte~$(V_1,V_2)$
+		em~$G$ tal que~$e_G(V_1,V_2)\ge W$.
+		Este corte pode ser computado em tempo linear no número
+		de vértices de~$G$ a partir de uma instância~$(G',W')$
+		do problema da Bissecção.
 	\end{proof}
+
+\bigskip
+\bigskip

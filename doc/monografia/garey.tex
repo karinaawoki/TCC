@@ -48,11 +48,12 @@
 	\end{prob}
 
 
-	Richard Manning Karp~\cite{Kar72} demonstrou que o problema MAXSAT3 é NP-completo,
+	Richard Manning Karp~\cite{Kar72} demonstrou que o problema 
+	{\sc max3sat} é NP-completo,
 	e isso foi utilizado por Garey, 
 	Johnson e Stockmeyer~\cite{GareyJS76} 
 	para provar que a versão de decisão
-	do problema MAXSAT2 é NP-completa.
+	do problema {\sc max2sat} é NP-completa.
 	Usaremos esse fato na demonstração do seguinte.
 
 
@@ -67,45 +68,67 @@
 
 	\bigskip
 	\bigskip
-	\bigskip
 
-	\subsection{Redução do \textbf{\textsc {max2sat}} para {\sc maxcut}}
+	\subsection{Redução do \textbf{\textsc {max2sat}} para o \textbf{\textsc {maxcut}}}
+
+		\begin{teo}
+			%A instância~$(G,W)$ de {\sc maxcut} tem solução se e somente se
+			%a instância~$(C,k)$ de {\sc max2sat} tem solução.
+			{\sc maxcut} é NP-difícil.
+		\end{teo}
+	\begin{proof}
+		Vamos apresentar uma redução polinomial do {\sc max2sat}
+		para o {\sc maxcut}.
 
 		Dada uma instância~$(C,k)$ do problema {\sc max2sat}, 
 		precisamos construir uma instância~$(G,W)$
-		do problema {\sc maxcut} usando a resução que será descrita abaixo.
-		Para isso vamos definir alguns conceitos referentes
-		ao problema {\sc max2sat}:
-		\begin{itemize}
-			\item $p = $ número de cláusulas em~$C$
-			\item $n = $ número de variáveis distintas em~$C$
-		\end{itemize}
+		do problema {\sc maxcut}, ou seja, um grafo~${G = (V,E)}$
+		e um inteiro positivo~$W$.
+
+		% usando a resução que será descrita abaixo.
+		%Para isso vamos definir alguns conceitos referentes
+		%ao problema {\sc max2sat}:
+		%\begin{itemize}
+		Seja $p$ o número de cláusulas em~$C$ e
+			$n$ o número de variáveis em~$C$.
+		Denote por~$x_1,x_2,\ldots,x_n$ as variáveis
+		de~$C$.
+		Lembre-se que~$\overline{x}$ é a negação da variável~$x$
+		e que um literal de~$C$ é uma variável de~$C$ ou a 
+		negação de uma variável de~$C$.
+		%\end{itemize}
 
 		% A redução consiste em criar um grafo~${G=(V,E)}$, de 
 		% acordo com uma entrada para o problema {\sc max2sat}.
 		% Segue o conjunto de vértices e arestas de~$G$, 
 		% respectivamente.
-		
+		O conjunto de vértices de~$G$ é definido da seguinte maneira:
 		\begin{align}
 			V = \ &\{x_i: 1\le i\le n\} \ \cup \nonumber\\
 				&\{\overline{x_i}: 1\le i\le n\} \ \cup\nonumber\\ 
 				&\{T_j: 0\le j\le 3p\} \ \cup \nonumber\\
 				&\{F_j: 0\le j\le 3p\} \ \cup \nonumber\\
-				&\{t_{ij}: 1\le i\le n, 0\le j\le 3p\} 
+				&\{t_{ij}: 1\le i\le n,\ 0\le j\le 3p\} 
 					\ \cup \nonumber\\
-				&\{f_{ij}: 1\le i\le n, 0\le j\le 3p\}\nonumber
+				&\{f_{ij}: 1\le i\le n,\ 0\le j\le 3p\}.\nonumber
 		\end{align}
 
+		\bigskip 
+
+		O conjunto de arestas de~$G$ é dado em partes. 
+		Primeiro, considere
 		\begin{align}
-			E_1= \ &\{ \{T_i,F_j\}: 0\le i\le 3p, 0\le j\le 3p\}\ \cup 
+			E_1= \ &\{ \{T_i,F_j\}: 0\le i\le 3p,\ 0\le j\le 3p\}\ \cup 
 					\nonumber\\
-				&\{\{t_{ij}, f_{ij}\}: 1\le i\le n, 
+				&\{\{t_{ij}, f_{ij}\}: 1\le i\le n,\ 
 					0\le j\le 3p\}\ \cup \nonumber \\
-				&\{\{x_i, f_{ij}\}: 1\le i\le n, 
+				&\{\{x_i, f_{ij}\}: 1\le i\le n,\ 
 					0\le j\le 3p\} \ \cup \nonumber \\
 				&\{\{\overline{x_i}, t_{ij}\}: 1\le 
-					i\le n, 0\le j\le 3p\} \nonumber
+					i\le n,\ 0\le j\le 3p\}. \nonumber
 		\end{align}
+
+		\bigskip 
 
 		% \begin{align}
 		% 	E_1=&\textcolor{blue}{\{ \{T_i,F_j\}: 0\le i\le 
@@ -118,19 +141,26 @@
 		% 			i\le n, 0\le j\le 3p\}} \nonumber \\
 		% \end{align}
 
-		E para cada uma das~$p$ cláusulas da forma~$C_i=(a_i\lor b_i)$, 
-		temos também as arestas a seguir.
+		%E para cada uma das~$p$ cláusulas da forma~$C_i=(a_i\lor b_i)$, 
+		%temos também as arestas a seguir.
 
+		Agora, sejam~$C_1,C_2,\ldots,C_p$ as cláusulas de~$C$ e sejam~$a_i$
+		e~$b_i$ os literais de~$C_i$ para~$i=1,2,\ldots,p$.
+		Conseidere então
 		\begin{align}
-			E_2= \ &\{ \{a_i,b_i\}: 1\le i\le p, a_i\ne b_i \}\ \cup 
+			E_2= \ &\{ \{a_i,b_i\}: 1\le i\le p,\ a_i\ne b_i \}\ \cup 
 					\nonumber\\
-				&\{\{a_i, F_{2\cdot i-1}\}: 1\le i\le p\}\ \cup \nonumber \\
-				&\{\{b_i, F_{2\cdot i}\}: 1\le i\le p\} \nonumber
+				&\{\{a_i, F_{2i-1}\}: 1\le i\le p\}\ \cup \nonumber \\
+				&\{\{b_i, F_{2i}\}: 1\le i\le p\}. \nonumber
 		\end{align}
 
-		Dessa forma, temos o grafo~${G = (V,E)}$, com~${E=E_1\cup E_2}$.
-		Segue abaixo um exemplo de como ficaria~$G$ sendo gerado por
-		uma única cláusula do tipo~${(x_1\lor\ \overline{x_2})}$.
+
+		Dessa forma, temos o grafo~${G = (V,E)}$, com~${E=E_1\cup E_2}$,
+		e o inteiro positivo~${W = |E_1|+2k}$.
+		Note que o grafo é simples pois não há cláusulas repetidas em~$C$.
+
+		Segue abaixo um exemplo de grafo~$G$ obtido da
+		cláusula~${(x_1\lor\ \overline{x_2})}$.
 		As arestas de~$E_2$ estão representadas pela cor 
 		\textcolor{red}{\textbf {vermelha}}.
 
@@ -211,72 +241,71 @@
 		\bigskip
 		\bigskip
 
-		Se encontrarmos um corte~$(T,F)$ em~$G$ tal 
-		que~${e_G(T, F)\ge |A_1| + 2\cdot k}$, 
-		então teremos que, para todo vértice do tipo~$x_i$,
-		se~${x_i\in T}$, a variável que ele representa terá valor
-		verdadeiro. Caso contrário,~${x_i\in F}$ e a variável que ele 
-		representa terá valor falso. 
-		Tendo que as variáveis possuem os valores conforme
-		o que foi dito anteriormente, $k$ ou mais cláusulas serão 
-		verdadeiras.
+		Claramente~$G$ e~$W$ podem ser obtidos de~$(C,k)$ em
+		tempo polinomial em~$p$ e~$n$.
+		Resta mostrar que existe uma atribuição de valores para as
+		variáveis de~$C$ que satisfaz pelo menos~$k$ cláusulas de~$C$
+		se e somente se existe um corte~$(T,F)$ em~$G$ tal 
+		que~$e_G(T,F)\ge W$.
 
-		\bigskip
-		\bigskip
-		\bigskip
-		\bigskip
-		\bigskip
 
-		\begin{teo}
-			A instância~$(G,W)$ de {\sc maxcut} tem solução se e somente se
-			a instância~$(C,k)$ de {\sc max2sat} tem solução.
-		\end{teo}
-
-		\begin{proof}
-		Provaremos agora que a instância~$(G,W)$ de {\sc maxcut} tem solução se
-		a instância~$(C,k)$ de {\sc max2sat} tem solução.
+		%Provaremos agora que a instância~$(G,W)$ de {\sc maxcut} tem solução se
+		%a instância~$(C,k)$ de {\sc max2sat} tem solução.
 		%para todas as entradas do problema
 		%{\sc max2sat}, existe uma solução da sua redução para o problema
 		%{\sc maxcut}.
 		
-		Sabe-se que temos um conjunto de cláusulas~$C$
-		de forma que~$k$ ou mais
-		cláusulas sejam verdadeiras.
+		%Sabe-se que temos um conjunto de cláusulas~$C$
+		%de forma que~$k$ ou mais
+		%cláusulas sejam verdadeiras.
+		\bigskip
+		\bigskip
 
-		Sabemos que existem no máximo~$2p$ arestas do 
-		tipo~${\{x_i,F_j\}}$ ou ${\{\overline{x_i},F_j\}}$. Dado 
-		que~${2p<3p+1}$,
-		que as funções~${f(i)=2\cdot i - 1}$ e~${g(i)=2\cdot i}$ têm 
-		imagem ímpar e par, respectivamente, e ambas são injetoras, 
-		portanto, temos que cada~$F_i$ se liga a apenas um vértice
+		Agora vamos supor que temos um conjunto de valores para 
+		as variáveis de~$C$ que tornam~$k$ ou mais cláusulas
+		de~$C$ verdadeiras.
+
+		Note que existem no máximo~$2p$ arestas do 
+		tipo~${\{x_i,F_j\}}$ ou ${\{\overline{x_i},F_j\}}$. 
+		Dado que~${2p<3p+1}$ e
+		as funções~${f(i)=2i - 1}$ e~${g(i)=2i}$ têm 
+		imagens disjuntas e são injetoras, 
+		temos que cada~$F_j$ se liga a apenas um vértice
 		do tipo~$x_i$ ou~${\overline{x_i}}$.
 
-		Definiremos agora os vértices contidos nos 
-		subconjuntos~$T$ e~$F$ de~$G$.
-		Suponhamos que para todo~${i\in[0,3p]}$,~${T_i\in T}$ 
-		e~${F_i\in F}$ e
+		Definiremos agora os
+		conjuntos~$T$ e~$F$ de um corte~$(T,F)$ de~$G$.
+		Para todo~${i\in[0,3p]}$,~${T_i\in T}$ 
+		e~${F_i\in F}$ e,
 		para todo~${j\in[1,n]}$ e ${k\in[0,3p]}$, ~$x_j$ pertence ao 
-		mesmo subconjunto que~$t_{jk}$ e ambos não pertencem ao mesmo 
-		subconjunto que~$\overline{x_j}$ e que~$f_{jk}$.
-		Assim sendo, temos que todas as arestas de~$E_1$ estão no 
+		mesmo conjunto que~$t_{jk}$ e ambos não pertencem ao mesmo 
+		conjunto que~$\overline{x_j}$ e que~$f_{jk}$.
+		Assim sendo, todas as arestas de~$E_1$ estão no 
 		corte~$(T,F)$.
-		Suponhamos também que se a variável~$x_i$ é verdadeira,
-		então, o vértice~$x_i$ está em $T$, e se mantermos as 
-		propriedades que foram citadas anteriormente, isso não afetará o 
-		fato de todas as arestas de~$E_1$ estarem no corte~$(T,F)$.
-		Portanto, assumiremos inicialmente que essa é a disposição dos 
-		vértices nos subconjuntos~$T$ e~$F$.
+		Ademais, se a variável~$x_i$ é verdadeira,
+		então o vértice~$x_i$ está em $T$, caso contrário,~$x_i$
+		está em~$F$.
+		%e se mantermos as 
+		%propriedades que foram citadas anteriormente, 
+		Isso não contraria as escolhas feitas anteriormente, portanto 
+		obtemos um corte~$(T,F)$.
+		%afetará o 
+		%fato de todas as arestas de~$E_1$ estarem no corte~$(T,F)$.
+		%Portanto, assumiremos inicialmente que essa é a disposição dos 
+		%vértices nos subconjuntos~$T$ e~$F$.
 
-		Temos que, em uma cláusula~${C_i=(a_i,b_i)}$, ou
-		apenas um dos literais é satisfeito, ambos são ou nenhum
+		Em uma cláusula~${C_i=(a_i,b_i)}$, ou
+		apenas um dos literais é verdadeiro, ou ambos são, ou nenhum
 		deles é.
 		\begin{enumerate}
-			\item Se apenas um dos literais é satisfeito, temos que,
-			das arestas formadas pela cláusula~$C_i$, duas
+			\item Se apenas um dos literais é verdadeiro,
+			das três arestas formadas pela 
+			cláusula~$C_i$,~$\{a_i,b_i\}$,~$\{a_i, F_{2i-1}\}$
+			e~$\{b_i, F_{2i}\}$, duas delas
 			estão no corte~$(T,F)$ e uma está fora.
-			\item Se os dois literais são satisfeitos, também teremos
+			\item Se os dois literais são verdadeiros, também teremos
 			duas arestas no corte~$(T,F)$ e uma fora.
-			\item Já no caso de nenhum literal ser satisfeito, nenhuma
+			\item Já no caso de nenhum literal ser verdadeiro, nenhuma
 			dessas arestas da cláusula estará no corte~$(T,F)$.
 		\end{enumerate}
 
@@ -499,36 +528,133 @@
 			\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
 		\end{tikzpicture} \end{center}
 
-		Sabe-se que temos~$2k$ ou mais arestas de~$E_1$ que estão no
+		Note que temos~$2k$ ou mais arestas de~$E_2$ no
 		corte~$(T,F)$, pois, para cada uma das~$k$ cláusulas
-		verdadeiras, teremos duas arestas de~$E_1$ no corte, como
-		o mostrado anteriormente.
+		verdadeiras, teremos duas arestas de~$E_2$ diferentes no corte, 
+		como mostrado anteriormente.
+		Portanto, no mínimo~$|E_1| + 2k$ arestas de~$G$ estão no corte~$(T,F)$.
 
-		Se houvesse alguma aresta duplicada (duas arestas que ligam
-		os mesmos vértices), teríamos um problema na contagem de
-		arestas dentro e fora do corte.
-		Isso poderia ocorrer no caso de duas cláusulas serem 
-		idênticas,~${C_i=C_j=(a_i,b_i)}$.
-		Isso faria com que houvesse uma aresta duplicada entre
-		os vértices~$a_1$ e~$b_i$, mas isso não acontece, dado que
-		no enunciado é assumido que as cláusulas são distintas.
-		Também não há o problema de dois vértices estarem em cláusulas
-		diferentes, dado que para cada cláusula, os vértices se ligam
-		a um~$F_i$ diferente.
-		E mesmo se repetirmos as variáveis na mesma cláusula, cada
-		elemento da cláusula se ligará a um~$F_i$ diferente.
+		% Se houvesse alguma aresta duplicada (duas arestas que ligam
+		% os mesmos vértices), teríamos um problema na contagem de
+		% arestas dentro e fora do corte.
+		% Isso poderia ocorrer no caso de duas cláusulas serem 
+		% idênticas,~${C_i=C_j=(a_i,b_i)}$.
+		% Isso faria com que houvesse uma aresta duplicada entre
+		% os vértices~$a_1$ e~$b_i$, mas isso não acontece, dado que
+		% no enunciado é assumido que as cláusulas são distintas.
+		% Também não há o problema de dois vértices estarem em cláusulas
+		% diferentes, dado que para cada cláusula, os vértices se ligam
+		% a um~$F_i$ diferente.
+		% E mesmo se repetirmos as variáveis na mesma cláusula, cada
+		% elemento da cláusula se ligará a um~$F_i$ diferente.
+
+		% \bigskip
+
+		% Mostramos que existe uma solução, em {\sc maxcut}, 
+		% para todas as entradas do
+		% problema {\sc max2sat} reduzidas para {\sc maxcut}, de forma que
+		% a solução do {\sc maxcut} leva a uma solução de {\sc max2sat}.
+		% Agora mostraremos que qualquer solução obtida em 
+		% uma redução para {\sc maxcut} levará a uma solução de {\sc max2sat}.
 
 		\bigskip
+		\bigskip
 
-		Mostramos que existe uma solução, em {\sc maxcut}, 
-		para todas as entradas do
-		problema {\sc max2sat} reduzidas para {\sc maxcut}, de forma que
-		a solução do {\sc maxcut} leva a uma solução de {\sc max2sat}.
-		Agora mostraremos que qualquer solução obtida em 
-		uma redução para {\sc maxcut} levará a uma solução de {\sc max2sat}.
+		
+		Agora vamos supor que temos uma instância~$(G,W)$,
+		com~$G=(V,E)$, obtida através da redução de uma instância~$(C,k)$.
+		Seja~$(T,F)$ um corte em~$G$,
+		com~$e_G(T,F)\ge W$.
+		Temos que provar que
+		existem no mínimo~$k$ cláusulas verdadeiras em~$C$.
+
+		% Sabemos que existem~$3p+1$ vértices do tipo~$T_j$
+		% e~$3p+1$ vértices do tipo~$F_j$, e 
+		% existem também arestas que ligam todos os vértices
+		% de~$T_j$ a todos os vértices de~$F_j$, mas nenhuma
+		% delas liga .
+		Note que, como o conjunto~$E_2$ é composto por três arestas
+		de cada uma das cláusula de~$C$,~${|E_2| = 3}p$.  
+		Se os vertices do tipo~$T_j$ e os do tipo~$F_j$ não
+		ficarem separados no corte~$(T,F)$,
+		no mínimo~${3p+1}$ arestas de~$E_1$ não estarão
+		no corte~$(T,F)$ e, 
+		consequentemente,~${e_G(T,F)\le |E_1|-(3p+1)+|E_2|< |E_1| \le W}$. 
+		Portanto, os vértices do tipo~$T_j$ e~$F_j$
+		estão em conjuntos diferentes no corte~$(T,F)$
+		e todas as arestas do tipo~$\{T_i,F_j\}$ estão no
+		corte~$(T,F)$.
+
+		De maneira similar, podemos ver que para toda 
+		variável~$x_i$, os vértices~$x_i$ e~$\overline{x_i}$
+		de~$V$ estão em conjuntos diferentes no corte~$(T,F)$.
+		Existem~$3p+1$ caminhos diferentes entre~$x_i$
+		e~$\overline{x_i}$, e cada um deles contém~4
+		vértices~${(x_i,\ f_{ij},\ t_{ij} \ \text{e}\ \overline{x_i})}$.
+		Se~$x_i$ pertence ao mesmo conjunto que~$\overline{x_i}$,
+		pelo menos uma aresta de cada caminho não estará contida
+		no corte~$(T,F)$, ou seja, no mínimo~$3p+1$ arestas
+		de~$E_1$ não estarão no corte~$(T,F)$, o que
+		implica que~${e_G(T,F)< W}$, como visto anteriormente.
+
+		Os vértices do tipo~$t_{ij}$ e~$f_{ij}$ servem unicamente
+		para que~$x_i$ e~$\overline{x_i}$ fiquem em conjuntos
+		diferentes no corte~$(T,F)$.
+		O ideal seria que estes vértices fossem dispostos no 
+		corte~$(T,F)$ de forma que todas as arestas de~$E_1$ 
+		estivessem no corte~$(T,F)$, assim no mínimo~$2k$ arestas 
+		de~$E_2$ estariam em~$(T,F)$.
+		Mas, se isso não ocorrer,
+		o número de arestas de~$E_2$ irá suprir a falta de arestas
+		de~$E_1$ no corte,
+		fazendo com que o número de cláusulas verdadeiras seja maior
+		que~$2k$.
+		Portanto, não importa em quais conjuntos do corte~$(T,F)$ os 
+		vértices do tipo~$t_{ij}$ e~$f_{ij}$ estão.
+
+		Como todos os vértices do tipo~$F_i$ estão no mesmo conjunto
+		do corte~$(T,F)$, e sabendo que cada cláusula gera um 
+		caminho do tipo~$F_m,x_n,x_o,F_p$, somente será possível
+		dispor os vértices do grafo de forma que, para cada cláusula,
+		zero (cláusula falsa) ou duas (cláusula verdadeira) arestas 
+		estejam no corte~$(B,W)$.
+		Dessa forma, no mínimo~$k$ cláusulas serão verdadeiras. 
+
+		Seja~$F$ o conjunto do corte~$(T,F)$ onde estão todos os vértices
+		da forma~$F_i$.
+		Uma cláusula é verdadeira quando dois de seus vértices
+		estão no corte~$(T,F)$, então os literais com valor verdadeiro
+		devem estar no conjunto~$T$,
+		ou seja, 
+		se o vértice~$x_i\in T$, a variável~$x_i$ tem valor verdadeiro.
+		Caso contrário,~$\overline{x_i}\in T$ e a variável~$x_i$ tem valor falso.
 	\end{proof}
 
-\subsection{Redução {\sc maxcut} para Bissecção}
+
+		% Caso algum desses vértices não esteja conforme o especificado
+		% na redução, o número de arestas de~$E_1$
+		% no corte vai ser menor, o que faz com que o valor de~$W$ seja 
+		% compensado pelo número de arestas de~$E_2$ no corte.
+		% Logo, caso algum vértice de 
+
+
+		% Se existe um corte~$(T,F)$ em~$G$ tal 
+		% que~${e_G(T, F)\ge W}$, 
+		% então teremos que, para todo vértice do tipo~$x_i$,
+		% se~${x_i\in T}$, a variável que ele representa terá valor
+		% verdadeiro. 
+		% Caso contrário,~${x_i\in F}$ e a variável que ele 
+		% representa terá valor falso. 
+		% Note que, para essa valoração das variáveis de~$C$,
+		% pelo menos~$k$ cláusulas de~$C$ são satisfeitas.
+
+
+		%Tendo que as variáveis possuem os valores conforme
+		%o que foi dito anteriormente, $k$ ou mais cláusulas serão 
+		%verdadeiras.
+	%\end{proof}
+
+\subsection{Redução do \textbf{\textsc{maxcut}} para a Bissecção}
 
 % \begin{center} \begin{tikzpicture}
 % 	[scale=.7,auto=left,every node/.style={circle, 

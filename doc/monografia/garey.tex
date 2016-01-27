@@ -29,7 +29,7 @@
 	dois literais por cláusula]
 		Dados um conjunto~$C$ com~$p$ cláusulas distintas na forma 
 		normal disjuntiva, com no máximo
-		dois literais cada, e um inteiro~$k\le p$,
+		dois literais cada, e um inteiro~${k\le p}$,
 		decidir se existem valores para cada uma das variáveis de forma
 		que~$k$ ou mais cláusulas de~$C$ sejam verdadeiras.
 
@@ -165,7 +165,6 @@
 		\textcolor{red}{\textbf {vermelha}}.
 
 		\bigskip
-		\bigskip
 
 		\begin{center} \begin{tikzpicture}
 			[scale=.6,auto=left,every node/.style={circle, 
@@ -237,10 +236,6 @@
 			\draw[draw=red!60, line width=2.5pt] (\from) -- (\to);
 		}
 		\end{tikzpicture} \end{center}
-
-		\bigskip
-		\bigskip
-
 		Claramente~$G$ e~$W$ podem ser obtidos de~$(C,k)$ em
 		tempo polinomial em~$p$ e~$n$.
 		Resta mostrar que existe uma atribuição de valores para as
@@ -527,7 +522,6 @@
 			\foreach \from/\to in {x1/f1}
 			\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
 		\end{tikzpicture} \end{center}
-
 		Note que temos~$2k$ ou mais arestas de~$E_2$ no
 		corte~$(T,F)$, pois, para cada uma das~$k$ cláusulas
 		verdadeiras, teremos duas arestas de~$E_2$ diferentes no corte, 
@@ -628,6 +622,9 @@
 		ou seja, 
 		se o vértice~$x_i\in T$, a variável~$x_i$ tem valor verdadeiro.
 		Caso contrário,~$\overline{x_i}\in T$ e a variável~$x_i$ tem valor falso.
+		
+		Os valores das variáveis de~$C$ podem ser obtidos de~$G$ em
+		tempo polinomial em~$n$.
 	\end{proof}
 
 
@@ -654,42 +651,43 @@
 		%verdadeiras.
 	%\end{proof}
 
+
+	\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \subsection{Redução do \textbf{\textsc{maxcut}} para a Bissecção}
+	\begin{prob}[Bissecção($G,W$) -- Corte mínimo em uma bissecção]
+		Dados um grafo~${G}$
+		%onde cada uma das arestas tem peso 1, 
+		e um inteiro positivo~${W}$, decidir se existe um
+		corte~$(R,S)$ em $G$ tal 
+		que~$|R|=|S|$ e~${e_G(R,S)\le W}$.
+		
+	\end{prob}
+	\begin{teo}
+		O problema da bissecção mínima é NP-difícil.
+	\end{teo}
+	\begin{proof}
+		Vamos apresentar uma redução polinomial do {\textsc{maxcut}}
+		para o problema da Bissecção.
 
-% \begin{center} \begin{tikzpicture}
-% 	[scale=.7,auto=left,every node/.style={circle, 
-% 	draw=black,
-% 	fill=blue!20}]
+		Dada uma instância~$(G,W)$ do problema {\textsc{maxcut}},
+		com~${G = (V,E)}$, precisamos construir uma instância~$(G',W')$
+		do problema da Bissecção, com~${G'=(V',E')}$.
 
-% 	\node (an1) at (-3 -7, 1) {$v_1$};
-% 	\node (an2) at (-5 -7, 2) {$v_2$};
-% 	\node (an3) at (-3 -7, 10) {$v_3$};
-% 	\node (an4) at (-5 -7, 9) {$v_4$};
-% 	\node (an5) at (-6 -7, 6) {$v_5$};
-
-% 	%legenda
-% 	\node [draw=none, fill=none](a1)  at (-5  ,-0.5) {};
-% 	\node [draw=none, fill=none](a1_) at (-6.4,-0.5) {};
-% 	\node [draw=none, fill=none](a2)  at (-5  ,-1.5) {};
-% 	\node [draw=none, fill=none](a2_) at (-6.4,-1.5) {};
-
-% 	\node [draw=none, fill=none] at 
-% 		(-3,-0.5) {\small{aresta $\in(T,F)$}};
-% 	\node [draw=none, fill=none] at 
-% 		(-3,-1.5) {\small{aresta $\not\in(T,F)$}};
-	
-
-% 	\foreach \from/\to in {an1/an2,an1/an3,an1/an4,an2/an4,an2/an5,
-% 	a1/a1_}
-% 	\draw[draw=red!60, line width=2.7pt] (\from) -- (\to);
-
-% 	\foreach \from/\to in {an1/an5,an2/an3,an3/an4,an3/an5,an4/an5,
-% 	a2/a2_}
-% 	\draw[draw=CornflowerBlue,line width=1.3pt] (\from) -- (\to);
-
-% \end{tikzpicture} \end{center}
-
-
+		Seja~${n = |V|}$ e~${U=\{u_1,u_2,\ldots,u_n\}}$ 
+		com~${V\cap U = \emptyset}$.
+		O conjunto de vértices e arestas de~$G$ é dado da seguinte 
+		maneira:
+		\begin{align} 
+			V' &= V\cup U \nonumber \\
+			E' &= \{\{x,y\}: x,y\in V'\ \ \text{e}\ \ \{x,y\}\not\in E\} \nonumber \\
+			W' &= n^2-W .\nonumber 
+		\end{align}
+		Segue abaixo um exemplo de grafo~$G'$.
 \begin{center} \begin{tikzpicture}
 	[scale=.6,auto=left,every node/.style={circle, 
 	draw=black,
@@ -783,8 +781,9 @@
 		(-9.5+15.8 ,4.9) --
 		(-9.5+15.8 ,5.4) --
 		cycle;
-
-	
 }
-\end{tikzpicture}
- \end{center}
+\end{tikzpicture}\end{center}
+		Vemos que~$G'$ e~$W'$ podem ser obtidos de~$G$ e~$W$
+		em tempo polinomial em~$n$.	
+		
+	\end{proof}

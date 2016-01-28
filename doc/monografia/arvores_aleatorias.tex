@@ -16,6 +16,9 @@ os vértices na ordem dada pelo vetor.
 Isso leva tempo~$O(n^2)$, dado que a inserção na árvore 
 binária de busca pode levar tempo linear para cada um dos~$n$ 
 vértices.
+No entanto, sabe-se que o tempo esperado desse processo
+é~$O(n\lg n)$, dado que a altura esperada de uma 
+árvore binária aleatória é~$O(n\lg n)$~\cite{cormen2009introduction}.
 
 Usaremos a função {\sc insere}$(r, n)$, que criará
 um vértice de valor~$n$ e fará a inserção desse na árvore
@@ -23,6 +26,7 @@ enraizada no vértice~$r$.
 
 Segue abaixo o algoritmo do gerador.
 
+\bigskip
 \begin{algorithm}[H]
 \label{alg:ABAgenerator}
 	\SetKwInOut{Input}{entrada}
@@ -54,6 +58,7 @@ Segue abaixo o algoritmo do gerador.
 
 \end{algorithm}	
 
+\bigskip
 \bigskip
 \bigskip
 

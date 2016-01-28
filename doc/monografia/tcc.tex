@@ -218,72 +218,50 @@
 	
 	\subsection{Condições de teste}
 	Os resultados mostrados a seguir foram extraídos de programas
-	desenvolvidos em linguagem C em uma máquina com sistema operacional
-	Linux Ubuntu versão**** com kernel ****, 
-	sistema de operação 64 bits, processador *** com ** threads,
-	8GB de memória RAM ****. 
-	Para compilar os programas, foi utilizado o gcc versão ****
-	As opções de compilação usadas foram -Wall -ansi, -pedantic, 
-	-Wno-unused-result e -g. 
+	desenvolvidos em linguagem C,
+	em uma máquina com sistema operacional
+	\textit{Linux Ubuntu} versão \textit{14.04 LTS}, 
+	com kernel \textit{Linux 3.13.0-74-generic}, 
+	sistema de operação \textit{64 bits}, 
+	processador \textit{Intel Core i5-4210U 1.70GHz} com \textit{4 threads},
+	\textit{7.7GB} de memória \textit{RAM}. 
+	Para compilar os programas, foi utilizado 
+	o \textit{gcc} versão \textit{4.8.4}
+	As opções de compilação usadas foram \textit{-Wall, -ansi, -pedantic, 
+	-Wno-unused-result} e \textit{-g}. 
 
 	\subsection{Árvores Binárias Aleatórias}
-	% \begin{table}[htbf]
-	% 	\centering
-	% 	\caption {Random Binary Trees}
-	% 	\begin{tabular}{ c|c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
-	% 		\specialrule{1.7pt}{1pt}{1pt}
-	% 		$|V(T)|$ & seed & $e_T(B,W)$ - \textbf{FST} & $e_T(B,W)$ - \textbf{Jansen} & Tempo - \textbf{FST} & Tempo - \textbf{Jansen}  \\[10pt]
-
-	% 		\specialrule{1.7pt}{1pt}{1pt}
-	% 		\multirow{10}*{100} & 1  & 2   & 2  & 0.000146  & 0.002095 \\[3pt]\cmidrule{2-6} 
-	% 	                        & 2  & 2   & 2  & 0.000187  & 0.002130 \\[3pt]\cmidrule{2-6}
-	% 		                    & 3  & 2   & 2  & 0.000158  & 0.002440 \\[3pt]\cmidrule{2-6}
-	% 		                    & 4  & 2   & 2  & 0.000142  & 0.001993 \\[3pt]\cmidrule{2-6}
-	% 		                    & 5  & 3   & 2  & 0.000188  & 0.000967 \\[3pt]\cmidrule{2-6}
-	% 		                    & 6  & 3   & 2  & 0.000185  & 0.001003 \\[3pt]\cmidrule{2-6}
-	% 		                    & 7  & 2   & 2  & 0.000131  & 0.001005 \\[3pt]\cmidrule{2-6}
-	% 		                    & 8  & 5   & 2  & 0.000183  & 0.000884 \\[3pt]\cmidrule{2-6}
-	% 		                    & 9  & 2   & 2  & 0.000176  & 0.001037 \\[3pt]\cmidrule{2-6}
-	% 		                    & 10 & 2   & 2  & 0.000130  & 0.001030 \\[3pt]
-
-	% 		\specialrule{1.7pt}{1pt}{1pt}
-		 
-	% 	\end{tabular}
-	% \end{table}
-
-
-
 
 		\begin{table}[h]
 		\centering
-		\scalebox{0.7}{
-		\begin{tabular}{| c | >{\columncolor{blue!14}}P{1.8cm} | >{\columncolor{red!14}}P{2.6cm} | P{2.6cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{red!14}}P{2.6cm} | >{\columncolor{red!14}}P{2.5cm} |}
+		\scalebox{0.78}{
+		\begin{tabular}{| c | P{3.4cm}  | P{2.6cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{blue!14}}P{2.5cm} | >{\columncolor{red!14}}P{2.6cm} | >{\columncolor{red!14}}P{2.6cm} |}
 		%\begin{tabular}{c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
 			\specialrule{1.7pt}{1pt}{1pt}
-			$|V(T)|$ & $e_T(B,W)$ \textbf{FST} (pior~caso) & $e_T(B,W)$ \textbf{Jansen~et~al.} (pior~caso) & nº de vezes que encontrou o ótimo & Tempo médio \textbf{FST} (segundos) & Desvio padrão do tempo \textbf{FST} & Tempo médio \textbf{Jansen~et~al.}   (segundos) & Desvio padrão do tempo \textbf{Jansen~et~al.}  \\[10pt]
+			$|V(T)|$ & $e_T(B,W)$ \textbf{FST}/\textbf{Jansen~et~al.} (pior~caso) & nº de vezes que encontrou o ótimo & Tempo médio \textbf{FST} (segundos) & Desvio padrão do tempo \textbf{FST} & Tempo médio \textbf{Jansen~et~al.}   (segundos) & Desvio padrão do tempo \textbf{Jansen~et~al.}  \\[10pt]
 
 			\specialrule{1.7pt}{1pt}{1pt}
 
-			  	100  & 5  & 2  & 7/10  & 0.000136  & 0.000050 &   0.001794 & 0.000818  \\ [3pt]
-				200  & 7  & 2  & 9/10  & 0.000186  & 0.000089 &   0.008120 & 0.001961  \\ [3pt]
-				400  & 8  & 3  & 6/10  & 0.000196  & 0.000061 &   0.046444 & 0.003297  \\ [3pt]
-				800  & 8  & 3  & 3/10  & 0.000469  & 0.000091 &   0.350070 & 0.011072  \\ [3pt]
-				1600 & 8  & 3  & 2/10  & 0.001014  & 0.000182 &   2.730767 & 0.054196  \\ [3pt]
-				3200 & 10 & 3  & 4/10  & 0.001943  & 0.000681 &  22.178777 & 0.512264  \\ [3pt]
-				6400 & 11 & 3  & 0/10  & 0.004158  & 0.000781 & 176.240114 & 2.011271  \\ [3pt]
-			   12800 & 10 & 3  & 0/10  & 0.008592  & 0.001632 &1407.933406 & 45.462291  \\ [3pt]
+			  	100  &  5/2  & 7/10  & 0.000136  & 0.000050 &   0.001794 & 0.000818  \\ [3pt]
+				200  &  7/2  & 9/10  & 0.000186  & 0.000089 &   0.008120 & 0.001961  \\ [3pt]
+				400  &  8/3  & 6/10  & 0.000196  & 0.000061 &   0.046444 & 0.003297  \\ [3pt]
+				800  &  8/3  & 3/10  & 0.000469  & 0.000091 &   0.350070 & 0.011072  \\ [3pt]
+				1600 &  8/3  & 2/10  & 0.001014  & 0.000182 &   2.730767 & 0.054196  \\ [3pt]
+				3200 & 10/3  & 4/10  & 0.001943  & 0.000681 &  22.178777 & 0.512264  \\ [3pt]
+				6400 & 11/3  & 0/10  & 0.004158  & 0.000781 & 176.240114 & 2.011271  \\ [3pt]
+			   12800 & 10/3  & 0/10  & 0.008592  & 0.001632 &1407.933406 & 45.462291  \\ [3pt]
 
-			   25600    & 12 & --  & --  & 0.024976  & 0.001446 & -- & -- \\ [3pt]
-			   51200    & 12 & --  & --  & 0.060082  & 0.003555 & -- & -- \\ [3pt]
-			   102400   & 13 & --  & --  & 0.152887  & 0.007932 & -- & -- \\ [3pt]
-			   204800   & 12 & --  & --  & 0.284941  & 0.016206 & -- & -- \\ [3pt]
-			   409600   & 13 & --  & --  & 0.619568  & 0.084594 & -- & -- \\ [3pt]
-			   819200   & 13 & --  & --  & 1.478659  & 0.093567 & -- & -- \\ [3pt]
-			   1638400  & 13 & --  & --  & 2.832498  & 0.147750 & -- & -- \\ [3pt]
-			   3276800  & 14 & --  & --  & 5.971384  & 0.199216 & -- & -- \\ [3pt]
-			   6553600  & 16 & --  & --  & 13.298427 & 0.831551 & -- & -- \\ [3pt]
-			   13107200 & 17 & --  & --  & 27.177690 & 1.280472 & -- & -- \\ [3pt]
-			   26214400 & 15 & --  & --  & 58.552827 & 4.089392 & -- & -- \\ [3pt]
+			   25600    & 12/--  & --  & 0.024976  & 0.001446 & -- & -- \\ [3pt]
+			   51200    & 12/--  & --  & 0.060082  & 0.003555 & -- & -- \\ [3pt]
+			   102400   & 13/--  & --  & 0.152887  & 0.007932 & -- & -- \\ [3pt]
+			   204800   & 12/--  & --  & 0.284941  & 0.016206 & -- & -- \\ [3pt]
+			   409600   & 13/--  & --  & 0.619568  & 0.084594 & -- & -- \\ [3pt]
+			   819200   & 13/--  & --  & 1.478659  & 0.093567 & -- & -- \\ [3pt]
+			   1638400  & 13/--  & --  & 2.832498  & 0.147750 & -- & -- \\ [3pt]
+			   3276800  & 14/--  & --  & 5.971384  & 0.199216 & -- & -- \\ [3pt]
+			   6553600  & 16/--  & --  & 13.298427 & 0.831551 & -- & -- \\ [3pt]
+			   13107200 & 17/--  & --  & 27.177690 & 1.280472 & -- & -- \\ [3pt]
+			   26214400 & 15/--  & --  & 58.552827 & 4.089392 & -- & -- \\ [3pt]
 
 
 			\specialrule{1.7pt}{1pt}{1pt}
@@ -292,10 +270,19 @@
 	}
 	\end{table}
 
-		\subsection{Árvores Ternárias}
-		Árvores ternárias são árvores onde todos os nós, exceto as folhas, possuem três filhos.
+	\bigskip
 
-		\begin{table}[!h]
+		\subsection{Árvores Ternárias}
+		Árvores ternárias são árvores completas onde todos os nós, 
+		exceto as folhas, possuem três filhos.
+
+		Sabe-se que uma bissecção mínima numa árvore ternária completa
+		com~$n$ vértices tem largura~$\Theta(\lg n)$, e esse é o pior caso
+		do problema bissecção mínima~\cite{FernandesST15}.
+		
+\newpage
+
+		\begin{table}[h]
 		\centering
 		\begin{tabular}{| c | c | >{\columncolor{blue!14}}P{2.1cm} | >{\columncolor{red!14}}P{2.6cm} | >{\columncolor{blue!14}}P{2.6cm} | >{\columncolor{red!14}}P{2.6cm} | }
 		%\begin{tabular}{c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c | >{\columncolor{blue!14}}c | >{\columncolor{red!14}}c }
@@ -323,11 +310,6 @@
 	\end{table}
 
 	\bigskip
-	\bigskip
-	\bigskip
-
-
-
 		\subsection{Árvores de Caminho Longo}
 		Geramos um conjunto de árvores com diâmetro relativo
 		alto, acima de meio.
@@ -337,6 +319,7 @@
 		Como visto na Seção~\ref{sec:dobraDiametro}, todas as árvores desse tipo caem
 		no caso~1, onde o corte da bissecção mínima é sempre no máximo dois.
 
+	\newpage
 		\begin{table}[h]
 		\centering
 		\begin{tabular}{| c | >{\columncolor{blue!14}}P{2.1cm} | >{\columncolor{red!14}}P{2.6cm} | >{\columncolor{blue!14}}P{2.6cm} | >{\columncolor{red!14}}P{2.6cm} |}
@@ -366,13 +349,18 @@
 	\bigskip
 	\bigskip
 	\bigskip
-	\bigskip
-	\bigskip
-
 	Para gerar as árvores ternárias e as árvores de caminho longo, 
 	foram utilizados os geradores feitos por Kampmeier~\cite{Kampmeier}.
+	
+	Como os geradores de Kampmeier foram feitos na linguagem Java, 
+	cada teste levava bastante tempo para ser gerado,
+	%uma grande quantidade de tempo foi utilizada para gerar os testes,
+	impossibilitando que obtivéssemos testes de grafos com um número 
+	de vértices maior.
 
-
+	\bigskip
+	\bigskip
+	\bigskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  SEÇÃO 14    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -394,21 +382,16 @@ mais vértices no caminho máximo do que fora dele, e
 árvores desse tipo se enquadram no primeiro caso do algoritmo da 
 dobra do diâmetro, que irá cortar no máximo duas arestas da árvore.
 
-Infelizmente, existem casos onde o algoritmo de FST não se dá
-tão bem em relação à optimalidade.
-Como pode ser visto nos resultados em árvores ternárias mostrados 
-anteriormente,
-o algoritmo de FST devolve cortes cujas larguras são relativamente
-grandes comparadas as larguras devolvidas pelo algoritmo de Jansen
-et al.. 
-Isso ocorre devido à pequena quantidade de vértices presentes 
-no caminho máximo em uma árvore ternária, 
-implicando numa grande chance de uma árvore desse tipo cair 
-no segundo caso
-do Algoritmo da dobra do diâmetro, que irá gerar um corte
-cuja largura é
-limitada superiormente por um valor alto.
-%com um alto valor de limite superior.
+Nos demais casos, comparado ao algoritmo de Jansen et al.,
+vemos que ele também tem um bom desempenho em relação a 
+optimalidade. 
+Isso pode ser visto nos testes com árvores ternárias 
+completas,
+que são as árvores cuja bissecção mínima
+tem o maior número de arestas no corte, e onde o algoritmo
+de FST devolve um corte de largura razoável, com razão
+menor que~3 em relação ao corte ótimo.
+
 
 \newpage
 \bibliographystyle{plain}

@@ -45,7 +45,9 @@ all: t0 t1 t2-simpleApproxCut t2-approxCut t3 t4 t5 gen
 ## Clean ###############################################################
 .PHONY: clean
 clean:
-	$(RM) common/*.o common/list/*.o *.o _* *~ common/*~ common/list/*~ tests/*~
+	$(RM) common/*.o common/list/*.o *.o _* *~ common/*~ common/list/*~ 
+	$(RM) tests/*~ doc/monografia/*.log doc/monografia/*.toc doc/monografia/*.aux 
+	$(RM) doc/monografia/*.bbl doc/monografia/*.blg
 
 
 

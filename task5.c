@@ -116,7 +116,9 @@ void exactCut(Graph *G, int m)
 	r = malloc(G->V*sizeof(int));
 
 	/* maxPath = maximumPath(G, root); */
+	/*printGraph(G);*/
 	maxPath = maximumPath(G);
+	/*printGraph(G);*/
 
 
 	/* Labeling */
@@ -163,7 +165,8 @@ void countEdgesAtCut(Graph *G, int ver, int parent)
         {
         	if(setB[ver]!=setB[v->vertex] && v->bridge==0)
         	{
-        		/*if(DEBUG_2) printf("%d -- %d\n", ver, v->vertex);*/
+        		/*if(DEBUG_2) */
+        			printf("%d -- %d\n", ver, v->vertex);
             	numCut++;
             	numCutWeight+= v->weight;
         	}

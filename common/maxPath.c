@@ -35,7 +35,7 @@ int *maximumPath(Graph *G)
   
     free(visited);
     free(parents); 
-    for (i=1; i<tree; i++) includeBridgeEdges(G, y[i-1], x[i]);
+    for (i=1; i<tree; i++) includeBridgeEdges(G, x[i-1], y[i]);
     free(x); 
     free(y);
     /*if(DEBUG_2||STEP) printf("length: %d\n", maxPathLength);*/

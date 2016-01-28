@@ -144,8 +144,8 @@ void printGraph(Graph *G)
 		aux = G->adj[i]->next;
 		while(aux!=NULL)
 		{
-			printf("%d %d    |    edge: %d    |   original: %d\n", i, aux->vertex, 
-				aux->edge, aux->original);
+			printf("%d %d   |  edge: %d  |  original: %d  | bridge: %d \n", i, aux->vertex, 
+				aux->edge, aux->original, aux->bridge);
 			aux = aux->next;
 		}
 	}

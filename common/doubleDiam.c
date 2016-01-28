@@ -46,6 +46,20 @@ int decideCases(Graph *G, int *maxPath, int*label, int m, int *r, int *index)
 
 	rLabel = indexRbyLabel(G, r, label);
 
+printLabel(G, label, r);
+for(i = 1; i<maxPathLength; i++)
+{
+	printf("%d---%d  ", maxPath[i], G->adj[maxPath[i]]->next->vertex);
+}
+
+printf("\n");
+
+for(i = 0; i<maxPathLength; i++)
+{
+	printf("%d ", maxPath[i]);
+}
+
+printf("\n");
 	for (i = 0; i<maxPathLength; i++)
 	{
 		plusM = (label[maxPath[i]] + m)%countLabel;
@@ -68,13 +82,13 @@ void case1(Graph *G, int firstVertexB, int m, int *index)
 {
 	int i;
 	/* B is all the vertex with label between firstVertexB and firstVertexB -m */
-	if(DEBUG||STEP) printf("  -- CASE 1 --\n");
+	if(DEBUG||STEP) printf("  -- CASE 1 -*-\n");
 	for(i=firstVertexB; i!=(firstVertexB+m-1)%countLabel; i = (i+1)%countLabel)
 	{
 		Blength++;
 		setB[index[i]] = 1;
 	}
-	
+	printf("count %d------------------------\n", countLabel);
 	setB[index[i]] = 1;
 	Blength++;
 

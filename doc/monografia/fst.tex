@@ -448,6 +448,7 @@
 
 		Dado que, inicialmente,~$B=\emptyset$, sempre entraremos no laço das
 		linhas~7-9.
+		Seja~$T[S]_1$ o grafo~$T[S]$ passado como parâmetro para a função Algortimo~4.
 		Em cada execução da linha~7, o corte~$(B',W,S)$
 		terá as propriedades de um dos seguintes itens:
 		\begin{enumerate}
@@ -455,8 +456,8 @@
 			\item ${|B'|\le m-|B|\le |B'|+|S|}$, 
 				com~${0<|S|\le\dfrac{n}{2},\
 				e_T(B,W,S)\le \dfrac{2\cdot 
-				\Delta(T)}{\diam^*(T)}}$, 
-				e~${\diam^*(T[S])\ge 2\ \diam^*(T)}$.
+				\Delta(T[S]_1)}{\diam^*(T[S]_1)}}$, 
+				e~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
 		\end{enumerate} 
 		Se o corte~$(B',W,S)$ 
 		%tiver as propriedades do item~1,
@@ -470,27 +471,24 @@
 		%algum vértice de~$S'$ que será usado como raiz na 
 		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
-		Caso o corte~$(B,W,S)$ devolvido seja tal que~$|B|<m$,
-		então sabe-se que ele segue as propriedades do item~2, e
-		portanto executaremos o laço das linhas~6-9.
-		Se em alguma das iterações do laço o Algoritmo~4 retornar
-		um corte~$(B',W,S)$ tal que~$|B'| = m-|B|$,
-		na linha~7 o conjunto~$|B|=m$.
-
-		Resta saber se ao final do laço das linhas~6-9 o conjunto~$B$ terá 
-		exatamente~$m$ vértices.
-		Caso contrário, sabe-se que~$(B',W,S)$ satisfaz as condições
-		do item~2 e~${\diam^*(T[S])\ge 2\ \diam^*(T)}$.
-		Assim, sabemos que o valor diâmetro relativo de~$T[S]$ sempre
+		Caso o corte~$(B',W,S)$ devolvido seja tal que~$|B|<m$,
+		então sabe-se que ele segue as propriedades do item~2
+		e~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
+		Note que em algum momento~$|B|\ge m$,
+		dado que o diâmetro relativo de~$T[S]$ sempre
 		dobra, no mínimo.
-		Assim, em algum momento~$\diam^*(T)>\dfrac{1}{2}$, fazendo
+		Assim, como visto anteriormente,
+		em algum momento~$\diam^*(T)>\dfrac{1}{2}$, fazendo
 		com que a chamada ao Algoritmo~4 da linha~6 retorne um corte
-		que condiz com o item~1, fazendo com que~$|B| = m$.
-		Sabe-se que em nenhum momento~$|B|>m$, dado a chamada ao algoritmo~4
+		que condiz com o item~1, e portanto, na linha~8 será válido 
+		que~$|B| = m$.
+		
+		Caso contrário, resta saber se ao final do laço das linhas~6-9
+		o conjunto~$B$ terá 
+		exatamente~$m$ vértices.
+		Sabe-se que em nenhum momento~$|B|>m$ irá ocorrer, dado que a chamada ao algoritmo~4
 		da linha~6 sempre retorna um corte~$(B',W,S)$ de forma que~$|B'|\le m-|B|$,
-		independente de qual itens esse corte satisfizer.
-		Ao final do laço, o conjunto~$S$ terá no mínimo~$m-|B|$ vértices, 
-		dado que~$m\le|B'|+|S|$.
+		independente de qual item esse corte satisfizer.
 
 
 		\bigskip
@@ -503,7 +501,7 @@
 		tempo ~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$, a função
 		{\sc recalcula\_caminho} que consome tempo~$O(n)$, e a função
 		{\sc rotula} que consome tempo~$O(n)$.
-		Sendo~$i$ um inteiro tal que~$\diam^*(T)>\dfrac{1}{2^i}$, 
+		Sendo~$i$ um inteiro tal que~${\dfrac{1}{2^i}< \diam^*(T)\le \dfrac{1}{2^{i-1}}}$, 
 		temos que cada uma das operações citadas anteriormente
 		será executada no máximo~$i$ vezes.
 
@@ -515,7 +513,7 @@
 		Dado que usamos o~$T^*[S']$ como a nova árvore
 		e sabendo que~$|S'|\le \dfrac{n}{2}$,
 		temos que o número de vértices de~$T_{\ell}$
-		é maior ou igual ao 
+		é no mínimo o 
 		dobro do número de vértices de~$T_{\ell-1}$, logo
 		\begin{align}
 			 & n_{\ell} \ge 2\cdot n_{\ell-1} \ge 4\cdot n_{\ell-2} \nonumber\\
@@ -524,7 +522,7 @@
 			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1. \nonumber 
 		\end{align}
 		Logo, para todo~$\ell\in[i]$, temos que~$n_\ell \le\dfrac{n} {2^{i-\ell}}$.
-		Portanto temos que o tempo de execução do Algoritmo~5 é
+		Portanto o tempo de execução do Algoritmo~5 é
 		\begin{align}
 			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big)
 			+ O(n_\ell) + O(n_\ell)\Big)

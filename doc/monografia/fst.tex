@@ -201,7 +201,7 @@
 
 			Observe que o Algoritmo~\ref{alg:dobraDiametro} já faz
 			esse acerto em~$T[S']$ antes de devolvê-lo.
-			No Algoritmo~\ref{alg:corteExato}, temos que 
+			No Algoritmo~5, temos que 
 			retirar arestas da árvore para 
 			desconectar os vértices de~$S'$ do resto da árvore
 			e acrescentar a aresta~$e$, como descrito na prova do teorema.
@@ -312,7 +312,7 @@
 		% vértices~$v_1$ e~$v_2$ em tempo constante. 
 		O algoritmo FST faz uso das seguintes rotinas.
 		A função {\sc caminho\_máximo}$(T)$ 
-		recebe~$T$ com~$n$ vértices e
+		recebe uma árvore~$T$ com~$n$ vértices e
 		devolve um vetor contendo os vértices de um caminho 
 		máximo em~$T$, de acordo com a ordem apresentada no caminho.
 		Isso pode ser feito em tempo~$O(n)$, como descrito na 
@@ -328,7 +328,23 @@
 		Essa função consome tempo~$O(n)$, como mostrado na 
 		Seção~\ref{sec:rotulacao}.
 
-		A função {\sc recalcula\_caminho}$(T$, $S$, $c)$
+		%Temos uma outra modificação no 
+		%Algoritmo~\ref{alg:corteExato}   
+		%Algoritmo~5   
+		%em relação ao Teorema~\ref{teo:corteExato}.
+		Em vez de calcularmos novamente o caminho máximo da nova
+		árvore, podemos reutilizar o caminho calculado anteriormente,
+		aproveitando somente a parte do caminho que está contida 
+		em~$S'$. 
+		Se usarmos essa parte no lugar de um caminho máximo,
+		manteremos a propriedade da dobra do diâmetro como pode
+		ser visto na equação~(\ref{eq:reaproveitaCaminho}) da 
+		Seção~\ref{sec:dobraDiametro}. 
+		Dessa forma, a rotulação continua basicamente a mesma,
+		bastando apenas fazer um ajuste nos vértices para a esquerda.
+		
+		Para reutilizar o caminho da árvore antiga, utilizamos a 
+		função {\sc recalcula\_caminho}$(T,S,c)$, que
 		recebe como parâmetros uma árvore~$T$, um conjunto de vértices~$S\subset T$ 
 		e um vetor~$c$, que contém os vértices de um caminho na árvore~$T$ ordenados
 		de acordo com a sua posição neste caminho.
@@ -377,22 +393,19 @@
 			\Output{corte $(B,W)$ tal que $|B|=m$ 
 			e~$e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)$}
 			$B\gets \emptyset$\;
-			$S'\gets V$\;
+			$T'[S]\gets T$\;
 			$r\gets$ vértice arbitrário de~$T$\;
 			$P\gets$ {\sc caminho\_máximo}$(T)$\;
 			$[\rot$, $\ind]\gets$ {\sc rotula}$(T$, $P)$\;
-			$[(B',W',S')$, $T'[S']$, $r]\gets
-				\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T$,
-				$|V|$, $m$, $P$, $rot$, $ind$,~$r)$\;
 			\While{$|B|<m$}
 			{
-				\tcp{$r$ receberá um vértice que pertence ao novo conjunto~$S'$}
-				$[(B',W',S')$, $T'[S']$, $r]\gets
-					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T'[S']$,
-					$|S'|$, $m-|B|$, $P$, $\rot$, $\ind$,~$r)$\;
+				%\tcp{$r$ receberá um vértice que pertence ao novo conjunto~$S'$}
+				$[(B',W,S)$, $T'[S]$, $r]\gets
+					\mathbf {Algoritmo\ref{alg:dobraDiametro}}(T'[S]$,
+					$m-|B|$, $P$, $\rot$, $\ind$,~$r)$\;
 				$B\gets B\cup B'$\;
-				$P\gets$ {\sc recalcula\_caminho}$(T'$, $S'$, $P)$\;
-				$[\rot$, $\ind]\gets$ {\sc rotula}$(T'[S']$, $P)$
+				$P\gets$ {\sc recalcula\_caminho}$(T'$, $S$, $P)$\;
+				$[\rot$, $\ind]\gets$ {\sc rotula}$(T'[S]$, $P)$
 				% \If{$T^*[S']$ não é conexo}
 				% {
 				% 	INSERE\_ARESTA$(T[S']$, PRIMEIRO$(P)$, 
@@ -420,34 +433,65 @@
 		%, que, nesse caso, é a árvore~$T^*$ com
 		%os vértices de~$S'$ isolados do resto de~$T^*$.
 
-		Como usaremos apenas a árvore de~$S'$ e~$T^*$ possui outros 
-		vértices além dos vértices de~$S'$,
-		precisamos mandar um vértice de~$S'$ para
-		o Algoritmo~\ref{alg:dobraDiametro},
-		para que ele saiba que a árvore tratada em questão é
-		somente a componente conexa que possui o vértice recebido.
-		Assim, o Algoritmo~\ref{alg:dobraDiametro} irá considerar
-		apenas a componente conexa de~$S'$ e ainda
-		poderá usar o vértice recebido como raiz.
+		% Como usaremos apenas a árvore de~$S'$ e~$T^*$ possui outros 
+		% vértices além dos vértices de~$S'$,
+		% precisamos mandar um vértice de~$S'$ para
+		% o Algoritmo~\ref{alg:dobraDiametro},
+		% para que ele saiba que a árvore tratada em questão é
+		% somente a componente conexa que possui o vértice recebido.
+		% Assim, o Algoritmo~\ref{alg:dobraDiametro} irá considerar
+		% apenas a componente conexa de~$S'$ e ainda
+		% poderá usar o vértice recebido como raiz.
 
+
+		\bigskip
+
+		Dado que, inicialmente,~$B=\emptyset$, sempre entraremos no laço das
+		linhas~7-9.
+		Em cada execução da linha~7, o corte~$(B',W,S)$
+		terá as propriedades de um dos seguintes itens:
+		\begin{enumerate}
+			\item $|B'|=m-|B|$, $S=\emptyset$ e~$e_T(B',W)\le 2$ ou
+			\item ${|B'|\le m-|B|\le |B'|+|S|}$, 
+				com~${0<|S|\le\dfrac{n}{2},\
+				e_T(B,W,S)\le \dfrac{2\cdot 
+				\Delta(T)}{\diam^*(T)}}$, 
+				e~${\diam^*(T[S])\ge 2\ \diam^*(T)}$.
+		\end{enumerate} 
+		Se o corte~$(B',W,S)$ 
+		%tiver as propriedades do item~1,
+		%ou mesmo se tiver as  propriedades do item~~$|B|$
+		retornado for tal que~$|B'| = m-|B|$, teremos que~$|B|=m$
+		ao final do laço.
+		Portanto, na linha~11, será retornado um corte~$(B,W)$ 
+		com~$|B| = m$ e~$e_T(B,W) \le \dfrac{2\cdot 
+			\Delta(T)}{\diam^*(T)}\le \dfrac{8}{\diam^*(T)}\Delta(T)$.
 		%também devolverá 
 		%algum vértice de~$S'$ que será usado como raiz na 
 		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
-		Temos uma outra modificação no 
-		%Algoritmo~\ref{alg:corteExato}   
-		Algoritmo~5   
-		em relação ao Teorema~\ref{teo:corteExato}.
-		Em vez de calcularmos novamente o caminho máximo da nova
-		árvore, podemos reutilizar o caminho calculado anteriormente,
-		aproveitando somente a parte do caminho que está contida 
-		em~$S'$. 
-		Se usarmos essa parte no lugar de um caminho máximo,
-		manteremos a propriedade da dobra do diâmetro como pode
-		ser visto na equação~(\ref{eq:reaproveitaCaminho}) da 
-		Seção~\ref{sec:dobraDiametro}. 
-		Dessa forma, a rotulação continua basicamente a mesma,
-		bastando apenas fazer um ajuste nos vértices para a esquerda.
+		Caso o corte~$(B,W,S)$ devolvido seja tal que~$|B|<m$,
+		então sabe-se que ele segue as propriedades do item~2, e
+		portanto executaremos o laço das linhas~6-9.
+		Se em alguma das iterações do laço o Algoritmo~4 retornar
+		um corte~$(B',W,S)$ tal que~$|B'| = m-|B|$,
+		na linha~7 o conjunto~$|B|=m$.
+
+		Resta saber se ao final do laço das linhas~6-9 o conjunto~$B$ terá 
+		exatamente~$m$ vértices.
+		Caso contrário, sabe-se que~$(B',W,S)$ satisfaz as condições
+		do item~2 e~${\diam^*(T[S])\ge 2\ \diam^*(T)}$.
+		Assim, sabemos que o valor diâmetro relativo de~$T[S]$ sempre
+		dobra, no mínimo.
+		Assim, em algum momento~$\diam^*(T)>\dfrac{1}{2}$, fazendo
+		com que a chamada ao Algoritmo~4 da linha~6 retorne um corte
+		que condiz com o item~1, fazendo com que~$|B| = m$.
+		Sabe-se que em nenhum momento~$|B|>m$, dado a chamada ao algoritmo~4
+		da linha~6 sempre retorna um corte~$(B',W,S)$ de forma que~$|B'|\le m-|B|$,
+		independente de qual itens esse corte satisfizer.
+		Ao final do laço, o conjunto~$S$ terá no mínimo~$m-|B|$ vértices, 
+		dado que~$m\le|B'|+|S|$.
+
 
 		\bigskip
 
@@ -464,7 +508,7 @@
 		será executada no máximo~$i$ vezes.
 
 		Considere que~$\ell$ indica a interação do \textit{while}
-		da linha 7,
+		da linha 5,
 		começando do~$i$ e indo até~1, e~$T_\ell$ e~$n_\ell$ 
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
@@ -491,3 +535,7 @@
 		\end{align}
 
 		Logo, o algoritmo leva tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
+
+		\bigskip
+		\bigskip
+		\bigskip

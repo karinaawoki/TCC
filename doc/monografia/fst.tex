@@ -505,16 +505,25 @@
 		temos que cada uma das operações citadas anteriormente
 		será executada no máximo~$i$ vezes.
 
-		Considere que~$\ell$ indica a interação do \textit{while}
-		da linha 5,
-		começando do~$i$ e indo até~1, e~$T_\ell$ e~$n_\ell$ 
+		Considere que~$\ell$ seja o número de vezes que
+		as linhas~7-10 foram executadas, com~$\ell = 0$, inicialmente.
+		%a interação do \textit{while}
+		%da linha 5,
+		%começando do~$i$ e indo até~1, e
+		Temos que~$T_\ell$ e~$n_\ell$ 
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
-		Dado que usamos o~$T^*[S']$ como a nova árvore
-		e sabendo que~$|S'|\le \dfrac{n}{2}$,
+		Dado que usamos a árvore~$T'[S]$ recebida do Algoritmo~4 como a nova árvore
+		e sabendo que~$|S|\le \dfrac{n}{2}$,
 		temos que o número de vértices de~$T_{\ell}$
 		é no mínimo o 
-		dobro do número de vértices de~$T_{\ell-1}$, logo
+		dobro do número de vértices de~$T_{\ell-1}$.
+		Com isso, provaremos por indução que~$n_l\le \dfrac{n}{2^l}$.
+
+		Base:~$\ell = 0$. Dado que incialmente~$T'[S] = T$,
+		temos que~$n_0 = n$, o que implica que~$n_0 = \dfrac{n}{2^0}$. 
+
+		Caso: 
 		\begin{align}
 			 & n_{\ell} \ge 2\cdot n_{\ell-1} \ge 4\cdot n_{\ell-2} \nonumber\\
 			\Rightarrow & n = 2^0\cdot n_i\ge 2^1\cdot n_{i-1} \ge\cdots\ge

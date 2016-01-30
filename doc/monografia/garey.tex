@@ -4,13 +4,13 @@
 	da bissecção mínima é NP-difícil.
 	Esse resultado deve-se a Garey, Johnson e Stockmeyer~\cite{GareyJS76},
 	e foi obtido através de duas reduções.
-	Os autores demonstraram primeiro que o problema {\sc maxcut},
+	Os autores demonstraram primeiro que o problema {\sc maxcut-d},
 	definido abaixo, é NP-difícil, a partir de uma redução do
-	fundamental \textsc {max2sat}, também definido abaixo, e em seguida
+	fundamental \textsc {max2sat-d}, também definido abaixo, e em seguida
 	demonstraram que o problema da bissecção mínima é NP-difícil
-	a partir de uma redução de {\sc maxcut}.
+	a partir de uma redução de {\sc maxcut-d}.
 
-	Optamos por representar essas duas reduções no TCC.
+	Optamos por apresentar essas duas reduções neste trabalho.
 	Começamos definindo os problemas usados.
 
 	% Nesta seção veremos duas reduções que provam que o problema 
@@ -18,19 +18,21 @@
 	% por não ser um problema de decisão),
 	% usando o fato de
 	% que a versão de decisão do
-	% problema {\sc max2sat} é NP-completa.
+	% problema {\sc max2sat-d} é NP-completa.
 
 	% Primeiramente, vamos definir alguns problemas para facilitar
 	% a compreensão das reduções.
 
 	\medskip
 
-	\begin{prob}[{\sc max2sat}($C,k$) -- Satisfatibilidade máxima com no máximo 
+	\begin{prob}[{\sc max2sat-d}($C,k$) -- Versão de decisão de satisfatibilidade máxima com no máximo 
 	dois literais por cláusula]
-		Dados um conjunto~$C$ com~$p$ cláusulas distintas na forma 
+		Dados um conjunto~$C$ com~$p$ cláusulas distintas 
+		representando uma fórmula booleana
+		na forma 
 		normal disjuntiva, com no máximo
 		dois literais cada, e um inteiro~${k\le p}$,
-		decidir se existem valores para cada uma das variáveis de forma
+		decidir se existe uma atribuição de valores para as variáveis de~$C$ de forma
 		que~$k$ ou mais cláusulas de~$C$ sejam verdadeiras.
 
 		%~$C_i=(x_1 x_2)$,
@@ -38,7 +40,7 @@
 
 	\medskip
 
-	\begin{prob}[{\sc maxcut}($G,W$) -- Corte máximo]
+	\begin{prob}[{\sc maxcut-d}($G,W$) -- Versão de decisão do corte máximo]
 		Dados um grafo~${G}$
 		%onde cada uma das arestas tem peso 1, 
 		e um inteiro positivo~${W}$, decidir se existe um
@@ -48,12 +50,12 @@
 	\end{prob}
 
 
-	Richard Manning Karp~\cite{Kar72} demonstrou que o problema 
+	Karp~\cite{Kar72} demonstrou que o problema 
 	{\sc max3sat} é NP-difícil,
 	e isso foi utilizado por Garey, 
 	Johnson e Stockmeyer~\cite{GareyJS76} 
 	para provar que 
-	o problema {\sc max2sat} é NP-difícil.
+	o problema {\sc max2sat-d} é NP-difícil.
 	Usaremos esse fato na demonstração do seguinte.
 
 
@@ -69,29 +71,29 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Redução do \textbf{\textsc {max2sat}} para o \textbf{\textsc {maxcut}}}
+	\subsection{Redução do \textbf{\textsc {max2sat-d}} para o \textbf{\textsc {maxcut-d}}}
 
 		\begin{teo}
-			%A instância~$(G,W)$ de {\sc maxcut} tem solução se e somente se
-			%a instância~$(C,k)$ de {\sc max2sat} tem solução.
-			{\sc maxcut} é NP-difícil.
+			%A instância~$(G,W)$ de {\sc maxcut-d} tem solução se e somente se
+			%a instância~$(C,k)$ de {\sc max2sat-d} tem solução.
+			{\sc maxcut-d} é NP-difícil.
 		\end{teo}
 	\begin{proof}
-		Vamos apresentar uma redução polinomial do {\sc max2sat}
-		para o {\sc maxcut}.
+		Vamos apresentar uma redução polinomial do {\sc max2sat-d}
+		para o {\sc maxcut-d}.
 
-		Dada uma instância~$(C,k)$ do problema {\sc max2sat}, 
+		Dada uma instância~$(C,k)$ do {\sc max2sat-d}, 
 		precisamos construir uma instância~$(G,W)$
-		do problema {\sc maxcut}, ou seja, um grafo~${G = (V,E)}$
+		do problema {\sc maxcut-d}, ou seja, um grafo~${G = (V,E)}$
 		e um inteiro positivo~$W$.
 
 		% usando a resução que será descrita abaixo.
 		%Para isso vamos definir alguns conceitos referentes
-		%ao problema {\sc max2sat}:
+		%ao problema {\sc max2sat-d}:
 		%\begin{itemize}
-		Seja $p$ o número de cláusulas em~$C$ e
-			$n$ o número de variáveis em~$C$.
-		Denote por~$x_1,x_2,\ldots,x_n$ as variáveis
+		Seja $p$ o número de cláusulas em~$C$ e~$n$ o número de variáveis
+		em~$C$.
+		Denote por~${x_1,x_2,\ldots,x_n}$ as variáveis
 		de~$C$.
 		Lembre-se que~$\overline{x}$ é a negação da variável~$x$
 		e que um literal de~$C$ é uma variável de~$C$ ou a 
@@ -99,7 +101,7 @@
 		%\end{itemize}
 
 		% A redução consiste em criar um grafo~${G=(V,E)}$, de 
-		% acordo com uma entrada para o problema {\sc max2sat}.
+		% acordo com uma entrada para o problema {\sc max2sat-d}.
 		% Segue o conjunto de vértices e arestas de~$G$, 
 		% respectivamente.
 		O conjunto de vértices de~$G$ é definido da seguinte maneira:
@@ -146,7 +148,7 @@
 
 		Agora, sejam~$C_1,C_2,\ldots,C_p$ as cláusulas de~$C$ e sejam~$a_i$
 		e~$b_i$ os literais de~$C_i$ para~$i=1,2,\ldots,p$.
-		Conseidere então
+		Considere então
 		\begin{align}
 			E_2= \ &\{ \{a_i,b_i\}: 1\le i\le p,\ a_i\ne b_i \}\ \cup 
 					\nonumber\\
@@ -254,11 +256,11 @@
 		que~$e_G(T,F)\ge W$.
 
 
-		%Provaremos agora que a instância~$(G,W)$ de {\sc maxcut} tem solução se
-		%a instância~$(C,k)$ de {\sc max2sat} tem solução.
+		%Provaremos agora que a instância~$(G,W)$ de {\sc maxcut-d} tem solução se
+		%a instância~$(C,k)$ de {\sc max2sat-d} tem solução.
 		%para todas as entradas do problema
-		%{\sc max2sat}, existe uma solução da sua redução para o problema
-		%{\sc maxcut}.
+		%{\sc max2sat-d}, existe uma solução da sua redução para o problema
+		%{\sc maxcut-d}.
 		
 		%Sabe-se que temos um conjunto de cláusulas~$C$
 		%de forma que~$k$ ou mais
@@ -266,7 +268,7 @@
 		\bigskip
 		\bigskip
 
-		Agora vamos supor que temos um conjunto de valores para 
+		Agora vamos supor que temos uma atribuição de valores para 
 		as variáveis de~$C$ que tornam~$k$ ou mais cláusulas
 		de~$C$ verdadeiras.
 
@@ -536,7 +538,7 @@
 		corte~$(T,F)$, pois, para cada uma das~$k$ cláusulas
 		verdadeiras, teremos duas arestas de~$E_2$ diferentes no corte, 
 		como mostrado anteriormente.
-		Portanto, no mínimo~$|E_1| + 2k$ arestas de~$G$ estão no corte~$(T,F)$.
+		Portanto, no mínimo~$|E_1| + 2k = W$ arestas de~$G$ estão no corte~$(T,F)$.
 
 		% Se houvesse alguma aresta duplicada (duas arestas que ligam
 		% os mesmos vértices), teríamos um problema na contagem de
@@ -554,20 +556,22 @@
 
 		% \bigskip
 
-		% Mostramos que existe uma solução, em {\sc maxcut}, 
+		% Mostramos que existe uma solução, em {\sc maxcut-d}, 
 		% para todas as entradas do
-		% problema {\sc max2sat} reduzidas para {\sc maxcut}, de forma que
-		% a solução do {\sc maxcut} leva a uma solução de {\sc max2sat}.
+		% problema {\sc max2sat-d} reduzidas para {\sc maxcut-d}, de forma que
+		% a solução do {\sc maxcut-d} leva a uma solução de {\sc max2sat-d}.
 		% Agora mostraremos que qualquer solução obtida em 
-		% uma redução para {\sc maxcut} levará a uma solução de {\sc max2sat}.
+		% uma redução para {\sc maxcut-d} levará a uma solução de {\sc max2sat-d}.
 
 		\bigskip
 		\bigskip
 
 		
-		Agora vamos supor que temos uma instância~$(G,W)$,
-		com~$G=(V,E)$, obtida através da redução de uma instância~$(C,k)$.
-		Seja~$(T,F)$ um corte em~$G$,
+		Agora vamos supor 
+		%temos uma instância~$(G,W)$,
+		%com~$G=(V,E)$, obtida através da redução de uma instância~$(C,k)$.
+		%Seja
+		que~$(T,F)$ é um corte em~$G$,
 		com~$e_G(T,F)\ge W$.
 		Temos que provar que
 		existem no mínimo~$k$ cláusulas verdadeiras em~$C$.
@@ -577,8 +581,9 @@
 		% existem também arestas que ligam todos os vértices
 		% de~$T_j$ a todos os vértices de~$F_j$, mas nenhuma
 		% delas liga .
-		Note que, como o conjunto~$E_2$ é composto por três arestas
-		de cada uma das cláusula de~$C$,~${|E_2| = 3}p$.  
+		Note que~${|E_2| = 3}p$, pois o conjunto~$E_2$ é composto por 
+		três arestas
+		de cada uma das cláusulas de~$C$.  
 		Se os vertices do tipo~$T_j$ e os do tipo~$F_j$ não
 		ficarem separados no corte~$(T,F)$,
 		no mínimo~${3p+1}$ arestas de~$E_1$ não estarão
@@ -589,32 +594,33 @@
 		e todas as arestas do tipo~$\{T_i,F_j\}$ estão no
 		corte~$(T,F)$.
 
-		De maneira similar, podemos ver que para toda 
+		De maneira similar, podemos ver que, para toda 
 		variável~$x_i$, os vértices~$x_i$ e~$\overline{x_i}$
 		de~$V$ estão em conjuntos diferentes no corte~$(T,F)$.
 		Existem~$3p+1$ caminhos diferentes entre~$x_i$
-		e~$\overline{x_i}$, e cada um deles contém~4
+		e~$\overline{x_i}$, e cada um deles contém quatro
 		vértices~${(x_i,\ f_{ij},\ t_{ij} \ \text{e}\ \overline{x_i})}$.
 		Se~$x_i$ pertence ao mesmo conjunto que~$\overline{x_i}$,
-		pelo menos uma aresta de cada caminho não estará contida
+		pelo menos uma aresta de cada caminho não estará
 		no corte~$(T,F)$, ou seja, no mínimo~$3p+1$ arestas
 		de~$E_1$ não estarão no corte~$(T,F)$, o que
-		implica que~${e_G(T,F)< W}$, como visto anteriormente.
+		implica que~${e_G(T,F)< W}$, como visto anteriormente,
+		uma contradição.
 
-		Os vértices do tipo~$t_{ij}$ e~$f_{ij}$ servem unicamente
-		para que~$x_i$ e~$\overline{x_i}$ fiquem em conjuntos
-		diferentes no corte~$(T,F)$.
-		O ideal seria que estes vértices fossem dispostos no 
-		corte~$(T,F)$ de forma que todas as arestas de~$E_1$ 
-		estivessem no corte~$(T,F)$, assim no mínimo~$2k$ arestas 
-		de~$E_2$ estariam em~$(T,F)$.
-		Mas, se isso não ocorrer,
-		o número de arestas de~$E_2$ irá suprir a falta de arestas
-		de~$E_1$ no corte,
-		fazendo com que o número de cláusulas verdadeiras seja maior
-		que~$2k$.
-		Portanto, não importa em quais conjuntos do corte~$(T,F)$ os 
-		vértices do tipo~$t_{ij}$ e~$f_{ij}$ estão.
+		% Os vértices do tipo~$t_{ij}$ e~$f_{ij}$ servem unicamente
+		% para que~$x_i$ e~$\overline{x_i}$ fiquem em conjuntos
+		% diferentes no corte~$(T,F)$.
+		% O ideal seria que estes vértices fossem dispostos no 
+		% corte~$(T,F)$ de forma que todas as arestas de~$E_1$ 
+		% estivessem no corte~$(T,F)$, assim no mínimo~$2k$ arestas 
+		% de~$E_2$ estariam em~$(T,F)$.
+		% Mas, se isso não ocorrer,
+		% o número de arestas de~$E_2$ irá suprir a falta de arestas
+		% de~$E_1$ no corte,
+		% fazendo com que o número de cláusulas verdadeiras seja maior
+		% que~$2k$.
+		% Portanto, não importa em quais conjuntos do corte~$(T,F)$ os 
+		% vértices do tipo~$t_{ij}$ e~$f_{ij}$ estão.
 
 		Como todos os vértices do tipo~$F_i$ estão no mesmo conjunto
 		do corte~$(T,F)$, e sabendo que cada cláusula gera um 
@@ -633,7 +639,7 @@
 		se o vértice~$x_i\in T$, a variável~$x_i$ tem valor verdadeiro.
 		Caso contrário,~$\overline{x_i}\in T$ e a variável~$x_i$ tem valor falso.
 		
-		Os valores das variáveis de~$C$ podem ser obtidos de~$G$ em
+		Esses valores das variáveis de~$C$ podem ser obtidos de~$G$ em
 		tempo polinomial em~$n$.
 	\end{proof}
 
@@ -668,8 +674,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Redução do \textbf{\textsc{maxcut}} para a Bissecção}
-	\begin{prob}[Bissecção($G,W$) -- Corte mínimo em uma bissecção]
+\subsection{Redução do \textbf{\textsc{maxcut-d}} para a Bissecção}
+	\begin{prob}[Bissecção($G,W$) -- Versão de decisão da bissecção mínima]
 		Dados um grafo~${G}$
 		%onde cada uma das arestas tem peso 1, 
 		e um inteiro positivo~${W}$, decidir se existe um
@@ -681,23 +687,27 @@
 		O problema da bissecção mínima é NP-difícil.
 	\end{teo}
 	\begin{proof}
-		Vamos apresentar uma redução polinomial do {\textsc{maxcut}}
+		Vamos apresentar uma redução polinomial do {\textsc{maxcut-d}}
 		para o problema da Bissecção.
 
-		Dada uma instância~$(G,W)$ do problema {\textsc{maxcut}},
+		Dada uma instância~$(G,W)$ do problema {\textsc{maxcut-d}},
 		com~${G = (V,E)}$, precisamos construir uma instância~$(G',W')$
 		do problema da Bissecção, com~${G'=(V',E')}$.
 
 		Seja~${n = |V|}$ e~${U=\{u_1,u_2,\ldots,u_n\}}$ 
 		com~${V\cap U = \emptyset}$.
-		O conjunto de vértices e arestas de~$G$ é dado da seguinte 
+		O conjunto de vértices e arestas de~$G'$ é dado da seguinte 
 		maneira:
 		\begin{align} 
-			V' &= V\cup U \nonumber \\
-			E' &= \{\{x,y\}: x,y\in V'\ \ \text{e}\ \ \{x,y\}\not\in E\} \nonumber \\
-			W' &= n^2-W .\nonumber 
+			V' &= V\cup U \text{ e } \nonumber \\
+			E' &= \{\{x,y\}: x,y\in V'\ \ \text{e}\ \ \{x,y\}\not\in E\}, \nonumber
 		\end{align}
-		Segue abaixo um exemplo de grafo~$G'$.
+		enquanto que $W' = n^2-W$.
+
+		Segue um exemplo de grafo~$G'$ à direita 
+		(desconsiderando as arestas de~$E$),
+		para~$G$ à esquerda.
+
 \begin{center} \begin{tikzpicture}
 	[scale=.6,auto=left,every node/.style={circle, 
 	draw=black,
@@ -799,56 +809,60 @@
 		\bigskip
 
 		%Agora mostraremos que, para cada instância~$(G,W)$ 
-		%de {\sc maxcut}, existe uma instância~$(G',W')$ que
-		Agora vamos supor que temos um grafo~$G$ tal que exista um
-		corte~$(V_1,V_2)$ em~$G$, onde~$e_G(V_1,V_2)\ge W$.
+		%de {\sc maxcut-d}, existe uma instância~$(G',W')$ que
+		Agora vamos supor que 
+		%temos um grafo~$G$ tal que 
+		existe um
+		corte~$(V_1,V_2)$ em~$G$, onde~${e_G(V_1,V_2)\ge W}$.
 
-		%Sejam~$S_1\subset V'$ e~$S_2\subset V'$ tal que~$S_1\cup S_2 = V'$
+		%Sejam~$R\subset V'$ e~$S\subset V'$ tal que~$R\cup S = V'$
 		Denotemos por~${U_1\subset U}$ e~${U_2\subset U}$ dois conjuntos de vértices
-		arbitrários, 
+		arbitrários
 		%escolhidos arbitrariamente,
 		tais que~${|U_1| = |V_2|}$,~${|U_2| = |V_1|}$ e~$U_1\cap U_2 = \emptyset$,
 		como o ilustrado na figura acima.
-		Seja~$(S_1,S_2)$ um corte de~$G'$ tal que~${S_1=V_1\cup U_1}$
-		e~${S_2=V_2\cup U_2}$. 
-		Note que o corte~$(S_1,S_2)$ é uma bissecção, dado 
-		que~${|S_1| = |V_1| + |U_1| = |U_2|+|V_2| = |S_2|}$.
+		Seja~$(R,S)$ o corte de~$G'$ com~${R=V_1\cup U_1}$
+		e~${S=V_2\cup U_2}$. 
+		Note que o corte~$(R,S)$ é uma bissecção, dado 
+		que~${|R| = |V_1| + |U_1| = |U_2|+|V_2| = |S|}$.
 
-		Se~$G'$ fosse um grafo completo,~$e_{G'}(S_1,S_2) = n^2$,
-		mas~$G'$ não é completo, dado que as arestas do corte~$(V_1,V_2)$
-		em~$G$ não estão presentes em~$G'$.
-		Portanto,~${e_{G'}(S_1,S_2) = n^2 - e_G(V_1,V_2)\le n^2-W}$.
+		Se~$G'$ fosse um grafo completo,~$e_{G'}(R,S) = n^2$,
+		mas~$G'$ não é completo, dado que as arestas 
+		de~$G$ não estão presentes em~$G'$.
+		Portanto,~${e_{G'}(R,S) = n^2 - e_G(V_1,V_2)\le n^2-W = W'}$.
 
-		Podemos concluir que existe um corte~$(S_1,S_2)$ em~$G'$ tal que~${|S_1|=|S_2|}$ 
-		e~${e_{G'}(S_1,S_2)\le W'}$.
+		%Podemos concluir que existe um corte~$(R,S)$ em~$G'$ tal que~${|R|=|S|}$ 
+		%e~${e_{G'}(R,S)\le W'}$.
 
 		\bigskip
 
-		Agora vamos supor que temos uma instância~$(G',W')$, com~${G'=(V',E')}$,
-		obtida através da redução de uma instância~$(G,W)$ de {\sc maxcut}, 
-		com~${G=(V,E)}$.
-		Seja~$(S_1,S_2)$ um corte em~$G'$, com~${e_{G'}(S_1,S_2)\le W'}$ 
-		e~${|S_1| = |S_2|}$.
+		Agora vamos supor que 
+		exista uma bissecção~$(R,S)$ tal que~${e_G(R,S)\le W'}$.
+		%temos uma instância~$(G',W')$, com~${G'=(V',E')}$,
+		%obtida através da redução de uma instância~$(G,W)$ de {\sc maxcut-d}, 
+		%com~${G=(V,E)}$.
+		%Seja~$(R,S)$ um corte em~$G'$, com~${e_{G'}(R,S)\le W'}$ 
+		%e~${|R| = |S|}$.
 		Temos que provar que existe um corte~$(V_1,V_2)$ em~$G$ tal 
-		que~$e_G(V_1,V_2)\ge W$.
+		que~${e_G(V_1,V_2)\ge W}$.
 
-		Seja~${V_1 = S_1\cap V}$,~${V_2 = S_2\cap V}$
-		%~${U_1 = S_1\setminus V_1}$ e~${U_2 = S_2\setminus V_2}$.
-		e~$k$ um inteiro positivo tal que~${e_G(V_1,V_2) = k}$. 
-		Se o grafo~$G'$ fosse completo,~${e_{G'}(S_1,S_2) = n^2}$,
-		mas como as arestas de~$E$ não estão presentes em~$E'$,
-		então~${e_{G'}(S_1, S_2) = n^2 - k}$.
+		Sejam~${V_1 = R\cap V}$,~${V_2 = S\cap V}$
+		%~${U_1 = R\setminus V_1}$ e~${U_2 = S\setminus V_2}$.
+		e~${k = e_G(V_1,V_2)}$. 
+		Se o grafo~$G'$ fosse completo,~${e_{G'}(R,S) = n^2}$,
+		pois~${|R| = |S| = n}$.
+		Como as arestas de~$E$ não estão em~$E'$,
+		então~${e_{G'}(R, S) = n^2 - k}$.
 
-		Dado que~$e_{G'}(S_1,S_2)\le W'$ e que~$W'= n^2-W$, 
+		Dado que~$e_{G'}(R,S)\le W'$ e que~$W'= n^2-W$, 
 		temos que~$n^2-k \le n^2 -W$,
 		o que implica que~$W\le k$.
 		Note que~$e_G(V_1,V_2) = k \ge W$.
-
-		Desta forma, sabemos que existe um corte~$(V_1,V_2)$
-		em~$G$ tal que~$e_G(V_1,V_2)\ge W$.
-		Este corte pode ser computado em tempo linear no número
-		de vértices de~$G$ a partir de uma instância~$(G',W')$
-		do problema da Bissecção.
+		%Desta forma, sabemos que existe um corte~$(V_1,V_2)$
+		%em~$G$ tal que~$e_G(V_1,V_2)\ge W$.
+		%Este corte pode ser computado em tempo linear no número
+		%de vértices de~$G$ a partir de uma instância~$(G',W')$
+		%do problema da Bissecção.
 	\end{proof}
 
 \bigskip

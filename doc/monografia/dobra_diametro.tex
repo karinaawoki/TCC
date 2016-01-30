@@ -49,9 +49,6 @@
 	tal que~${\map^{+}_m(x)\in V(P)}$.
 	(O~$b$ vem de {\it backward} e o~$f$ de {\it forward})
 
-	Para simplificar a notação, o diâmetro relativo da árvore~$T$ ($\diam^*(T)$) 
-	será representado por~$d$.
-
 	\bigskip
 	\bigskip
 		% Primeiramente, faremos uma série de definições para que
@@ -319,31 +316,35 @@
 		%Sabemos que a volta é verdadeira usando a propriedade 2.
 		\begin{proof}
 
-		Sejam~$u$ um vértice f-especial 
-		e~$v$ o vértice que vem antes 
+		%A ida é verdadeira pois, 
+		De fato, se~$z$ é b-especial,
+		então existe pelo menos um vértice~${v\in V(P)}$ tal
+		que~${\map^+_m(v)\in T_{z}}$.
+		Seja~$v$ um tal vértice com o maior rótulo e~$u$ o vértice 
+		que vem depois de~$v$ em~$P$. 
+		Então~${\map^-_m(z)\in T_u}$ e o vértice a esquerda
+		de~$z$ em~$P$ não é
+		mapeado em~$u$, logo~$u$ é f-especial e~${z=u^f}$.
+		%Portanto, é correto afirmar que~${z=u^f}$ para um 
+		%vértice f-especial~${u\in V(P)}$ 
+		%tal que~$u$ é f-especial e~${z=u^f}$
+		%se o vértice~$z$ é b-especial.
+		Por outro lado, se~$u$ é f-especial 
+		e~$v$ é o vértice que vem antes 
 		de~$u$ em~$P$, temos que~${\map^+_m(v)\not\in V(P)}$. 
 		Logo,~$\map^+_m(v)$ está em~$T_{u^f}$.
 		Isso se deve ao fato de que~$\map^+_m(v)$ não está na 
-		árvore à esquerda
-		de~$T_{u^f}$, pois, se estivesse,~$u^f$ seria um outro
+		árvore 
+		do vértice que vem antes de
+		%à esquerda
+		%de~$T_{u^f}$, 
+		$u^f$, pois, se estivesse,~$u^f$ seria um outro
 		vértice.
-		Logo, é correto afirmar que um vértice~${z\in V(P)}$ é b-especial
-		se~${z=u^f}$ para um vértice f-especial~${u\in V(P)}$.
+		Logo,~${z=u^f}$ é b-especial. 
+		%é correto afirmar que um vértice~${z\in V(P)}$ é b-especial
+		%se~${z=u^f}$ para um vértice f-especial~${u\in V(P)}$.
 		% tal que~$u$ é f-especial e. 
 
-		%A ida é verdadeira pois, 
-		Dado que~$z$ é b-especial,
-		temos que existe um ou mais vértices~${v_i\in V(P)}$ tal
-		que~${\map^+_m(v_i)\in T_{z}}$.
-		Seja~$v_k$ o vértice com o maior rótulo e~$u$ o vértice 
-		que vem depois de~$v_k$ em~$P$. 
-		Então,~${\map^-_m(z)\in T_u}$ e o vértice a esquerda
-		de~$z$ em~$P$ é
-		mapeado em~$v_k$, logo,~$u$ é f-especial e~${z=u^f}$.
-		Portanto, é correto afirmar que~${z=u^f}$ para um 
-		vértice f-especial~${u\in V(P)}$ 
-		%tal que~$u$ é f-especial e~${z=u^f}$
-		se o vértice~$z$ é b-especial.
 		\end{proof}
 
 		\item Um vértice~${z\in V(P)}$ é f-especial se e somente 
@@ -351,7 +352,7 @@
 		%tal que~$u$ é b-especial e~${z=u^b}$.
 
 		Podemos verificar que essa propriedade é verdadeira de forma
-		semelhante a verificação da propriedade anterior.
+		semelhante à verificação da propriedade anterior.
 	\end{enumerate}
 
 	Seja~$B_{\esp}$ 
@@ -361,25 +362,26 @@
 	Usando as propriedades 
 	1 e 2 respectivamente, temos que
 	\begin{align}
-		\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}| = 
-		\displaystyle\sum_{z\in B_{\esp}}|T_{z}| %\nonumber \\
-		\ \ &\Rightarrow \
+		%\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}| = 
+		%\displaystyle\sum_{z\in B_{\esp}}|T_{z}| %\nonumber \\
+		%\ \ &\Rightarrow \
 		\displaystyle\sum_{u\in F_{\esp}}|T_{u^f}'| = 
 		\displaystyle\sum_{z\in B_{\esp}}|T_{z}'| \label{eq:4}\\
-		\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}| = 
-		\displaystyle\sum_{z\in F_{\esp}}|T_{z}| %\nonumber
-		\ \ &\Rightarrow \
+		%\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}| = 
+		%\displaystyle\sum_{z\in F_{\esp}}|T_{z}| %\nonumber
+		%\ \ &\Rightarrow \
 		\displaystyle\sum_{u\in B_{\esp}}|T_{u^b}'| = 
 		\displaystyle\sum_{z\in F_{\esp}}|T_{z}'| \label{eq:3}.
 	\end{align}
 
 	Note que, para cada vértice b-especial~$z$, todos os vértices 
-	de~$H^b_z$ e de~$P^b_z$ são mapeados em um vértice 
-	de~$T_z$ e que nem todos os vértices de~$T_z$ são mapeados por um
-	vértices~$H^b_z\cup P_z^b$, 
-	dado que~$\map^-_m(z)\not\in H^b_z\cup P_z^b$.
+	de~$H^b_z$ e de~$P^b_z$ são mapeados em vértices de~$T_z$ 
+	%e que nem todos os vértices de~$T_z$ são mapeados por um
+	%vértices~$H^b_z\cup P_z^b$, 
+	%dado que
+	e~$\map^-_m(z)\not\in H^b_z\cup P_z^b$.
 	O mesmo ocorre com cada vértice f-especial.
-	Portanto temos que
+	Portanto, temos que
 	\begin{align}
 		|T_z| > |P^b_z| + |H^b_z| 
 		\ &\Rightarrow \
@@ -389,9 +391,9 @@
 		|T_z'| \ge |P^f_z| + |H^f_z| \label{eq:6}.
 	\end{align}
 
-	Como os caminhos~$P^b_z$ são dois a dois disjuntos 
+	Como os conjuntos~$P^b_z$ são dois a dois disjuntos 
 	e~$P^b_z\cup H^b_z\cup T'_{z^b}$
-	nada mais é do que o conjunto de sub-árvores enraizadas
+	nada mais é do que o conjunto dos vértices das sub-árvores enraizadas
 	nos vértices de~$P^b_z$, temos 
 	que os conjuntos~${P^b_z\cup H^b_z\cup T'_{z^b}}$ também são 
 	dois a dois disjuntos.
@@ -401,7 +403,7 @@
 	todo vértice de~$V(T)$ pertence a 
 	algum~${P^b_z\cup H^b_z\cup T'_{z^b}}$.
 	O mesmo é válido para~${P^f_z\cup H^f_z\cup T'_{z^f}}$.
-	Portanto
+	Portanto, para~$d = \diam^*(T)$,
 	\begin{align}
 		(1-d)n = |V\setminus V(P)| &= 
 		\displaystyle\sum_{z\in B_{\esp}}\Big(|T_{z^b}'|+|H_z^b|\Big)
@@ -469,8 +471,9 @@
 
 	Sabemos que, se (I) ocorrer, há um 
 	vértice~${z\in B_{\esp}}$ tal que~${|T'_z|+|H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$,
-	pois se todos os vértices em~$B_{\esp}$ 
-	satisfizerem~${|T'_z|+|H^b_z| > \dfrac{1-d}{d}|P^b_z|}$, então (I)
+	pois se~${|T'_z|+|H^b_z| > \dfrac{1-d}{d}|P^b_z|}$ para
+	todo~${z\in B_{\esp}}$,
+	então (I)
 	não teria ocorrido.
 	O mesmo ocorre com (II). 
 	Portanto, um dos casos a seguir sempre será válido:
@@ -491,35 +494,33 @@
 		Existe um vértice~$z\in B_{\esp}$ 
 		tal que~${|T'_{z}|+|H_z^b|\le
 		\dfrac{1-d}{d}|P_z^b|}$. 
-		Logo,~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
-		Usando a inequação~(\ref{eq:5}), deduzimos
+		Disso,~${|H^b_z|\le \Big(\dfrac{1}{d}-1\Big)|P^b_z|-|T'_z|}$.
+		Usando a segunda desigualdade em~(\ref{eq:5}), deduzimos
 		que
 		\begin{align}
-			|H^b_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^b_z|
-			\Rightarrow
+			%|H^b_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^b_z|
+			%\Rightarrow
 			|H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z|. \nonumber
 		\end{align}
 
-		Construiremos o corte~${(B,W,S)}$ de forma 
-		que~$S = H^b_z\cup P^b_z$.
+		Construiremos a tripla~${(B,W,S)}$ 
+		tomando~$S = H^b_z\cup P^b_z$.
 		Sabemos que~$S\ne \emptyset$, pois~$z$ é b-especial,
-		o que implica em~$P^b_z\ne \emptyset$. 
+		o que implica que~$P^b_z\ne \emptyset$. 
 		Dessa forma, temos que
 		\begin{align}
 			|S| = |H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z|
 			&\Rightarrow
-			|S| \le\dfrac{1}{2d}|P^b_z| \le \dfrac{n}{2} \nonumber \\
+			%|S| \le\dfrac{1}{2d}|P^b_z| \le \dfrac{n}{2} \nonumber \\
 			%&\Rightarrow
 			%|S| \le\dfrac{1}{2d}|P^b_z|\le \dfrac{n}{2} 
 			%\label{eq:metade} \\
-			&\Rightarrow
+			%&\Rightarrow
 			2d\le \dfrac{1}{|S|}|P^b_z|  
-			\label{eq:reaproveitaCaminho}\\
-			&\Rightarrow
-			2d\le \dfrac{1}{|S|}|P^b_z|\le \diam^*(T[S]).
-			\nonumber
+			\label{eq:reaproveitaCaminho},
+			%\nonumber
 		\end{align}
-
+		ou seja,~$\diam^*(T[S])\ge 2d$.
 
 		Seja~${z^b_l\in P^b_z}$ um vértice tal 
 		que~$\map^+_m(z^b_l)$ é o vértice de~$T_z$ com 
@@ -531,10 +532,11 @@
 		\end{align}
 
 		Agora podemos aplicar o Lema~\ref{lema:approxCutForest}
-		à floresta~$T_z'$, usando~${m-|B_1|}$ 
-		e~${2-\dfrac{1}{1-d}}$ como os valores dos parâmetros~$m$ e~$c$,
+		à floresta~$T_z'$, com~${m-|B_1|}$ 
+		e~${2-\dfrac{1}{1-d}}$
+		no lugar de~$m$ e~$c$,
 		respectivamente.
-		Dessa forma, teremos um corte~$(B_2,W_2)$ tal 
+		Dessa forma, existe um corte~$(B_2,W_2)$ tal 
 		que~${c\cdot(m-|B_1|)\le|B_2|\le m-|B_1|}$ e
 		\begin{align}
 		e_{T_z'}(B_2,W_2)&\le \ceil[\Big]{ \dfrac{2c}{1-c}} 
@@ -560,7 +562,7 @@
 		Portanto, os valores usados como~$m$ e~$c$ são 
 		compatíveis com o que é pedido no 
 		Lema~\ref{lema:approxCutForest}.
-		A disposição dos vértices ficará como representado a
+		A disposição dos vértices ficará como na figura a
 		seguir.
 	\begin{center} \begin{tikzpicture}[scale=.7,auto=left,
 			every node/.style={circle, draw=black,
@@ -627,14 +629,14 @@
 	
 	}
 	\end{tikzpicture} \end{center}
-		Temos, então, o corte~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
+		Temos, então, a tripla~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
 		e~${W = V(T)\setminus (B\cup S)}$.
 		Dado que~${\map^+_m(z^b_l)\in T_z}$, temos 
 		que~${m>|B_1|}$ e, como obtemos~$B_2$ através do 
-		Lema~\ref{lema:approxCutForest} usando~${m-|B_1|}$ 
-		como~$m$, temos que~${|B_2|\le m-|B_1|}$, implicando
+		Lema~\ref{lema:approxCutForest} com~${m-|B_1|}$ 
+		no lugar de~$m$, temos que~${|B_2|\le m-|B_1|}$, implicando
 		em~${|B|\le m}$.
-		De acordo com o Lema~\ref{lema:approxCutForest} também temos 
+		De acordo com o Lema~\ref{lema:approxCutForest}, também temos 
 		que~${|B_2|\ge c\cdot(m-|B_1|)}$ e, como estamos no Caso~2, 
 		então~${d\le \dfrac{1}{2}}$ e~${|P^b_z|\le |S|}$, dado 
 		que~$P^b_z\subseteq S$.
@@ -642,7 +644,7 @@
 		desigualdade~${|T'_z| + |H^b_z|\le \dfrac{1-d}{d}|P^b_z|}$
 		implica que~$|T'_z|\dfrac{d}{1-d}\le |P^b_z|$.
 		%cada vértice de~$P^b_z$ irá mapear em um vértice diferente de~$S$.
-		Portanto
+		Portanto,
 		\begin{align}
 			m-|B| &= m-|B_1|-|B_2| \nonumber\\
 			&\le(m-|B_1|)-c\cdot (m-|B_1|) = (m-|B_1|)(1-c)
@@ -657,11 +659,10 @@
 
 		Agora mostraremos 
 		que~${e_T(B,W,S)\le \dfrac{2\cdot \Delta(T)}{\diam^*(T)}}$.
-		$\\$
 		% Sabemos que os vértices do corte~$(B,W,S)$ são as arestas
 		% que ligam~$z^b_l$ e~$f$ aos vértices que vêm depois deles 
 		% em~$P$
-		O número de arestas no corte~$(B,W,S)$ é, no 
+		Note que o número de arestas na tripla~$(B,W,S)$ é, no 
 		máximo,~${(\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 		(\Delta(T)-2)}$.
 		Essa soma representa a quantidade total máxima de arestas no corte,
@@ -671,7 +672,7 @@
 		que conecta~$f$ e~$z$, as presentes no corte~$(B_2,W_2)$ e, 
 		por fim, as arestas que ligam~$z$ a~$T_z'$ (talvez
 		existam arestas ligando~$B_2$ a~$z$).
-		Logo, usando a inequação~(\ref{eq:corte}), temos que
+		Logo, usando a desigualdade~(\ref{eq:corte}), temos que
 		\begin{align}
 			e_T(B,W,S) &= (\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 			(\Delta(T)-2) \nonumber\\
@@ -684,7 +685,7 @@
 		\end{align}
 
 		Portanto, se a condição do Caso~(a) for satisfeita, então 
-		existe um corte~$(B,W,S)$ que satisfaz as propriedades do
+		existe uma tripla~$(B,W,S)$ que satisfaz as propriedades do
 		Teorema~\ref{teo:dobraDiametro}.
 
 	\bigskip
@@ -696,7 +697,7 @@
 	\dfrac{1-d}{d}|P_z^f|}$. 
 	Temos
 	que~${|H^f_z|\le \Big(\dfrac{1}{d}-1\Big)|P^f_z|-|T'_z|}$.
-	Usando a inequação~(\ref{eq:6}), temos 
+	Usando a segunda desigualdade em~(\ref{eq:6}), temos 
 	que~${|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|}$, 
 		o que implica que
 		${|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z|}$.
@@ -709,12 +710,12 @@
 
 	Obtemos o corte~$(B_2,W_2)$ do 
 	Lema~\ref{lema:approxCutForest} aplicado a~$T'_z$ 
-	com~${m-|B_1|}$ e~${2-\dfrac{1}{1-d}}$ sendo os valores
+	com~${m-|B_1|}$ e~${2-\dfrac{1}{1-d}}$ no lugar
 	de~$m$ e~$c$, respectivamente. 
 	Temos também que~${B = B_1 \cup B_2}$ 
 	e~${W = V(T)\setminus (B\cup S)}$.
 	Dessa forma, a disposição dos 
-	vértices está ilustrada na imagem a seguir.
+	vértices está ilustrada na figura a seguir.
 	\begin{center} \begin{tikzpicture}
 		[scale=.7,auto=left,every node/.style={circle, draw=black,
 				fill=white!70}]

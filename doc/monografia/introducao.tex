@@ -70,12 +70,12 @@ O algoritmo de Jansen et al.\ baseia-se em
 programação dinâmica. 
 Já o algoritmo FST é mais refinado. 
 Para atingir um consumo de tempo 
-linear, ele utiliza técnicas bem conhecidas em percursos de árvore, 
+linear, ele utiliza técnicas bem conhecidas de percursos de árvore, 
 como busca em profundidade, bem como um rastreamento de 
 informações mais cuidadoso que permite que o processamento todo 
 seja executado em tempo linear. 
 
-Foi feita uma análise 
+Fizemos uma análise 
 da performance do algoritmo FST em árvores binárias geradas 
 aleatoriamente, e 
 em árvores ternárias completas.
@@ -93,10 +93,12 @@ utilizá-las no nosso estudo experimental.
 
 \subsection{Método}
 
-O estudo do algoritmo de FST seguiu um roteiro de
+O estudo do algoritmo FST seguiu um roteiro de
 como a implementação foi feita, conforme a proposta deste TCC. 
 A linguagem escolhida para a implementação foi \texttt{C} e os 
-algoritmos implementados foram colocados na página do gitHub. 
+algoritmos implementados foram colocados na página do gitHub
+em \url{https://github.com/karinaawoki/TCC} e
+\url{https://github.com/karinaawoki/jansen_arvores}. 
 O roteiro consistiu em uma divisão da implementação do algoritmo 
 em várias etapas, que permitiu um melhor acompanhamento do 
 trabalho desenvolvido, e uma organização da forma de estudo. 
@@ -121,9 +123,9 @@ em nossos experimentos.
 Em paralelo ao estudo e desenvolvimento da implementação, foram 
 estudados também dois artigos da literatura: o artigo 
 de Garey, 
-Johnson e Stockmeyer~\cite{GareyJS76}, que contém a prova de que o 
+Johnson e Stockmeyer~\cite{GareyJS76} que contém a prova de que o 
 Problema da Bissecção Mínima é NP-difícil, e o artigo de 
-Jansen et al.~\cite{JansenKLS01}, que apresenta 
+Jansen et al.~\cite{JansenKLS01} que apresenta 
 o algoritmo que resolve o problema em árvores. 
 Após a implementação do algoritmo FST, foi feita 
 a implementação do algoritmo de Jansen et al.\ e o estudo

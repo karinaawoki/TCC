@@ -2,7 +2,10 @@
 \label{sec:dobraDiametro}
 	O teorema a seguir é o coração do algoritmo FST.
 	Ele é chamado de \textit{teorema da dobra do diâmetro relativo}.	
-
+	Nele utilizamos a seguinte notação para uma partição~$(X, Y, Z)$
+	de~$V(T)$.
+	Denotamos por~$e_T(X,Y,Z)$ o número de arestas de~$T$ cujos extremos
+	estão em conjuntos distintos da partição~$(X,Y,Z)$.
 
 
 		\begin{teo}[{\cite[Teorema 4]{Schmidt15}}]
@@ -44,8 +47,9 @@
 	que~${\map^{-}_m(x)\in V(P)}$, e~$z$ é
 	\textbf{f-especial} se existe um vértice~${x\in T_z}$
 	tal que~${\map^{+}_m(x)\in V(P)}$.
+	(O~$b$ vem de {\it backward} e o~$f$ de {\it forward})
 
-	Para simplificar, o diâmetro relativo da árvore~$T$ ($\diam^*(T)$) 
+	Para simplificar a notação, o diâmetro relativo da árvore~$T$ ($\diam^*(T)$) 
 	será representado por~$d$.
 
 	\bigskip
@@ -59,7 +63,7 @@
 		% Depois, usaremos 
 
 		\begin{proof}
-		Primeiramente, temos uma árvore~$T$ com~${n}$ vértices e um 
+		Considere uma árvore~$T$ com~${n}$ vértices e um 
 		inteiro~${m\in[n]}$.
 		Seja~$P$ um caminho máximo em~$T$ e, considere os vértices
 		rotulados como descrito na Seção~\ref{sec:rotulacao}.
@@ -72,9 +76,9 @@
 			Existe um vértice~${v\in V(P)}$ tal 
 			que~${\map_m^+(v)\in V(P)}$. 
 			
-			O corte~$(B,W,S)$ 
-			com~${S=\emptyset}$,~${B =\{v+1, v+2,\ldots,~v+m\}}$
-			e~${W=V(T)\setminus B}$ satisfaz as propriedades do
+			A tripla~$(B,W,S)$ 
+			com~${B =\{v+1, v+2,\ldots,~v+m\}}$,~${W=V(T)\setminus B}$ 
+			e~${S=\emptyset}$ satisfaz as propriedades do
 			primeiro caso do teorema,
 			como explicado na Seção~\ref{sec:map}.
 
@@ -88,11 +92,11 @@
 			% fora de~$P$.
 			Para todo vértice~${v\in V(P)}$,~${\map_m^+(v)\not\in V(P)}$.
 
-			Como~$\map_m^+(\ )$ e~$\map_m^-(\ )$ são funções bijetoras, 
+			Como~$\map_m^+(\cdot)$ e~$\map_m^-(\cdot)$ são funções bijetoras, 
 			existem~$|V(P)|$ ou mais vértices fora de~$P$.
-			Isso implica que~$\diam^*(T)\le\dfrac{n}{2}$, pois no 
+			Isso implica que~${\diam^*(T)\le\dfrac{n}{2}}$, pois no 
 			máximo~$\dfrac{n}{2}$ vértices estarão em~$P$.
-			Nesse caso, teremos um corte~$(B,W,S)$ que satisfaz as
+			Nesse caso, teremos uma tripla~$(B,W,S)$ que satisfaz as
 			propriedades do segundo caso do teorema.
 			Isso será detalhado melhor a seguir.
 
@@ -111,14 +115,14 @@
 			% 	%H_z^f = &\map^+_m(V(T_z))\cap V(P) \nonumber
 			% \end{align}
 
-			Sejam~${z\in V(P)}$ um vértice tal que~$z$ é b-especial 
+			Sejam~${z\in V(P)}$ um vértice b-especial 
 			e~$x$ o menor vértice de~$T_z$ tal 
 			que~${\map^-_m(x)\in V(P)}$. 
 			Sejam~${z^b = \map^-_m(x)}$,~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
-			e~$H_z^f:= \cup\{T_u: u\in P^b_z,\ u\ne z^b \}$.
+			e~${H_z^f:= \cup\{V(T_u): u\in P^b_z,\ u\ne z^b \}}$.
 			%${H_z^f =T_u}$ para todo 
 			%vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
-			Veja a figura abaixo com a representação da disposição destes 
+			Veja a próxima figura com a representação da disposição destes 
 			conjuntos de vértices.
 
 	\begin{center} \begin{tikzpicture} 
@@ -191,17 +195,16 @@
 	}
 	\end{tikzpicture} \end{center}
 		\bigskip
-			De forma análoga, para um vértice~${z\in V(P)}$ tal 
-			que~$z$ é f-especial,~${z^f = \map^+_m(x)}$,
+			De modo análogo, para um vértice~${z\in V(P)}$ tal 
+			que~$z$ é f-especial,
+			definimos~${z^f = \map^+_m(x)}$,
 			onde~$x$ é o menor vértice de~$T_z$ tal 
 			que~${\map^+_m(x)\in V(P)}$.
-			Também temos
-			que~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
-			e~$H_z^f:= \cup\{T_u: u\in P^b_z,\ u\ne z^b \}$.
-			
+			Também
+			definimos~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
+			e~${H_z^f:= \cup\{V(T_u): u\in P^b_z,\ u\ne z^b \}}$.
 			%${H_z^f =T_u}$ para todo 
 			%vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
-
 			Veja a figura abaixo com a representação da disposição 
 			destes conjuntos de vértices.
 	\begin{center} \begin{tikzpicture} 
@@ -284,12 +287,13 @@
 	Para facilitar a descrição, adicionamos uma aresta ligando o
 	primeiro ao último 
 	vértice de~$P$. 
-	Assim vemos que os elementos de~$P_z^b$ formam 
-	um caminho e que, para valores diferentes de~$z$,
-	os caminhos~$P_z^b$ são disjuntos.
-	O mesmo vale para os caminhos~$P_z^f$.
+	Assim os elementos de~$P_z^b$ e~$P_z^f$ induzem 
+	um caminho.
+	Para valores diferentes de~$z$,
+	os conjuntos~$P_z^b$ são disjuntos.
+	O mesmo vale para os conjuntos~$P_z^f$.
 
-	Usaremos futuramente as seguintes propriedades:
+	Usaremos a frente as seguintes propriedades:
 	\begin{enumerate}
 		% \item Para todo vértice~$z$ tal que~$z$ é b-especial, 
 		% temos que o vértice~$z^b$ é f-especial.

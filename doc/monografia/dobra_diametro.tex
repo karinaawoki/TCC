@@ -47,7 +47,7 @@
 	que~${\map^{-}_m(x)\in V(P)}$, e~$z$ é
 	\textbf{f-especial} se existe um vértice~${x\in T_z}$
 	tal que~${\map^{+}_m(x)\in V(P)}$.
-	(O~$b$ vem de {\it backward} e o~$f$ de {\it forward})
+	(O~$b$ vem de {\it backward} e o~$f$ de {\it forward}.)
 
 	\bigskip
 	\bigskip
@@ -795,14 +795,14 @@
 
 	\bigskip
 	\bigskip
-	\bigskip
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\subsection{Algoritmo da dobra do diâmetro}
 
-		A função {\sc separa\_conjunto}$(T,$ $S)$,
+		O algoritmo aqui apresentado ilustra
+		a função {\sc separa\_conjunto}$(T,$ $S)$,
 		%recebe uma árvore~$T$ e um conjunto~$S$ de vértices que
 		%seja como o conjunto~$S$ especificado na seção 6.1 e
 		%separa o conjunto~$S$ 
@@ -812,12 +812,12 @@
 		que remove de~$T$ as arestas que estão no 
 		corte~$(S, V(T)\setminus S)$, separando~$S$ do restante
 		da árvore~$T$.
-		Caso~$S$ seja conexo,~$v_i$ e~$v_j$ são os vértices em~$S$ 
+		Caso~$T[S]$ seja conexo,~$v_i$ e~$v_j$ são os vértices em~$S$ 
 		%que estãolocalizados nos extremos.  
 		de menor e maior rótulos, respectivamente.
 		Caso contrário,~$v_i$ é o vértice de menor rótulo
-		da componente de~$S$ que contém o final do caminho máximo~$P$,
-		e~$v_j$ é o vértice de maior rótulo da componente de~$S$ que
+		da componente de~$T[S]$ que contém o final do caminho máximo~$P$,
+		e~$v_j$ é o vértice de maior rótulo da componente de~$T[S]$ que
 		contém o início de~$P$.
 		Sabemos que todos os vértices de~$S$ possuem
 		rótulos consecutivos,
@@ -826,18 +826,19 @@
 		considerando que os vértices estão dispostos de forma circular.
 		Sabemos também que~$v_i$ e~$v_j$ possuem ao todo~${\grau(v_i)}$
 		arestas que os conectam a~$V(T)\setminus S$.
+		(Veja a figura anterior.)
 		Portanto, o que essa função faz é remover de~$T$ as arestas que 
-		conectam~$v_i$ e~$v_j$ a~$V(T)\setminus S$ e, caso~$S$ não seja
+		conectam~$v_i$ e~$v_j$ a~$V(T)\setminus S$ e, caso~$T[S]$ não seja
 		conexo, inserir uma aresta em~$T$ que liga os vértices de menor e maior 
 		rótulos em~$T$.
 		Essa função devolverá um grafo~$T^*$, que é a árvore~$T$ modificada,
-		onde~$S$ será uma componente
-		isolada do restante da árvore. 
+		onde~$T^*[S]$ será uma componente
+		isolada do restante de~$T^*$. 
 		%Chamaremos esse novo grafo de~$T'[S]$.
 		Essa função consome tempo~$O(\Delta(T))$.
 
 		Ao longo do Algoritmo~\ref{alg:dobraDiametro}, usaremos
-		os subconjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$
+		os conjuntos~$H_b^z$,~$H_f^z$,~$P_b^z$,~$P_f^z$ e~$T'_z$
 		para diferentes vértices~$z$.
 		Para calcular cada um destes conjuntos, basta fazer operações
 		de soma ou subtração
@@ -849,9 +850,11 @@
 		conjuntos para todos os valores de~$z$ consome tempo~$O(n)$.
 
 		Serão passados como parâmetros dois vetores,~$\rot$ e~$\ind$,
-		que devolvem o rótulo de um vértice de acordo com o seu índice
-		e o índice de um vértice de 
-		acordo com o seu rótulo, respectivamente.
+		que armazenam o rótulo de um vértice 
+		%de acordo com o seu 
+		na posição de seu índice
+		e o índice de um vértice %de 
+		na posição de seu rótulo, respectivamente.
 
 		% Sabemos que a operação que calcula os vértices de cada um desses 
 		% subconjuntos para todos os valores de~$z$ consome tempo~$O(2n)$,
@@ -872,12 +875,13 @@
 
 		\caption{}
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$ em~$T$,
-		vetor~$\rot$, vetor~$\ind$ e raiz da árvore~$r$} 
-		\Output{corte~$(B,W,S)$ que satisfaz as propriedades do 
-		Teorema~\ref{teo:dobraDiametro}, a componente~$T^*$ e um vértice~$s\in S$}
+		vetor~$\rot$, vetor~$\ind$ e raiz~$r$ da árvore~$T$} 
+		\Output{tripla~$(B,W,S)$ que satisfaz as propriedades do 
+		Teorema~\ref{teo:dobraDiametro}, uma árvore~$T^*$ que corresponde
+		a~$T[S]$ e um vértice~$s\in S$}
 		\For{$i = 1 \to |V(P)|$}
 		{
-			\If{$\rot(i)\in V(P)$}
+			\If{$\ind(\rot(i)+m)\in V(P)$}
 			{
 				\tcp{Caso 1}
 				$B\gets \{\ind(\rot(i)+1),\ldots, \ind(\rot(i)+m)\}$\;
@@ -915,8 +919,8 @@
 			\tcp{Caso 2(a)}
 			\Numberline$z\gets z_B$\;
 			\Numberline$z^b_\ell \gets$ último vértice de~$P_z^b$\;
-			\Numberline$B_1 \gets \{\ind(\rot(z^b_l)+1),\cdots, \ind(\rot(z^b_l)+m)\}$\;
-			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
+			\Numberline$B_1 \gets \{\ind(\rot(z^b_l)+1),\ldots, \ind(\rot(z^b_l)+m)\}$\;
+			\Numberline$(B_2,W_2) \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-\diam^*(T)})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
 			\Numberline$S \gets P_z^b\cup H^b_z$\;
@@ -929,8 +933,8 @@
 			\tcp{Caso 2(b)}
 			\Numberline$z\gets z_F$\;
 			\Numberline$z^f \gets $ primeiro vértice de~$P_z^f$\;
-			\Numberline$B_1 \gets \{\ind(\rot(z)+1),\cdots, \ind(\rot(z^f)-1)\}$\;
-			\Numberline$B_2 \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-d})$\;
+			\Numberline$B_1 \gets \{\ind(\rot(z)+1),\ldots, \ind(\rot(z^f)-1)\}$\;
+			\Numberline$(B_2,W_2) \gets \mathbf {Algoritmo\ref{alg:approxCutForest}}(T'_z,$ $|T'_z|,$ $m-|B_1|,$ $2-\frac{1}{1-\diam^*(T)})$\;
 			\Numberline$B \gets B_1\cup B_2$\;
 			\Numberline$W \gets V\setminus (B\cup S)$\; 
 			\Numberline$S \gets P_z^f\cup H^f_z $\;
@@ -947,9 +951,9 @@
 	o caminho máximo e a rotulação dos vértices
 	da árvore induzida por esse caminho, precisamos apenas verificar em 
 	qual dos casos a árvore~$T$ se encaixa
-	e encontrar o corte~$(B,W,S)$.
+	e encontrar a partição~$(B,W,S)$.
 
-	Primeiramente, verificamos se essa árvore se encaixa no Caso~1.
+	Primeiramente, verificamos se~$T$ se encaixa no Caso~1.
 	Para isso é necessário percorrer todos os vértices do caminho máximo
 	e verificar se algum deles é mapeado em um outro vértice do caminho máximo.
 	Isso leva tempo linear no número de vértices no caminho máximo, que
@@ -975,10 +979,11 @@
 	Isso leva tempo linear no número de vértices b-especiais e f-especiais,
 	que é~$O(n)$.
 
-	Depois disso, tanto no Caso (a) quanto no (b), realizamos uma chamada ao 
+	Depois disso, tanto no Caso 2(a) quanto no 2(b), realizamos uma chamada ao 
 	Algoritmo~\ref{alg:approxCutForest}, que leva 
-	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$.
-	Como o valor passado como~$c$ é~$2-\dfrac{1}{1-d}$, então
+	tempo~$O\Big(\ceil[\Big]{ \dfrac{2c}{1-c}} n+1\Big)$,
+	onde o valor passado como~$c$ é~$2-\dfrac{1}{1-d}$.
+	Então
 	temos que
 	$$ \ceil[\Big]{\dfrac{2c}{1-c}} n+1 
 	= \Big(\ceil[\Big]{\dfrac{2}{d}}-4 \Big)n+1 
@@ -999,7 +1004,7 @@
 	consumo de tempo do Caso~2 é~$O\Big(\dfrac{n}{d}\Big)$, que 
 	é o mesmo que~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
 
-	Portando, é possível encontrar um corte~$(B,W,S)$
+	Portanto, é possível encontrar uma partição~$(B,W,S)$
 	que satisfaça as condições do teorema em 
 	tempo~$O\Big(\dfrac{n}{\diam^*(T)}\Big)$.
 
@@ -1028,5 +1033,6 @@
 % Como~$d[v]\ge m$, eventualmente~$|B|\ge \dfrac{m}{2}$
 % (de fato, note que como~$m\in[n]$ e~$m\neq n$,...)
 
+	\bigskip
 	\bigskip
 	\bigskip

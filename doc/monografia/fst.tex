@@ -447,7 +447,7 @@
 		\bigskip
 
 		Dado que, inicialmente,~$B=\emptyset$, sempre entraremos no laço das
-		linhas~7-9.
+		linhas~7-10.
 		Seja~$T[S]_1$ o grafo~$T[S]$ passado como parâmetro para a função Algortimo~4.
 		Em cada execução da linha~7, o corte~$(B',W,S)$
 		terá as propriedades de um dos seguintes itens:
@@ -462,9 +462,9 @@
 		Se o corte~$(B',W,S)$ 
 		%tiver as propriedades do item~1,
 		%ou mesmo se tiver as  propriedades do item~~$|B|$
-		retornado for tal que~$|B'| = m-|B|$, teremos que~$|B|=m$
+		retornado for tal que~$|B'| = m-|B|$, teremos que~${|B|=m}$
 		ao final do laço.
-		Portanto, na linha~11, será retornado um corte~$(B,W)$ 
+		Portanto, na linha~12, será retornado um corte~$(B,W)$ 
 		com~$|B| = m$ e~$e_T(B,W) \le \dfrac{2\cdot 
 			\Delta(T)}{\diam^*(T)}\le \dfrac{8}{\diam^*(T)}\Delta(T)$.
 		%também devolverá 
@@ -472,71 +472,76 @@
 		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
 		Caso o corte~$(B',W,S)$ devolvido seja tal que~$|B|<m$,
-		então sabe-se que ele segue as propriedades do item~2
-		e~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
+		sabe-se que ele segue as propriedades do item~2
+		e portanto,~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
 		Note que em algum momento~$|B|\ge m$,
-		dado que o diâmetro relativo de~$T[S]$ sempre
-		dobra, no mínimo.
+		dado que o diâmetro relativo de~$T[S]$ irá, no mínimo,
+		dobrar a cada chamada ao Algoritmo~4.
 		Assim, como visto anteriormente,
 		em algum momento~$\diam^*(T)>\dfrac{1}{2}$, fazendo
-		com que a chamada ao Algoritmo~4 da linha~6 retorne um corte
+		com que a chamada ao Algoritmo~4 da linha~7 retorne um corte
 		que condiz com o item~1, e portanto, na linha~8 será válido 
 		que~$|B| = m$.
 		
-		Caso contrário, resta saber se ao final do laço das linhas~6-9
+		Caso contrário, resta saber se ao final do laço das linhas~7-10
 		o conjunto~$B$ terá 
 		exatamente~$m$ vértices.
 		Sabe-se que em nenhum momento~$|B|>m$ irá ocorrer, dado que a chamada ao algoritmo~4
-		da linha~6 sempre retorna um corte~$(B',W,S)$ de forma que~$|B'|\le m-|B|$,
+		da linha~7 sempre retorna um corte~$(B',W,S)$ de forma que~$|B'|\le m-|B|$,
 		independente de qual item esse corte satisfizer.
 
 
+		Dado que atualizamos a árvore~$T'[S]$ usando o Algoritmo~4,
 		\bigskip
 
 		Agora vamos analisar o consumo de tempo do algoritmo.
-		Sabemos que o Algoritmo~5 
-		%Sabemos que o Algoritmo~\ref{alg:corteExato} 
-		irá executar
-		o Algoritmo~\ref{alg:dobraDiametro} que consome 
-		tempo ~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$, a função
-		{\sc recalcula\_caminho} que consome tempo~$O(n)$, e a função
-		{\sc rotula} que consome tempo~$O(n)$.
-		Sendo~$i$ um inteiro tal que~${\dfrac{1}{2^i}< \diam^*(T)\le \dfrac{1}{2^{i-1}}}$, 
-		temos que cada uma das operações citadas anteriormente
-		será executada no máximo~$i$ vezes.
-
-		Considere que~$\ell$ seja o número de vezes que
-		as linhas~7-10 foram executadas, com~$\ell = 0$, inicialmente.
+		Considere que~$\ell$ seja o número de vezes que o laço
+		das linhas~7-10 foi executado, com~$\ell = 0$, inicialmente.
 		%a interação do \textit{while}
 		%da linha 5,
 		%começando do~$i$ e indo até~1, e
 		Temos que~$T_\ell$ e~$n_\ell$ 
 		representam a árvore da interação~$\ell$ e
 		o número de vértices dessa árvore, respectivamente.
-		Dado que usamos a árvore~$T'[S]$ recebida do Algoritmo~4 como a nova árvore
-		e sabendo que~$|S|\le \dfrac{n}{2}$,
-		temos que o número de vértices de~$T_{\ell}$
-		é no mínimo o 
-		dobro do número de vértices de~$T_{\ell-1}$.
-		Com isso, provaremos por indução que~$n_l\le \dfrac{n}{2^l}$.
+		Sabemos que o Algoritmo~5 
+		%Sabemos que o Algoritmo~\ref{alg:corteExato} 
+		irá executar
+		o Algoritmo~\ref{alg:dobraDiametro} que consome 
+		tempo ~${O\Big(\dfrac{n_\ell}{\diam^*(T_\ell)}\Big)}$, a função
+		{\sc recalcula\_caminho} que consome tempo~$O(n_\ell)$, e a função
+		{\sc rotula} que consome tempo~$O(n_\ell)$.
+		Sendo~$i$ um inteiro tal que~${\dfrac{1}{2^i}< \diam^*(T)\le \dfrac{1}{2^{i-1}}}$, 
+		temos que cada uma das operações citadas anteriormente
+		será executada no máximo~$i$ vezes, com~$\ell =  0,1,\cdots, \ell-1$.
 
-		Base:~$\ell = 0$. Dado que incialmente~$T'[S] = T$,
+		% como a nova árvore
+		%e sabendo que~$|S|\le \dfrac{n}{2}$,
+		%temos que 
+		o número de vértices de~$T_{\ell}$
+		é no mínimo o 
+		dobro do número de vértices de~$T_{\ell+1}$.
+		Com isso, provaremos por indução que~$n_\ell\le \dfrac{n}{2^{\ell}}$
+		para~$\ell\ge 0$.
+		\begin{proof}
+		\textbf{Base:~${\mathbf {\Bell = 0}}$.} Dado que incialmente~$T'[S] = T$,
 		temos que~$n_0 = n$, o que implica que~$n_0 = \dfrac{n}{2^0}$. 
 
-		Caso: 
+		\textbf{Passo:~$\mathbf{\Bell>0}$.} Sabendo que~$2\cdot n_\ell \le n_{\ell -1}$, temos que
 		\begin{align}
-			 & n_{\ell} \ge 2\cdot n_{\ell-1} \ge 4\cdot n_{\ell-2} \nonumber\\
-			\Rightarrow & n = 2^0\cdot n_i\ge 2^1\cdot n_{i-1} \ge\cdots\ge
-			2^{i-j}n_j\ge\cdots\ge
-			 2^{i-2}\cdot n_{2}\ge 2^{i-1}\cdot n_1. \nonumber 
+			2\cdot n_{\ell} &\le n_{\ell-1}\le \dfrac{n}{2^{\ell-1}} \nonumber \\
+			n_{\ell} &\le \dfrac{n}{2^{\ell}}, \nonumber
 		\end{align}
-		Logo, para todo~$\ell\in[i]$, temos que~$n_\ell \le\dfrac{n} {2^{i-\ell}}$.
+		completando a prova de indução.
+		\end{proof}
+
+		Logo, para todo~$\ell\in[i]$, temos que~$n_\ell \le\dfrac{n} {2^{\ell}}$.
 		Portanto o tempo de execução do Algoritmo~5 é
 		\begin{align}
-			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big)
+			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T_\ell)}\Big)
 			+ O(n_\ell) + O(n_\ell)\Big)
+			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{n_\ell}{\diam^*(T_\ell)}\Big) \nonumber\\
 			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{n_\ell}{\diam^*(T)}\Big) \nonumber\\
-			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{i-\ell}}
+			&= \displaystyle\sum_{\ell=1}^{i} O\Big(\dfrac{1}{2^{\ell}}
 			\cdot\dfrac{n}{\diam^*(T)}\Big) \nonumber\\
 			&= O\Big(\dfrac{n}{\diam^*(T)}\Big). \nonumber
 		\end{align}

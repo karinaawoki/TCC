@@ -4,11 +4,11 @@
 	da bissecção mínima é NP-difícil.
 	Esse resultado deve-se a Garey, Johnson e Stockmeyer~\cite{GareyJS76},
 	e foi obtido através de duas reduções.
-	Os autores demonstraram primeiro que o problema {\sc maxcut-d},
+	Os autores demonstraram primeiro que o problema {\sc maxcut},
 	definido abaixo, é NP-difícil, a partir de uma redução do
-	fundamental \textsc {max2sat-d}, também definido abaixo, e em seguida
+	fundamental \textsc {max2sat}, também definido abaixo, e em seguida
 	demonstraram que o problema da bissecção mínima é NP-difícil
-	a partir de uma redução de {\sc maxcut-d}.
+	a partir de uma redução de {\sc maxcut}.
 
 	Optamos por apresentar essas duas reduções neste trabalho.
 	Começamos definindo os problemas usados.
@@ -55,7 +55,7 @@
 	e isso foi utilizado por Garey, 
 	Johnson e Stockmeyer~\cite{GareyJS76} 
 	para provar que 
-	o problema {\sc max2sat-d} é NP-difícil.
+	o problema {\sc max2sat} é NP-difícil.
 	Usaremos esse fato na demonstração do seguinte.
 
 
@@ -71,12 +71,12 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Redução do \textbf{\textsc {max2sat-d}} para o \textbf{\textsc {maxcut-d}}}
+	\subsection{Redução do \textbf{\textsc {max2sat}} para o \textbf{\textsc {maxcut}}}
 
 		\begin{teo}
 			%A instância~$(G,W)$ de {\sc maxcut-d} tem solução se e somente se
 			%a instância~$(C,k)$ de {\sc max2sat-d} tem solução.
-			{\sc maxcut-d} é NP-difícil.
+			{\sc maxcut} é NP-difícil.
 		\end{teo}
 	\begin{proof}
 		Vamos apresentar uma redução polinomial do {\sc max2sat-d}
@@ -588,7 +588,8 @@
 		ficarem separados no corte~$(T,F)$,
 		no mínimo~${3p+1}$ arestas de~$E_1$ não estarão
 		no corte~$(T,F)$ e, 
-		consequentemente,~${e_G(T,F)\le |E_1|-(3p+1)+|E_2|< |E_1| \le W}$. 
+		consequentemente,~${e_G(T,F)\le |E_1|-(3p+1)+|E_2|< |E_1| \le W}$,
+		uma contradição. 
 		Portanto, os vértices do tipo~$T_j$ e~$F_j$
 		estão em conjuntos diferentes no corte~$(T,F)$
 		e todas as arestas do tipo~$\{T_i,F_j\}$ estão no
@@ -682,7 +683,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Redução do \textbf{\textsc{maxcut-d}} para a Bissecção}
+\subsection{Redução do \textbf{\textsc{maxcut}} para a Bissecção}
 	\begin{prob}[Bissecção($G,W$) -- Versão de decisão da bissecção mínima]
 		Dados um grafo~${G}$
 		%onde cada uma das arestas tem peso 1, 
@@ -824,7 +825,7 @@
 		corte~$(V_1,V_2)$ em~$G$, onde~${e_G(V_1,V_2)\ge W}$.
 
 		%Sejam~$R\subset V'$ e~$S\subset V'$ tal que~$R\cup S = V'$
-		Denotemos por~${U_1\subset U}$ e~${U_2\subset U}$ dois conjuntos de vértices
+		Denotemos por~${U_1\subseteq U}$ e~${U_2\subseteq U}$ dois conjuntos de vértices
 		arbitrários
 		%escolhidos arbitrariamente,
 		tais que~${|U_1| = |V_2|}$,~${|U_2| = |V_1|}$ e~$U_1\cap U_2 = \emptyset$,
@@ -834,7 +835,7 @@
 		Note que o corte~$(R,S)$ é uma bissecção, dado 
 		que~${|R| = |V_1| + |U_1| = |U_2|+|V_2| = |S|}$.
 
-		Se~$G'$ fosse um grafo completo,~$e_{G'}(R,S) = n^2$,
+		Se~$G'$ fosse um grafo completo,~${e_{G'}(R,S) = n^2}$,
 		mas~$G'$ não é completo, dado que as arestas 
 		de~$G$ não estão presentes em~$G'$.
 		Portanto,~${e_{G'}(R,S) = n^2 - e_G(V_1,V_2)\le n^2-W = W'}$.
@@ -865,7 +866,7 @@
 		Dado que~$e_{G'}(R,S)\le W'$ e que~$W'= n^2-W$, 
 		temos que~$n^2-k \le n^2 -W$,
 		o que implica que~$W\le k$.
-		Note que~$e_G(V_1,V_2) = k \ge W$.
+		Portanto~$e_G(V_1,V_2) = k \ge W$.
 		%Desta forma, sabemos que existe um corte~$(V_1,V_2)$
 		%em~$G$ tal que~$e_G(V_1,V_2)\ge W$.
 		%Este corte pode ser computado em tempo linear no número

@@ -366,7 +366,9 @@
 	\bigskip
 
 	\subsection{Grafos de Steffen}
-	Obtivemos instâncias reais de grafos concedidas por Steffen Borgwardt e as
+	Obtivemos instâncias reais de grafos concedidas por Steffen, 
+	feitas por Kampmeier~\cite{Kampmeier},
+	e as
 	adaptamos para florestas para a realização dos testes com o algoritmo FST.
 
 \newpage
@@ -432,8 +434,14 @@ Isso pode ser visto nos testes com árvores ternárias
 completas,
 que são as árvores cuja bissecção mínima
 tem o maior número de arestas no corte, e onde o algoritmo
-de FST devolve um corte de largura razoável, com razão
-menor que~3 em relação ao corte ótimo.
+de FST devolveu um corte de largura razoável, com razão
+menor que~3 em relação ao corte mínimo.
+
+Mas, por ser um algoritmo de aproximação cuja optimalidade
+depende do grau máximo da árvore, ele entra em desvantagem 
+em alguns casos de árvores de grau absurdamente grande,
+como pode ser visto nos resultados
+apresentados.
 
 
 

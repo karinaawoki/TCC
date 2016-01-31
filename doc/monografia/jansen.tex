@@ -19,21 +19,21 @@ especializada para árvores.
 
 %\subsection*{Fórmula de recorrência}
 
-Seja~$T$ uma árvore com~$n$ vértices e com uma raiz~$r\in V(T)$.
+Seja~$T$ uma árvore com~$n$ vértices e com uma raiz~${r\in V(T)}$.
 Dado um vértice~$u$, seja~$T_u$ a sub-árvore de~$T$ que contém~$u$
 e todos os seus descendentes. 
 Para todo~${v\in V(T)}$ e todo~${m\in[n]}$,
 a função~$b(v,m)$ representa o valor
 de~$e_{T_v}(B,W)$, onde~${m=|B|}$
 e~$(B,W)$ é um corte de largura mínima em~$T_v$ com~${v\in B}$.
-Se~$m>|V(T_v)|$, então não há corte~$(B,W)$ em~$T_v$ com~$|B|=m$
-e estabelecemos que~$b(v,m) = \infty$.
+Se~${m>|V(T_v)|}$, então não há corte~$(B,W)$ em~$T_v$ com~${|B|=m}$
+e estabelecemos que~${b(v,m) = \infty}$.
 O mesmo vale para a função~$w(v,m)$, mudando somente
 o fato de que, neste caso, exigimos que~${v\in W}$.
 Ou seja,~$w(v,w)$ representa o valor
-de~$e_{T_v}(B,W)$, onde~${m=|B|}$
+de~${e_{T_v}(B,W)}$, onde~${m=|B|}$
 e~$(B,W)$ é um corte de largura mínima em~$T_v$ com~${v\in W}$.
-Se~$m\ge |V(T_v)|$, então~$w(v,m) = \infty$.
+Se~${m\ge |V(T_v)|}$, então~${w(v,m) = \infty}$.
 % Diremos que~$b(v,m)$ e~$w(v,m)$ tem solução inviável quando
 % não é possível encontrar um corte~$(B,W)$ com o valor de~$m$ dado,
 % por exemplo, temos uma solução inviáveis
@@ -167,8 +167,8 @@ como mostrado na figura abaixo.
 	logo, para obter um conjunto~$B$ com~$m$ vértices
 	é necessário que o corte~$(B',W')$ em~$T_{u_i}$ 
 	seja tal que~${|B'|=m-1}$.
-	Desta forma, tomamos~$B = B'\cup \{v\}$ e~$W = W'$,
-	implicando em~$|B| = m$. 
+	Desta forma, tomamos~${B = B'\cup \{v\}}$ e~${W = W'}$,
+	implicando em~${|B| = m}$. 
 	Caso~${u_i\in W}$,
 	a aresta~${\{ v,u_i \}}$ estará
 	no corte~$(B,W)$ (dado que~${v\in B}$), e por isso 

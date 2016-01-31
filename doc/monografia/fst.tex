@@ -214,7 +214,7 @@
 			de~$V\setminus S'$, fazendo
 			%Portanto podemos usar 
 			uma marcação para indicar que as 
-			arestas que ligam~$S'$ e~${V\setminus S}$ estão inativas, 
+			arestas que ligam~$S'$ e~${V\setminus S'}$ estão inativas, 
 			tornando assim $S'$ uma componente conexa isolada. 
 			Obter a árvore~$T^*$ acrescentando a aresta~$e$ em~$T$, como descrito no
 			Teorema~\ref{teo:corteExato}, também pode ser feito de 
@@ -476,17 +476,17 @@
 		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
 		Caso o corte~$(B',W,S)$ obtido na linha~7 seja tal que~${|B'|<m-|B|}$,
-		sabe-se que o corte~$(B',W,S)$ segue as propriedades do item~2
+		sabe-se que este segue as propriedades do item~2
 		e portanto,~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
-		Note que em algum momento~${|B|= m}$,
-		dado que o diâmetro relativo de~$T[S]$ irá, no mínimo,
-		dobrar a cada chamada ao Algoritmo~4.
-		Assim, como visto anteriormente nesta seção,
-		em algum momento~$\diam^*(T)>\dfrac{1}{2}$, fazendo
+		 Como o diâmetro relativo de~$T[S]$ irá, no mínimo,
+		dobrar a cada chamada ao Algoritmo~4,
+		em algum momento~${\diam^*(T)>\dfrac{1}{2}}$, fazendo
 		com que o Algoritmo~4 retorne um corte
-		que condiz com o item~1, e portanto, teremos que~$|B|=m$ na linha~8.
-		Assim, o algoritmo retorna um corte~$(B,W)$ tal que~$|B| = m$ 
-		e~$e_T(B,W) \le \dfrac{8}{\diam^*(T)\Delta(T)}$ como mostrado
+		que condiz com o item~1,
+		como visto anteriormente nesta seção.
+		Portanto, teremos que~${|B|=m}$ na linha~8.
+		Assim, o algoritmo retorna um corte~$(B,W)$ tal que~${|B| = m}$ 
+		e~${e_T(B,W) \le \dfrac{8}{\diam^*(T)}\Delta(T)}$, como mostrado
 		no Corolário~1.
 		%será válido que~$|B| = m$.
 		
@@ -506,7 +506,7 @@
 
 		Agora vamos analisar o consumo de tempo do algoritmo.
 		Considere que~$\ell$ seja o número de vezes que o laço
-		das linhas~6-11 foi executado, com~$\ell = 0$, inicialmente.
+		das linhas~6-11 foi executado, com~$\ell = 0$ inicialmente.
 		%a interação do \textit{while}
 		%da linha 5,
 		%começando do~$i$ e indo até~1, e

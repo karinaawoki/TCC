@@ -57,7 +57,7 @@
 
 \newcounter{algoline}
 \newcommand\Numberline{\refstepcounter{algoline}\nlset{\thealgoline}}
-\AtBeginEnvironment{algorithm}{\setcounter{algoline}{21}}
+\AtBeginEnvironment{algorithm}{\setcounter{algoline}{14}}
 
 \sloppy
 
@@ -312,6 +312,8 @@
 	\end{table}
 
 	\bigskip
+	\bigskip
+
 		\subsection{Árvores de Caminho Longo}
 		Geramos um conjunto de árvores com diâmetro relativo
 		alto, acima de meio.
@@ -363,7 +365,10 @@
 	\bigskip
 	\bigskip
 
-	\subsection{Florestas - Streffen}
+	\subsection{Grafos de Steffen}
+	Obtivemos instâncias reais de grafos concedidas por Steffen Borgwardt e as
+	adaptamos para florestas para a realização dos testes com o algoritmo FST.
+
 \newpage
 		\begin{table}[h]
 		\centering
@@ -384,6 +389,17 @@
 		 
 		\end{tabular}
 	\end{table}
+
+	Note que em alguns casos, o grau máximo da floresta é muito alto, e
+	é por esse motivo que um dos resultados apresentou um número razoalvelmente
+	grande de arestas no corte, dado que o algoritmo de FST funciona para florestas
+	de grau limitado.  
+
+	Na adaptação dos grafos para florestas, muitas das arestas foram retiradas do grafo,
+	fazendo com que alguns vértices ficassem isolados e assim, compusessem o caminho máximo 
+	e consequentemente, em alguns casos, gerassem cortes de largura pequena.
+
+
 
 	\bigskip
 	\bigskip

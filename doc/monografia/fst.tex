@@ -327,7 +327,7 @@
 		de~$T$
 		descrita na Seção~\ref{sec:rotulacao}, e o segundo, o inverso
 		da rotulação. 
-		Essa função consome tempo~$O(n)$, como mostrado na 
+		Esta função consome tempo~$O(n)$, como mostrado na 
 		Seção~\ref{sec:rotulacao}.
 
 		%Temos uma outra modificação no 
@@ -450,10 +450,11 @@
 		\bigskip
 
 		Dado que, inicialmente,~$B=\emptyset$, o laço das
-		linhas~7-10 sempre será executado.
-		Seja~$T[S]_1$ o grafo~$T[S]$ passado como parâmetro para a função Algortimo~4.
-		Em cada execução da linha~7, o corte~$(B',W,S)$
-		terá as propriedades de um dos seguintes itens:
+		linhas~6-11 sempre será executado.
+		Seja~$T[S]_1$ o grafo~$T[S]$ passado como parâmetro para o Algortimo~4.
+		De acordo com o Teorema~\ref{teo:dobraDiametro},
+		temos que em cada execução da linha~7, o corte~$(B',W,S)$
+		tem as propriedades de um dos seguintes itens:
 		\begin{enumerate}
 			\item $|B'|=m-|B|$, $S=\emptyset$ e~$e_T(B',W)\le 2$ ou
 			\item ${|B'|\le m-|B|\le |B'|+|S|}$, 
@@ -462,44 +463,50 @@
 				\Delta(T[S]_1)}{\diam^*(T[S]_1)}}$, 
 				e~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
 		\end{enumerate} 
-		Se o corte~$(B',W,S)$ 
+		Se em alguma iteração do laço das linhas~6-11, o corte~$(B',W,S)$ 
 		%tiver as propriedades do item~1,
 		%ou mesmo se tiver as  propriedades do item~~$|B|$
-		retornado for tal que~$|B'| = m-|B|$, teremos que~${|B|=m}$
-		ao final do laço.
-		Portanto, na linha~12, será retornado um corte~$(B,W)$ 
-		com~$|B| = m$ e~$e_T(B,W) \le \dfrac{2\cdot 
-			\Delta(T)}{\diam^*(T)}\le \dfrac{8}{\diam^*(T)}\Delta(T)$.
+		retornado pelo Algoritmo~4 for tal que~${|B'| = m-|B|}$, 
+		teremos que~${|B|=m}$ na linha~8 e,
+		desta forma, na linha~12 será retornado um corte~$(B,W)$ 
+		com~${|B| = m}$ e~${e_T(B,W) \le \dfrac{2\cdot 
+			\Delta(T)}{\diam^*(T)}\le \dfrac{8}{\diam^*(T)}\Delta(T)}$.
 		%também devolverá 
 		%algum vértice de~$S'$ que será usado como raiz na 
 		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
 
-		Caso o corte~$(B',W,S)$ devolvido seja tal que~$|B|<m$,
-		sabe-se que ele segue as propriedades do item~2
+		Caso o corte~$(B',W,S)$ obtido na linha~7 seja tal que~${|B'|<m-|B|}$,
+		sabe-se que o corte~$(B',W,S)$ segue as propriedades do item~2
 		e portanto,~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
-		Note que em algum momento~$|B|\ge m$,
+		Note que em algum momento~${|B|= m}$,
 		dado que o diâmetro relativo de~$T[S]$ irá, no mínimo,
 		dobrar a cada chamada ao Algoritmo~4.
-		Assim, como visto anteriormente,
+		Assim, como visto anteriormente nesta seção,
 		em algum momento~$\diam^*(T)>\dfrac{1}{2}$, fazendo
-		com que a chamada ao Algoritmo~4 da linha~7 retorne um corte
-		que condiz com o item~1, e portanto, na linha~8 será válido 
-		que~$|B| = m$.
+		com que o Algoritmo~4 retorne um corte
+		que condiz com o item~1, e portanto, teremos que~$|B|=m$ na linha~8.
+		Assim, o algoritmo retorna um corte~$(B,W)$ tal que~$|B| = m$ 
+		e~$e_T(B,W) \le \dfrac{8}{\diam^*(T)\Delta(T)}$ como mostrado
+		no Corolário~1.
+		%será válido que~$|B| = m$.
 		
-		Caso contrário, resta saber se ao final do laço das linhas~7-10
-		o conjunto~$B$ terá 
-		exatamente~$m$ vértices.
+		% Resta saber se  poderá ser válido que~$|B|>m$ antes que
+		% a iteração em que o Algoritmo~4 devolve um corte~$(B',W,S)$
+		% onde~$|B| = m$.
+		%ao final do laço das linhas~6-11
+		%o conjunto~$B$ terá 
+		%exatamente~$m$ vértices.
 		Sabe-se que em nenhum momento~$|B|>m$ irá ocorrer, dado que a chamada ao algoritmo~4
-		da linha~7 sempre retorna um corte~$(B',W,S)$ de forma que~$|B'|\le m-|B|$,
-		independente de qual item esse corte satisfizer.
+		da linha~7 sempre retorna um corte~$(B',W,S)$ de forma que~$|B'|\le m-|B|$.
+		%independentemente de qual item o corte~$(B',W,S)$ satisfizer.
+		%nas propriedades de qualquer um dos dois itens.
 
 
-		Dado que atualizamos a árvore~$T'[S]$ usando o Algoritmo~4,
 		\bigskip
 
 		Agora vamos analisar o consumo de tempo do algoritmo.
 		Considere que~$\ell$ seja o número de vezes que o laço
-		das linhas~7-10 foi executado, com~$\ell = 0$, inicialmente.
+		das linhas~6-11 foi executado, com~$\ell = 0$, inicialmente.
 		%a interação do \textit{while}
 		%da linha 5,
 		%começando do~$i$ e indo até~1, e
@@ -520,13 +527,13 @@
 		% como a nova árvore
 		%e sabendo que~$|S|\le \dfrac{n}{2}$,
 		%temos que 
-		o número de vértices de~$T_{\ell}$
+		Sabe-se que o número de vértices de~$T_{\ell}$
 		é no mínimo o 
 		dobro do número de vértices de~$T_{\ell+1}$.
 		Com isso, provaremos por indução que~$n_\ell\le \dfrac{n}{2^{\ell}}$
 		para~$\ell\ge 0$.
 		\begin{proof}
-		\textbf{Base:~${\mathbf {\Bell = 0}}$.} Dado que incialmente~$T'[S] = T$,
+		\textbf{Base:~${\mathbf {\Bell = 0}}$.} Dado que inicialmente~${T'[S] = T}$,
 		temos que~$n_0 = n$, o que implica que~$n_0 = \dfrac{n}{2^0}$. 
 
 		\textbf{Passo:~$\mathbf{\Bell>0}$.} Sabendo que~$2\cdot n_\ell \le n_{\ell -1}$, temos que
@@ -537,7 +544,7 @@
 		completando a prova de indução.
 		\end{proof}
 
-		Assim, para todo~$\ell\in[i]$, temos que~$n_\ell \le\dfrac{n} {2^{\ell}}$.
+		Assim, para todo~${\ell\in[i]}$, temos que~$n_\ell \le\dfrac{n} {2^{\ell}}$.
 		Portanto o tempo de execução do Algoritmo~5 é
 		\begin{align}
 			\displaystyle\sum_{\ell=1}^{i} \Big(O\Big(\dfrac{n_\ell}{\diam^*(T_\ell)}\Big)

@@ -900,21 +900,21 @@
 			 	$z_B \gets z'$\; 
 			}
 		}
-		$valor_F \gets \infty$\;
-		\For{$z' \in F_{\esp}$}
-		{
-			\If{$\frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|} < valor_F$}
-			{
-			 	$valor_F \gets \frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|}$\;
-			 	$z_F \gets z'$\; 
-			}
-		}
 	\end{algorithm}	
 
 	\LinesNumberedHidden
 	\begin{algorithm}[H]
 	\Numberline
-		\If{$valor_B\le valor_F$}
+		$valor_F \gets \infty$\;
+		\Numberline\For{$z' \in F_{\esp}$}
+		{
+		\Numberline	\If{$\frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|} < valor_F$}
+			{
+			\Numberline 	$valor_F \gets \frac{|T'_{z'}|+|H_{z'}^f|}{|P^f_{z'}|}$\;
+			\Numberline 	$z_F \gets z'$\; 
+			}
+		}
+		\Numberline\If{$valor_B\le valor_F$}
 		{
 			\tcp{Caso 2(a)}
 			\Numberline$z\gets z_B$\;

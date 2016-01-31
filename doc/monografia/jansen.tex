@@ -10,7 +10,7 @@ o número de vértices do grafo dado.
 Como o foco deste trabalho é o problema da 
 bissecção mínima em árvores, e dado
 que toda árvore é um grafo
-planar, nesta seção, analisaremos a 
+planar, nesta seção, apresentaremos a 
 recorrência do algoritmo de Jansen et al.
 especializada para árvores. 
 
@@ -19,24 +19,27 @@ especializada para árvores.
 
 %\subsection*{Fórmula de recorrência}
 
-Seja~$T$ uma árvore com~$n$ vértices e com raiz~$r\in V(T)$.
-Dado um vértice~$u$,~$T_u$ é a sub-árvore que contém~$u$
+Seja~$T$ uma árvore com~$n$ vértices e com uma raiz~$r\in V(T)$.
+Dado um vértice~$u$, seja~$T_u$ a sub-árvore de~$T$ que contém~$u$
 e todos os seus descendentes. 
 Para todo~${v\in V(T)}$ e todo~${m\in[n]}$,
-a função~$b(v,w)$ representa o valor
+a função~$b(v,m)$ representa o valor
 de~$e_{T_v}(B,W)$, onde~${m=|B|}$
 e~$(B,W)$ é um corte de largura mínima em~$T_v$ com~${v\in B}$.
+Se~$m>|V(T_v)|$, então não há corte~$(B,W)$ em~$T_v$ com~$|B|=m$
+e estabelecemos que~$b(v,m) = \infty$.
 O mesmo vale para a função~$w(v,m)$, mudando somente
-o fato de que, neste caso,~${v\in W}$.
+o fato de que, neste caso, exigimos que~${v\in W}$.
 Ou seja,~$w(v,w)$ representa o valor
-de~$e_{T_v}(B,W)$, onde~${w=|B|}$
+de~$e_{T_v}(B,W)$, onde~${m=|B|}$
 e~$(B,W)$ é um corte de largura mínima em~$T_v$ com~${v\in W}$.
-Diremos que~$b(v,m)$ e~$w(v,m)$ tem solução inviável quando
-não é possível encontrar um corte~$(B,W)$ com o valor de~$m$ dado,
-por exemplo, temos uma solução inviáveis
-quando~$m$ é maior que o número de descendentes de~$v$.
-Temos também que as soluções inviáveis recebem~$\infty$
-como valor da largura do corte.
+Se~$m\ge |V(T_v)|$, então~$w(v,m) = \infty$.
+% Diremos que~$b(v,m)$ e~$w(v,m)$ tem solução inviável quando
+% não é possível encontrar um corte~$(B,W)$ com o valor de~$m$ dado,
+% por exemplo, temos uma solução inviáveis
+% quando~$m$ é maior que o número de descendentes de~$v$.
+% Temos também que as soluções inviáveis recebem~$\infty$
+% como valor da largura do corte.
 
 Sendo assim, para todo vértice~$v$, é válido que:
 \begin{itemize}
@@ -64,7 +67,7 @@ cortes possíveis em~$T_v$ são~${(B,W) = (\{v\},\emptyset)}$
 e~${(B,W) = (\emptyset, \{v\})}$.
 
 A função~$b(v,m)$ requer que~${v\in B}$,
-então, só temos soluções válidas quando~${m=1}$.
+então, só temos solução quando~${m=1}$.
 Já a função~$w(v,m)$ requer que~${v\in W}$,
 logo o único valor viável para~$m$ é~$0$.
 Ambas as soluções não possuem arestas de~$T_v$ no corte, 
@@ -76,7 +79,9 @@ chame de~$u_1,u_2,\ldots,u_k$
 os filhos de~$v$. 
 %e que~$T_{u_i}$ é a sub-árvore que contém~$u_i$ e 
 %todos os seus descendentes.
-Seja~$T_{v^i}$ a árvore ${T_{u_i}\cup \{v\}\cup \{v,u_i\}} $,
+Seja~$T_{v^i}$ a árvore~$T_{u_i}$ acrescida do vértice~$v$
+e da aresta~$\{v,u_i\}$.
+%${T_{u_i}\cup \{v\}\cup \{v,u_i\}} $,
 como mostrado na figura abaixo.
 	\begin{center} \begin{tikzpicture}
 		[scale=.48,auto=left,every node/.style={circle, draw=black,
@@ -144,14 +149,14 @@ como mostrado na figura abaixo.
 
 	\medskip
 
-	O primeiro par é~$\tilde{b}_i(v,w)$ 
-	e~$\tilde{w}_i(v,w)$. 
-	Essas funções recebem um 
-	vértice~$v$ e um inteiro~${m\in [n]}$ como parâmetros 
-	e devolvem a largura de um corte mínimo~$(B,W)$ 
+	O primeiro par é~$\tilde{b}_i(v,m)$ 
+	e~$\tilde{w}_i(v,m)$. 
+	%Essas funções recebem um 
+	%vértice~$v$ e um inteiro~${m\in [n]}$ como parâmetros 
+	O valor dessas funções é a largura de um corte mínimo~$(B,W)$ 
 	em~$T_{v^i}$ tal que~${m = |B|}$, sendo que 
-	em~$\tilde{b}_i(v,m)$ temos que~${v\in B}$ e
-	em~$\tilde{w}_i(v,m)$ temos que~${v\in W}$.
+	em~$\tilde{b}_i(v,m)$ exigimos que~${v\in B}$ e
+	em~$\tilde{w}_i(v,m)$ exigimos que~${v\in W}$.
 	
 	Essas funções satisfazem o seguinte:
 	\begin{align*}
@@ -187,8 +192,9 @@ como mostrado na figura abaixo.
 
 	O segundo par de funções é~$\tilde{\tilde{b}}_i(v,m)$
 	e~$\tilde{\tilde{w}}_i(v,m)$.
-	Essas funções recebem um vértice~$v$ e um~${m\in [n]}$ e
-	devolvem a largura de um corte mínimo~$(B,W)$ na 
+	O valor dessas funções 
+	%recebem um vértice~$v$ e um~${m\in [n]}$ e devolvem 
+	é a largura de um corte mínimo~$(B,W)$ na 
 	árvore~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^i}}$
 	com~${v\in B}$ na primeira função
 	e~${v\in W}$ na segunda.
@@ -202,14 +208,14 @@ como mostrado na figura abaixo.
 	%a largura do corte devolvido será a referente somente 
 	a árvore~$T_{v^1}$.
 
-	Seja~$(B_i,W_i)$ um corte de largura máxima em~$T_{v^i}$ 
+	Seja~$(B_i,W_i)$ um corte de largura mínima em~$T_{v^i}$ 
 	com~${|B_i| = m_i}$.
 	%Sendo~$m_i = |B_i|$ em~$T_{v^i}$,
 	%As fórmulas gerais dessas funções irão 
-	Para calcular as funções~$b(v,m)$ e~$w(v,m)$, serão
-	verificadas todas as 
+	Para calcular as funções~$b(v,m)$ e~$w(v,m)$, poderíamos
+	verificar todas as 
 	combinações possíveis de valores~${m_1,m_2,\ldots,m_i}$
-	tais que~${m_1+m_2+\ldots+m_i = m}$,
+	tais que~${m_1+m_2+\cdots+m_i = m}$,
 	%para cada uma das sub-árvores 
 	%contidas em, 
 	de forma
@@ -221,7 +227,7 @@ como mostrado na figura abaixo.
 	
 	Por exemplo, para calcular o valor 
 	de~$\tilde{\tilde{w}}_3(v,2)$ com~${m_1 + m_2 + m_3 = 2}$,
-	verificaremos todas as possíveis combinações de~$m_1,m_2$ e~$m_3$
+	verificaríamos todas as possíveis combinações de~$m_1,m_2$ e~$m_3$
 	%para cada uma das sub-árvores~$T_{v^1}$,~$T_{v^2}$ e~$T_{v^3}$
 	de forma 
 	%que a união dos subconjuntos~$B$ referentes as
@@ -250,12 +256,14 @@ como mostrado na figura abaixo.
 		\end{tabular}
 	\end{table}
 
-	Portanto, será calculado o número de arestas no 
-	corte mínimo~$(B,W)$ em~${T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^i}}$  
+	Assim seria calculado o número de arestas em um
+	corte~$(B,W)$ em~${T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^i}}$  
 	de forma que~${B=B_1\cup B_2\cup \cdots\cup B_i}$ 
 	e que a combinação de valores 
 	de~$m_1,m_2,\ldots,m_i$ 
 	leve ao número mínimo de arestas no corte.
+
+	Há no entanto um outro modo mais eficiente de fazermos isso.
 
 	Seja~$(B_{i-1}^*,W_{i-1}^*)$ um corte de largura mínima
 	em~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^{i-1}}}$
@@ -263,12 +271,12 @@ como mostrado na figura abaixo.
 	Como temos que, para cada valor 
 	de~$m$, as funções~$\tilde{\tilde{b}}_{i-1}(v,m)$
 	e~$\tilde{\tilde{w}}_{i-1}(v,m)$ representam
-	a largura do corte~$(B_{i-1}^*,W_{i-1}^*)$ 
-	com~${v\in B_{i-1}^*}$
+	a largura de um corte mínimo~$(B_{i-1}^*,W_{i-1}^*)$ 
+	com~${|B_{i-1}^*|=m}$,~${v\in B_{i-1}^*}$
 	e~${v\in W_{i-1}^*}$, respectivamente, 
 	%mínimo na árvore~${T_{v^1}\cup T_{v^2}\cup \cdots \cup T_{v^{i-1}}}$,
-	sabemos que esse corte de largura mínima possui
-	a melhor combinação dos valores de~$m_1,m_2,\ldots,m_{i-1}$.
+	sabemos que esse corte de largura mínima vem da
+	melhor combinação de valores de~$m_1,m_2,\ldots,m_{i-1}$.
 	Com isso, em vez de testar todas as combinações
 	de~$m_1,m_2,\ldots,m_{i-1}$
 	para cada sub-árvore em~$\{ T_{v^1}, T_{v^2},\ldots, T_{v^i} \}$,
@@ -276,11 +284,11 @@ como mostrado na figura abaixo.
 	referentes a~$T_{v^i}$ e 
 	a~$ {T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^{i-1}}}$, respectivamente.
 	Isso irá gerar um corte~$(B,W)$ 
-	em~${T_{v^1}\cup T_{v^2}\cup\ldots\cup T_{v^i}}$
+	em~${T_{v^1}\cup T_{v^2}\cup\cdots\cup T_{v^i}}$
 	tal que~${B = B_{i-1}^* \cup B_i}$ 
 	e~${W = W_{i-1}^* \cup W_i}$,
-	onde~$m_i$ e~$m_{i-1}^*$ formam a melhor combinação de valores.
-	Sendo assim, as fórmulas gerais de~$\tilde{\tilde{b}}_{i}(v,m)$
+	onde~$m_i$ e~$m_{i-1}^*$ formam uma melhor combinação de valores.
+	Especificamente, as fórmulas gerais de~$\tilde{\tilde{b}}_{i}(v,m)$
 	e~$\tilde{\tilde{w}}_{i}(v,m)$ são
 	%Testaremos~$m=0$ em~$T_{v^1}$ com~$m=2$ em~$T_{v^2}$,~$m=1$ 
 	%em~$T_{v^1}$ com~$m=1$ em~$T_{v^2}$ 

@@ -56,7 +56,7 @@
 		Para todo~${i\in \mathbb{N^+_*}}$, toda árvore~$T$ com~$n$
 		vértices e~${\diam^*(T)>\dfrac{1}{2^i}}$, e todo~${m\in[n]}$,
 		existe um corte~$(B,W)$ em~$T$ com~$|B|=m$ 
-		e~$e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)$.
+		e~$e_T(B,W)< 4\cdot 2^i\cdot \Delta(T)$.
 		%Um corte que satisfaz esses requisitos pode ser computado
 		%em tempo~${O\Big(\dfrac{n}{\diam^*(T)}\Big)}$.
 	\end{teo}
@@ -84,7 +84,7 @@
 		com~${|B|=m}$ e~${e_T(B,W)\le 2}$.
 		Note que, como~${\diam^*(T)>\dfrac{1}{2}}$,~$T$
 		possui mais que um único vértice, logo~${\Delta(T)\ge 1}$
-		e~${e_T(B,W)\le 4\cdot 2^i\cdot \Delta(T)}$.
+		e~${e_T(B,W)< 4\cdot 2^i\cdot \Delta(T)}$.
 		Portanto, a afirmação vale para~${i=1}$.
 
 
@@ -93,7 +93,7 @@
 		%vale para~$i$, assumindo que ele é válido para~$i-1$.
 		Para~${n\le 2}$, sabe-se que~${|E(T)|=\Delta(T)}$. 
 		Portanto, para~${n\le 2}$, temos 
-		que~${e_T(B,W)\le |E(T)|=\Delta(T)\le 2\cdot 2^i\cdot 
+		que~${e_T(B,W)\le |E(T)|=\Delta(T)< 2\cdot 2^i\cdot 
 		\Delta(T)}$.
 		Se~${n>2}$, podemos aplicar o
 		Teorema~\ref{teo:dobraDiametro}, que garante a existência 
@@ -101,13 +101,13 @@
 
 			Se existir uma partição~$(B',W',S')$ do tipo 1, 
 			teremos~${|B'|=m}$,~${S'=\emptyset}$
-			e~${e_T(B',W')\le2\le 2\cdot 2^i\cdot \Delta(T)}$.
+			e~${e_T(B',W')\le2< 2\cdot 2^i\cdot \Delta(T)}$.
 			Logo, o corte~$(B',W')$ satisfaz as propriedades
 			do corte do teorema.
 
 			Caso contrário, a partição~$(B',W',S')$ será do tipo 2, ou 
 			seja,~${|B'|=m}$ ou~${|B'|<m\le |B'|+|S'|}$, 
-			e~${e_T(B',W',S')\le \dfrac{2\cdot\Delta(T)}{\diam^*(T)}\le
+			e~${e_T(B',W',S')< \dfrac{2\cdot\Delta(T)}{\diam^*(T)}\le
 			2\cdot2^i\cdot\Delta(T)}$.
 			
 			Se~${|B'|=m}$, então o corte~$(B',V\setminus B')$ satisfaz
@@ -245,7 +245,7 @@
 			%para~${i-1}$, então 
 			existe um corte~$(B'',W'')$ em~$T^*[S']$
 			tal que~${|B''|=m-|B'|}$ 
-			e~${e_{T[S]}(B'',W'')\le 4\cdot 2^{i-1}\cdot
+			e~${e_{T[S]}(B'',W'')< 4\cdot 2^{i-1}\cdot
 			\Delta(T^*[S'])\le 4\cdot 2^{i-1}\cdot\Delta(T^*)}$.
 
 			Dessa forma, o corte~$(B,W)$ em~$T$
@@ -254,7 +254,7 @@
 			\begin{align}
 				e_T(B,W)&\le e_T(B',W',S') + e_{T[S]}(B'',W'') 
 				\nonumber\\
-				&\le 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
+				&< 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
 				\Delta(T^*)\nonumber\\
 				&= 2\cdot2^i\cdot\Delta(T) + 4\cdot 2^{i-1}\cdot
 				\Delta(T)\nonumber\\
@@ -276,7 +276,7 @@
 	\label{coro:corteExato}
 		Para toda árvore~$T$ com~$n$ vértices e todo~${m\in[n]}$, existe
 		um corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
-		e~${e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)}$.
+		e~${e_T(B,W)< \dfrac{8}{\diam^*(T)}\Delta(T)}$.
 		%Um corte que satisfaz esses requisitos pode ser computado em 
 		%tempo~$O\Big(\dfrac{n}{\diam^*(G)}\Big)$.
 	\end{coro}
@@ -293,7 +293,7 @@
 
 		Assim, o Teorema~\ref{teo:corteExato} garante a existência de um 
 		corte~$(B,W)$ em~$T$ com~${|B|=m}$ 
-		e~$e_T(B,W)\le 4\cdot 2^j\cdot\Delta(T)\le \dfrac{8}{\diam^*(T)} \Delta(T)$,
+		e~$e_T(B,W)< 4\cdot 2^j\cdot\Delta(T)\le \dfrac{8}{\diam^*(T)} \Delta(T)$,
 		e esse corte satisfaz as propriedades do 
 		Corolário~\ref{coro:corteExato}. 
 		%então podemos afirmar a existência de cortes desse tipo.
@@ -394,7 +394,7 @@
 			\caption{}
 			\Input{árvore $T=(V,E)$ com $n$ vértices e $m\in[n]$}
 			\Output{corte $(B,W)$ tal que $|B|=m$ 
-			e~$e_T(B,W)\le \dfrac{8}{\diam^*(T)}\Delta(T)$}
+			e~$e_T(B,W)< \dfrac{8}{\diam^*(T)}\Delta(T)$}
 			$B\gets \emptyset$\;
 			$T'\gets T$\;
 			$r\gets$ vértice arbitrário de~$T$\;
@@ -459,7 +459,7 @@
 			\item $|B'|=m-|B|$, $S=\emptyset$ e~$e_T(B',W)\le 2$ ou
 			\item ${|B'|\le m-|B|\le |B'|+|S|}$, 
 				com~${0<|S|\le\dfrac{n}{2},\
-				e_T(B,W,S)\le \dfrac{2\cdot 
+				e_T(B,W,S)< \dfrac{2\cdot 
 				\Delta(T[S]_1)}{\diam^*(T[S]_1)}}$, 
 				e~${\diam^*(T[S])\ge 2\ \diam^*(T[S]_1)}$.
 		\end{enumerate} 
@@ -468,9 +468,10 @@
 		%ou mesmo se tiver as  propriedades do item~~$|B|$
 		retornado pelo Algoritmo~4 for tal que~${|B'| = m-|B|}$, 
 		teremos que~${|B|=m}$ na linha~8 e,
-		desta forma, na linha~12 será retornado um corte~$(B,W)$ 
-		com~${|B| = m}$ e~${e_T(B,W) \le \dfrac{2\cdot 
-			\Delta(T)}{\diam^*(T)}\le \dfrac{8}{\diam^*(T)}\Delta(T)}$.
+		desta forma, na linha~12 será retornado um corte~$(B,W)$
+		com~${|B| = m}$. 
+		%e~${e_T(B,W) \le \dfrac{2\cdot 
+		%	\Delta(T)}{\diam^*(T)}\le \dfrac{8}{\diam^*(T)}\Delta(T)}$.
 		%também devolverá 
 		%algum vértice de~$S'$ que será usado como raiz na 
 		%próxima interação do Algoritmo~\ref{alg:dobraDiametro}.
@@ -486,7 +487,7 @@
 		como visto anteriormente nesta seção.
 		Portanto, teremos que~${|B|=m}$ na linha~8.
 		Assim, o algoritmo retorna um corte~$(B,W)$ tal que~${|B| = m}$ 
-		e~${e_T(B,W) \le \dfrac{8}{\diam^*(T)}\Delta(T)}$, como mostrado
+		e~${e_T(B,W) < \dfrac{8}{\diam^*(T)}\Delta(T)}$, como mostrado
 		no Corolário~1.
 		%será válido que~$|B| = m$.
 		

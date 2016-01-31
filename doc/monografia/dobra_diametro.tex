@@ -19,7 +19,7 @@
 				\item ${|B|=m}$,~${S=\emptyset}$, e~${e_T(B,W)\le 2}$, ou
 				\item ${|B|\le m\le |B|+|S|}$, 
 				com~${0<|S|\le\dfrac{n}{2}}$,
-				${e_T(B,W,S)\le \dfrac{2\cdot 
+				${e_T(B,W,S)< \dfrac{2\cdot 
 				\Delta(T)}{\diam^*(T)}}$, 
 				e~${\diam^*(T[S])\ge 2\ \diam^*(T)}$.
 			\end{enumerate}
@@ -74,7 +74,7 @@
 			que~${\map_m^+(v)\in V(P)}$. 
 			
 			A partição~$(B,W,S)$ 
-			com~${B =\{v+1, v+2,\ldots,~v+m\}}$,~${W=V(T)\setminus B}$ 
+			com~${B :=\{v+1, v+2,\ldots,~v+m\}}$,~${W=V(T)\setminus B}$ 
 			e~${S=\emptyset}$ satisfaz as propriedades do
 			primeiro caso do teorema,
 			como explicado na Seção~\ref{sec:map}.
@@ -115,7 +115,7 @@
 			Sejam~${z\in V(P)}$ um vértice b-especial 
 			e~$x$ o menor vértice de~$T_z$ tal 
 			que~${\map^-_m(x)\in V(P)}$. 
-			Sejam~${z^b = \map^-_m(x)}$,~${P_z^b = \map^-_m(V(T_z))\cap V(P)}$
+			Sejam~${z^b = \map^-_m(x)}$,~${P_z^b := \map^-_m(V(T_z))\cap V(P)}$
 			e~${H_z^f:= \cup\{V(T_u): u\in P^b_z,\ u\ne z^b \}}$.
 			%${H_z^f =T_u}$ para todo 
 			%vértice~${u\in P_z^b}$ com~${u\ne z^b}$.
@@ -198,7 +198,7 @@
 			onde~$x$ é o menor vértice de~$T_z$ tal 
 			que~${\map^+_m(x)\in V(P)}$.
 			Também
-			definimos~${P_z^f = \map^+_m(V(T_z))\cap V(P)}$
+			definimos~${P_z^f := \map^+_m(V(T_z))\cap V(P)}$
 			e~${H_z^f:= \cup\{V(T_u): u\in P^f_z,\ u\ne z^f \}}$.
 			%${H_z^f =T_u}$ para todo 
 			%vértice~${u\in P_z^f}$ com~${u\ne z^f}$.
@@ -504,7 +504,7 @@
 		\end{align}
 
 		Construiremos a partição~${(B,W,S)}$ 
-		tomando~${S = H^b_z\cup P^b_z}$.
+		tomando~${S := H^b_z\cup P^b_z}$.
 		Sabemos que~$S\ne \emptyset$, pois~$z$ é b-especial,
 		o que implica que~$P^b_z\ne \emptyset$. 
 		Dessa forma, temos que
@@ -527,7 +527,7 @@
 		maior rótulo possível, e~$j$ o vértice que vem
 		antes de~$z$ em~$P$. Seja
 		\begin{align}
-			B_1 = \Big\{ v\in V(T):z^b_l<v\le j \Big\}
+			B_1 := \Big\{ v\in V(T):z^b_l<v\le j \Big\}
 			\nonumber.
 		\end{align}
 
@@ -658,7 +658,7 @@
 		$|B|\le m\le |B|+|S|$. 
 
 		Agora mostraremos 
-		que~${e_T(B,W,S)\le \dfrac{2\cdot \Delta(T)}{\diam^*(T)}}$.
+		que~${e_T(B,W,S)< \dfrac{2\cdot \Delta(T)}{\diam^*(T)}}$.
 		% Sabemos que os vértices do corte~$(B,W,S)$ são as arestas
 		% que ligam~$z^b_l$ e~$f$ aos vértices que vêm depois deles 
 		% em~$P$
@@ -669,12 +669,12 @@
 		considerando
 		as que conectam~$z^b$
 		a~$W$, a que liga~$z^b_l$ a~$B_1$, a
-		que conecta~$f$ e~$z$, as presentes no corte~$(B_2,W_2)$ e, 
+		que conecta~$j$ e~$z$, as presentes no corte~$(B_2,W_2)$ e, 
 		por fim, as arestas que ligam~$z$ a~$T_z'$ (talvez
 		existam arestas ligando~$B_2$ a~$z$).
 		Logo, usando a desigualdade~(\ref{eq:corte}), temos que
 		\begin{align}
-			e_T(B,W,S) &= (\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
+			e_T(B,W,S) &\le (\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 			(\Delta(T)-2) \nonumber\\
 			&= 2\cdot\Delta(T) + e_{T_z'}(B_2,W_2) - 1 
 			\nonumber\\
@@ -699,12 +699,11 @@
 	que~${|H^f_z|\le \Big(\dfrac{1}{d}-1\Big)|P^f_z|-|T'_z|}$.
 	Usando a segunda desigualdade em~(\ref{eq:6}), temos 
 	que~${|H^f_z|\le\Big(\dfrac{1}{2d}-1\Big)|P^f_z|}$, 
-		o que implica que
-		${|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z|}$.
+		o que implica que~${|H^f_z|+|P^f_z|\le\dfrac{1}{2d}|P^f_z|}$.
 
 
-	Tomaremos~${S = H^f_z \cup P^f_z}$ 
-	e~${B_1 = \{v\in V(T): z<v<z^f\}}$. 
+	Tomaremos~${S := H^f_z \cup P^f_z}$ 
+	e~${B_1 := \{v\in V(T): z<v<z^f\}}$. 
 	Da mesma forma que no caso anterior, temos 
 	que~${2d\le \diam^*(T[S])}$.
 

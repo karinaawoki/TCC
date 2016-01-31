@@ -607,6 +607,17 @@
 		implica que~${e_G(T,F)< W}$, como visto anteriormente,
 		uma contradição.
 
+		Considere a seguinte atribuição de valores para as variáveis
+		de~$C$.
+		%Seja~$F$ o conjunto do corte~$(T,F)$ onde estão todos os vértices
+		%da forma~$F_i$.
+		%Uma cláusula é verdadeira quando dois de seus vértices
+		%estão no corte~$(T,F)$, então os literais com valor verdadeiro
+		%devem estar no conjunto~$T$,
+		%ou seja, 
+		Se o vértice~$x_i\in T$, a variável~$x_i$ tem valor verdadeiro.
+		Caso contrário,~$\overline{x_i}\in T$ e a variável~$x_i$ tem valor falso.
+
 		% Os vértices do tipo~$t_{ij}$ e~$f_{ij}$ servem unicamente
 		% para que~$x_i$ e~$\overline{x_i}$ fiquem em conjuntos
 		% diferentes no corte~$(T,F)$.
@@ -624,20 +635,17 @@
 
 		Como todos os vértices do tipo~$F_i$ estão no mesmo conjunto
 		do corte~$(T,F)$, e sabendo que cada cláusula gera um 
-		caminho do tipo~$F_m,x_n,x_o,F_p$, somente será possível
-		dispor os vértices do grafo de forma que, para cada cláusula,
+		caminho do tipo~$F_m,x_n,x_o,F_p$, então
+		%somente será possível
+		%dispor os vértices do grafo de forma que, 
+		para cada cláusula,
 		zero (cláusula falsa) ou duas (cláusula verdadeira) arestas 
-		estejam no corte~$(B,W)$.
-		Dessa forma, no mínimo~$k$ cláusulas serão verdadeiras. 
+		estão no corte~$(T,F)$.
+		Assim, como~${e_G(T,F)\ge W = |E_1|+2k}$,
+		 no mínimo~$k$ cláusulas serão verdadeiras
+		 para essa atribuição. 
 
-		Seja~$F$ o conjunto do corte~$(T,F)$ onde estão todos os vértices
-		da forma~$F_i$.
-		Uma cláusula é verdadeira quando dois de seus vértices
-		estão no corte~$(T,F)$, então os literais com valor verdadeiro
-		devem estar no conjunto~$T$,
-		ou seja, 
-		se o vértice~$x_i\in T$, a variável~$x_i$ tem valor verdadeiro.
-		Caso contrário,~$\overline{x_i}\in T$ e a variável~$x_i$ tem valor falso.
+		
 		
 		Esses valores das variáveis de~$C$ podem ser obtidos de~$G$ em
 		tempo polinomial em~$n$.

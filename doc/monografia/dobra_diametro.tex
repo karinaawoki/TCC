@@ -73,7 +73,7 @@
 			Existe um vértice~${v\in V(P)}$ tal 
 			que~${\map_m^+(v)\in V(P)}$. 
 			
-			A tripla~$(B,W,S)$ 
+			A partição~$(B,W,S)$ 
 			com~${B =\{v+1, v+2,\ldots,~v+m\}}$,~${W=V(T)\setminus B}$ 
 			e~${S=\emptyset}$ satisfaz as propriedades do
 			primeiro caso do teorema,
@@ -93,7 +93,7 @@
 			existem~$|V(P)|$ ou mais vértices fora de~$P$.
 			Isso implica que~${\diam^*(T)\le\dfrac{n}{2}}$, pois no 
 			máximo~$\dfrac{n}{2}$ vértices estarão em~$P$.
-			Nesse caso, teremos uma tripla~$(B,W,S)$ que satisfaz as
+			Nesse caso, teremos uma partição~$(B,W,S)$ que satisfaz as
 			propriedades do segundo caso do teorema.
 			Isso será detalhado melhor a seguir.
 
@@ -503,7 +503,7 @@
 			|H^b_z|+|P^b_z|\le\dfrac{1}{2d}|P^b_z|. \nonumber
 		\end{align}
 
-		Construiremos a tripla~${(B,W,S)}$ 
+		Construiremos a partição~${(B,W,S)}$ 
 		tomando~$S = H^b_z\cup P^b_z$.
 		Sabemos que~$S\ne \emptyset$, pois~$z$ é b-especial,
 		o que implica que~$P^b_z\ne \emptyset$. 
@@ -629,7 +629,7 @@
 	
 	}
 	\end{tikzpicture} \end{center}
-		Temos, então, a tripla~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
+		Temos, então, a partição~$(B,W,S)$ com~${B = B_1\cup B_2}$ 
 		e~${W = V(T)\setminus (B\cup S)}$.
 		Dado que~${\map^+_m(z^b_l)\in T_z}$, temos 
 		que~${m>|B_1|}$ e, como obtemos~$B_2$ através do 
@@ -662,7 +662,7 @@
 		% Sabemos que os vértices do corte~$(B,W,S)$ são as arestas
 		% que ligam~$z^b_l$ e~$f$ aos vértices que vêm depois deles 
 		% em~$P$
-		Note que o número de arestas na tripla~$(B,W,S)$ é, no 
+		Note que o número de arestas na partição~$(B,W,S)$ é, no 
 		máximo,~${(\Delta(T)-1) + 1 + 1 + e_{T_z'}(B_2,W_2) +
 		(\Delta(T)-2)}$.
 		Essa soma representa a quantidade total máxima de arestas no corte,
@@ -685,7 +685,7 @@
 		\end{align}
 
 		Portanto, se a condição do Caso~(a) for satisfeita, então 
-		existe uma tripla~$(B,W,S)$ que satisfaz as propriedades do
+		existe uma partição~$(B,W,S)$ que satisfaz as propriedades do
 		Teorema~\ref{teo:dobraDiametro}.
 
 	\bigskip
@@ -876,7 +876,7 @@
 		\caption{}
 		\Input{árvore~$T$ com~$n$ vértices,~$m\in[n]$, caminho máximo~$P$ em~$T$,
 		vetor~$\rot$, vetor~$\ind$ e raiz~$r$ da árvore~$T$} 
-		\Output{tripla~$(B,W,S)$ que satisfaz as propriedades do 
+		\Output{partição~$(B,W,S)$ que satisfaz as propriedades do 
 		Teorema~\ref{teo:dobraDiametro}, uma árvore~$T^*$ que corresponde
 		a~$T[S]$ e um vértice~$s\in S$}
 		\For{$i = 1 \to |V(P)|$}

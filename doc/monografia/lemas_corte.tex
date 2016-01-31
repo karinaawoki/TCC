@@ -49,10 +49,10 @@ descritas no lema.
 	\caption{Computa corte aproximado em uma árvore}
 	\Input{árvore~${T =(V,E)}$ com~$n$ vértices, ~$m \in [n]$ 
 	e~$r\in V$}
-	\Output{$B\subseteq V$ com~$\dfrac{m}{2}<|B|\le m$ 
-	e~$e_T(B,V\setminus B)\le \Delta(T)$}
+	\Output{corte~$(B,W)$ em~$T$ com~$\dfrac{m}{2}<|B|\le m$ 
+	e~$e_T(B,W)\le \Delta(T)$}
 	\lIf{$m =n$}{
-		\Return $(V)$
+		\Return $(V,\ \emptyset)$
 	}
 		$d \gets~$ {\sc número\_de\_descendentes}$(T$, $r)$\;
 		$v \gets r$\;
@@ -76,7 +76,7 @@ descritas no lema.
 			}
 		}
 		}
-	\Return $(B)$
+	\Return $(B,\ V\setminus B)$
 
 \end{algorithm}	
 
@@ -205,8 +205,8 @@ apenas~$G$ e~$m$.
 %para florestas em vez de árvores.
 
 O algoritmo abaixo determina um corte como o descrito pelo lema.
-Para simplificar, ele devolve apenas o conjunto~$B$, uma vez
-que~$W$ é simplesmente~$V(G)\setminus B$.
+%Para simplificar, ele devolve apenas o conjunto~$B$, uma vez
+%que~$W$ é simplesmente~$V(G)\setminus B$.
 
 \medskip
 \medskip
@@ -218,8 +218,8 @@ que~$W$ é simplesmente~$V(G)\setminus B$.
 
 	\caption{Computa corte aproximado simples em uma floresta}
 	\Input{floresta~${G =(V,E)}$ com~$n$ vértices e~${m \in [n]}$}
-	\Output{~$B\subseteq V$ tal que~${\dfrac{m}{2}\le|B|\le m}$ 
-	e~${e_G(B,G\setminus B)\le \Delta(G)}$}
+	\Output{corte~$(B,W)$ em~$G$ tal que~${\dfrac{m}{2}\le|B|\le m}$ 
+	e~${e_G(B,W)\le \Delta(G)}$}
 	Sejam~$V_1, V_2,\ldots, V_k$ os conjuntos de vértices das
 	componentes de~$G$\;
 	$B \gets \emptyset$\;
@@ -229,7 +229,7 @@ que~$W$ é simplesmente~$V(G)\setminus B$.
 		}	
 		\ElseIf{$|B|<m$}{
 			$r\gets $ vértice arbitrário de~$V_i$\;
-			$B'\gets \mathbf{Algoritmo\ref{alg:simpleApproxCutTree}}(
+			$(B',W')\gets \mathbf{Algoritmo\ref{alg:simpleApproxCutTree}}(
 			G[V_i], m-|B|, r)$\;
 
 			$B \gets B\cup B'$\;
@@ -237,7 +237,7 @@ que~$W$ é simplesmente~$V(G)\setminus B$.
 			break\;
 		}	
 	}
-	\Return $(B)$\;
+	\Return $(B,\ V\setminus B)$\;
 
 \end{algorithm}	
 
@@ -318,7 +318,7 @@ as propriedades do Lema~\ref{lema:approxCutForest}.
 	\caption{Computa corte aproximado em uma floresta}
 	\Input{floresta~${G =(V,E)}$ com~$n$ vértices,~${m \in [n]}$ e
 	${c\in [0, 1)}$}
-	\Output{corte~${(B,W)}$ tal que~${cm\le|B|\le m}$
+	\Output{corte~${(B,W)}$ em~$G$ tal que~${cm\le|B|\le m}$
 	e~$e_G(B,W) \le \ceil[\Big]{ \dfrac{2c}{1-c}} \Delta(G)$}
 	\lIf{$c=0$}{
 		$\Return\ (\emptyset, V)$}
